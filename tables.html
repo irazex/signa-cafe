@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<script>
+(function() {
+  var lang = localStorage.getItem('signa_lang');
+  if (!lang) {
+    var navLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    if (navLang.indexOf('ru') === 0) lang = 'ru';
+    else if (navLang.indexOf('id') === 0 || navLang.indexOf('in') === 0) lang = 'id';
+    else lang = 'en';
+    localStorage.setItem('signa_lang', lang);
+  }
+  document.documentElement.lang = lang;
+  document.addEventListener('DOMContentLoaded', function() {
+    var links = document.querySelectorAll('a[href*="signa.dishi.rest"]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].href = links[i].href.replace(/\/en\//, '/' + lang + '/');
+    }
+  });
+})();
+</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Table</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Table Selector">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+    }
+    h2 {
+      background-color: #333;
+      color: white;
+      margin: 0;
+      padding: 20px;
+      font-size: 2em;
+      text-align: center;
+    }
+    .section {
+      padding: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 20px;
+    }
+    .table-btn {
+      padding: 40px 10px;
+      background-color: #fff;
+      border: 3px solid #ccc;
+      border-radius: 16px;
+      text-align: center;
+      font-size: 2em;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      user-select: none;
+    }
+    .table-btn:hover {
+      background-color: #e0f7fa;
+    }
+    .table-btn:active {
+      transform: scale(0.96);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>First Floor</h2>
+  <div class="section grid" id="floor1"></div>
+
+  <h2>Second Floor</h2>
+  <div class="section grid" id="floor2"></div>
+  <h2>Second Floor - new</h2>
+  <div class="section grid" id="floor2-new"></div>
+	
+  <h2>Street</h2>
+  <div class="section grid" id="street"></div>
+
+  <script>
+    const tables = [
+      { name: "A1", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e3920073" },
+      { name: "A2", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e3920075" },
+      { name: "A3", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=7dcb4876-9417-4859-b719-5b88c4b17a54" },
+      { name: "A4", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=3df74d22-8d17-4470-88c3-94af58835ce5" },
+      { name: "A5", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=6d021b9f-91dc-480e-9a70-7bd6930efae1" },
+      { name: "A6", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=d994c4a5-25ae-44c6-9fe4-f63ce1160026" },
+      { name: "A7", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=06c2167c-c56f-4507-8857-fb53e666bc5a" },
+      { name: "A8", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=1d410aac-706e-44bf-be08-9d604ecf4b82" },
+      { name: "A9", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=ecc2c525-1822-42e3-9fb4-321b2c5cc1b0" },
+      { name: "A10", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=d2208500-9446-484e-a78e-0b650d9dc351" },
+      { name: "A11", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=9cf14b23-c60d-48d7-91d5-1629d2dade01" },
+      { name: "A12", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e3920074" },
+      { name: "A13", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=d4d42542-2018-4f7f-ae08-32445d8b2c27" },
+      { name: "A14", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e3920076" },
+      { name: "S-1-1", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e3920077" },
+      { name: "S-1-2", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e3920078" },
+      { name: "S-1-3", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e3920079" },
+      { name: "S-1-4", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e392007a" },
+      { name: "S-1-5", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e392007b" },
+      { name: "S-1-6", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e392007c" },
+      { name: "S-1-7", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e392007d" },
+      { name: "S-1-8", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e392007e" },
+      { name: "BAR", floor: "floor1", link: "https://signa.dishi.rest/outlet/11650?tableId=c7581bc8-d4cc-dae2-0190-5864e392007f" },
+      { name: "B1", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=8454f44b-1996-4c2c-b0e5-cfdf0b5a0da5" },
+      { name: "B2", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=bf82d960-27ea-4c5e-86e8-6ff5b6021c6c" },
+      { name: "B3", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=d4dc1442-e66e-4347-ae6f-e39d8999f45f" },
+      { name: "B4", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=17f372ce-0d36-4a35-9203-173208e18e39" },
+      { name: "B5", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=cd149dd3-80e2-4c97-890e-893f17edef7b" },
+      { name: "B6", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=3adb03c0-eb9e-47c8-8bbf-d64a59363cf3" },
+      { name: "B7", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=d09e4758-99bc-46cb-84b8-1c7855c220ac" },
+      { name: "B8", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=95d26448-638c-4a4e-80b4-fb69f6e6ab08" },
+      { name: "B-9-1", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=f246e11b-1aee-4f1c-97e5-fe841fe8721b" },
+      { name: "B-9-2", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=75eab9b4-9ba9-4b91-95a4-06c3f7d188e3" },
+      { name: "B-9-3", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=5c003527-d3ca-41a3-8d18-ca10b7353069" },
+      { name: "B-9-4", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=2ea3cb1c-0ee0-45b2-9529-d9b581a1f31c" },
+      { name: "B-9-5", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=bff14fb1-6dbf-452b-8cc0-6d4adc991e17" },
+      { name: "B-9-6", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=b7986840-87ec-4c8b-86e0-ddecdd449893" },
+      { name: "B-9-7", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=9334189a-cc6a-428c-86f6-6c0e37852f57" },
+      { name: "B-9-8", floor: "floor2", link: "https://signa.dishi.rest/outlet/11650?tableId=2bdd5450-71b7-4912-9d75-feeb14098e13" },
+		
+		
+	      { name: "B-11", floor: "floor2-new", link: "https://signa.dishi.rest/outlet/11650?tableId=499b64fe-8302-4b3a-890e-1f29ff4ed646" },
+		{ name: "B-12", floor: "floor2-new", link: "https://signa.dishi.rest/outlet/11650?tableId=b0febd8a-f9a8-495f-84a8-ca66c28ad5ee" },
+		{ name: "B-13", floor: "floor2-new", link: "https://signa.dishi.rest/outlet/11650?tableId=f5ae76ab-ee11-4933-9e89-e89e593bd7c8" },
+		{ name: "B-14", floor: "floor2-new", link: "https://signa.dishi.rest/outlet/11650?tableId=411597d0-a050-4ea6-aad1-e6178c36afd0" },
+		{ name: "B-15", floor: "floor2-new", link: "https://signa.dishi.rest/outlet/11650?tableId=1746310e-771c-41af-81c9-327bdd2ec89a" },
+		{ name: "B-16", floor: "floor2-new", link: "https://signa.dishi.rest/outlet/11650?tableId=13f1f491-f2f8-472a-b358-459a54b1f82b" },
+		{ name: "B-17", floor: "floor2-new", link: "https://signa.dishi.rest/outlet/11650?tableId=673040e4-8bd5-4bc3-a81f-85b0dbb6b346" },	
+		
+      { name: "Street 1", floor: "street", link: "https://signa.dishi.rest/outlet/11650?tableId=236c4309-f366-429e-833c-a562460bcb41" },
+      { name: "Street 2", floor: "street", link: "https://signa.dishi.rest/outlet/11650?tableId=2cf56ac8-77de-42ae-9ca7-75582ae0e3a8" },
+      { name: "Street 3", floor: "street", link: "https://signa.dishi.rest/outlet/11650?tableId=2d5f92cf-189c-4ab3-8683-0c66fcebefe7" },
+      { name: "Street 4", floor: "street", link: "https://signa.dishi.rest/outlet/11650?tableId=8dbb7f29-2659-419d-a7ce-18c74334d4c8" },
+    ];
+
+    tables.forEach(({ name, link, floor }) => {
+      const container = document.getElementById(floor);
+      const btn = document.createElement("div");
+      btn.className = "table-btn";
+      btn.textContent = name;
+      btn.onclick = () => window.location.href = link;
+      container.appendChild(btn);
+    });
+  </script>
+</body>
+</html>
