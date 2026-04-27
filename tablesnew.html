@@ -12,34 +12,60 @@
   <meta name="apple-mobile-web-app-title" content="Tables">
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="theme-color" content="#333333">
-
-  <meta http-equiv="refresh" content="3; url=https://www.dishi.rest/m/signa/table-map">
-  <link rel="canonical" href="https://www.dishi.rest/m/signa/table-map">
+  <base target="_self">
 
   <style>
-    html, body { margin: 0; padding: 0; height: 100%; background: #f4f4f4; font-family: sans-serif; -webkit-font-smoothing: antialiased; }
-    .wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; gap: 20px; padding: 20px; box-sizing: border-box; }
-    .text { color: #555; font-size: 1.1em; text-align: center; }
-    .countdown { font-size: 3em; font-weight: 600; color: #333; font-variant-numeric: tabular-nums; }
-    .skip { padding: 12px 32px; background: #333; color: #fff; border: 0; border-radius: 8px; font-size: 1em; cursor: pointer; -webkit-appearance: none; }
-    .skip:active { transform: scale(0.97); }
+    html, body {
+      margin: 0; padding: 0;
+      height: 100vh; height: 100dvh;
+      background: #f4f4f4;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior: none;
+    }
+    .wrap {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 100%; gap: 24px;
+      padding: env(safe-area-inset-top) 20px env(safe-area-inset-bottom);
+      box-sizing: border-box;
+    }
+    .text { color: #555; font-size: 1.05em; text-align: center; }
+    .countdown {
+      font-size: 4em; font-weight: 600; color: #333;
+      font-variant-numeric: tabular-nums; line-height: 1;
+    }
+    .btn {
+      display: inline-block;
+      padding: 18px 48px;
+      background: #333; color: #fff;
+      border: 0; border-radius: 12px;
+      font-size: 1.15em; font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active { transform: scale(0.97); background: #222; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="text">Opening table map in</div>
     <div class="countdown" id="cd">3</div>
-    <button class="skip" onclick="go()">Open now</button>
+    <a id="link" class="btn" href="https://www.dishi.rest/m/signa/table-map" target="_self" rel="noopener">Open now</a>
   </div>
   <script>
-    var url = "https://www.dishi.rest/m/signa/table-map";
     var n = 3;
     var el = document.getElementById("cd");
-    function go() { window.location.replace(url); }
+    var link = document.getElementById("link");
     var t = setInterval(function() {
       n--;
       el.textContent = n;
-      if (n <= 0) { clearInterval(t); go(); }
+      if (n <= 0) {
+        clearInterval(t);
+        link.click();
+      }
     }, 1000);
   </script>
 </body>
