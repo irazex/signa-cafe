@@ -24,10 +24,10 @@ HTML/
 ├── about.html          # О ресторане (команда, история, фото)
 ├── contact.html        # Контакты (карта, форма, телефон, WhatsApp)
 ├── review.html         # Отзывы (Google Review, жалобы, предложения)
-├── tables.html         # Бронирование столов (PWA, ссылки на dishi.rest)
+├── tablesnew.html      # PWA-обёртка → редирект на dishi.rest/m/signa/table-map (3с countdown, inline manifest)
 ├── style.css           # Стили (69KB, кастом в конце файла — секция "SIGNA CUSTOM FIXES")
 ├── contact.php         # Обработчик формы обратной связи (PHP mail)
-├── manifest.json       # PWA манифест для tables.html
+├── manifest.json       # PWA манифест (legacy, для tables.html — больше не используется)
 ├── favicon.ico/.png    # Иконки
 ├── robots.txt          # Robots
 ├── sitemap.xml         # Sitemap
@@ -38,7 +38,10 @@ HTML/
 ```
 
 ### Файлы-шаблонные остатки (НЕ используются)
-project01-08.html, multimedia.html, shortcodes.html, typography.html, guest register.html, table.html, tablesnew.html
+project01-08.html, multimedia.html, shortcodes.html, typography.html, guest register.html, table.html
+
+### Удалённые файлы (2026-04-27)
+- `tables.html` — удалён с FTP (был локальным селектором столов с захардкоженными tableId), заменён на `tablesnew.html` с редиректом на готовую `dishi.rest/m/signa/table-map`. В репо файл оставлен для истории, из массового деплоя убран (заменён на `tablesnew.html` в `for f in ...`)
 
 ## Архитектура
 
@@ -123,7 +126,7 @@ FTP_CRED="aqq17894:z3zwa3qwXz3zwa3qwX"
 curl -s -T <local-file> "$FTP_URL/<remote-file>" --user "$FTP_CRED"
 
 # Загрузить все HTML + CSS
-for f in index.html about.html contact.html review.html tables.html style.css; do
+for f in index.html about.html contact.html review.html tablesnew.html style.css; do
   curl -s -T "$f" "$FTP_URL/$f" --user "$FTP_CRED"
 done
 ```
