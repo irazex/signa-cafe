@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Signa — Table Map</title>
+
+  <link rel="manifest" href='data:application/manifest+json,{"name":"Table Selector","short_name":"Tables","start_url":"./tablesnew.html","display":"standalone","background_color":"#f4f4f4","theme_color":"#333333","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"},{"src":"icon-512.png","sizes":"512x512","type":"image/png"}]}'>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tables">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#333333">
+
+  <meta http-equiv="refresh" content="3; url=https://www.dishi.rest/m/signa/table-map">
+  <link rel="canonical" href="https://www.dishi.rest/m/signa/table-map">
+
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #f4f4f4; font-family: sans-serif; -webkit-font-smoothing: antialiased; }
+    .wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; gap: 20px; padding: 20px; box-sizing: border-box; }
+    .text { color: #555; font-size: 1.1em; text-align: center; }
+    .countdown { font-size: 3em; font-weight: 600; color: #333; font-variant-numeric: tabular-nums; }
+    .skip { padding: 12px 32px; background: #333; color: #fff; border: 0; border-radius: 8px; font-size: 1em; cursor: pointer; -webkit-appearance: none; }
+    .skip:active { transform: scale(0.97); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="text">Opening table map in</div>
+    <div class="countdown" id="cd">3</div>
+    <button class="skip" onclick="go()">Open now</button>
+  </div>
+  <script>
+    var url = "https://www.dishi.rest/m/signa/table-map";
+    var n = 3;
+    var el = document.getElementById("cd");
+    function go() { window.location.replace(url); }
+    var t = setInterval(function() {
+      n--;
+      el.textContent = n;
+      if (n <= 0) { clearInterval(t); go(); }
+    }, 1000);
+  </script>
+</body>
+</html>
