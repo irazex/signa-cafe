@@ -204,10 +204,19 @@ div.button-border.outline.rounded a {
 }
 
 
-.hero-title.primary-font-title {
+.hero-title.primary-font-title,
+.next-hero-title.primary-font-title {
   text-transform: uppercase !important;
-  font-size: min(calc(1.3rem + 31.4vw), 280px) !important;
-  line-height: min(calc(1.3rem + 28.6vw), 265px) !important;
+  font-size: min(calc(1.3rem + 31.4vw), 50vh, 50dvh, 280px) !important;
+  line-height: min(calc(1.3rem + 28.6vw), 45vh, 45dvh, 265px) !important;
+}
+/* Landscape with low height — extra cap to prevent vertical clipping */
+@media (orientation: landscape) and (max-height: 700px) {
+  .hero-title.primary-font-title,
+  .next-hero-title.primary-font-title {
+    font-size: min(calc(1rem + 22vw), 55vh, 55dvh) !important;
+    line-height: 0.9 !important;
+  }
 }
 /* Star proportional to title */
 .signa-star {
