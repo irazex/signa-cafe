@@ -210,14 +210,7 @@ div.button-border.outline.rounded a {
   font-size: min(calc(1.3rem + 31.4vw), 50vh, 50dvh, 280px) !important;
   line-height: min(calc(1.3rem + 28.6vw), 45vh, 45dvh, 265px) !important;
 }
-/* Landscape with low height — extra cap to prevent vertical clipping */
-@media (orientation: landscape) and (max-height: 700px) {
-  .hero-title.primary-font-title,
-  .next-hero-title.primary-font-title {
-    font-size: min(calc(1rem + 22vw), 55vh, 55dvh) !important;
-    line-height: 0.9 !important;
-  }
-}
+/* (Landscape low-height block moved to end of file for specificity) */
 /* Star proportional to title */
 .signa-star {
   width: min(calc(0.65rem + 10.4vw), 130px) !important;
@@ -502,4 +495,49 @@ div.button-border.outline.rounded a {
     visibility: visible !important;
     transform: none !important;
   }
+}
+
+/* === Landscape low-height: render site as a narrow mobile-like column in the center, gray bands on sides === */
+@media (orientation: landscape) and (max-height: 800px) {
+  html {
+    background: #2a2a2a !important;
+    overflow-x: hidden !important;
+  }
+  body {
+    max-width: 480px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    background: #fff !important;
+    overflow-x: hidden !important;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  }
+  /* vw still refers to full viewport width, but body is now 480px — override to use vh */
+  html .hero-title.primary-font-title,
+  html .next-hero-title.primary-font-title {
+    font-size: min(28vh, 28dvh) !important;
+    line-height: 0.85 !important;
+  }
+  html .signa-star {
+    width: min(12vh, 12dvh, 80px) !important;
+    height: min(12vh, 12dvh, 80px) !important;
+    margin-top: 0 !important;
+  }
+  html .hero-subtitle {
+    font-size: min(3vh, 3dvh, 18px) !important;
+  }
+  html .big-title.primary-font-title {
+    font-size: min(15vh, 15dvh) !important;
+  }
+  /* Let hero grow to content height; users will scroll. No flex overflow then */
+  html #hero-caption.height-title,
+  html #hero-caption.height-title .inner {
+    min-height: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    justify-content: flex-start !important;
+  }
+  html #hero-caption .inner > br { display: none !important; }
+  html #hero-caption .inner > p { margin: 0 !important; }
 }
