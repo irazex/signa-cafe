@@ -7,209 +7,162 @@
 
 ```bash
 # Локальный сервер для разработки
-cd "/Users/razex/Documents/SIGNA/Signa 1.0 Nusa dua/site/Signa /HTML"
+cd "/Users/razex/Documents/CLAUD MAIN AGENT/_Projects/signa-cafe-repo"
 python3 -m http.server 8080
+# открыть http://localhost:8080
 
 # Деплой на хостинг (FTP)
 FTP_URL="ftp://atlas.multihost.cloud/signa.cafe"
 FTP_CRED="aqq17894:z3zwa3qwXz3zwa3qwX"
-curl -s -T <файл> "$FTP_URL/<файл>" --user "$FTP_CRED"
+curl -s --ftp-create-dirs -T <local-file> "$FTP_URL/<remote-path>" --user "$FTP_CRED"
 ```
 
-## Структура проекта
+## Структура проекта (новая, May 2026)
 
 ```
-HTML/
-├── index.html          # Главная страница (hero, галерея, feedback, меню категорий)
-├── about.html          # О ресторане (команда, история, фото)
-├── contact.html        # Контакты (карта, форма, телефон, WhatsApp)
-├── review.html         # Отзывы (Google Review, жалобы, предложения)
-├── tablesnew.html      # PWA-обёртка → редирект на dishi.rest/m/signa/table-map (3с countdown, inline manifest)
-├── style.css           # Стили (69KB, кастом в конце файла — секция "SIGNA CUSTOM FIXES")
-├── contact.php         # Обработчик формы обратной связи (PHP mail)
-├── manifest.json       # PWA манифест (legacy, для tables.html — больше не используется)
-├── favicon.ico/.png    # Иконки
-├── robots.txt          # Robots
-├── sitemap.xml         # Sitemap
-├── css/                # CSS шаблона (assets.css, content.css, showcase.css, shortcodes.css, all.min.css)
-├── js/                 # JavaScript (jquery.min.js, clapat.js, common.js, plugins.js, scripts.js, contact.js)
-├── images/             # Изображения (jpg + webp, ~76 файлов)
-└── webfonts/           # Font Awesome шрифты
+signa-cafe-repo/
+├── index.html              # Главная страница: React 18 + Babel + Google Fonts (Anton/Onest/JetBrains Mono/Caveat)
+├── src/                    # JSX исходники (транспилируются Babel в браузере)
+│   ├── app.jsx             # Top-level App, TWEAK_DEFAULTS, мapping пропов
+│   ├── sections.jsx        # 9 секций + i18n STRINGS + LangToggle (982+ строк)
+│   ├── stickers.jsx        # SVG-стикеры + ScrapLayer + useReveal hook
+│   ├── syrnik-3d.jsx       # 3D-сырник через Three.js (для HeroVariantE)
+│   ├── tweaks-panel.jsx    # Dev tweaks panel (по умолчанию скрыт, open=false)
+│   └── styles.css          # Все стили (~1500 строк), включая landscape low-height media
+├── assets/                 # 20 файлов: бренд (star.png, logo-dotted-sigma.png, bernard.png),
+│                           # фото блюд (photo-*.jpg), 3D-модель (syrnik-model.obj + textures)
+├── uploads/                # User uploads (pasted images, mtl files)
+├── tablesnew.html          # PWA-обёртка → редирект на dishi.rest/m/signa/table-map (inline manifest)
+├── tables/tablesnew.html   # Мирор того же PWA (по реальному URL который сохранён на iPad/iPhone)
+└── CLAUDE.md               # Этот файл
 ```
 
-### Файлы-шаблонные остатки (НЕ используются)
-project01-08.html, multimedia.html, shortcodes.html, typography.html, guest register.html, table.html
-
-### Удалённые файлы (2026-04-27)
-- `tables.html` — удалён с FTP (был локальным селектором столов с захардкоженными tableId), заменён на `tablesnew.html` с редиректом на готовую `dishi.rest/m/signa/table-map`. В репо файл оставлен для истории, из массового деплоя убран (заменён на `tablesnew.html` в `for f in ...`)
+### Старая версия (удалена 2026-05-23)
+- Шаблон Montoya (HTML/jQuery/GSAP), 16 HTML страниц + style.css + css/js/images/webfonts/
+- Backup был у пользователя локально
+- Если нужно посмотреть на старую вёрстку — git log → раньше коммита `75a317a` (2026-04)
 
 ## Архитектура
 
-### Шаблон
-**Montoya Creative Portfolio** (ThemeForest) — jQuery + GSAP + ScrollTrigger. Минифицированный CSS в начале style.css, кастомные правила в конце.
+### Стек
+- **HTML + React 18.3.1** + Babel standalone (пинированные версии с integrity hashes)
+- **No build step** — JSX транспилируется в браузере
+- **Static-first** — деплой на любой статический хостинг
+- **Шрифты**: Anton (display, all caps), Onest (body, Cyrillic+Latin), JetBrains Mono (mono labels), Caveat (handwritten notes)
+- **Брендовые цвета**: Red `#EB3300`, Black `#000000`, Paper `#FFFEF9`, Cool Gray `#C8C9C7`
 
-### Шрифты
-| Где | Шрифт | Примечание |
-|-----|-------|------------|
-| Hero "SIGNA CAFE" | Six Caps | Только латиница, только hero-title |
-| Заголовки, бегущая строка, подписи фото, меню | Oswald 500 | + text-transform: uppercase, transform: scaleX(0.75) |
-| Основной текст, кнопки | Poppins | Дефолт шаблона |
+### Hero responsive (mobile=D, desktop=B) — May 2026
+В `app.jsx` `heroVariant: "responsive"` (default).
+Hook `useIsMobile(768)` в `sections.jsx` детектит viewport через `matchMedia`.
+- **Desktop (>768px)** → `HeroVariantB` — dotted Sigma wordmark + EAT.MEET.CREATE.
+- **Mobile (≤768px)** → `HeroVariantD` — asymmetric SIGNA. wordmark слева + tagline справа
 
-### Ключевые CSS-классы
-```css
-.hero-title.primary-font-title — SIGNA CAFE (Six Caps, calc(1.3rem + 31.4vw))
-.next-hero-title.primary-font-title — SIGNA CAFE внизу страницы (тот же размер)
-.big-title.primary-font-title — бегущая строка (Oswald, scaleX(0.75), uppercase)
-.slide-title.primary-font-title — подписи к фотографиям галереи
-.list-rotator.primary-font-title li — категории меню (pizza and pasta, etc.)
-.primary-font-title:not(.hero-title):not(.next-hero-title) — cap для остальных (max 180px)
-```
+Tweaks panel (dev only) даёт выбрать конкретный variant (`responsive`, `A`, `B`, `C`, `D`, `E`).
 
-### CSS: Где вносить изменения
-Все кастомные стили — **в конце style.css** после комментария `/* ======= SIGNA CUSTOM FIXES ======= */`. НЕ трогать минифицированную часть в начале файла.
+### i18n — STRINGS dict (sections.jsx top)
+3 языка: **EN / RU / ID**.
+- `T = (lang) => (key) => STRINGS[lang][key] || STRINGS.en[key] || key`
+- `window.T` экспортирован для использования в любом компоненте
+- `LangToggle` в header — `<window.LangToggle lang={lang} onChange={setLang}/>`
 
-## Система переводов (i18n)
+**Покрытые секции** (имеют переводы): Header nav, Hero (все variants), Feedback, Location, Footer, Bottom CTA.
+**Не покрыто** (захардкоден EN): Brand, Menu items, Signature, Experience, Order. Можно дополнить — расширить STRINGS + использовать `T(lang)("key")` в JSX.
 
-### Как работает
-Скрипт в `<head>` index.html (и упрощённый в about/contact/review/tables):
-1. Словарь `T = { ru: {...}, id: {...} }` — ключ EN → значение переведённое
-2. `markElements()` — помечает элементы атрибутом `data-signa-i18n="1"`, сохраняет оригинал в `data-signa-orig`
-3. `applyLang(lang)` — применяет перевод на лету (без перезагрузки)
-4. `window.signaSetLang(lang)` — глобальная функция, вызывается из флажков
-5. Сортировка ключей по длине (длинные первые) чтобы избежать частичных замен
+### Google Maps — реальная карта
+`LocationSection` в `sections.jsx` использует `<iframe src="https://www.google.com/maps?q=Signa+Cafe...&output=embed">` — embed без API key (unofficial, но работает уже годами).
+Класс `.loc-map.loc-map-google` в `styles.css` — высота 360px desktop / 260px mobile, лёгкий grayscale filter.
 
-### Как добавить перевод
-1. Добавить ключ в `T.ru` и `T.id` в `<script>` в `<head>`
-2. Если элемент не ловится автоматически — добавить `data-signa-i18n="1"` и `data-signa-orig-html="..."` в HTML
-3. Для элементов с `<br/>` — убрать `<br/>`, объединить текст в одну строку
+### Landscape low-height fix (apr 2026)
+В `styles.css` в конце — медиа-блок `@media (orientation: landscape) and (max-height: 800px)`:
+- `body` → 480px центрированная колонка, тёмные поля по бокам
+- Hero font-sizes переведены на vh/vmin (vw был слишком большим)
+- Цель — на ноутбуках с маленьким экраном по высоте (типа MacBook 11" в landscape) не растягивать сайт на полную ширину
 
-### Покрытие
-| Язык | Ключи | Статус |
-|------|-------|--------|
-| EN | 68 | 100% (базовый) |
-| RU | 70 | ✅ Полный |
-| ID | 65 | ⚠️ ~96%, 3-5 ключей не хватает |
+### Tweaks panel (dev only)
+`tweaks-panel.jsx` экспортирует:
+- `useTweaks(defaults)` hook — управление state через `useReducer` + URL hash + postMessage
+- `<TweaksPanel>` — UI с slider/toggle/radio/color компонентами
 
-### Флажки языков
-В header рядом с меню-бургером. Класс `.lang-flag`, data-lang="en/ru/id". Активный: `.lang-flag.active { opacity: 1 }`.
+По умолчанию `open=false`. Активируется через postMessage `__activate_edit_mode` от внешнего инструмента (edit mode). В production не виден пользователям.
 
-## Внешние интеграции
+### Деплой на signa.cafe
 
-| Сервис | URL/ID | Назначение |
-|--------|--------|------------|
-| Google Analytics 4 | G-1D77CPGEML | Аналитика |
-| Google Ads | AW-16559305966 | Реклама |
-| Dishi.rest | signa.dishi.rest/outlet/11650 | Онлайн-меню + бронь столов |
-| GoFood | gofood.link/a/L3hUVxW | Доставка еды |
-| Grab Food | food.grab.com/... | Доставка еды |
-| WhatsApp | wa.me/+6288987127671 | Жалобы менеджеру |
-| Google Forms | forms.gle/kEvTuhfnYaoqoU6j9 | Предложения по улучшению |
-| Google Review | g.page/r/CZpcFedoGOxKEAE/review | Отзывы |
-| Instagram | instagram.com/signa.cafe | Соцсети |
-
-## Деплой
-
-### Хостинг
-- **Провайдер**: multihost.cloud (cPanel)
-- **cPanel**: https://atlas.multihost.cloud:2083
-- **Логин**: aqq17894
-- **Пароль**: z3zwa3qwXz3zwa3qwX
-- **SSH**: ОТКЛЮЧЁН на аккаунте
-- **Путь на сервере**: /signa.cafe/
-
-### FTP деплой (из терминала)
 ```bash
 FTP_URL="ftp://atlas.multihost.cloud/signa.cafe"
 FTP_CRED="aqq17894:z3zwa3qwXz3zwa3qwX"
 
-# Загрузить один файл
-curl -s -T <local-file> "$FTP_URL/<remote-file>" --user "$FTP_CRED"
+# Изменить один JSX файл
+curl -s -T src/sections.jsx "$FTP_URL/src/sections.jsx" --user "$FTP_CRED"
 
-# Загрузить все HTML + CSS
-for f in index.html about.html contact.html review.html tablesnew.html style.css; do
-  curl -s -T "$f" "$FTP_URL/$f" --user "$FTP_CRED"
-done
+# Залить новый ассет
+curl -s --ftp-create-dirs -T assets/новое-фото.jpg "$FTP_URL/assets/новое-фото.jpg" --user "$FTP_CRED"
+
+# Удалить файл (важно: путь от home /home/aqq17894/, НЕ /signa.cafe — это в /home/)
+curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.ext" "ftp://atlas.multihost.cloud/"
 ```
+
+**Cache busting**: index.html ссылается на `src/styles.css` без `?v=` (no-cache-bust). Если нужно — добавить `?v=$(date +%s)` к ссылкам в `index.html`.
+
+### Хостинг
+- **Провайдер**: multihost.cloud (cPanel, Apache)
+- **cPanel**: https://atlas.multihost.cloud:2083
+- **Логин**: aqq17894
+- **Пароль**: z3zwa3qwXz3zwa3qwX
+- **SSH**: ОТКЛЮЧЁН
+- **FTP path**: `/home/aqq17894/signa.cafe/` (абсолютный путь для FTP команд)
+- **URL**: https://signa.cafe
 
 ### GitHub
 - **Репо**: https://github.com/irazex/signa-cafe
 - **Ветка**: main
 
-### Cache busting
-При изменении style.css обновлять `?v=timestamp` во всех HTML:
-```bash
-STAMP=$(date +%s)
-for f in *.html; do sed -i '' "s/style\.css?v=[0-9]*/style.css?v=${STAMP}/" "$f"; done
-```
+## Внешние интеграции
 
-## Мобильная версия (max-width: 768px)
+| Сервис | URL/ID | Где |
+|--------|--------|-----|
+| Google Analytics 4 | G-1D77CPGEML | (опционально, не подключено в новом сайте) |
+| Dishi.rest (online menu) | signa.dishi.rest/outlet/11650 | hero CTA "MENU" / "ORDER NOW" |
+| Dishi table-map | dishi.rest/m/signa/table-map | tablesnew.html PWA редирект |
+| GoFood | gofood.link/a/L3hUVxW | OrderSection |
+| Grab Food | food.grab.com/... | OrderSection |
+| WhatsApp manager | wa.me/+6288987127671 | FeedbackSection "Complain" |
+| WhatsApp main | wa.me/+6289654027190 | LocationSection / Footer |
+| Google Forms (suggestions) | forms.gle/kEvTuhfnYaoqoU6j9 | FeedbackSection "Share idea" |
+| Google Review | g.page/r/CZpcFedoGOxKEAE/review | FeedbackSection "Loved it" |
+| Instagram | instagram.com/signa.cafe | Header + Footer |
+| Google Maps embed | maps.google.com/maps?q=...&output=embed | LocationSection iframe |
 
-### Текущие правила
-- Hero: min-height: auto, max-height: 80dvh, overflow: visible
-- Звезда: margin-top: 20px (не налезает на флажки)
-- Feedback в hero: только кнопка "Жалоба" (2-й и 3-й items скрыты)
-- Бегущая строка: выглядывает на ~20% снизу
+## PWA — Table Map для столов
 
-### Русский язык на мобильном
-- Бегущая строка: `html[lang="ru"] .big-title { font-size: 55% }` (Oswald шире Six Caps)
-- Кнопки: Oswald, font-weight 500
+**Не часть основного сайта**, отдельная страница для официантов с iPad. Сохраняется как PWA на homescreen.
 
-## Известные проблемы
-
-1. **273 !important** в CSS — конфликты с минифицированным шаблоном
-2. **contact.php** — не проверена работоспособность на хостинге
-3. **PWA иконки** (icon-192.png, icon-512.png) — могут отсутствовать
-4. **GA4 не на tables.html** — добавить аналитику
-5. **Три.js / Smooth Scrollbar** — упоминаются но не используются, можно убрать ссылки
-
-## JavaScript
-
-### Библиотеки (CDN)
-- GSAP 3.11.4 (анимации)
-- ScrollTrigger (scroll-анимации)
-- Flip (DOM-анимации)
-- imagesLoaded 5.0.0
-- jQuery (локальный, 89KB)
-
-### Локальные скрипты
-- clapat.js — фреймворк шаблона
-- common.js — общая логика
-- plugins.js — jQuery плагины
-- scripts.js — кастомная логика
-- contact.js — валидация форм
+- `/tablesnew.html` и `/tables/tablesnew.html` — обе версии, одинаковый контент
+- Inline manifest через `data:application/manifest+json,...` (без отдельного manifest.json)
+- Мгновенный редирект на `https://www.dishi.rest/m/signa/table-map`
+- При сохранении на homescreen — кэшируется как standalone PWA
 
 ## Правила для AI-агентов
 
-1. **ВСЕГДА** вноси CSS изменения в секцию "SIGNA CUSTOM FIXES" в конце style.css
-2. **НЕ ТРОГАЙ** минифицированную часть CSS в начале файла
-3. **ПОСЛЕ КАЖДОГО ИЗМЕНЕНИЯ** обнови cache bust: `?v=timestamp` во всех HTML
-4. **ПОСЛЕ ДЕПЛОЯ** залей изменённые файлы на FTP
-5. **ПЕРЕВОДЫ**: добавляй в оба словаря (ru + id), ключи сортируются по длине автоматически
-6. **ШРИФТЫ**: Six Caps ТОЛЬКО для .hero-title и .next-hero-title. Всё остальное — Oswald
-7. **ОБНОВИ ЭТОТ ФАЙЛ** после любых структурных изменений (новые страницы, интеграции, переводы)
+1. **Разработка только локально**, деплой через rsync/FTP
+2. **Коммит после каждого завершённого изменения** (правило 2026-04-27 — git push сразу после)
+3. **Brand & visual**: использовать только утверждённые цвета (Red `#EB3300`, Paper `#FFFEF9`, Ink black). Шрифты — Anton/Onest/JetBrains Mono/Caveat. Никакого italic.
+4. **Tile pattern** (44×44 white embossed) — только этот pattern для background
+5. **i18n**: при добавлении нового UI-текста — сразу добавить ключ в STRINGS для всех 3 языков (en/ru/id) + использовать `T(lang)("key")`
+6. **Hero variants**: trust `useIsMobile` hook, не делать ручные `display: none` для variants
+7. **JSX через Babel в браузере**: код пишется как ES2015+ JSX, транспилируется на лету — НЕ добавлять TypeScript/JSX-build steps
+8. **Tweaks panel ВСЕГДА скрыт по умолчанию** — это dev tool
+
+## Production hardening (TODO)
+
+- [ ] Pre-compile JSX через esbuild (убрать Babel-standalone ~600KB)
+- [ ] WebP версии для photos (`cwebp -q 78 ...`)
+- [ ] Lazy loading для images ниже fold
+- [ ] OG meta tags для социальных шер
+- [ ] Sitemap.xml + robots.txt (после прода с реальным domain)
+- [ ] Google Analytics 4 reintegration (G-1D77CPGEML)
+- [ ] Дополнить переводы для Brand/Menu/Signature/Experience/Order секций (сейчас захардкоден EN)
 
 ---
 
-*Последнее обновление: 2026-04-01*
-*Автор: Claude Code + Razex*
-
-## Обязательные действия после изменений
-
-### Чеклист (выполнять КАЖДЫЙ раз после правок)
-1. ✅ Обновить `?v=timestamp` в HTML файлах (cache bust)
-2. ✅ Загрузить изменённые файлы на FTP
-3. ✅ Закоммитить и запушить на GitHub:
-   ```bash
-   cd /Users/razex/Documents/SIGNA/signa-cafe-repo
-   # Скопировать изменённые файлы из рабочей директории
-   cp "/Users/razex/Documents/SIGNA/Signa 1.0 Nusa dua/site/Signa /HTML/"*.html .
-   cp "/Users/razex/Documents/SIGNA/Signa 1.0 Nusa dua/site/Signa /HTML/style.css" .
-   cp "/Users/razex/Documents/SIGNA/Signa 1.0 Nusa dua/site/Signa /HTML/CLAUDE.md" .
-   git add -A && git commit -m "описание изменений" && git push
-   ```
-4. ✅ Обновить этот файл (CLAUDE.md) если изменилась структура, добавлены переводы, интеграции и т.д.
-
-### КРИТИЧЕСКИ ВАЖНО
-- **НЕ ЗАБЫВАЙ коммитить на GitHub** — это единственный бэкап проекта
-- **НЕ ЗАБЫВАЙ обновлять CLAUDE.md** — следующий AI-агент должен знать актуальное состояние
-- **НЕ ЗАБЫВАЙ деплоить на FTP** — иначе пользователи не увидят изменения
+*Последнее обновление: 2026-05-24*
+*Полная переделка с шаблона Montoya на React 18 + Babel standalone*
