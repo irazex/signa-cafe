@@ -1,4 +1,18 @@
+# OS
 .DS_Store
-*.log
-error_log
-.claude/
+.thumbnail
+
+# Local dev
+node_modules/
+dist/
+
+# Secrets — never commit
+/.htpasswd
+.htpasswd
+/.env
+.env
+*.pem
+*.key
+
+# Backup files
+*.bak
