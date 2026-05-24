@@ -14,13 +14,13 @@ RedirectMatch 404 /README\.md$
 <Files "admin.html">
   AuthType Basic
   AuthName "Signa Admin"
-  AuthUserFile /home/aqq17894/.htpasswd
+  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
   Require valid-user
 </Files>
 <Files "admin.jsx">
   AuthType Basic
   AuthName "Signa Admin"
-  AuthUserFile /home/aqq17894/.htpasswd
+  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
   Require valid-user
 </Files>
 
