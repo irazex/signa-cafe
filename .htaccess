@@ -47,3 +47,9 @@ AddType model/mtl .mtl
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set X-Frame-Options "SAMEORIGIN"
 </IfModule>
+
+# 6. Pretty URLs — /admin → /admin.html (so Basic Auth still triggers)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^admin/?$ admin.html [L]
+</IfModule>
