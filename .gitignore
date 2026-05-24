@@ -16,3 +16,4 @@ dist/
 
 # Backup files
 *.bak
+.openai_key

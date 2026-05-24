@@ -522,14 +522,15 @@ function setAtPath(content, path, value) {
   return true;
 }
 
-async function gptTranslateBatch(items, targetLang, apiKey) {
+async function gptTranslateBatch(items, targetLang) {
+  // Calls our server-side proxy /translate.php (which holds the OpenAI key
+  // on the server, out of the public JSX bundle). Proxy is protected by the
+  // same Basic Auth as /admin, so the user is already authenticated.
   const prompt = TRANSLATION_SYSTEM_PROMPT.replace("{lang_name}", LANG_NAMES[targetLang] || targetLang);
-  const r = await fetch("https://api.openai.com/v1/chat/completions", {
+  const r = await fetch("translate.php", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${apiKey}`,
-    },
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",   // forward Basic Auth header
     body: JSON.stringify({
       model: "gpt-4o-mini",
       temperature: 0.2,
@@ -542,7 +543,7 @@ async function gptTranslateBatch(items, targetLang, apiKey) {
   });
   if (!r.ok) {
     const errText = await r.text().catch(() => "(no body)");
-    throw new Error(`OpenAI API ${r.status}: ${errText.slice(0, 300)}`);
+    throw new Error(`Proxy ${r.status}: ${errText.slice(0, 300)}`);
   }
   const data = await r.json();
   let parsed;
@@ -551,7 +552,7 @@ async function gptTranslateBatch(items, targetLang, apiKey) {
   return parsed.translations || [];
 }
 
-async function translateContentViaGPT(content, targetLangs, apiKey, onProgress) {
+async function translateContentViaGPT(content, targetLangs, _unusedApiKey, onProgress) {
   const out = JSON.parse(JSON.stringify(content)); // deep copy so caller controls when to set
   const allFields = extractTranslatableFields(content);
   if (!allFields.length) {
@@ -599,7 +600,7 @@ async function translateContentViaGPT(content, targetLangs, apiKey, onProgress) 
       onProgress?.({ done: step, total: totalSteps, msg: `Translating to ${LANG_NAMES[lang]} (${i + 1}-${Math.min(i+BATCH, pending.length)} of ${pending.length})…` });
       let results;
       try {
-        results = await gptTranslateBatch(batch, lang, apiKey);
+        results = await gptTranslateBatch(batch, lang);
       } catch (e) {
         onProgress?.({ done: step, total: totalSteps, msg: `❌ Error: ${e.message}` });
         throw e;
@@ -670,19 +671,12 @@ function App() {
   };
 
   const handleTranslate = async () => {
-    let apiKey = localStorage.getItem(OPENAI_KEY_STORAGE) || "";
-    if (!apiKey) {
-      apiKey = prompt("Enter your OpenAI API key (sk-...).\nIt is stored only in this browser's localStorage and used to call GPT directly from your browser.");
-      if (!apiKey || !apiKey.startsWith("sk-")) {
-        alert("Cancelled — need a valid OpenAI key.");
-        return;
-      }
-      localStorage.setItem(OPENAI_KEY_STORAGE, apiKey.trim());
-    }
+    // API key lives on the server in /.openai_key — admin doesn't need it.
+    // Proxy /translate.php is behind the same Basic Auth as this page.
     const targetLangs = ["ru", "id"];
     setTrProgress({ done: 0, total: 0, msg: "Preparing…" });
     try {
-      const next = await translateContentViaGPT(content, targetLangs, apiKey.trim(), (p) => setTrProgress(p));
+      const next = await translateContentViaGPT(content, targetLangs, null, (p) => setTrProgress(p));
       setContent(next);
       setDirty(true);
       setTimeout(() => setTrProgress(null), 4000);
@@ -709,11 +703,6 @@ function App() {
     setDirty(true);
   };
 
-  const handleResetApiKey = () => {
-    if (!confirm("Forget the OpenAI API key from this browser?")) return;
-    localStorage.removeItem(OPENAI_KEY_STORAGE);
-    alert("API key removed. Next Translate click will ask for a new one.");
-  };
 
   if (loadErr) return <div className="admin-main"><div className="note">{loadErr}</div></div>;
   if (!content) return <div className="admin-main">Loading...</div>;
@@ -746,7 +735,6 @@ function App() {
         <div className="foot">
           <a href="index.html" target="_blank" rel="noreferrer">View site →</a>
           <a href="#" onClick={(e) => { e.preventDefault(); handleCopyJSON(); }}>Copy JSON</a>
-          <a href="#" onClick={(e) => { e.preventDefault(); handleResetApiKey(); }}>Reset GPT key</a>
         </div>
       </aside>
 

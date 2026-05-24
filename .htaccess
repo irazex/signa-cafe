@@ -1,7 +1,7 @@
 # === Signa Cafe — Apache config ===
 
-# 1. Защита служебных файлов
-<FilesMatch "^\.(htaccess|htpasswd|env|gitignore|gitattributes)$">
+# 1. Защита служебных файлов и секретов
+<FilesMatch "^\.(htaccess|htpasswd|env|gitignore|gitattributes|openai_key)$">
   Require all denied
 </FilesMatch>
 RedirectMatch 404 /\.git
@@ -18,6 +18,12 @@ RedirectMatch 404 /README\.md$
   Require valid-user
 </Files>
 <Files "admin.jsx">
+  AuthType Basic
+  AuthName "Signa Admin"
+  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
+  Require valid-user
+</Files>
+<Files "translate.php">
   AuthType Basic
   AuthName "Signa Admin"
   AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
