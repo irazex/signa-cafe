@@ -24,7 +24,7 @@ RedirectMatch 404 /README\.md$
   Require valid-user
 </Files>
 
-# 3. Cache control
+# 3. Cache control — immutable assets cached long, code/HTML must revalidate
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType image/jpeg "access plus 30 days"
@@ -32,9 +32,15 @@ RedirectMatch 404 /README\.md$
   ExpiresByType image/webp "access plus 30 days"
   ExpiresByType image/svg+xml "access plus 30 days"
   ExpiresByType font/woff2 "access plus 1 year"
-  ExpiresByType text/css "access plus 7 days"
-  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType text/css "access plus 1 hour"
+  ExpiresByType application/javascript "access plus 1 hour"
 </IfModule>
+
+# Code & data files — always revalidate so deploys reach users immediately.
+# Browsers store a copy but check freshness with If-Modified-Since on every request.
+<FilesMatch "\.(jsx|html|json)$">
+  Header set Cache-Control "no-cache, must-revalidate"
+</FilesMatch>
 
 # 4. JSX as JavaScript (для Babel transpile)
 AddType application/javascript .jsx
