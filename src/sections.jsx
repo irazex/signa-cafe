@@ -144,6 +144,19 @@ const T = (lang) => (key) => (STRINGS[lang] || STRINGS.en)[key] || STRINGS.en[ke
 window.STRINGS = STRINGS;
 window.T = T;
 
+// Per-item i18n helper for content.json fields.
+// loc(item, 'title', 'ru') → item.title_ru || item.title || ""
+// Admin "Translate via GPT" populates *_ru / *_id fields on each content.json entry.
+function loc(obj, field, lang) {
+  if (!obj || !field) return "";
+  if (lang && lang !== "en") {
+    const v = obj[field + "_" + lang];
+    if (v) return v;
+  }
+  return obj[field] || "";
+}
+window.loc = loc;
+
 function LangToggle({ lang, onChange }) {
   const opts = [{ id: "en", label: "EN" }, { id: "ru", label: "RU" }, { id: "id", label: "ID" }];
   return (
@@ -577,7 +590,7 @@ const MENU_DATA = (window.CONTENT && window.CONTENT.menu) || MENU_DATA_DEFAULT;
 
 const MENU_CATS = (window.CONTENT && window.CONTENT.menuCategories) || ["All", "Breakfast", "Pizza", "Pasta", "Main", "Drinks", "Dessert", "Kids"];
 
-function MenuSection({ scrapOn }) {
+function MenuSection({ scrapOn, lang }) {
   const [cat, setCat] = useState("All");
   const ref = window.useReveal();
   const filtered = useMemo(() => {
@@ -617,10 +630,10 @@ function MenuSection({ scrapOn }) {
           target="_blank"
           rel="noreferrer">
           
-            {m.badge && <span className="badge">{m.badge}</span>}
+            {m.badge && <span className="badge">{window.loc(m, "badge", lang)}</span>}
             <div className="ovl"></div>
             <div className="cap">
-              {m.title}
+              {window.loc(m, "title", lang)}
               <span className="price">{m.price}</span>
             </div>
           </a>
@@ -657,7 +670,7 @@ const SIGNATURE_DATA = (window.CONTENT && window.CONTENT.signatureDishes) || [
 ];
 
 
-function SignatureSection({ scrapOn }) {
+function SignatureSection({ scrapOn, lang }) {
   const railRef = useRef(null);
   const [idx, setIdx] = useState(0);
   const ref = window.useReveal();
@@ -717,10 +730,10 @@ function SignatureSection({ scrapOn }) {
             <div className="ovl"></div>
             <div className="top-lbl"><b>{String(s.n).padStart(2, "0")}</b> &nbsp;/ {String(SIGNATURE_DATA.length).padStart(2, "0")}</div>
             <div className="cap">
-              <h3>{s.title.split("\n").map((line, j) =>
+              <h3>{(window.loc(s, "title", lang) || "").split("\n").map((line, j) =>
               <React.Fragment key={j}>{line}{j === 0 && <br />}</React.Fragment>
               )}</h3>
-              <div className="meta">{s.meta}</div>
+              <div className="meta">{window.loc(s, "meta", lang)}</div>
             </div>
           </div>
         )}
@@ -754,7 +767,7 @@ const EXPERIENCE_TILES = [
 { cls: "c8", img: "assets/photo-9831.webp", lbl: "Evening" }];
 
 
-function ExperienceSection({ scrapOn }) {
+function ExperienceSection({ scrapOn, lang }) {
   const ref = window.useReveal();
   return (
     <section id="experience" className="s-section exp-sec reveal" ref={ref} data-screen-label="06 experience">
@@ -773,9 +786,9 @@ function ExperienceSection({ scrapOn }) {
           key={i}
           className={`exp-cell ${t.cls} ${t.red ? "red" : ""} ${t.ink ? "ink" : ""}`}
           style={t.img ? { backgroundImage: `url('${t.img}')` } : null}>
-          
+
             {(t.red || t.ink) && <div className="exp-star" aria-hidden="true"></div>}
-            <div className="lbl">{t.lbl}</div>
+            <div className="lbl">{window.loc(t, "lbl", lang)}</div>
           </div>
         )}
       </div>
@@ -1082,9 +1095,9 @@ function PromosSection({ scrapOn, lang }) {
       <div className="promos-grid">
         {promos.map((p, i) => (
           <div key={i} className={`promo-card ${p.style && p.style !== "default" ? p.style : ""}`}>
-            <div className="promo-tag">{p.tag}</div>
-            <h3 dangerouslySetInnerHTML={{ __html: (p.title || "").replace(/-30%|−30%/g, '<span class="r">−30%</span>').replace(/free$/i, '<span class="r">free</span>') }}/>
-            <p>{p.body}</p>
+            <div className="promo-tag">{window.loc(p, "tag", lang)}</div>
+            <h3 dangerouslySetInnerHTML={{ __html: (window.loc(p, "title", lang) || "").replace(/-30%|−30%/g, '<span class="r">−30%</span>').replace(/free$/i, '<span class="r">free</span>') }}/>
+            <p>{window.loc(p, "body", lang)}</p>
           </div>
         ))}
       </div>
@@ -1131,9 +1144,9 @@ function FAQSection({ scrapOn, lang }) {
             aria-expanded={openIdx === i}
           >
             <span className="faq-num">{String(i + 1).padStart(2, "0")}</span>
-            <span className="faq-q">{item.q}</span>
+            <span className="faq-q">{window.loc(item, "q", lang)}</span>
             <span className="faq-toggle" aria-hidden="true">{openIdx === i ? "−" : "+"}</span>
-            <span className="faq-a">{item.a}</span>
+            <span className="faq-a">{window.loc(item, "a", lang)}</span>
           </button>
         ))}
       </div>

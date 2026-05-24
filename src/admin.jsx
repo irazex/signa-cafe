@@ -434,6 +434,205 @@ function PhotosTab({ content, set }) {
   );
 }
 
+// ============================================================
+// TRANSLATE via OpenAI GPT
+// ============================================================
+// Adapted from IJEN SPA's translation_job.py — same idea: brand-aware,
+// natural-tone prompt + JSON mode + sanity check (skip echo-translations).
+// API: gpt-4o-mini via Chat Completions, called directly from browser.
+
+const OPENAI_KEY_STORAGE = "signa.openai.key";
+const LANG_NAMES = { ru: "Russian", id: "Indonesian (Bahasa Indonesia)" };
+
+const TRANSLATION_SYSTEM_PROMPT = `You are translating short customer-facing copy for SIGNA CAFE — a family-run urban cafe in Nusa Dua, Bali. Translate the JSON below from English into {lang_name}.
+
+Tone: friendly, conversational, modern. Think how a young server would describe the menu to a friend, not a corporate menu translator. Avoid stiff, formal, or literal phrasing. The result should sound NATURAL to a native speaker — not like a machine translation.
+
+Rules:
+- International dish names (Pizza Margarita, Caesar, Tiramisu, Cappuccino, Poke Bowl, Pasta) — use the natural target-language form (e.g. RU "Маргарита", "Цезарь")
+- Cultural / proper-noun dishes (Syrniki, Bali Cocktail, Big Breakfast) — keep recognizable; transliterate if it reads more naturally
+- Brand names (SIGNA, Eat. Meet. Create., Signa Cafe) — NEVER translate
+- Prices like "93k", "145k" — keep as-is (k = thousand IDR, locals understand)
+- Special chars (★ · → ↗ ↑ ↓ emoji line breaks \\n) — preserve EXACTLY
+- Time phrases ("from 14:00", "after 20:00") — translate the word, keep the time number
+- Badges with star ("★ Popular", "★ Chef's") — translate the word, keep the ★
+- "−30%" or "-30%" — keep the symbol AS IS
+- Keep length similar to source — short stays short
+- For RU: avoid the kind of stiff, over-formal translations you'd see in school textbooks. Use the lively informal Russian common in modern Moscow/SPb cafes.
+- For ID: use everyday Bahasa Indonesia spoken in Bali F&B venues — NOT formal Bahasa Baku. Loanwords (cafe, breakfast, brunch) often stay in English when locals would also keep them.
+
+Return ONLY a JSON object: {"translations": [{"id": <original_id>, "text": "<translation>"}, ...]}
+No commentary, no markdown, no code fence.`;
+
+// Extract every translatable field across the content tree.
+// Returns [{ id, path, text }] — id is a unique string used for round-tripping.
+function extractTranslatableFields(content, targetLang) {
+  const out = [];
+  let counter = 0;
+  const push = (path, text) => {
+    if (typeof text !== "string" || !text.trim()) return;
+    // Skip if already translated for this lang (so re-runs are cheap)
+    // (caller handles per-lang skip; this is a flat extract)
+    out.push({ id: `f${counter++}`, path, text });
+  };
+  // menu
+  (content.menu || []).forEach((m, i) => {
+    push(`menu[${i}].title`, m.title);
+    push(`menu[${i}].badge`, m.badge);
+  });
+  // promos
+  (content.promos || []).forEach((p, i) => {
+    push(`promos[${i}].tag`, p.tag);
+    push(`promos[${i}].title`, p.title);
+    push(`promos[${i}].body`, p.body);
+  });
+  // faq
+  (content.faq || []).forEach((f, i) => {
+    push(`faq[${i}].q`, f.q);
+    push(`faq[${i}].a`, f.a);
+  });
+  // signature
+  (content.signatureDishes || []).forEach((s, i) => {
+    push(`signatureDishes[${i}].title`, s.title);
+    push(`signatureDishes[${i}].meta`, s.meta);
+  });
+  // experience tiles (lbl) — if content.json carries them
+  (content.experienceTiles || []).forEach((t, i) => {
+    push(`experienceTiles[${i}].lbl`, t.lbl);
+  });
+  // menu categories (string array → translate each)
+  (content.menuCategories || []).forEach((c, i) => {
+    push(`menuCategories[${i}]`, c);
+  });
+  return out;
+}
+
+// Set a value at a "path" like "menu[3].title_ru"
+function setAtPath(content, path, value) {
+  // path like "menu[2].title" or "menuCategories[1]"
+  const m = path.match(/^([a-zA-Z]+)\[(\d+)\](?:\.(\w+))?$/);
+  if (!m) return false;
+  const [, section, idx, field] = m;
+  const arr = content[section];
+  if (!Array.isArray(arr)) return false;
+  const i = parseInt(idx, 10);
+  if (!arr[i] && field) arr[i] = {};
+  if (field) arr[i][field] = value;
+  else arr[i] = value;
+  return true;
+}
+
+async function gptTranslateBatch(items, targetLang, apiKey) {
+  const prompt = TRANSLATION_SYSTEM_PROMPT.replace("{lang_name}", LANG_NAMES[targetLang] || targetLang);
+  const r = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-mini",
+      temperature: 0.2,
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: prompt },
+        { role: "user",   content: JSON.stringify({ items: items.map(({id, text}) => ({id, text})) }) },
+      ],
+    }),
+  });
+  if (!r.ok) {
+    const errText = await r.text().catch(() => "(no body)");
+    throw new Error(`OpenAI API ${r.status}: ${errText.slice(0, 300)}`);
+  }
+  const data = await r.json();
+  let parsed;
+  try { parsed = JSON.parse(data.choices[0].message.content); }
+  catch (e) { throw new Error("OpenAI returned non-JSON: " + data.choices[0].message.content.slice(0, 200)); }
+  return parsed.translations || [];
+}
+
+async function translateContentViaGPT(content, targetLangs, apiKey, onProgress) {
+  const out = JSON.parse(JSON.stringify(content)); // deep copy so caller controls when to set
+  const allFields = extractTranslatableFields(content);
+  if (!allFields.length) {
+    onProgress?.({ done: 0, total: 0, msg: "Nothing translatable found in content." });
+    return out;
+  }
+
+  const BATCH = 8;
+  let totalSteps = 0;
+  for (const lang of targetLangs) {
+    // Skip fields that already have a translation for this lang
+    const pending = allFields.filter(f => {
+      const m = f.path.match(/^([a-zA-Z]+)\[(\d+)\](?:\.(\w+))?$/);
+      if (!m) return false;
+      const [, section, idx, field] = m;
+      if (!field) {
+        // string-array (e.g. menuCategories[1]) — sibling field "_translations" map
+        const arr = out[section + "_" + lang] || [];
+        return !arr[parseInt(idx, 10)];
+      }
+      return !out[section]?.[parseInt(idx, 10)]?.[field + "_" + lang];
+    });
+    totalSteps += Math.ceil(pending.length / BATCH);
+  }
+  if (totalSteps === 0) {
+    onProgress?.({ done: 0, total: 0, msg: "Everything is already translated. Nothing to do." });
+    return out;
+  }
+
+  let step = 0;
+  for (const lang of targetLangs) {
+    const pending = allFields.filter(f => {
+      const m = f.path.match(/^([a-zA-Z]+)\[(\d+)\](?:\.(\w+))?$/);
+      if (!m) return false;
+      const [, section, idx, field] = m;
+      if (!field) {
+        const arr = out[section + "_" + lang] || [];
+        return !arr[parseInt(idx, 10)];
+      }
+      return !out[section]?.[parseInt(idx, 10)]?.[field + "_" + lang];
+    });
+    for (let i = 0; i < pending.length; i += BATCH) {
+      const batch = pending.slice(i, i + BATCH);
+      step++;
+      onProgress?.({ done: step, total: totalSteps, msg: `Translating to ${LANG_NAMES[lang]} (${i + 1}-${Math.min(i+BATCH, pending.length)} of ${pending.length})…` });
+      let results;
+      try {
+        results = await gptTranslateBatch(batch, lang, apiKey);
+      } catch (e) {
+        onProgress?.({ done: step, total: totalSteps, msg: `❌ Error: ${e.message}` });
+        throw e;
+      }
+      // Merge back, sanity-check (skip echo translations)
+      for (const r of results) {
+        const src = batch.find(b => b.id === r.id);
+        if (!src) continue;
+        const translated = String(r.text || "").trim();
+        if (!translated || translated === src.text) continue;  // skip echo
+        const m = src.path.match(/^([a-zA-Z]+)\[(\d+)\](?:\.(\w+))?$/);
+        if (!m) continue;
+        const [, section, idx, field] = m;
+        const arrIdx = parseInt(idx, 10);
+        if (field) {
+          // object field — set sibling field_lang
+          if (!out[section][arrIdx]) out[section][arrIdx] = {};
+          out[section][arrIdx][field + "_" + lang] = translated;
+        } else {
+          // string array — store on parallel array section_lang
+          const k = section + "_" + lang;
+          if (!Array.isArray(out[k])) out[k] = [];
+          out[k][arrIdx] = translated;
+        }
+      }
+    }
+  }
+  onProgress?.({ done: totalSteps, total: totalSteps, msg: "✓ Done. Review changes and Save / Export." });
+  return out;
+}
+
+// ============================================================
+
 // ---------- App ----------
 function App() {
   // Auth handled at server level by Apache Basic Auth (.htaccess).
@@ -442,6 +641,7 @@ function App() {
   const [tab, setTab] = useState("site");
   const [dirty, setDirty] = useState(false);
   const [loadErr, setLoadErr] = useState(null);
+  const [trProgress, setTrProgress] = useState(null);   // { done, total, msg } | null
 
   useEffect(() => {
     loadContent().then((c) => {
@@ -467,6 +667,52 @@ function App() {
   const handleCopyJSON = () => {
     copyToClipboard(JSON.stringify(content, null, 2));
     alert("Copied content.json to clipboard.");
+  };
+
+  const handleTranslate = async () => {
+    let apiKey = localStorage.getItem(OPENAI_KEY_STORAGE) || "";
+    if (!apiKey) {
+      apiKey = prompt("Enter your OpenAI API key (sk-...).\nIt is stored only in this browser's localStorage and used to call GPT directly from your browser.");
+      if (!apiKey || !apiKey.startsWith("sk-")) {
+        alert("Cancelled — need a valid OpenAI key.");
+        return;
+      }
+      localStorage.setItem(OPENAI_KEY_STORAGE, apiKey.trim());
+    }
+    const targetLangs = ["ru", "id"];
+    setTrProgress({ done: 0, total: 0, msg: "Preparing…" });
+    try {
+      const next = await translateContentViaGPT(content, targetLangs, apiKey.trim(), (p) => setTrProgress(p));
+      setContent(next);
+      setDirty(true);
+      setTimeout(() => setTrProgress(null), 4000);
+    } catch (e) {
+      setTrProgress({ done: 0, total: 0, msg: `❌ ${e.message}` });
+      setTimeout(() => setTrProgress(null), 8000);
+    }
+  };
+
+  const handleClearTranslations = () => {
+    if (!confirm("Remove all *_ru and *_id translation fields from content? You'll need to re-run Translate.")) return;
+    const stripped = JSON.parse(JSON.stringify(content));
+    const strip = (obj) => {
+      Object.keys(obj).forEach(k => {
+        if (k.endsWith("_ru") || k.endsWith("_id")) delete obj[k];
+      });
+    };
+    ["menu", "promos", "faq", "signatureDishes", "experienceTiles"].forEach(s => {
+      (stripped[s] || []).forEach(strip);
+    });
+    delete stripped.menuCategories_ru;
+    delete stripped.menuCategories_id;
+    setContent(stripped);
+    setDirty(true);
+  };
+
+  const handleResetApiKey = () => {
+    if (!confirm("Forget the OpenAI API key from this browser?")) return;
+    localStorage.removeItem(OPENAI_KEY_STORAGE);
+    alert("API key removed. Next Translate click will ask for a new one.");
   };
 
   if (loadErr) return <div className="admin-main"><div className="note">{loadErr}</div></div>;
@@ -500,7 +746,7 @@ function App() {
         <div className="foot">
           <a href="index.html" target="_blank" rel="noreferrer">View site →</a>
           <a href="#" onClick={(e) => { e.preventDefault(); handleCopyJSON(); }}>Copy JSON</a>
-          <a href="#" onClick={(e) => { e.preventDefault(); setAuthed(false); setAuthed_(false); }}>Sign out</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); handleResetApiKey(); }}>Reset GPT key</a>
         </div>
       </aside>
 
@@ -516,7 +762,23 @@ function App() {
           <button className="btn primary" onClick={handleSave} disabled={!dirty}>Save</button>
           <button className="btn" onClick={handleExport}>Export content.json</button>
           <button className="btn ghost" onClick={handleReset}>Reset</button>
+          <span style={{ flex: 1 }}/>
+          <button className="btn translate" onClick={handleTranslate} disabled={!!trProgress && trProgress.done < trProgress.total}>
+            {trProgress && trProgress.done < trProgress.total ? "Translating…" : "🌐 Translate via GPT"}
+          </button>
+          <button className="btn ghost" onClick={handleClearTranslations} title="Remove all *_ru / *_id fields">
+            Clear translations
+          </button>
         </div>
+
+        {trProgress && (
+          <div className="tr-progress">
+            <div className="tr-progress-bar">
+              <div className="tr-progress-fill" style={{ width: trProgress.total ? `${(trProgress.done / trProgress.total * 100).toFixed(0)}%` : "0%" }}/>
+            </div>
+            <div className="tr-progress-msg">{trProgress.msg}</div>
+          </div>
+        )}
 
         {tab === "site"      && <SiteTab      content={content} set={update}/>}
         {tab === "menu"      && <MenuTab      content={content} set={update}/>}

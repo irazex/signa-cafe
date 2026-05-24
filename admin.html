@@ -105,6 +105,33 @@
   .btn.ghost{ border-color: transparent; color: rgba(0,0,0,.55);}
   .btn.ghost:hover{ background: rgba(0,0,0,.06); color: var(--black);}
   .btn:disabled{ opacity: 0.4; cursor: not-allowed;}
+  .btn.translate{
+    background: linear-gradient(95deg, #10a37f 0%, #1cb98e 100%);
+    color: #fff; border-color: #10a37f;
+  }
+  .btn.translate:hover{ background: var(--black); border-color: var(--black);}
+
+  /* Translation progress */
+  .tr-progress{
+    margin: -16px 0 24px;
+    padding: 12px 16px;
+    background: rgba(16,163,127,.08);
+    border: 1px solid rgba(16,163,127,.25);
+    border-radius: 10px;
+  }
+  .tr-progress-bar{
+    height: 6px; background: rgba(0,0,0,.08); border-radius: 999px; overflow: hidden;
+  }
+  .tr-progress-fill{
+    height: 100%;
+    background: linear-gradient(90deg, #10a37f 0%, #1cb98e 100%);
+    transition: width .3s ease;
+  }
+  .tr-progress-msg{
+    margin-top: 8px;
+    font-family: var(--mono); font-size: 11px;
+    color: rgba(0,0,0,.7);
+  }
 
   /* Cards / forms */
   .card{
@@ -378,6 +405,6 @@
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel" src="src/admin.jsx?v=20260524e"></script>
+<script type="text/babel" src="src/admin.jsx?v=20260524f"></script>
 </body>
 </html>
