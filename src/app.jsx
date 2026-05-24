@@ -1,17 +1,35 @@
 // app.jsx — top-level App
 const { useState, useEffect } = React;
 
+// Hydrate content from localStorage (admin overrides) or content.json
+async function hydrateContent() {
+  // Admin localStorage override first
+  try {
+    const local = localStorage.getItem("signa.admin.content");
+    if (local) {
+      window.CONTENT = JSON.parse(local);
+      return;
+    }
+  } catch (_) {}
+  // Fetch live content.json
+  try {
+    const r = await fetch("content.json", { cache: "no-store" });
+    if (r.ok) window.CONTENT = await r.json();
+  } catch (_) {}
+}
+
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "scrapbook": true,
   "tileSize": 44,
   "redAccent": "#EB3300",
   "showBottomCta": true,
   "lang": "en",
-  "heroVariant": "responsive"
+  "heroVariant": "auto"
 }/*EDITMODE-END*/;
 
 function App(){
   const [t, setTweak] = window.useTweaks(TWEAK_DEFAULTS);
+  const [activeSection, setActiveSection] = useState(0);
 
   // Sync scrapbook flag to body class so CSS can react
   useEffect(() => {
@@ -55,10 +73,23 @@ function App(){
   useEffect(() => {
     let raf;
     const body = document.body;
+    const RAIL_IDS = ["hero","brand","feedback","menu","promos","signature","experience","order","faq","location"];
     const onScroll = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         body.style.setProperty("--scroll-y", window.scrollY + "px");
+        // Track whether we're at the very top — used for floating open-status
+        body.classList.toggle("is-hero-mode", window.scrollY < 40);
+        // Determine which rail section is currently in view
+        const sentinel = window.innerHeight * 0.3;
+        let bestIdx = 0;
+        for (let i = 0; i < RAIL_IDS.length; i++){
+          const el = document.getElementById(RAIL_IDS[i]);
+          if (!el) continue;
+          const top = el.getBoundingClientRect().top;
+          if (top - sentinel <= 0) bestIdx = i;
+        }
+        setActiveSection(bestIdx);
       });
     };
     onScroll();
@@ -75,24 +106,29 @@ function App(){
 
       <main>
         <window.HeroSection scrapOn={t.scrapbook} lang={t.lang} variant={t.heroVariant}/>
+        <window.ReviewsBadge/>
         <window.BrandSection scrapOn={t.scrapbook} lang={t.lang}/>
         <window.FeedbackSection scrapOn={t.scrapbook} lang={t.lang}/>
         <window.MenuSection scrapOn={t.scrapbook} lang={t.lang}/>
+        <window.PromosSection scrapOn={t.scrapbook} lang={t.lang}/>
         <window.SignatureSection scrapOn={t.scrapbook} lang={t.lang}/>
         <window.ExperienceSection scrapOn={t.scrapbook} lang={t.lang}/>
         <window.OrderSection scrapOn={t.scrapbook} lang={t.lang}/>
+        <window.FAQSection scrapOn={t.scrapbook} lang={t.lang}/>
         <window.LocationSection scrapOn={t.scrapbook} lang={t.lang}/>
         <window.FooterSection lang={t.lang}/>
       </main>
 
       {t.showBottomCta && <window.BottomCTA lang={t.lang}/>}
 
+      <window.SectionRail active={activeSection}/>
+
       <window.TweaksPanel>
         <window.TweakSection label="Hero variant"/>
         <window.TweakRadio
           label="Variant"
           value={t.heroVariant}
-          options={["responsive", "A", "B", "C", "D", "E"]}
+          options={["auto", "A", "B", "C", "D", "E"]}
           onChange={(v) => setTweak("heroVariant", v)}
         />
 
@@ -128,6 +164,6 @@ function App(){
   );
 }
 
-// Mount
+// Mount — hydrate content first, then render
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App/>);
+hydrateContent().then(() => root.render(<App/>));

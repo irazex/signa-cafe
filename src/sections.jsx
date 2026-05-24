@@ -13,31 +13,17 @@ const STRINGS = {
     nav_place: "Place", nav_order: "Order", nav_find: "Find us",
     cta_order: "Order →",
     // hero meta block
-    hero_meta_loc: "— Nusa Dua · Bali", hero_meta_hours: "Open 08—22, daily",
-    hero_meta_run: "— Family-run", hero_meta_since: "Since 2024",
-    // hero tagline + blurb
+    hero_meta_loc: "— Nusa Dua · Bali", hero_meta_run: "Family-run · Since 2024",
+    hero_meta_rating_lbl: "— Google rating", hero_meta_rating_val: "★ 4.7 · 1,426+ reviews",
+    // hero tagline / blurb / stamp
     hero_tag_eat: "Eat.", hero_tag_meet: "Meet.", hero_tag_create: "Create.",
     hero_blurb: "Family-run cafe in Nusa Dua. Coffee, pizza, pasta, breakfast — all day. Come to eat, stay to meet, leave to create.",
     hero_stamp_run: "Family-run since 2024.",
     hero_stamp_more: "Coffee, pizza, pasta, breakfast — all day.",
     // hero CTAs
     hero_btn_menu: "MENU", hero_btn_order: "ORDER NOW",
-    hero_btn_find: "FIND US", hero_btn_tell: "CONTACT US",
-    hero_btn_tell_sub: "review or complain",
-    hero_note_tap: "tap any  →",
-    // feedback section
-    fb_label: "Tell us",
-    fb_title_a: "HOW WAS", fb_title_b: "YOUR FOOD?",
-    fb_sub: "Three ways to keep Signa honest — dine-in or delivery. Pick one, we read every message.",
-    fb_c1_h: "Something off?",
-    fb_c1_p: "Cold food, wrong item, slow service — message the manager on WhatsApp. We fix it the same day.",
-    fb_c1_cta: "Complain to manager",
-    fb_c2_h: "Loved it?",
-    fb_c2_p: "Leave a Google review — it's the single biggest thing you can do to help new guests find Signa.",
-    fb_c2_cta: "Google review",
-    fb_c3_h: "Got an idea?",
-    fb_c3_p: "Two-minute form. Menu, atmosphere, music, kids zone — anything. We read every line.",
-    fb_c3_cta: "Share an idea",
+    hero_btn_find: "FIND US",
+    hero_note_tap: "tap any  ↓",
     // location
     loc_label: "Location",
     loc_title_a: "NUSA DUA,", loc_title_b: "BUKIT.",
@@ -53,34 +39,34 @@ const STRINGS = {
     foot_loc_lbl: "Location", foot_loc_val: "Nusa Dua, Bali",
     foot_copy: "2026 · all rights",
     foot_tagline: "Signa Cafe · family-run since 2024",
+    hero_btn_tell: "CONTACT US", hero_btn_tell_sub: "review or complain",
+    fb_label: "Tell us",
+    fb_title_a: "HOW WAS", fb_title_b: "YOUR FOOD?",
+    fb_sub: "Three ways to keep Signa honest — dine-in or delivery. Pick one, we read every message.",
+    fb_c1_h: "Something off?",
+    fb_c1_p: "Cold food, wrong item, slow service — message the manager on WhatsApp. We fix it the same day.",
+    fb_c1_cta: "Complain to manager",
+    fb_c2_h: "Loved it?",
+    fb_c2_p: "Leave a Google review — it's the single biggest thing you can do to help new guests find Signa.",
+    fb_c2_cta: "Google review",
+    fb_c3_h: "Got an idea?",
+    fb_c3_p: "Two-minute form. Menu, atmosphere, music, kids zone — anything. We read every line.",
+    fb_c3_cta: "Share an idea",
     bottom_tell: "CONTACT ↗",
   },
   ru: {
     nav_tell: "Контакты", nav_menu: "Меню", nav_sig: "Сигнечные",
     nav_place: "Место", nav_order: "Заказ", nav_find: "Как найти",
     cta_order: "Заказать →",
-    hero_meta_loc: "— Нуса Дуа · Бали", hero_meta_hours: "Открыто 08—22, ежедневно",
-    hero_meta_run: "— Семейное", hero_meta_since: "С 2024 года",
+    hero_meta_loc: "— Нуса Дуа · Бали", hero_meta_run: "Семейное · С 2024 года",
+    hero_meta_rating_lbl: "— Рейтинг Google", hero_meta_rating_val: "★ 4.7 · 1426+ отзывов",
     hero_tag_eat: "Ешь.", hero_tag_meet: "Общайся.", hero_tag_create: "Твори.",
     hero_blurb: "Семейное кафе в Нуса Дуа. Кофе, пицца, паста, завтраки — весь день. Приходи поесть, оставайся пообщаться, уходи творить.",
     hero_stamp_run: "Семейное кафе с 2024.",
     hero_stamp_more: "Кофе, пицца, паста, завтраки — весь день.",
     hero_btn_menu: "МЕНЮ", hero_btn_order: "ЗАКАЗАТЬ",
-    hero_btn_find: "КАК НАЙТИ", hero_btn_tell: "СВЯЗАТЬСЯ",
-    hero_btn_tell_sub: "отзыв или жалоба",
-    hero_note_tap: "нажми  →",
-    fb_label: "Контакты",
-    fb_title_a: "НУ КАК", fb_title_b: "ВАМ ЕДА?",
-    fb_sub: "Три способа нам сказать — в зале или по доставке. Выберите один, мы читаем всё.",
-    fb_c1_h: "Что-то не так?",
-    fb_c1_p: "Холодная еда, пропущенный заказ, медленный сервис — напишите менеджеру в WhatsApp. Решаем в тот же день.",
-    fb_c1_cta: "Написать менеджеру",
-    fb_c2_h: "Понравилось?",
-    fb_c2_p: "Оставьте отзыв в Google — это самое важное, что вы можете сделать, чтобы помочь новым гостям найти Signa.",
-    fb_c2_cta: "Отзыв в Google",
-    fb_c3_h: "Есть идея?",
-    fb_c3_p: "Две минуты. Меню, атмосфера, музыка, детская зона — что угодно. Читаем каждую строчку.",
-    fb_c3_cta: "Поделиться",
+    hero_btn_find: "КАК НАЙТИ",
+    hero_note_tap: "нажми  ↓",
     loc_label: "Локация",
     loc_title_a: "НУСА ДУА,", loc_title_b: "БУКИТ.",
     loc_address_lbl: "Адрес", loc_address_val: "Jl. Dharmawangsa, Jl. Raya Kampial, Benoa",
@@ -94,34 +80,34 @@ const STRINGS = {
     foot_loc_lbl: "Локация", foot_loc_val: "Нуса Дуа, Бали",
     foot_copy: "2026 · все права",
     foot_tagline: "Signa Cafe · семейное кафе с 2024",
+    hero_btn_tell: "СВЯЗАТЬСЯ", hero_btn_tell_sub: "отзыв или жалоба",
+    fb_label: "Контакты",
+    fb_title_a: "НУ КАК", fb_title_b: "ВАМ ЕДА?",
+    fb_sub: "Три способа нам сказать — в зале или по доставке. Выберите один, мы читаем всё.",
+    fb_c1_h: "Что-то не так?",
+    fb_c1_p: "Холодная еда, пропущенный заказ, медленный сервис — напишите менеджеру в WhatsApp. Решаем в тот же день.",
+    fb_c1_cta: "Написать менеджеру",
+    fb_c2_h: "Понравилось?",
+    fb_c2_p: "Оставьте отзыв в Google — это самое важное, что вы можете сделать, чтобы помочь новым гостям найти Signa.",
+    fb_c2_cta: "Отзыв в Google",
+    fb_c3_h: "Есть идея?",
+    fb_c3_p: "Две минуты. Меню, атмосфера, музыка, детская зона — что угодно. Читаем каждую строчку.",
+    fb_c3_cta: "Поделиться",
     bottom_tell: "СВЯЗЬ ↗",
   },
   id: {
     nav_tell: "Kontak", nav_menu: "Menu", nav_sig: "Andalan",
     nav_place: "Tempat", nav_order: "Pesan", nav_find: "Lokasi",
     cta_order: "Pesan →",
-    hero_meta_loc: "— Nusa Dua · Bali", hero_meta_hours: "Buka 08—22, setiap hari",
-    hero_meta_run: "— Bisnis keluarga", hero_meta_since: "Sejak 2024",
+    hero_meta_loc: "— Nusa Dua · Bali", hero_meta_run: "Bisnis keluarga · Sejak 2024",
+    hero_meta_rating_lbl: "— Rating Google", hero_meta_rating_val: "★ 4.7 · 1.426+ ulasan",
     hero_tag_eat: "Makan.", hero_tag_meet: "Berkumpul.", hero_tag_create: "Berkarya.",
     hero_blurb: "Kafe keluarga di Nusa Dua. Kopi, pizza, pasta, sarapan — sepanjang hari. Datang untuk makan, tinggal untuk berkumpul, pergi untuk berkarya.",
     hero_stamp_run: "Bisnis keluarga sejak 2024.",
     hero_stamp_more: "Kopi, pizza, pasta, sarapan — sepanjang hari.",
     hero_btn_menu: "MENU", hero_btn_order: "PESAN SEKARANG",
-    hero_btn_find: "LOKASI", hero_btn_tell: "HUBUNGI KAMI",
-    hero_btn_tell_sub: "ulasan atau keluhan",
-    hero_note_tap: "ketuk apa saja  →",
-    fb_label: "Kontak",
-    fb_title_a: "BAGAIMANA", fb_title_b: "MAKANANNYA?",
-    fb_sub: "Tiga cara untuk jujur kepada Signa — di tempat atau pesan antar. Pilih satu, kami baca semuanya.",
-    fb_c1_h: "Ada yang salah?",
-    fb_c1_p: "Makanan dingin, pesanan salah, layanan lambat — hubungi manajer via WhatsApp. Kami selesaikan hari itu juga.",
-    fb_c1_cta: "Hubungi manajer",
-    fb_c2_h: "Suka banget?",
-    fb_c2_p: "Tinggalkan ulasan Google — hal terpenting yang bisa Anda lakukan agar tamu baru menemukan Signa.",
-    fb_c2_cta: "Ulasan Google",
-    fb_c3_h: "Punya ide?",
-    fb_c3_p: "Formulir 2 menit. Menu, suasana, musik, area anak — apa saja. Kami baca setiap baris.",
-    fb_c3_cta: "Bagikan ide",
+    hero_btn_find: "LOKASI",
+    hero_note_tap: "ketuk apa saja  ↓",
     loc_label: "Lokasi",
     loc_title_a: "NUSA DUA,", loc_title_b: "BUKIT.",
     loc_address_lbl: "Alamat", loc_address_val: "Jl. Dharmawangsa, Jl. Raya Kampial, Benoa",
@@ -135,6 +121,19 @@ const STRINGS = {
     foot_loc_lbl: "Lokasi", foot_loc_val: "Nusa Dua, Bali",
     foot_copy: "2026 · hak cipta",
     foot_tagline: "Signa Cafe · bisnis keluarga sejak 2024",
+    hero_btn_tell: "HUBUNGI KAMI", hero_btn_tell_sub: "ulasan atau keluhan",
+    fb_label: "Kontak",
+    fb_title_a: "BAGAIMANA", fb_title_b: "MAKANANNYA?",
+    fb_sub: "Tiga cara untuk jujur kepada Signa — di tempat atau pesan antar. Pilih satu, kami baca semuanya.",
+    fb_c1_h: "Ada yang salah?",
+    fb_c1_p: "Makanan dingin, pesanan salah, layanan lambat — hubungi manajer via WhatsApp. Kami selesaikan hari itu juga.",
+    fb_c1_cta: "Hubungi manajer",
+    fb_c2_h: "Suka banget?",
+    fb_c2_p: "Tinggalkan ulasan Google — hal terpenting yang bisa Anda lakukan agar tamu baru menemukan Signa.",
+    fb_c2_cta: "Ulasan Google",
+    fb_c3_h: "Punya ide?",
+    fb_c3_p: "Formulir 2 menit. Menu, suasana, musik, area anak — apa saja. Kami baca setiap baris.",
+    fb_c3_cta: "Bagikan ide",
     bottom_tell: "KONTAK ↗",
   },
 };
@@ -213,10 +212,17 @@ function SignaHeader({ lang, setLang }) {
           <a href="#location" onClick={onNav("#location")}>{t("nav_find")}</a>
         </nav>
         <window.LangToggle lang={lang || "en"} onChange={setLang} />
+        <div className="header-open-status header-slot">
+          <window.OpenStatus compact />
+        </div>
         <a className="desk-cta" href="https://signa.dishi.rest/" target="_blank" rel="noreferrer">{t("cta_order")}</a>
         <button className="burger" aria-label="Open menu">
           <span></span>
         </button>
+      </div>
+      {/* Hero-overlay copy of the timer — fades in only while on hero */}
+      <div className="header-open-status hero-overlay" aria-hidden="true">
+        <window.OpenStatus compact />
       </div>
     </header>);
 
@@ -231,11 +237,11 @@ function HeroMeta({ lang }) {
     <div className="hero-meta mono">
       <div>
         <div style={{ color: "rgba(0,0,0,.45)" }}>{t("hero_meta_loc")}</div>
-        <b style={{ color: "var(--ink)" }}>{t("hero_meta_hours")}</b>
+        <b style={{ color: "var(--ink)" }}>{t("hero_meta_run")}</b>
       </div>
       <div style={{ textAlign: "right" }}>
-        <div style={{ color: "rgba(0,0,0,.45)" }}>{t("hero_meta_run")}</div>
-        <b style={{ color: "var(--ink)" }}>{t("hero_meta_since")}</b>
+        <div style={{ color: "rgba(0,0,0,.45)" }}>{t("hero_meta_rating_lbl")}</div>
+        <b style={{ color: "var(--ink)" }}>{t("hero_meta_rating_val")}</b>
       </div>
     </div>
   );
@@ -264,40 +270,22 @@ function HeroCTAs({ scrapOn, lang }) {
   );
 }
 
-// Responsive viewport hook (used to swap hero variants on mobile/desktop)
-function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" ? window.innerWidth <= breakpoint : false
+function HeroSection({ scrapOn, lang, variant = "auto" }) {
+  const [isMobile, setIsMobile] = React.useState(() =>
+    typeof window !== "undefined" ? window.matchMedia("(max-width: 900px)").matches : true
   );
-  useEffect(() => {
-    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`);
-    const onChange = () => setIsMobile(mq.matches);
-    onChange();
-    if (mq.addEventListener) mq.addEventListener("change", onChange);
-    else mq.addListener(onChange);
-    return () => {
-      if (mq.removeEventListener) mq.removeEventListener("change", onChange);
-      else mq.removeListener(onChange);
-    };
-  }, [breakpoint]);
-  return isMobile;
-}
-window.useIsMobile = useIsMobile;
-
-function HeroSection({ scrapOn, lang, variant = "responsive" }) {
-  const isMobile = useIsMobile(768);
-  // "responsive" (default for prod) → mobile=D, desktop=B
-  if (variant === "responsive") {
-    return isMobile
-      ? <HeroVariantD scrapOn={scrapOn} lang={lang} />
-      : <HeroVariantB scrapOn={scrapOn} lang={lang} />;
-  }
-  // Explicit variants (used by Tweaks panel)
-  if (variant === "A") return <HeroVariantA scrapOn={scrapOn} lang={lang} />;
-  if (variant === "B") return <HeroVariantB scrapOn={scrapOn} lang={lang} />;
-  if (variant === "C") return <HeroVariantC scrapOn={scrapOn} lang={lang} />;
-  if (variant === "D") return <HeroVariantD scrapOn={scrapOn} lang={lang} />;
-  if (variant === "E") return <HeroVariantE scrapOn={scrapOn} lang={lang} />;
+  React.useEffect(() => {
+    const mq = window.matchMedia("(max-width: 900px)");
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  let actualVariant = variant;
+  if (variant === "auto" || !variant) actualVariant = isMobile ? "D" : "B";
+  if (actualVariant === "B") return <HeroVariantB scrapOn={scrapOn} lang={lang} />;
+  if (actualVariant === "C") return <HeroVariantC scrapOn={scrapOn} lang={lang} />;
+  if (actualVariant === "D") return <HeroVariantD scrapOn={scrapOn} lang={lang} />;
+  if (actualVariant === "E") return <HeroVariantE scrapOn={scrapOn} lang={lang} />;
   return <HeroVariantA scrapOn={scrapOn} lang={lang} />;
 }
 
@@ -559,7 +547,7 @@ function BrandSection({ scrapOn }) {
         { kind: "arrow", bottom: "30%", left: "8%", rotate: -18, size: 40, stroke: "var(--red)" }]
         }
         notes={[
-        { text: "← that's bernard", top: "44%", left: "6%", rotate: -8, fontSize: 20, red: true }]
+        { text: "that's bernard →", top: "30%", left: "28%", rotate: -4, fontSize: 20, red: true }]
         } />
 
       }
@@ -570,18 +558,20 @@ function BrandSection({ scrapOn }) {
 // ============================================================
 // MENU
 // ============================================================
-const MENU_DATA = [
-{ id: 1, title: "All-day breakfast", price: "from 75k", cat: "breakfast", img: "assets/photo-breakfast.jpg", badge: "Popular" },
-{ id: 2, title: "Mango smoothie", price: "55k", cat: "drinks", img: "assets/photo-smoothie.jpg" },
-{ id: 3, title: "Signature dinner", price: "120k+", cat: "main", img: "assets/photo-dinner.jpg" },
-{ id: 4, title: "Today's special", price: "ask waiter", cat: "special", accent: true, badge: "Today" },
-{ id: 5, title: "Bali cocktails", price: "from 95k", cat: "drinks", img: "assets/photo-cocktail.jpg" },
-{ id: 6, title: "Daylight bites", price: "from 60k", cat: "main", img: "assets/photo-9742.jpg" },
-{ id: 7, title: "Evening plates", price: "from 110k", cat: "main", img: "assets/photo-9831.jpg" },
-{ id: 8, title: "Kids menu", price: "from 45k", cat: "kids", img: "assets/photo-8962.jpg" }];
+const MENU_DATA_DEFAULT = [
+  { id: 1, title: "Syrniki — cottage cheese pancakes", price: "93k", cat: "breakfast", img: "assets/syrniki.png", badge: "★ Popular", tags: ["veg"] },
+  { id: 2, title: "Big Breakfast", price: "79k", cat: "breakfast", img: "assets/photo-breakfast.jpg", badge: "★ Popular" },
+  { id: 3, title: "Best Scramble", price: "71k", cat: "breakfast", img: "assets/photo-9742.jpg", tags: ["veg"] },
+  { id: 4, title: "Pizza Margarita", price: "69k", cat: "pizza", img: "assets/pizza-margherita.png", badge: "from 14:00", tags: ["veg"] },
+  { id: 5, title: "Creamy Bacon Pasta", price: "89k", cat: "pasta", img: "assets/photo-dinner.jpg" },
+  { id: 6, title: "Big Salmon Poke Bowl", price: "145k", cat: "main", img: "assets/photo-9887.jpg", badge: "★ Chef's" },
+  { id: 7, title: "Caesar with chicken", price: "92k", cat: "main", img: "assets/photo-9831.jpg" },
+  { id: 8, title: "Mango smoothie", price: "55k", cat: "drinks", img: "assets/photo-smoothie.jpg", tags: ["veg"] },
+];
+const _content = () => (window.CONTENT || {});
+const MENU_DATA = (window.CONTENT && window.CONTENT.menu) || MENU_DATA_DEFAULT;
 
-
-const MENU_CATS = ["All", "Breakfast", "Drinks", "Main", "Kids", "Special"];
+const MENU_CATS = (window.CONTENT && window.CONTENT.menuCategories) || ["All", "Breakfast", "Pizza", "Pasta", "Main", "Drinks", "Dessert", "Kids"];
 
 function MenuSection({ scrapOn }) {
   const [cat, setCat] = useState("All");
@@ -656,13 +646,11 @@ function MenuSection({ scrapOn }) {
 // ============================================================
 // SIGNATURE — horizontal swipe carousel
 // ============================================================
-const SIGNATURE_DATA = [
-{ n: 1, title: "Ricotta\nPancakes", meta: "Brunch · 75k", img: "assets/photo-breakfast.jpg" },
-{ n: 2, title: "Mango\nSmoothie", meta: "Cold · 55k", img: "assets/photo-smoothie.jpg" },
-{ n: 3, title: "Family\nDinner", meta: "Evening · 120k+", img: "assets/photo-dinner.jpg" },
-{ n: 4, title: "Bali\nCocktail", meta: "Drinks · 95k", img: "assets/photo-cocktail.jpg" },
-{ n: 5, title: "Sunset\nPlates", meta: "Main · 110k+", img: "assets/photo-9831.jpg" },
-{ n: 6, title: "Kids'\nFavourites", meta: "Family · 45k", img: "assets/photo-8962.jpg" }];
+const SIGNATURE_DATA = (window.CONTENT && window.CONTENT.signatureDishes) || [
+  { n: 1, title: "Ricotta\nPancakes", meta: "Brunch · 75k", img: "assets/photo-breakfast.jpg" },
+  { n: 2, title: "Mango\nSmoothie",   meta: "Cold · 55k",   img: "assets/photo-smoothie.jpg" },
+  { n: 3, title: "Family\nDinner",    meta: "Evening · 120k+", img: "assets/photo-dinner.jpg" },
+];
 
 
 function SignatureSection({ scrapOn }) {
@@ -754,11 +742,11 @@ function SignatureSection({ scrapOn }) {
 const EXPERIENCE_TILES = [
 { cls: "c1", img: "assets/photo-interior.jpg", lbl: "Interior" },
 { cls: "c2", img: "assets/photo-9742.jpg", lbl: "Detail" },
-{ cls: "c3", red: true, lbl: "Brand" },
+{ cls: "c3", img: "assets/photo-breakfast.jpg", lbl: "Brunch" },
 { cls: "c4", img: "assets/photo-9887.jpg", lbl: "Bar" },
 { cls: "c5", img: "assets/photo-dinner.jpg", lbl: "Tables" },
 { cls: "c6", img: "assets/photo-cocktail.jpg", lbl: "Drinks" },
-{ cls: "c7", ink: true, lbl: "Logo" },
+{ cls: "c7", img: "assets/photo-smoothie.jpg", lbl: "Smoothies" },
 { cls: "c8", img: "assets/photo-9831.jpg", lbl: "Evening" }];
 
 
@@ -859,7 +847,7 @@ function OrderSection({ scrapOn }) {
       {scrapOn && (
         <window.ScrapLayer
           notes={[
-            { text: "fastest ↑", top: "30%", right: "12%", rotate: -8, fontSize: 20, red: true },
+            { text: "fastest ↓", top: "16%", left: "8%", rotate: -6, fontSize: 22, red: true },
           ]}
         />
       )}
@@ -1000,6 +988,148 @@ function FeedbackSection({ scrapOn, lang }) {
 }
 
 
+
+// ============================================================
+// OPEN STATUS — live indicator showing whether the cafe is open
+// ============================================================
+function OpenStatus({ compact = false }) {
+  const [now, setNow] = React.useState(() => new Date());
+  React.useEffect(() => {
+    // Update every 30 seconds so the dot moves smoothly
+    const t = setInterval(() => setNow(new Date()), 30_000);
+    return () => clearInterval(t);
+  }, []);
+  // Bali = Asia/Makassar = UTC+8
+  const baliDate = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Makassar" }));
+  const h = baliDate.getHours();
+  const m = baliDate.getMinutes();
+  const minutes = h * 60 + m;
+  const OPEN = 8 * 60;    // 08:00
+  const CLOSE = 23 * 60;  // 23:00
+  const isOpen = minutes >= OPEN && minutes < CLOSE;
+  // Progress 0..1 along the open window
+  let progress;
+  if (minutes < OPEN) progress = 0;
+  else if (minutes >= CLOSE) progress = 1;
+  else progress = (minutes - OPEN) / (CLOSE - OPEN);
+  const nowLabel = `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`;
+  return (
+    <span className={`open-status ${isOpen ? "is-open" : "is-closed"} ${compact ? "is-compact" : ""}`} aria-live="polite">
+      <span className="open-state">
+        <span className="open-dot" aria-hidden="true"></span>
+        {isOpen ? "OPEN" : "CLOSED"}
+      </span>
+      <span className="open-edge">08:00</span>
+      <span className="open-track" aria-hidden="true">
+        <span className="open-track-fill" style={{ width: `${(progress * 100).toFixed(1)}%` }}></span>
+        <span className="open-pin" style={{ left: `${(progress * 100).toFixed(1)}%` }}>
+          <span className="open-pin-label">{nowLabel}</span>
+        </span>
+      </span>
+      <span className="open-edge">23:00</span>
+    </span>
+  );
+}
+window.OpenStatus = OpenStatus;
+
+
+// ============================================================
+// REVIEWS BADGE — Google rating + 1426 reviews + link
+// ============================================================
+function ReviewsBadge() {
+  return (
+    <a className="rev-badge" href="https://g.page/r/CZpcFedoGOxKEAE/review" target="_blank" rel="noreferrer">
+      <span className="rev-stars" aria-hidden="true">★★★★★</span>
+      <div className="rev-meta">
+        <b>4.7</b>
+        <span> on Google</span>
+        <span className="rev-count">1,426+ reviews</span>
+      </div>
+      <span className="rev-arr" aria-hidden="true">↗</span>
+    </a>
+  );
+}
+window.ReviewsBadge = ReviewsBadge;
+
+
+// ============================================================
+// PROMOS — loyalty / time-based offers
+// ============================================================
+function PromosSection({ scrapOn, lang }) {
+  const ref = window.useReveal();
+  const promos = (window.CONTENT && window.CONTENT.promos) || [];
+  return (
+    <section id="promos" className="s-section promos-sec reveal" ref={ref} data-screen-label="05 promos">
+      <div className="s-label">
+        <span className="dot"></span><span className="ix">05</span> Daily perks
+      </div>
+      <h2 className="promos-title">PERKS &amp; <span className="r">RITUALS.</span></h2>
+      <p className="promos-sub">Small things that make Signa yours. Show up regularly — we notice.</p>
+
+      <div className="promos-grid">
+        {promos.map((p, i) => (
+          <div key={i} className={`promo-card ${p.style && p.style !== "default" ? p.style : ""}`}>
+            <div className="promo-tag">{p.tag}</div>
+            <h3 dangerouslySetInnerHTML={{ __html: (p.title || "").replace(/-30%|−30%/g, '<span class="r">−30%</span>').replace(/free$/i, '<span class="r">free</span>') }}/>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </div>
+
+      {scrapOn && (
+        <window.ScrapLayer
+          notes={[
+            { text: "↑ regulars favourite", left: "44%", bottom: "32px", rotate: -3, fontSize: 18, red: true },
+          ]}
+        />
+      )}
+    </section>
+  );
+}
+window.PromosSection = PromosSection;
+
+
+// ============================================================
+// FAQ — quick answers to common visitor questions
+// ============================================================
+const FAQ_DATA = (window.CONTENT && window.CONTENT.faq) || [
+  { q: "Is it family-friendly?", a: "Yes. Family-run cafe, kids menu, booster seats on request." },
+  { q: "Vegetarian options?",    a: "Many. Most breakfast, salad, pasta, bakery and pizza items have plant-based versions." },
+  { q: "WiFi?",                  a: "Free fast WiFi. Outlets at most tables." },
+  { q: "Parking?",               a: "Free parking on-site." },
+];
+
+function FAQSection({ scrapOn, lang }) {
+  const ref = window.useReveal();
+  const [openIdx, setOpenIdx] = React.useState(0);
+  return (
+    <section id="faq" className="s-section faq-sec reveal" ref={ref} data-screen-label="09 faq">
+      <div className="s-label">
+        <span className="dot"></span><span className="ix">09</span> Quick answers
+      </div>
+      <h2 className="faq-title">QUESTIONS, <span className="r">ANSWERED.</span></h2>
+
+      <div className="faq-list">
+        {FAQ_DATA.map((item, i) => (
+          <button
+            key={i}
+            className={`faq-row ${openIdx === i ? "is-open" : ""}`}
+            onClick={() => setOpenIdx(openIdx === i ? -1 : i)}
+            aria-expanded={openIdx === i}
+          >
+            <span className="faq-num">{String(i + 1).padStart(2, "0")}</span>
+            <span className="faq-q">{item.q}</span>
+            <span className="faq-toggle" aria-hidden="true">{openIdx === i ? "−" : "+"}</span>
+            <span className="faq-a">{item.a}</span>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+window.FAQSection = FAQSection;
+
+
 // ============================================================
 // FOOTER
 // ============================================================
@@ -1044,6 +1174,46 @@ function FooterSection({ lang }) {
     </section>);
 
 }
+
+// ============================================================
+// SECTION RAIL — sticky numbered side navigation (desktop)
+// ============================================================
+const RAIL_SECTIONS = [
+  { num: "01", id: "hero",       label: "Home" },
+  { num: "02", id: "brand",      label: "Brand" },
+  { num: "03", id: "feedback",   label: "Contact" },
+  { num: "04", id: "menu",       label: "Menu" },
+  { num: "05", id: "promos",     label: "Perks" },
+  { num: "06", id: "signature",  label: "Signature" },
+  { num: "07", id: "experience", label: "Place" },
+  { num: "08", id: "order",      label: "Order" },
+  { num: "09", id: "faq",        label: "FAQ" },
+  { num: "10", id: "location",   label: "Find us" },
+];
+function SectionRail({ active = 0 }) {
+  const onJump = (id) => (e) => {
+    e.preventDefault();
+    document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  return (
+    <nav className="section-rail" aria-label="Sections">
+      <ul>
+        {RAIL_SECTIONS.map((s, i) => (
+          <li key={s.id} className={i === active ? "active" : ""}>
+            <a href={`#${s.id}`} onClick={onJump(s.id)} title={s.label}>
+              <span className="rail-num">{s.num}</span>
+              <span className="rail-line" aria-hidden="true"></span>
+              <span className="rail-label">{s.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+window.SectionRail = SectionRail;
+window.RAIL_SECTIONS = RAIL_SECTIONS;
+
 
 // ============================================================
 // BOTTOM STICKY CTA

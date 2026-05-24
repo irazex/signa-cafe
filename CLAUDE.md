@@ -1,7 +1,21 @@
 # Signa Cafe Website — AI Project Instructions
 
+> Версия: **v2** (deployed 2026-05-24). Обновлено с full marketing/content/SEO pass на базе v1.
 > Этот файл — инструкция для любого AI-агента (Claude, GPT, Cursor, Copilot и др.), работающего с проектом.
 > **ОБЯЗАТЕЛЬНО** обновляй этот файл после каждого изменения в проекте.
+
+## v2 Features (24 May 2026)
+
+- **9 секций**: Hero / Brand / Feedback / Menu / Promos / Signature / Experience / Order / FAQ / Location / Footer
+- **Reviews badge** — full-width black strip "★★★★★ 4.7 on Google · 1,426+ reviews ↗" после Brand
+- **Promos section** — bakery −30% nightly, pizza hour, birthday perk, loyalty
+- **FAQ section** — accordion с 8 вопросами + FAQ JSON-LD для rich snippets
+- **Open/Close live timeline** — индикатор `OPEN 08:00 ●—pin—23:00` с движущимся пином (auto-updates 30s, Asia/Makassar timezone)
+- **Section rail** — sticky левая навигация 01-10 на desktop ≥1100px
+- **content.json** — single source of truth для site/menu/promos/FAQ/signature/contacts
+- **admin.html** + `src/admin.jsx` — password-protected (`z3zwa3qwX`, SHA-256, session-bound) content editor с 6 табами
+- **SEO** — Restaurant + Organization + BreadcrumbList + FAQPage JSON-LD, Open Graph, Twitter, hreflang en/ru/id, robots.txt, sitemap.xml
+- **Real menu** — 12 items с реальными ценами из signa.dishi.rest (Syrniki 93k, Big Breakfast 79k, Margarita 69k, Pasta 89k, Salmon Poke 145k, etc.)
 
 ## Быстрый старт
 

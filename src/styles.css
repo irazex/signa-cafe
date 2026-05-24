@@ -372,17 +372,34 @@ button{ font: inherit; color: inherit; cursor: pointer;}
 .h-btn.red{ background: var(--red); color: var(--paper);}
 .h-btn.outline{ background: transparent; color: var(--ink); border: 1.5px solid var(--ink);}
 .h-btn.outline.subtle{
-  height: 44px;
+  height: 48px;
   font-size: 11px;
   letter-spacing: 0.08em;
-  border-width: 1px;
-  color: rgba(0,0,0,.65);
-  border-color: rgba(0,0,0,.3);
-  margin-top: 4px;
-}
-.h-btn.outline.subtle:hover{
+  border-width: 1.5px;
   color: var(--ink);
   border-color: var(--ink);
+  background: var(--paper);
+  margin-top: 4px;
+  font-weight: 600;
+  position: relative;
+}
+.h-btn.outline.subtle::before{
+  content: "";
+  width: 6px; height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  margin-right: 10px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.h-btn.outline.subtle:hover{
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.h-btn.outline.subtle:hover::before{
+  background: var(--red);
+  box-shadow: 0 0 0 3px rgba(235,51,0,.3);
 }
 .h-btn .arr{ font-size: 16px; opacity: .8;}
 
@@ -939,7 +956,7 @@ button{ font: inherit; color: inherit; cursor: pointer;}
   padding: 4px 8px;
   z-index: 2;
 }
-/* Google Maps iframe variant — overrides decorative CSS-only map */
+/* Google Maps iframe variant — replaces decorative CSS-only map */
 .loc-map.loc-map-google{
   height: 360px;
   background: var(--paper);
@@ -1189,6 +1206,12 @@ button{ font: inherit; color: inherit; cursor: pointer;}
   background: var(--paper);
   -webkit-mask: url('../assets/star.png') center/contain no-repeat;
           mask: url('../assets/star.png') center/contain no-repeat;
+  animation: star-pulse-spin 5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  transform-origin: 50% 50%;
+}
+@keyframes star-pulse-spin{
+  0%, 30%   { transform: rotate(0deg);}
+  70%, 100% { transform: rotate(360deg);}
 }
 .bottom-cta .b-btn{
   display: flex; align-items: center; justify-content: center;
@@ -1569,6 +1592,477 @@ body.scrap-off .hand-only{ display: none;}
   transition: opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);
 }
 .reveal.in{ opacity: 1; transform: none;}
+
+/* =============================================================
+   HEADER OPEN STATUS — two copies, crossfade between hero/header
+============================================================= */
+.header-open-status{
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  pointer-events: auto;
+}
+/* Copy A — sits naturally inside the header flex row */
+.header-open-status.header-slot{
+  transition: opacity 0.55s cubic-bezier(.2,.7,.2,1), transform 0.55s cubic-bezier(.2,.7,.2,1);
+  opacity: 1;
+  transform: translateY(0);
+}
+body.is-hero-mode .header-open-status.header-slot{
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
+
+/* Copy B — overlay on top-right of hero */
+.header-open-status.hero-overlay{
+  position: fixed;
+  top: 78px;
+  right: var(--pad-x);
+  z-index: 60;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.55s cubic-bezier(.2,.7,.2,1), transform 0.55s cubic-bezier(.2,.7,.2,1);
+  pointer-events: none;
+}
+body.is-hero-mode .header-open-status.hero-overlay{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Mobile — both copies visible: hero-overlay on hero, header-slot when scrolled */
+@media (max-width: 720px){
+  .header-open-status.header-slot{
+    display: inline-flex;
+    font-size: 9px;
+    transition: opacity 0.55s cubic-bezier(.2,.7,.2,1), transform 0.55s cubic-bezier(.2,.7,.2,1);
+  }
+  .header-open-status.header-slot .open-track{ max-width: 70px; min-width: 50px;}
+  /* In hero state on mobile: hide the header-slot copy (timer lives in overlay) */
+  body.is-hero-mode .header-open-status.header-slot{
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+  }
+  .header-open-status.hero-overlay{
+    top: 78px;
+    right: 16px;
+    font-size: 9px;
+    z-index: 55;
+  }
+  .header-open-status.hero-overlay .open-track{ max-width: 80px; min-width: 60px;}
+
+  /* Lang toggle slides left to make room for the timer when scrolled past hero */
+  .lang-toggle{
+    transition: margin 0.55s cubic-bezier(.2,.7,.2,1);
+    margin-left: 8px;
+  }
+  body:not(.is-hero-mode) .lang-toggle{
+    margin-left: auto;
+    margin-right: 8px;
+  }
+  body.is-hero-mode .lang-toggle{
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* =============================================================
+   SECTION RAIL — sticky numbered side navigation
+============================================================= */
+.section-rail{
+  position: fixed;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: none;
+  pointer-events: none;
+}
+.section-rail ul{
+  list-style: none;
+  display: flex; flex-direction: column;
+  gap: 2px;
+  margin: 0; padding: 0;
+}
+.section-rail li{ pointer-events: auto;}
+.section-rail a{
+  display: flex; align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: rgba(0,0,0,.35);
+  transition: color .2s;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.section-rail a:hover{ color: var(--ink);}
+.section-rail li.active a{ color: var(--ink);}
+
+.rail-num{
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  min-width: 18px;
+}
+.rail-line{
+  display: inline-block;
+  width: 14px; height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+  transition: width .25s cubic-bezier(.2,.7,.2,1), opacity .25s;
+  flex-shrink: 0;
+}
+.section-rail li.active .rail-line{
+  width: 24px;
+  opacity: 1;
+  background: var(--red);
+}
+.section-rail a:hover .rail-line{
+  width: 20px;
+}
+.rail-label{
+  font-weight: 500;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+}
+.section-rail a:hover .rail-label,
+.section-rail li.active a .rail-label{
+  opacity: 0.95;
+  transform: none;
+}
+
+@media (min-width: 1100px){
+  .section-rail{ display: block;}
+}
+
+/* When on dark sections, invert colors */
+.section-rail.on-dark a{ color: rgba(255,254,249,.4);}
+.section-rail.on-dark a:hover{ color: var(--paper);}
+.section-rail.on-dark li.active a{ color: var(--paper);}
+
+/* =============================================================
+   OPEN STATUS — live indicator with timeline track
+============================================================= */
+.open-status{
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.open-state{ display: inline-flex; align-items: center; gap: 6px;}
+.open-dot{
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gray);
+  display: inline-block;
+}
+.open-status.is-open .open-dot{
+  background: #18A35A;
+  box-shadow: 0 0 0 0 rgba(24,163,90,.5);
+  animation: open-pulse 2s ease-in-out infinite;
+}
+@keyframes open-pulse{
+  0%, 100% { box-shadow: 0 0 0 0 rgba(24,163,90,.5);}
+  50%      { box-shadow: 0 0 0 6px rgba(24,163,90,0);}
+}
+.open-status.is-closed .open-dot{ background: var(--red);}
+
+.open-edge{
+  color: rgba(0,0,0,.55);
+  font-weight: 500;
+  font-size: 10px;
+}
+.open-track{
+  position: relative;
+  flex: 1; min-width: 100px; max-width: 220px;
+  height: 4px;
+  background: rgba(0,0,0,.12);
+  border-radius: 2px;
+}
+.open-track-fill{
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: var(--red);
+  border-radius: 2px 0 0 2px;
+  transition: width 0.5s cubic-bezier(.2,.7,.2,1);
+}
+.open-status.is-closed .open-track-fill{ background: rgba(0,0,0,.25);}
+.open-pin{
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  width: 10px; height: 10px;
+  background: var(--ink);
+  border-radius: 50%;
+  border: 2px solid var(--paper);
+  box-shadow: 0 0 0 1px var(--ink);
+  transition: left 0.5s cubic-bezier(.2,.7,.2,1);
+}
+.open-status.is-open .open-pin{ background: var(--red); box-shadow: 0 0 0 1px var(--red);}
+.open-pin-label{
+  position: absolute; left: 50%; top: calc(100% + 8px);
+  transform: translateX(-50%);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .05em;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 1px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+  font-weight: 600;
+}
+.open-status.is-open .open-pin-label{
+  color: var(--red);
+}
+.open-status.is-compact{ font-size: 10px; gap: 6px;}
+.open-status.is-compact .open-track{ max-width: 140px; min-width: 70px;}
+
+/* Dark/inverted variants (footer, etc) */
+.brand-sec .open-status,
+.foot-sec .open-status{
+  color: var(--paper);
+}
+.brand-sec .open-edge,
+.foot-sec .open-edge{ color: rgba(255,254,249,.5);}
+.brand-sec .open-track,
+.foot-sec .open-track{ background: rgba(255,254,249,.18);}
+.brand-sec .open-pin,
+.foot-sec .open-pin{ border-color: var(--ink);}
+.brand-sec .open-pin-label,
+.foot-sec .open-pin-label{ background: var(--ink); border: 1px solid rgba(255,254,249,.2);}
+
+/* =============================================================
+   REVIEWS BADGE — Google rating social proof strip
+============================================================= */
+.rev-badge{
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px;
+  padding: 18px var(--pad-x);
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  position: relative;
+  transition: background .25s;
+  text-align: center;
+  flex-wrap: wrap;
+}
+.rev-badge:hover{ background: var(--red);}
+.rev-badge .rev-stars{
+  font-family: "Georgia", serif;
+  font-size: 18px; letter-spacing: 4px;
+  color: #FFC844;
+  line-height: 1;
+}
+.rev-badge .rev-meta{
+  display: inline-flex; align-items: baseline; gap: 6px;
+  font-family: var(--mono);
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.rev-badge .rev-meta b{
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  font-weight: 400;
+}
+.rev-badge .rev-count{
+  color: rgba(255,254,249,.7);
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(255,254,249,.3);
+}
+.rev-badge .rev-arr{
+  font-family: var(--sans);
+  font-size: 14px;
+  margin-left: 6px;
+  transition: transform .25s;
+}
+.rev-badge:hover .rev-arr{ transform: translateX(4px);}
+
+/* =============================================================
+   PROMOS — daily perks / loyalty
+============================================================= */
+.promos-sec{
+  padding-top: 80px;
+  padding-bottom: 100px;
+}
+.promos-title{
+  font-family: var(--display);
+  font-size: clamp(40px, 10vw, 76px);
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-top: 16px;
+}
+.promos-title .r{ color: var(--red);}
+.promos-sub{
+  margin-top: 12px;
+  font-size: 15px;
+  color: rgba(0,0,0,.65);
+  max-width: 46ch;
+  line-height: 1.5;
+}
+.promos-grid{
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.promo-card{
+  position: relative;
+  padding: 24px 26px 22px;
+  border: 1px solid var(--ink);
+  border-radius: 18px;
+  background: var(--paper);
+  color: var(--ink);
+  display: flex; flex-direction: column; gap: 10px;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), background .25s, color .25s;
+}
+.promo-card:hover{ transform: translateY(-3px);}
+.promo-card.primary{
+  background: var(--red); color: var(--paper); border-color: var(--red);
+}
+.promo-card.dark{
+  background: var(--ink); color: var(--paper);
+}
+.promo-card .promo-tag{
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.55);
+  display: inline-block;
+  padding: 4px 8px;
+  background: rgba(0,0,0,.06);
+  border-radius: 4px;
+  align-self: flex-start;
+}
+.promo-card.primary .promo-tag{
+  background: rgba(255,254,249,.18); color: rgba(255,254,249,.85);
+}
+.promo-card.dark .promo-tag{
+  background: rgba(255,254,249,.12); color: rgba(255,254,249,.7);
+}
+.promo-card h3{
+  font-family: var(--display);
+  font-size: clamp(28px, 6vw, 40px);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.promo-card h3 .r{ color: var(--red);}
+.promo-card.primary h3 .r{ color: var(--paper);}
+.promo-card.dark h3 .r{ color: var(--red);}
+.promo-card h3 span{ color: inherit; opacity: 0.7;}
+.promo-card p{
+  font-size: 13.5px;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin-top: auto;
+}
+@media (min-width: 700px){
+  .promos-grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1100px){
+  .promos-grid{ grid-template-columns: repeat(4, 1fr); }
+}
+
+/* =============================================================
+   FAQ — accordion of common questions
+============================================================= */
+.faq-sec{
+  padding-top: 80px;
+  padding-bottom: 100px;
+}
+.faq-title{
+  font-family: var(--display);
+  font-size: clamp(40px, 10vw, 76px);
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-top: 16px;
+}
+.faq-title .r{ color: var(--red);}
+.faq-list{
+  margin-top: 32px;
+  border-top: 1px solid var(--ink);
+}
+.faq-row{
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  column-gap: 16px;
+  row-gap: 0;
+  align-items: baseline;
+  width: 100%;
+  padding: 20px 0;
+  border: none;
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background .2s;
+  font: inherit;
+  color: inherit;
+}
+.faq-row:hover{
+  background: rgba(0,0,0,.02);
+}
+.faq-num{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(0,0,0,.45);
+  align-self: center;
+}
+.faq-q{
+  font-family: var(--display);
+  font-size: clamp(20px, 4vw, 28px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  align-self: center;
+}
+.faq-toggle{
+  font-family: var(--display);
+  font-size: 32px;
+  line-height: 1;
+  width: 32px; text-align: center;
+  color: var(--red);
+  align-self: center;
+}
+.faq-a{
+  grid-column: 2 / 4;
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(0,0,0,.7);
+  max-width: 56ch;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height .35s cubic-bezier(.2,.7,.2,1), opacity .25s, padding-top .35s;
+  padding-top: 0;
+}
+.faq-row.is-open .faq-a{
+  max-height: 200px;
+  opacity: 1;
+  padding-top: 12px;
+}
+@media (max-width: 540px){
+  .faq-row{ grid-template-columns: 40px 1fr 30px;}
+  .faq-num{ font-size: 10px;}
+}
 
 /* Floating stickers — each picks up its rotate via --rot, delay via --delay */
 @keyframes sticker-float{
