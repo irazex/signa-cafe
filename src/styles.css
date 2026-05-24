@@ -450,7 +450,7 @@ button{ font: inherit; color: inherit; cursor: pointer;}
   position: absolute;
   inset: 0;
   z-index: 1;
-  background-image: url('../assets/bernard.png');
+  background-image: url('../assets/bernard.webp');
   background-size: auto 100%;
   background-position: calc(100% + 14vw) 50%;
   background-repeat: no-repeat;
@@ -1373,7 +1373,7 @@ body.scrap-off .hand-only{ display: none;}
 }
 .hero-sec.v-c .hero-c-bg{
   position: absolute; inset: 0;
-  background: url('../assets/photo-interior.jpg') center/cover no-repeat;
+  background: url('../assets/photo-interior.webp') center/cover no-repeat;
   z-index: 0;
 }
 .hero-sec.v-c .hero-c-overlay{

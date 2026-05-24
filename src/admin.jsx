@@ -457,7 +457,7 @@ function App() {
   const handleSave = () => {
     saveLocal(content);
     setDirty(false);
-    alert("Saved to browser. Changes are live on the public site if it reads from localStorage.\n\nTo make this permanent (and visible to all visitors), click 'Export content.json' and upload the file to your server's root.");
+    alert("✓ Saved to THIS browser only.\n\nEdits are stored in localStorage and are NOT yet visible to other visitors. The public site still serves the original content.json.\n\nTo publish for everyone:\n1. Click 'Export content.json'\n2. Upload the downloaded file to /content.json on the server (replace existing)\n\nClick 'Reset' to discard local changes and revert to the live server version.");
   };
   const handleExport = () => downloadJSON(content);
   const handleReset = async () => {

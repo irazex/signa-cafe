@@ -27,9 +27,45 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "heroVariant": "auto"
 }/*EDITMODE-END*/;
 
+// Lang persistence: localStorage + URL ?lang= param + browser default
+const LANG_STORAGE_KEY = "signa.lang";
+function detectInitialLang(defaultLang) {
+  try {
+    // 1. URL ?lang=ru wins (deep-link / share)
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    if (urlLang && ["en", "ru", "id"].includes(urlLang)) return urlLang;
+    // 2. localStorage from previous session
+    const stored = localStorage.getItem(LANG_STORAGE_KEY);
+    if (stored && ["en", "ru", "id"].includes(stored)) return stored;
+    // 3. Browser preferred language
+    const nav = (navigator.language || "en").toLowerCase().slice(0, 2);
+    if (nav === "ru") return "ru";
+    if (nav === "id" || nav === "in") return "id";
+  } catch (_) {}
+  return defaultLang || "en";
+}
+
 function App(){
   const [t, setTweak] = window.useTweaks(TWEAK_DEFAULTS);
   const [activeSection, setActiveSection] = useState(0);
+
+  // Initialise hero-mode body class BEFORE first paint to avoid double-timer flash
+  useEffect(() => {
+    document.body.classList.toggle("is-hero-mode", window.scrollY < 40);
+  }, []);
+
+  // Initialise lang from localStorage/URL/browser on first mount
+  useEffect(() => {
+    const initialLang = detectInitialLang(t.lang);
+    if (initialLang !== t.lang) setTweak("lang", initialLang);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Persist lang whenever it changes
+  useEffect(() => {
+    try { localStorage.setItem(LANG_STORAGE_KEY, t.lang); } catch (_) {}
+    document.documentElement.lang = t.lang;
+  }, [t.lang]);
 
   // Sync scrapbook flag to body class so CSS can react
   useEffect(() => {

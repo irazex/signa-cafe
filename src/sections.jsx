@@ -271,11 +271,12 @@ function HeroCTAs({ scrapOn, lang }) {
 }
 
 function HeroSection({ scrapOn, lang, variant = "auto" }) {
+  // Unified breakpoint with CSS @media — 768px is the mobile/tablet cutoff used everywhere
   const [isMobile, setIsMobile] = React.useState(() =>
-    typeof window !== "undefined" ? window.matchMedia("(max-width: 900px)").matches : true
+    typeof window !== "undefined" ? window.matchMedia("(max-width: 768px)").matches : true
   );
   React.useEffect(() => {
-    const mq = window.matchMedia("(max-width: 900px)");
+    const mq = window.matchMedia("(max-width: 768px)");
     const handler = (e) => setIsMobile(e.matches);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
@@ -496,7 +497,7 @@ function HeroVariantE({ scrapOn }) {
         <div className="hero-e-stage" aria-hidden="true">
           <div className="hero-e-halo"></div>
           <div className="hero-e-star-bg"></div>
-          <img className="hero-e-product" src="assets/syrniki.png" alt="" />
+          <img className="hero-e-product" src="assets/syrniki.webp" alt="" />
         </div>
       </div>
 
@@ -559,14 +560,14 @@ function BrandSection({ scrapOn }) {
 // MENU
 // ============================================================
 const MENU_DATA_DEFAULT = [
-  { id: 1, title: "Syrniki — cottage cheese pancakes", price: "93k", cat: "breakfast", img: "assets/syrniki.png", badge: "★ Popular", tags: ["veg"] },
-  { id: 2, title: "Big Breakfast", price: "79k", cat: "breakfast", img: "assets/photo-breakfast.jpg", badge: "★ Popular" },
-  { id: 3, title: "Best Scramble", price: "71k", cat: "breakfast", img: "assets/photo-9742.jpg", tags: ["veg"] },
-  { id: 4, title: "Pizza Margarita", price: "69k", cat: "pizza", img: "assets/pizza-margherita.png", badge: "from 14:00", tags: ["veg"] },
-  { id: 5, title: "Creamy Bacon Pasta", price: "89k", cat: "pasta", img: "assets/photo-dinner.jpg" },
-  { id: 6, title: "Big Salmon Poke Bowl", price: "145k", cat: "main", img: "assets/photo-9887.jpg", badge: "★ Chef's" },
-  { id: 7, title: "Caesar with chicken", price: "92k", cat: "main", img: "assets/photo-9831.jpg" },
-  { id: 8, title: "Mango smoothie", price: "55k", cat: "drinks", img: "assets/photo-smoothie.jpg", tags: ["veg"] },
+  { id: 1, title: "Syrniki — cottage cheese pancakes", price: "93k", cat: "breakfast", img: "assets/syrniki.webp", badge: "★ Popular", tags: ["veg"] },
+  { id: 2, title: "Big Breakfast", price: "79k", cat: "breakfast", img: "assets/photo-breakfast.webp", badge: "★ Popular" },
+  { id: 3, title: "Best Scramble", price: "71k", cat: "breakfast", img: "assets/photo-9742.webp", tags: ["veg"] },
+  { id: 4, title: "Pizza Margarita", price: "69k", cat: "pizza", img: "assets/pizza-margherita.webp", badge: "from 14:00", tags: ["veg"] },
+  { id: 5, title: "Creamy Bacon Pasta", price: "89k", cat: "pasta", img: "assets/photo-dinner.webp" },
+  { id: 6, title: "Big Salmon Poke Bowl", price: "145k", cat: "main", img: "assets/photo-9887.webp", badge: "★ Chef's" },
+  { id: 7, title: "Caesar with chicken", price: "92k", cat: "main", img: "assets/photo-9831.webp" },
+  { id: 8, title: "Mango smoothie", price: "55k", cat: "drinks", img: "assets/photo-smoothie.webp", tags: ["veg"] },
 ];
 const _content = () => (window.CONTENT || {});
 const MENU_DATA = (window.CONTENT && window.CONTENT.menu) || MENU_DATA_DEFAULT;
@@ -647,9 +648,9 @@ function MenuSection({ scrapOn }) {
 // SIGNATURE — horizontal swipe carousel
 // ============================================================
 const SIGNATURE_DATA = (window.CONTENT && window.CONTENT.signatureDishes) || [
-  { n: 1, title: "Ricotta\nPancakes", meta: "Brunch · 75k", img: "assets/photo-breakfast.jpg" },
-  { n: 2, title: "Mango\nSmoothie",   meta: "Cold · 55k",   img: "assets/photo-smoothie.jpg" },
-  { n: 3, title: "Family\nDinner",    meta: "Evening · 120k+", img: "assets/photo-dinner.jpg" },
+  { n: 1, title: "Ricotta\nPancakes", meta: "Brunch · 75k", img: "assets/photo-breakfast.webp" },
+  { n: 2, title: "Mango\nSmoothie",   meta: "Cold · 55k",   img: "assets/photo-smoothie.webp" },
+  { n: 3, title: "Family\nDinner",    meta: "Evening · 120k+", img: "assets/photo-dinner.webp" },
 ];
 
 
@@ -696,7 +697,7 @@ function SignatureSection({ scrapOn }) {
 
       {/* Parallax syrniki — anchored deep inside signature, peeks from left edge */}
       <window.ParallaxDecor
-        src="assets/syrniki.png"
+        src="assets/syrniki.webp"
         alt=""
         top="auto"
         bottom="60px"
@@ -740,14 +741,14 @@ function SignatureSection({ scrapOn }) {
 // EXPERIENCE — tile mosaic
 // ============================================================
 const EXPERIENCE_TILES = [
-{ cls: "c1", img: "assets/photo-interior.jpg", lbl: "Interior" },
-{ cls: "c2", img: "assets/photo-9742.jpg", lbl: "Detail" },
-{ cls: "c3", img: "assets/photo-breakfast.jpg", lbl: "Brunch" },
-{ cls: "c4", img: "assets/photo-9887.jpg", lbl: "Bar" },
-{ cls: "c5", img: "assets/photo-dinner.jpg", lbl: "Tables" },
-{ cls: "c6", img: "assets/photo-cocktail.jpg", lbl: "Drinks" },
-{ cls: "c7", img: "assets/photo-smoothie.jpg", lbl: "Smoothies" },
-{ cls: "c8", img: "assets/photo-9831.jpg", lbl: "Evening" }];
+{ cls: "c1", img: "assets/photo-interior.webp", lbl: "Interior" },
+{ cls: "c2", img: "assets/photo-9742.webp", lbl: "Detail" },
+{ cls: "c3", img: "assets/photo-breakfast.webp", lbl: "Brunch" },
+{ cls: "c4", img: "assets/photo-9887.webp", lbl: "Bar" },
+{ cls: "c5", img: "assets/photo-dinner.webp", lbl: "Tables" },
+{ cls: "c6", img: "assets/photo-cocktail.webp", lbl: "Drinks" },
+{ cls: "c7", img: "assets/photo-smoothie.webp", lbl: "Smoothies" },
+{ cls: "c8", img: "assets/photo-9831.webp", lbl: "Evening" }];
 
 
 function ExperienceSection({ scrapOn }) {
@@ -854,7 +855,7 @@ function OrderSection({ scrapOn }) {
 
       {/* Parallax pizza — bigger, more off-screen on the right, no spin, parallax drift only */}
       <window.ParallaxDecor
-        src="assets/pizza-margherita.png"
+        src="assets/pizza-margherita.webp"
         alt=""
         top="-450px"
         right="-22vw"
@@ -888,6 +889,7 @@ function LocationSection({ scrapOn, lang }) {
           src="https://www.google.com/maps?q=Signa+Cafe,+Jl.+Dharmawangsa,+Jl.+Raya+Kampial,+Benoa,+Nusa+Dua,+Bali&output=embed"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
           allowFullScreen=""
           style={{ border: 0, width: "100%", height: "100%", display: "block" }}
         />

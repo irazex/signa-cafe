@@ -13,7 +13,7 @@
 - **Open/Close live timeline** — индикатор `OPEN 08:00 ●—pin—23:00` с движущимся пином (auto-updates 30s, Asia/Makassar timezone)
 - **Section rail** — sticky левая навигация 01-10 на desktop ≥1100px
 - **content.json** — single source of truth для site/menu/promos/FAQ/signature/contacts
-- **admin.html** + `src/admin.jsx` — password-protected (`z3zwa3qwX`, SHA-256, session-bound) content editor с 6 табами
+- **admin.html** + `src/admin.jsx` — password-protected content editor с 6 табами. Server-side `.htaccess` Basic Auth (user `admin`) + client-side SHA-256 gate (defense-in-depth). Пароли — см. локальные creds.
 - **SEO** — Restaurant + Organization + BreadcrumbList + FAQPage JSON-LD, Open Graph, Twitter, hreflang en/ru/id, robots.txt, sitemap.xml
 - **Real menu** — 12 items с реальными ценами из signa.dishi.rest (Syrniki 93k, Big Breakfast 79k, Margarita 69k, Pasta 89k, Salmon Poke 145k, etc.)
 
@@ -27,7 +27,7 @@ python3 -m http.server 8080
 
 # Деплой на хостинг (FTP)
 FTP_URL="ftp://atlas.multihost.cloud/signa.cafe"
-FTP_CRED="aqq17894:z3zwa3qwXz3zwa3qwX"
+FTP_CRED="aqq17894:$(cat ~/.razex-creds/signa-ftp.txt)"
 curl -s --ftp-create-dirs -T <local-file> "$FTP_URL/<remote-path>" --user "$FTP_CRED"
 ```
 
@@ -103,7 +103,7 @@ Tweaks panel (dev only) даёт выбрать конкретный variant (`r
 
 ```bash
 FTP_URL="ftp://atlas.multihost.cloud/signa.cafe"
-FTP_CRED="aqq17894:z3zwa3qwXz3zwa3qwX"
+FTP_CRED="aqq17894:$(cat ~/.razex-creds/signa-ftp.txt)"
 
 # Изменить один JSX файл
 curl -s -T src/sections.jsx "$FTP_URL/src/sections.jsx" --user "$FTP_CRED"
@@ -121,10 +121,11 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 - **Провайдер**: multihost.cloud (cPanel, Apache)
 - **cPanel**: https://atlas.multihost.cloud:2083
 - **Логин**: aqq17894
-- **Пароль**: z3zwa3qwXz3zwa3qwX
+- **Пароль**: ⚠️ хранится в `~/.razex-creds/signa-ftp.txt` (gitignored), НЕ в этом репо. Сменён 2026-05-24.
 - **SSH**: ОТКЛЮЧЁН
 - **FTP path**: `/home/aqq17894/signa.cafe/` (абсолютный путь для FTP команд)
 - **URL**: https://signa.cafe
+- **Admin Basic Auth**: `/admin.html` защищён через `.htaccess` → `.htpasswd` лежит в `/home/aqq17894/.htpasswd` (выше webroot). Пароль для user `admin` — хранится отдельно.
 
 ### GitHub
 - **Репо**: https://github.com/irazex/signa-cafe

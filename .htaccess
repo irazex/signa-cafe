@@ -1,0 +1,49 @@
+# === Signa Cafe — Apache config ===
+
+# 1. Защита служебных файлов
+<FilesMatch "^\.(htaccess|htpasswd|env|gitignore|gitattributes)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.git
+RedirectMatch 404 /CHANGES\.md$
+RedirectMatch 404 /CLAUDE_BRIEF\.md$
+RedirectMatch 404 /CLAUDE\.md$
+RedirectMatch 404 /README\.md$
+
+# 2. Basic Auth для admin
+<Files "admin.html">
+  AuthType Basic
+  AuthName "Signa Admin"
+  AuthUserFile /home/aqq17894/.htpasswd
+  Require valid-user
+</Files>
+<Files "admin.jsx">
+  AuthType Basic
+  AuthName "Signa Admin"
+  AuthUserFile /home/aqq17894/.htpasswd
+  Require valid-user
+</Files>
+
+# 3. Cache control
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
+
+# 4. JSX as JavaScript (для Babel transpile)
+AddType application/javascript .jsx
+AddType model/obj .obj
+AddType model/mtl .mtl
+
+# 5. Security headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
