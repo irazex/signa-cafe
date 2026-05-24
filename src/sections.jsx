@@ -33,6 +33,7 @@ const STRINGS = {
     loc_wa_lbl: "WhatsApp", loc_wa_val: "Tap to message",
     loc_ig_lbl: "Instagram",
     loc_parking_note: "free parking ✿",
+    loc_directions: "Get directions",
     // footer
     foot_label: "That's us.",
     foot_email_lbl: "Email", foot_order_lbl: "Order online",
@@ -75,6 +76,7 @@ const STRINGS = {
     loc_wa_lbl: "WhatsApp", loc_wa_val: "Написать в чат",
     loc_ig_lbl: "Instagram",
     loc_parking_note: "бесплатная парковка ✿",
+    loc_directions: "Проложить маршрут",
     foot_label: "Это мы.",
     foot_email_lbl: "Email", foot_order_lbl: "Заказать онлайн",
     foot_loc_lbl: "Локация", foot_loc_val: "Нуса Дуа, Бали",
@@ -116,6 +118,7 @@ const STRINGS = {
     loc_wa_lbl: "WhatsApp", loc_wa_val: "Ketuk untuk chat",
     loc_ig_lbl: "Instagram",
     loc_parking_note: "parkir gratis ✿",
+    loc_directions: "Petunjuk arah",
     foot_label: "Itulah kami.",
     foot_email_lbl: "Email", foot_order_lbl: "Pesan online",
     foot_loc_lbl: "Lokasi", foot_loc_val: "Nusa Dua, Bali",
@@ -896,6 +899,14 @@ function LocationSection({ scrapOn, lang }) {
         <div className="corner">NUSA DUA · BALI</div>
       </div>
 
+      <a className="loc-directions-btn"
+        href="https://www.google.com/maps/dir/?api=1&destination=Signa+Cafe%2C+Jl.+Dharmawangsa%2C+Jl.+Raya+Kampial%2C+Benoa%2C+Nusa+Dua%2C+Bali+80361"
+        target="_blank" rel="noreferrer">
+        <span className="loc-dir-icon" aria-hidden="true">⤴</span>
+        <span className="loc-dir-text">{t("loc_directions")}</span>
+        <span className="loc-dir-arr">→</span>
+      </a>
+
       <div className="loc-meta">
         <a className="loc-row"
         href="https://maps.google.com/maps?daddr=Signa Cafe, Jl. Dharmawangsa Jl. Raya Kampial, Benoa, Kec. Kuta Sel., Kabupaten Badung, Bali 80361"
@@ -929,7 +940,7 @@ function LocationSection({ scrapOn, lang }) {
       {scrapOn &&
       <window.ScrapLayer
         notes={[
-        { text: t("loc_parking_note"), top: "40%", left: "16%", rotate: -4, fontSize: 20, red: true }]
+        { text: t("loc_parking_note"), bottom: "5%", right: "5%", rotate: -4, fontSize: 20, red: true }]
         } />
 
       }
