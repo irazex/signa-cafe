@@ -436,21 +436,19 @@ function PhotosTab({ content, set }) {
 
 // ---------- App ----------
 function App() {
-  const [authed, setAuthed_] = useState(() => isAuthed());
+  // Auth handled at server level by Apache Basic Auth (.htaccess).
+  // No client-side gate needed — getting here means the user already passed auth.
   const [content, setContent] = useState(null);
   const [tab, setTab] = useState("site");
   const [dirty, setDirty] = useState(false);
   const [loadErr, setLoadErr] = useState(null);
 
   useEffect(() => {
-    if (!authed) return;
     loadContent().then((c) => {
       if (c) setContent(c);
       else setLoadErr("Could not load content.json. Make sure it exists at the site root.");
     });
-  }, [authed]);
-
-  if (!authed) return <LoginGate onAuth={() => setAuthed_(true)}/>;
+  }, []);
 
   const update = (next) => { setContent(next); setDirty(true); };
 
