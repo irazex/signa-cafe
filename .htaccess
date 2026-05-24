@@ -29,6 +29,12 @@ RedirectMatch 404 /README\.md$
   AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
   Require valid-user
 </Files>
+<Files "key.php">
+  AuthType Basic
+  AuthName "Signa Admin"
+  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
+  Require valid-user
+</Files>
 
 # 3. Cache control — immutable assets cached long, code/HTML must revalidate
 <IfModule mod_expires.c>

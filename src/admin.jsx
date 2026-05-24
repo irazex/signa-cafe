@@ -522,15 +522,34 @@ function setAtPath(content, path, value) {
   return true;
 }
 
+// Cache the API key once per session (fetched from /key.php behind Basic Auth)
+let _cachedApiKey = null;
+async function getApiKey() {
+  if (_cachedApiKey) return _cachedApiKey;
+  const r = await fetch("key.php", { credentials: "same-origin" });
+  if (!r.ok) {
+    throw new Error(`Cannot load API key from server (${r.status}). Make sure /.openai_key exists in webroot.`);
+  }
+  const data = await r.json();
+  if (data.error || !data.key) {
+    throw new Error(`Server returned: ${JSON.stringify(data)}`);
+  }
+  _cachedApiKey = data.key;
+  return _cachedApiKey;
+}
+
 async function gptTranslateBatch(items, targetLang) {
-  // Calls our server-side proxy /translate.php (which holds the OpenAI key
-  // on the server, out of the public JSX bundle). Proxy is protected by the
-  // same Basic Auth as /admin, so the user is already authenticated.
+  // OpenAI API geo-blocks the hosting server (RU). So we call api.openai.com
+  // DIRECTLY from the browser — geo is the user's IP, which is fine.
+  // The key itself is loaded once from /key.php (behind Basic Auth, no leak in JS bundle).
+  const apiKey = await getApiKey();
   const prompt = TRANSLATION_SYSTEM_PROMPT.replace("{lang_name}", LANG_NAMES[targetLang] || targetLang);
-  const r = await fetch("translate.php", {
+  const r = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "same-origin",   // forward Basic Auth header
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`,
+    },
     body: JSON.stringify({
       model: "gpt-4o-mini",
       temperature: 0.2,
@@ -543,7 +562,7 @@ async function gptTranslateBatch(items, targetLang) {
   });
   if (!r.ok) {
     const errText = await r.text().catch(() => "(no body)");
-    throw new Error(`Proxy ${r.status}: ${errText.slice(0, 300)}`);
+    throw new Error(`OpenAI ${r.status}: ${errText.slice(0, 300)}`);
   }
   const data = await r.json();
   let parsed;
