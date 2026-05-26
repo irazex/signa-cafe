@@ -547,7 +547,7 @@ function BrandSection({ scrapOn }) {
       <div className="brand-content">
         <h2 className="brand-quote">
           <span className="r">EAT.</span><br />
-          <span className="r">MEET.</span><br />
+          MEET.<br />
           <span className="r">CREATE.</span>
         </h2>
         <div className="brand-cite">
