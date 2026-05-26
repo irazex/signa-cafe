@@ -1,5 +1,5 @@
 // app.jsx — top-level App
-const { useState, useEffect } = React;
+const { useState, useEffect, useRef } = React;
 
 // Hydrate content from localStorage (admin overrides) or content.json
 async function hydrateContent() {
@@ -135,6 +135,141 @@ function App(){
       cancelAnimationFrame(raf);
     };
   }, []);
+
+  // ============================================================
+  // Visitor analytics — page view, click, scroll-depth, lang change
+  // ============================================================
+  useEffect(() => {
+    // Per-tab session id (resets on tab close)
+    let sid = "";
+    try {
+      sid = sessionStorage.getItem("signa.sid") || "";
+      if (!sid) {
+        sid = Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+        sessionStorage.setItem("signa.sid", sid);
+      }
+    } catch (_) {
+      sid = Math.random().toString(36).slice(2, 12);
+    }
+
+    let queue = [];
+    let flushTimer = null;
+    const flush = (useBeacon = false) => {
+      if (!queue.length) return;
+      const payload = JSON.stringify({ events: queue });
+      queue = [];
+      try {
+        if (useBeacon && navigator.sendBeacon) {
+          navigator.sendBeacon("track.php", new Blob([payload], { type: "application/json" }));
+        } else {
+          fetch("track.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: payload,
+            keepalive: true,
+          }).catch(() => {});
+        }
+      } catch (_) {}
+    };
+    const enqueue = (ev) => {
+      queue.push({ sid, ...ev });
+      if (queue.length >= 10) { clearTimeout(flushTimer); flush(); return; }
+      clearTimeout(flushTimer);
+      flushTimer = setTimeout(() => flush(), 2500);
+    };
+    window.__signaTrack = enqueue;
+
+    // 1. Page view
+    let tz = ""; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (_) {}
+    enqueue({
+      t: "pv",
+      lang: t.lang,
+      ref: document.referrer || "",
+      vw: window.innerWidth,
+      vh: window.innerHeight,
+      tz,
+      path: window.location.pathname,
+    });
+
+    // 2. Click delegation — label any clicked anchor or [data-track]
+    const labelFromHref = (href) => {
+      if (!href) return null;
+      if (href.startsWith("#")) return "nav_" + href.slice(1);
+      if (href.startsWith("tel:")) return "phone";
+      if (href.startsWith("mailto:")) return "email";
+      if (href.includes("signa.dishi.rest")) return "menu_dishi";
+      if (href.includes("gofood.link")) return "gofood";
+      if (href.includes("food.grab.com")) return "grabfood";
+      if (href.includes("g.page")) return "google_review";
+      if (href.includes("forms.gle")) return "suggestion_form";
+      if (href.includes("wa.me/+6288987127671") || href.includes("wa.me/6288987127671")) return "whatsapp_manager";
+      if (href.includes("wa.me/+6289654027190") || href.includes("wa.me/6289654027190")) return "whatsapp_main";
+      if (href.includes("instagram.com")) return "instagram";
+      if (href.includes("maps.google.com") || href.includes("google.com/maps")) return "directions";
+      return null;
+    };
+    const onClick = (e) => {
+      let el = e.target instanceof Element ? e.target : null;
+      while (el && el !== document.body) {
+        const dt = el.getAttribute && el.getAttribute("data-track");
+        if (dt) { enqueue({ t: "click", target: dt.slice(0, 64) }); return; }
+        if (el.tagName === "A") {
+          const lbl = labelFromHref(el.getAttribute("href") || "");
+          if (lbl) { enqueue({ t: "click", target: lbl }); return; }
+        }
+        el = el.parentElement;
+      }
+    };
+    document.addEventListener("click", onClick, true);
+
+    // 3. Scroll depth — fire once per section as it becomes ≥50% visible
+    const SECTION_IDS = ["hero","brand","feedback","menu","promos","signature","experience","order","faq","location","footer"];
+    const reached = new Set();
+    const onScrollDepth = () => {
+      const half = window.innerHeight * 0.5;
+      for (let i = 0; i < SECTION_IDS.length; i++) {
+        if (reached.has(i)) continue;
+        const el = document.getElementById(SECTION_IDS[i]);
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        if (r.top < half) {
+          reached.add(i);
+          const label = String(i).padStart(2, "0") + "_" + SECTION_IDS[i];
+          enqueue({ t: "scroll", section: label });
+        }
+      }
+    };
+    let scrollRaf;
+    const scrollHandler = () => {
+      cancelAnimationFrame(scrollRaf);
+      scrollRaf = requestAnimationFrame(onScrollDepth);
+    };
+    window.addEventListener("scroll", scrollHandler, { passive: true });
+    onScrollDepth();
+
+    // 4. Flush before page closes
+    const onHide = () => flush(true);
+    window.addEventListener("pagehide", onHide);
+    window.addEventListener("beforeunload", onHide);
+
+    return () => {
+      document.removeEventListener("click", onClick, true);
+      window.removeEventListener("scroll", scrollHandler);
+      window.removeEventListener("pagehide", onHide);
+      window.removeEventListener("beforeunload", onHide);
+      cancelAnimationFrame(scrollRaf);
+      flush(true);
+    };
+  }, []);
+
+  // Track lang switches
+  const langRef = useRef(t.lang);
+  useEffect(() => {
+    if (langRef.current !== t.lang) {
+      window.__signaTrack?.({ t: "lang", from: langRef.current, to: t.lang });
+      langRef.current = t.lang;
+    }
+  }, [t.lang]);
 
   return (
     <div className="signa-app">

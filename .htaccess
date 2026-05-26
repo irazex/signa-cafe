@@ -35,6 +35,15 @@ RedirectMatch 404 /README\.md$
   AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
   Require valid-user
 </Files>
+<Files "analytics.php">
+  AuthType Basic
+  AuthName "Signa Admin"
+  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
+  Require valid-user
+</Files>
+
+# Block direct access to raw analytics JSONL logs (admin reads them through analytics.php)
+RedirectMatch 404 /analytics/.*$
 
 # 3. Cache control — immutable assets cached long, code/HTML must revalidate
 <IfModule mod_expires.c>

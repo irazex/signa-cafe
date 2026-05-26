@@ -111,6 +111,54 @@
   }
   .btn.translate:hover{ background: var(--black); border-color: var(--black);}
 
+  /* Analytics */
+  .analytics-h3{
+    font-family: var(--display); font-size: 18px; text-transform: uppercase;
+    letter-spacing: 0; margin: 28px 0 10px;
+  }
+  .kpi-card{
+    background: var(--paper);
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .kpi-label{
+    font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+    text-transform: uppercase; color: rgba(0,0,0,.55);
+  }
+  .kpi-value{
+    font-family: var(--display); font-size: 36px; line-height: 1;
+    color: var(--black); margin-top: 4px;
+  }
+  .kpi-sub{
+    font-family: var(--mono); font-size: 10px;
+    color: rgba(0,0,0,.4); margin-top: 4px;
+  }
+  .stat-bar{
+    display: grid;
+    grid-template-columns: minmax(140px, 30%) 1fr 80px;
+    gap: 12px; align-items: center;
+    padding: 6px 0;
+  }
+  .stat-bar-label{
+    font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+    color: rgba(0,0,0,.7);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .stat-bar-track{
+    height: 10px; background: rgba(0,0,0,.06);
+    border-radius: 999px; overflow: hidden;
+  }
+  .stat-bar-fill{
+    height: 100%; background: linear-gradient(90deg, var(--red) 0%, #ff7f50 100%);
+    border-radius: 999px;
+  }
+  .stat-bar-value{
+    font-family: var(--mono); font-size: 11px;
+    color: rgba(0,0,0,.7);
+    text-align: right;
+  }
+
   /* Translation progress */
   .tr-progress{
     margin: -16px 0 24px;
@@ -405,6 +453,6 @@
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel" src="src/admin.jsx?v=20260525b"></script>
+<script type="text/babel" src="src/admin.jsx?v=20260525d"></script>
 </body>
 </html>

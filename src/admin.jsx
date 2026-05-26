@@ -652,6 +652,193 @@ async function translateContentViaGPT(content, targetLangs, _unusedApiKey, onPro
 }
 
 // ============================================================
+// ANALYTICS TAB
+// ============================================================
+const SECTION_LABELS = {
+  0: "Hero", 1: "Brand", 2: "Feedback", 3: "Menu", 4: "Promos",
+  5: "Signature", 6: "Experience", 7: "Order", 8: "FAQ",
+  9: "Location", 10: "Footer",
+};
+function pct(n, total) { return total ? Math.round(n * 100 / total) : 0; }
+function fmtCount(n) { return n.toLocaleString(); }
+
+function StatBar({ label, value, max, suffix = "" }) {
+  const w = max ? Math.max(2, Math.round(value * 100 / max)) : 0;
+  return (
+    <div className="stat-bar">
+      <div className="stat-bar-label">{label}</div>
+      <div className="stat-bar-track">
+        <div className="stat-bar-fill" style={{ width: w + "%" }}/>
+      </div>
+      <div className="stat-bar-value">{fmtCount(value)}{suffix}</div>
+    </div>
+  );
+}
+
+function AnalyticsTab() {
+  const [days, setDays] = useState(7);
+  const [bots, setBots] = useState(false);
+  const [data, setData] = useState(null);
+  const [err, setErr] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const load = () => {
+    setLoading(true);
+    setErr(null);
+    fetch(`analytics.php?days=${days}&bots=${bots ? 1 : 0}&t=${Date.now()}`, {
+      credentials: "same-origin",
+    })
+      .then(r => r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`))
+      .then(j => { setData(j); setLoading(false); })
+      .catch(e => { setErr(String(e)); setLoading(false); });
+  };
+  useEffect(load, [days, bots]);
+
+  if (loading && !data) return <div className="note">Loading analytics…</div>;
+  if (err) return <div className="note" style={{ background: "rgba(235,51,0,.08)", borderColor: "rgba(235,51,0,.3)" }}>
+    ❌ Could not load: {err}
+    <br/><small>If this is the first time you open Analytics, /analytics/ folder might not exist yet — it's auto-created on the first tracked event. Open the public site once to generate the first events.</small>
+  </div>;
+  if (!data) return null;
+
+  const dailyMax = Math.max(1, ...Object.values(data.by_day));
+  const clickMax = Math.max(1, ...Object.values(data.top_clicks));
+  const langTotal = Object.values(data.lang_split).reduce((a,b) => a+b, 0);
+  const devTotal = Object.values(data.devices).reduce((a,b) => a+b, 0);
+  const refTotal = Object.values(data.top_referrers).reduce((a,b) => a+b, 0);
+  const funnelEntries = Object.entries(data.scroll_funnel).map(([k,v]) => [parseInt(k), v]).sort((a,b) => a[0]-b[0]);
+  const funnelTop = funnelEntries.length ? funnelEntries[0][1] : 1;
+
+  return (
+    <div className="analytics-tab">
+      {/* Controls */}
+      <div className="card" style={{ flexDirection: "row", display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
+        <div>
+          <label style={{ display: "block", marginBottom: 4 }}>Period</label>
+          <select value={days} onChange={(e) => setDays(parseInt(e.target.value))}>
+            <option value={1}>Last 24 h</option>
+            <option value={7}>Last 7 days</option>
+            <option value={30}>Last 30 days</option>
+            <option value={90}>Last 90 days</option>
+          </select>
+        </div>
+        <label style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 16 }}>
+          <input type="checkbox" checked={bots} onChange={(e) => setBots(e.target.checked)}/>
+          Include bots
+        </label>
+        <span style={{ flex: 1 }}/>
+        <button className="btn" onClick={load}>↻ Refresh</button>
+      </div>
+
+      {/* KPI cards */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12, marginTop: 16 }}>
+        <div className="kpi-card">
+          <div className="kpi-label">Page views</div>
+          <div className="kpi-value">{fmtCount(data.page_views)}</div>
+        </div>
+        <div className="kpi-card">
+          <div className="kpi-label">Unique sessions</div>
+          <div className="kpi-value">{fmtCount(data.sessions_human)}</div>
+          <div className="kpi-sub">{data.sessions_bot} bots filtered</div>
+        </div>
+        <div className="kpi-card">
+          <div className="kpi-label">Mobile share</div>
+          <div className="kpi-value">{pct(data.devices.mobile, devTotal)}%</div>
+          <div className="kpi-sub">{data.devices.mobile} / {devTotal}</div>
+        </div>
+        <div className="kpi-card">
+          <div className="kpi-label">Total events</div>
+          <div className="kpi-value">{fmtCount(data.total_events)}</div>
+        </div>
+      </div>
+
+      {/* Daily timeseries */}
+      <h3 className="analytics-h3">Page views by day</h3>
+      <div className="card">
+        {Object.keys(data.by_day).length === 0
+          ? <div style={{ color: "rgba(0,0,0,.5)" }}>No data yet.</div>
+          : Object.entries(data.by_day).map(([day, count]) => (
+            <StatBar key={day} label={day} value={count} max={dailyMax}/>
+          ))
+        }
+      </div>
+
+      {/* Scroll funnel */}
+      <h3 className="analytics-h3">Scroll depth — how many sessions reached each section</h3>
+      <div className="card">
+        {funnelEntries.length === 0
+          ? <div style={{ color: "rgba(0,0,0,.5)" }}>No scroll data yet.</div>
+          : funnelEntries.map(([idx, count]) => (
+            <StatBar
+              key={idx}
+              label={`${String(idx).padStart(2,"0")} ${SECTION_LABELS[idx] || "section " + idx}`}
+              value={count}
+              max={funnelTop}
+              suffix={` (${pct(count, funnelTop)}%)`}
+            />
+          ))
+        }
+      </div>
+
+      {/* Top clicks */}
+      <h3 className="analytics-h3">Most-clicked actions</h3>
+      <div className="card">
+        {Object.keys(data.top_clicks).length === 0
+          ? <div style={{ color: "rgba(0,0,0,.5)" }}>No clicks yet.</div>
+          : Object.entries(data.top_clicks).map(([target, count]) => (
+            <StatBar key={target} label={target} value={count} max={clickMax}/>
+          ))
+        }
+      </div>
+
+      {/* Languages */}
+      <h3 className="analytics-h3">Languages</h3>
+      <div className="card">
+        {Object.entries(data.lang_split).map(([lang, count]) => (
+          <StatBar key={lang} label={lang.toUpperCase()} value={count} max={Math.max(1, ...Object.values(data.lang_split))} suffix={` (${pct(count, langTotal)}%)`}/>
+        ))}
+      </div>
+
+      {/* Devices */}
+      <h3 className="analytics-h3">Device</h3>
+      <div className="card">
+        {Object.entries(data.devices).map(([k, v]) => (
+          <StatBar key={k} label={k} value={v} max={Math.max(1, ...Object.values(data.devices))} suffix={` (${pct(v, devTotal)}%)`}/>
+        ))}
+      </div>
+
+      {/* Top referrers */}
+      <h3 className="analytics-h3">Top referrers</h3>
+      <div className="card">
+        {Object.keys(data.top_referrers).length === 0
+          ? <div style={{ color: "rgba(0,0,0,.5)" }}>Direct visits only.</div>
+          : Object.entries(data.top_referrers).map(([host, count]) => (
+            <StatBar key={host} label={host} value={count} max={Math.max(1, ...Object.values(data.top_referrers))}/>
+          ))
+        }
+      </div>
+
+      {/* Timezones */}
+      {Object.keys(data.top_timezones || {}).length > 0 && (
+        <>
+          <h3 className="analytics-h3">Top timezones</h3>
+          <div className="card">
+            {Object.entries(data.top_timezones).map(([tz, count]) => (
+              <StatBar key={tz} label={tz} value={count} max={Math.max(1, ...Object.values(data.top_timezones))}/>
+            ))}
+          </div>
+        </>
+      )}
+
+      <div style={{ marginTop: 24, fontFamily: "var(--mono)", fontSize: 10, color: "rgba(0,0,0,.4)" }}>
+        Generated {data.generated_at}. Period: last {data.period_days} day{data.period_days > 1 ? "s" : ""}.
+        Bots {data.include_bots ? "INCLUDED" : "EXCLUDED"} (filtered by UA: bot/crawl/headless/curl/wget/...)
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
 
 // ---------- App ----------
 function App() {
@@ -733,6 +920,7 @@ function App() {
     { id: "faq",       label: "FAQ" },
     { id: "signature", label: "Signature" },
     { id: "photos",    label: "Photos" },
+    { id: "analytics", label: "Analytics" },
   ];
   const activeTab = tabs.find(t => t.id === tab);
 
@@ -793,6 +981,7 @@ function App() {
         {tab === "faq"       && <FAQTab       content={content} set={update}/>}
         {tab === "signature" && <SignatureTab content={content} set={update}/>}
         {tab === "photos"    && <PhotosTab    content={content} set={update}/>}
+        {tab === "analytics" && <AnalyticsTab/>}
       </main>
     </div>
   );
