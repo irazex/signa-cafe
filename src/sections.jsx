@@ -320,7 +320,7 @@ function HeroVariantA({ scrapOn }) {
           EAT.<br />
           MEET.<br />
           <span className="r">CREATE.</span>
-          <span className="scribble s2">{scrapOn ? "family-friendly ✿" : ""}</span>
+          <span className="scribble s2">{scrapOn ? "all-day ✿" : ""}</span>
         </h1>
         <div className="hero-stamp">
           <div className="star-big" aria-hidden="true"></div>
@@ -648,7 +648,7 @@ const MENU_DATA_DEFAULT = [
 const _content = () => (window.CONTENT || {});
 const MENU_DATA = (window.CONTENT && window.CONTENT.menu) || MENU_DATA_DEFAULT;
 
-const MENU_CATS = (window.CONTENT && window.CONTENT.menuCategories) || ["All", "Breakfast", "Pizza", "Pasta", "Main", "Drinks", "Dessert", "Kids"];
+const MENU_CATS = (window.CONTENT && window.CONTENT.menuCategories) || ["All", "Breakfast", "Pizza", "Pasta", "Main", "Drinks", "Dessert"];
 
 function MenuSection({ scrapOn, lang }) {
   const [cat, setCat] = useState("All");
@@ -659,14 +659,10 @@ function MenuSection({ scrapOn, lang }) {
   }, [cat]);
 
   return (
-    <section id="menu" className="s-section menu-sec reveal" ref={ref} data-screen-label="04 menu">
-      <div className="s-label">
-        <span className="dot"></span><span className="ix">04</span> Menu — today
-      </div>
+    <section id="menu" className="s-section menu-sec reveal" ref={ref} data-screen-label="menu">
+      {/* s-label + menu-title removed: duplicates PageHero on /menu.html, and
+          numbering doesn't make sense once sections are split across pages. */}
       <div className="menu-head">
-        <h2 className="menu-title">
-          EAT, <span className="r">TODAY.</span>
-        </h2>
         <div className="menu-pills" role="tablist">
           {MENU_CATS.map((c) =>
           <button
@@ -758,11 +754,10 @@ function SignatureSection({ scrapOn, lang }) {
   }, []);
 
   return (
-    <section id="signature" className="sig-sec reveal" ref={ref} data-screen-label="05 signature">
+    <section id="signature" className="sig-sec reveal" ref={ref} data-screen-label="signature">
       <div className="sig-head">
         <div className="s-label" style={{ color: "rgba(255,254,249,.55)" }}>
           <span className="dot"></span>
-          <span className="ix" style={{ color: "var(--paper)" }}>05</span>
           Signature
         </div>
         <h2 className="sig-title">
@@ -833,7 +828,7 @@ function ExperienceSection({ scrapOn, lang }) {
     <section id="experience" className="s-section exp-sec reveal" ref={ref} data-screen-label="06 experience">
       <div className="exp-head">
         <div className="s-label">
-          <span className="dot"></span><span className="ix">06</span> The place
+          <span className="dot"></span>The place
         </div>
         <h2 className="exp-title">
           INSIDE <span className="r">SIGNA.</span>
@@ -873,9 +868,9 @@ function ExperienceSection({ scrapOn, lang }) {
 function OrderSection({ scrapOn }) {
   const ref = window.useReveal();
   return (
-    <section id="order" className="s-section order-sec reveal" ref={ref} data-screen-label="07 order">
+    <section id="order" className="s-section order-sec reveal" ref={ref} data-screen-label="order">
       <div className="s-label">
-        <span className="dot"></span><span className="ix">07</span> Order
+        <span className="dot"></span>Order
       </div>
       <h2 className="order-title">
         ORDER, <span className="r">NOW.</span>
@@ -953,7 +948,7 @@ function LocationSection({ scrapOn, lang }) {
   return (
     <section id="location" className="s-section loc-sec reveal" ref={ref} data-screen-label="08 location">
       <div className="s-label">
-        <span className="dot"></span><span className="ix">08</span> {t("loc_label")}
+        <span className="dot"></span>{t("loc_label")}
       </div>
       <h2 className="loc-title">
         {t("loc_title_a")}<br /><span className="r">{t("loc_title_b")}</span>
@@ -1030,7 +1025,7 @@ function FeedbackSection({ scrapOn, lang }) {
   return (
     <section id="feedback" className="s-section fb-sec reveal" ref={ref} data-screen-label="03 feedback">
       <div className="s-label">
-        <span className="dot"></span><span className="ix">03</span> {t("fb_label")}
+        <span className="dot"></span>{t("fb_label")}
       </div>
       <h2 className="fb-title">
         {t("fb_title_a")} <span className="r">{t("fb_title_b")}</span>
@@ -1147,7 +1142,7 @@ function PromosSection({ scrapOn, lang }) {
   return (
     <section id="promos" className="s-section promos-sec reveal" ref={ref} data-screen-label="05 promos">
       <div className="s-label">
-        <span className="dot"></span><span className="ix">05</span> Daily perks
+        <span className="dot"></span>Daily perks
       </div>
       <h2 className="promos-title">PERKS &amp; <span className="r">RITUALS.</span></h2>
       <p className="promos-sub">Small things that make Signa yours. Show up regularly — we notice.</p>
@@ -1179,7 +1174,7 @@ window.PromosSection = PromosSection;
 // FAQ — quick answers to common visitor questions
 // ============================================================
 const FAQ_DATA = (window.CONTENT && window.CONTENT.faq) || [
-  { q: "Is it family-friendly?", a: "Yes. Family-run cafe, kids menu, booster seats on request." },
+  { q: "Good for working or meeting?", a: "Yes. WiFi, outlets at most tables, room for solo work and small meet-ups alike." },
   { q: "Vegetarian options?",    a: "Many. Most breakfast, salad, pasta, bakery and pizza items have plant-based versions." },
   { q: "WiFi?",                  a: "Free fast WiFi. Outlets at most tables." },
   { q: "Parking?",               a: "Free parking on-site." },
@@ -1191,7 +1186,7 @@ function FAQSection({ scrapOn, lang }) {
   return (
     <section id="faq" className="s-section faq-sec reveal" ref={ref} data-screen-label="09 faq">
       <div className="s-label">
-        <span className="dot"></span><span className="ix">09</span> Quick answers
+        <span className="dot"></span>Quick answers
       </div>
       <h2 className="faq-title">QUESTIONS, <span className="r">ANSWERED.</span></h2>
 
