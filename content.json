@@ -43,7 +43,7 @@
     {
       "tag": "PIZZA HOUR · FROM 14:00",
       "title": "Margarita, your daily",
-      "body": "Fixed-price pizza menu opens at 14:00. Wood-fire oven, italian flour, daily mozzarella.",
+      "body": "Fixed-price pizza menu opens at 14:00. Italian flour, daily mozzarella.",
       "style": "primary"
     },
     {
@@ -67,7 +67,7 @@
     { "q": "Pets?",                         "a": "Outdoor seating is pet-friendly. Water bowls available." },
     { "q": "Book a table?",                 "a": "Walk-ins always welcome. For groups of 4+ or a specific time slot, WhatsApp the manager. We hold tables for 15 minutes." },
     { "q": "Delivery?",                     "a": "GoFood, GrabFood, or directly via signa.dishi.rest. In-house ordering is the fastest." },
-    { "q": "Pizza all day?",                "a": "Pizza opens at 14:00 — wood-fire oven needs the morning to come up to temperature. Everything else is all day, 08:00–23:00." }
+    { "q": "Pizza all day?",                "a": "Pizza opens at 14:00 — the oven needs the morning to come up to temperature. Everything else is all day, 08:00–23:00." }
   ],
   "signatureDishes": [
     { "n": 1, "title": "Ricotta\nPancakes",  "meta": "Brunch · 75k",     "img": "assets/photo-breakfast.webp" },

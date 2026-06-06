@@ -29,7 +29,7 @@ const STRINGS = {
     loc_label: "Location",
     loc_title_a: "NUSA DUA,", loc_title_b: "BUKIT.",
     loc_address_lbl: "Address", loc_address_val: "Jl. Dharmawangsa, Jl. Raya Kampial, Benoa",
-    loc_hours_lbl: "Hours", loc_hours_val: "08:00 — 22:00",
+    loc_hours_lbl: "Hours", loc_hours_val: "08:00 — 23:00",
     loc_phone_lbl: "Phone",
     loc_wa_lbl: "WhatsApp", loc_wa_val: "Tap to message",
     loc_ig_lbl: "Instagram",
@@ -73,7 +73,7 @@ const STRINGS = {
     loc_label: "Локация",
     loc_title_a: "НУСА ДУА,", loc_title_b: "БУКИТ.",
     loc_address_lbl: "Адрес", loc_address_val: "Jl. Dharmawangsa, Jl. Raya Kampial, Benoa",
-    loc_hours_lbl: "Часы", loc_hours_val: "08:00 — 22:00",
+    loc_hours_lbl: "Часы", loc_hours_val: "08:00 — 23:00",
     loc_phone_lbl: "Телефон",
     loc_wa_lbl: "WhatsApp", loc_wa_val: "Написать в чат",
     loc_ig_lbl: "Instagram",
@@ -116,7 +116,7 @@ const STRINGS = {
     loc_label: "Lokasi",
     loc_title_a: "NUSA DUA,", loc_title_b: "BUKIT.",
     loc_address_lbl: "Alamat", loc_address_val: "Jl. Dharmawangsa, Jl. Raya Kampial, Benoa",
-    loc_hours_lbl: "Jam", loc_hours_val: "08:00 — 22:00",
+    loc_hours_lbl: "Jam", loc_hours_val: "08:00 — 23:00",
     loc_phone_lbl: "Telepon",
     loc_wa_lbl: "WhatsApp", loc_wa_val: "Ketuk untuk chat",
     loc_ig_lbl: "Instagram",
@@ -957,7 +957,7 @@ function LocationSection({ scrapOn, lang }) {
       <div className="loc-map loc-map-google">
         <iframe
           title="Signa Cafe on Google Maps"
-          src="https://www.google.com/maps?q=Signa+Cafe,+Jl.+Dharmawangsa,+Jl.+Raya+Kampial,+Benoa,+Nusa+Dua,+Bali&output=embed"
+          src="https://maps.google.com/maps?ll=-8.7945,115.2245&q=Signa+Cafe&z=18&t=m&output=embed&iwloc=A"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"

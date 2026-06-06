@@ -7,7 +7,7 @@ window.mountSitePage("about", ({ lang, scrapbook }) => (
       lead="Signa is the all-day cafe on the corner — the one you come back to."
       paras={[
         "We opened in 2024 with a simple idea: one room that works from the first morning coffee to the last evening plate. A place for laptop mornings and slow lunches, for friends catching up and for anyone who just wants good coffee and a reliable table.",
-        "The coffee is specialty-grade and taken seriously. The kitchen is full and runs all day — breakfast that doesn't stop at noon, wood-fire pizza from the afternoon, pasta and shared plates into the evening.",
+        "The coffee is specialty-grade and taken seriously. The kitchen is full and runs all day — breakfast that doesn't stop at noon, pizza from the afternoon, pasta and shared plates into the evening.",
         "It's a neighbourhood cafe, not a destination restaurant. Come as you are, stay as long as you like."
       ]}
     />
