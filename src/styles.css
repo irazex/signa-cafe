@@ -954,7 +954,71 @@ button{ font: inherit; color: inherit; cursor: pointer;}
   color: rgba(0,0,0,.55);
   background: var(--paper);
   padding: 4px 8px;
+  z-index: 2;
 }
+
+/* Google Maps iframe variant — overrides CSS-only decorative map */
+.loc-map.loc-map-google{
+  height: 360px;
+  background: var(--paper);
+}
+.loc-map.loc-map-google iframe{
+  filter: grayscale(0.15) contrast(1.02);
+}
+@media (max-width: 768px){
+  .loc-map.loc-map-google{ height: 260px; }
+}
+
+/* "Get directions" red CTA between map and meta rows */
+.loc-directions-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0 8px;
+  padding: 16px 24px;
+  background: var(--red);
+  color: var(--paper);
+  border-radius: 14px;
+  text-decoration: none;
+  font-family: "Anton", sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.85);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.loc-directions-btn:hover,
+.loc-directions-btn:focus-visible{
+  background: #FF4A1F;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 rgba(0,0,0,0.85);
+}
+.loc-directions-btn:active{
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.85);
+}
+.loc-directions-btn .loc-dir-icon{
+  font-size: 22px;
+  line-height: 1;
+}
+.loc-directions-btn .loc-dir-arr{
+  font-size: 18px;
+  transition: transform 0.15s ease;
+}
+.loc-directions-btn:hover .loc-dir-arr{
+  transform: translateX(5px);
+}
+@media (max-width: 768px){
+  .loc-directions-btn{
+    font-size: 15px;
+    padding: 14px 18px;
+    gap: 10px;
+  }
+}
+
 .loc-meta{
   margin-top: 24px;
   display: flex; flex-direction: column;

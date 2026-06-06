@@ -957,7 +957,7 @@ function LocationSection({ scrapOn, lang }) {
       <div className="loc-map loc-map-google">
         <iframe
           title="Signa Cafe on Google Maps"
-          src="https://maps.google.com/maps?ll=-8.7945,115.2245&q=Signa+Cafe&z=18&t=m&output=embed&iwloc=A"
+          src="https://maps.google.com/maps?q=loc:-8.817627,115.190137&hl=en&z=17&t=m&output=embed"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
