@@ -11,6 +11,7 @@ const STRINGS = {
   en: {
     nav_tell: "Contact us", nav_menu: "Menu", nav_sig: "Signature",
     nav_place: "Place", nav_order: "Order", nav_find: "Find us",
+    nav_home: "Home", nav_about: "Place", nav_visit: "Visit",
     cta_order: "Order →",
     // hero meta block
     hero_meta_loc: "— Nusa Dua · Bali", hero_meta_run: "Family-run · Since 2024",
@@ -58,6 +59,7 @@ const STRINGS = {
   ru: {
     nav_tell: "Контакты", nav_menu: "Меню", nav_sig: "Сигнечные",
     nav_place: "Место", nav_order: "Заказ", nav_find: "Как найти",
+    nav_home: "Главная", nav_about: "О нас", nav_visit: "Визит",
     cta_order: "Заказать →",
     hero_meta_loc: "— Нуса Дуа · Бали", hero_meta_run: "Семейное · С 2024 года",
     hero_meta_rating_lbl: "— Рейтинг Google", hero_meta_rating_val: "★ 4.7 · 1426+ отзывов",
@@ -100,6 +102,7 @@ const STRINGS = {
   id: {
     nav_tell: "Kontak", nav_menu: "Menu", nav_sig: "Andalan",
     nav_place: "Tempat", nav_order: "Pesan", nav_find: "Lokasi",
+    nav_home: "Beranda", nav_about: "Tentang", nav_visit: "Kunjungi",
     cta_order: "Pesan →",
     hero_meta_loc: "— Nusa Dua · Bali", hero_meta_run: "Bisnis keluarga · Sejak 2024",
     hero_meta_rating_lbl: "— Rating Google", hero_meta_rating_val: "★ 4.7 · 1.426+ ulasan",
@@ -426,35 +429,93 @@ function HeroVariantB({ scrapOn, lang }) {
 
 function HeroVariantC({ scrapOn }) {
   const ref = window.useReveal();
+  const bgRef = React.useRef(null);
+
+  // Flag body so the floating header timer hides (variant C has its own)
+  React.useEffect(() => {
+    document.body.classList.add("hero-c-active");
+    return () => document.body.classList.remove("hero-c-active");
+  }, []);
+
+  // Parallax background — follows mouse on desktop, device tilt on mobile
+  React.useEffect(() => {
+    const bg = bgRef.current;
+    if (!bg) return;
+    let raf;
+    const apply = (px, py) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        bg.style.setProperty("--px", px.toFixed(3));
+        bg.style.setProperty("--py", py.toFixed(3));
+      });
+    };
+    const onMove = (e) => {
+      apply((e.clientX / window.innerWidth - 0.5) * 2, (e.clientY / window.innerHeight - 0.5) * 2);
+    };
+    const onOrient = (e) => {
+      const px = Math.max(-1, Math.min(1, (e.gamma || 0) / 28));
+      const py = Math.max(-1, Math.min(1, ((e.beta || 0) - 45) / 28));
+      apply(px, py);
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("deviceorientation", onOrient, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("deviceorientation", onOrient);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <section id="hero" className="hero-sec v-c" ref={ref} data-screen-label="01 hero">
-      <div className="hero-c-bg" aria-hidden="true"></div>
+      <div className="hero-c-bg" ref={bgRef} aria-hidden="true"></div>
       <div className="hero-c-overlay" aria-hidden="true"></div>
       <div className="hero-c-content">
         <div className="hero-c-top mono">
-          <span>NUSA DUA · BALI · 08—22</span>
-          <span className="r">SINCE 2024</span>
+          <span className="hero-c-loc">Nusa Dua · Bali</span>
+          <span className="hero-c-hours"><window.OpenStatus compact /></span>
         </div>
-        <h1 className="hero-c-title">
-          SIGNA<span className="r">.</span>
-        </h1>
-        <div className="hero-c-tag">
-          Eat <span className="r">·</span> Meet <span className="r">·</span> <span className="r">Create</span>
+
+        <div className="hero-c-mid">
+          <h1 className="hero-c-title">
+            <span className="l l1">EAT.</span>
+            <span className="l l2">MEET.</span>
+            <span className="l l3 r">CREATE.</span>
+          </h1>
+          <p className="hero-c-blurb">
+            Specialty coffee, pizza, pasta &amp; all-day breakfast in the heart of Nusa Dua.
+            Eat, meet, create — all in one place.
+          </p>
         </div>
-        <div className="hero-c-ctas">
-          <a className="h-btn red" href="https://signa.dishi.rest/" target="_blank" rel="noreferrer">
-            <span>MENU</span><span className="arr">→</span>
-          </a>
-          <a className="h-btn paper" href="#order"
-            onClick={(e) => { e.preventDefault(); document.querySelector("#order")?.scrollIntoView({ behavior: "smooth" }); }}>
-            <span>ORDER</span><span className="arr">↓</span>
-          </a>
-          <a className="h-btn outline-paper" href="#feedback"
+
+        <div className="hero-c-bottom">
+          <div className="hero-c-ctas">
+            <a className="h-btn red" href="https://signa.dishi.rest/" target="_blank" rel="noreferrer">
+              <span>MENU</span><span className="arr">→</span>
+            </a>
+            <a className="h-btn paper" href="https://signa.dishi.rest/" target="_blank" rel="noreferrer">
+              <span>ORDER</span><span className="arr">→</span>
+            </a>
+            <a className="h-btn outline-paper" href="visit.html">
+              <span>CONTACT</span><span className="arr">↗</span>
+            </a>
+          </div>
+          <a className="hero-c-scroll" href="#feedback"
             onClick={(e) => { e.preventDefault(); document.querySelector("#feedback")?.scrollIntoView({ behavior: "smooth" }); }}>
-            <span>CONTACT</span><span className="arr">↗</span>
+            <span>Scroll</span>
+            <span className="hero-c-scroll-line" aria-hidden="true"></span>
           </a>
         </div>
       </div>
+
+      {/* Reviews strip pinned to bottom of hero (full-bleed black bar) */}
+      <a className="hero-c-reviews" href="https://g.page/r/CZpcFedoGOxKEAE/review" target="_blank" rel="noreferrer">
+        <span className="rev-stars" aria-hidden="true">★★★★★</span>
+        <b>4.7</b>
+        <span className="rev-on"> on Google</span>
+        <span className="rev-count">1,426+ reviews</span>
+        <span className="rev-arr" aria-hidden="true">↗</span>
+      </a>
     </section>
   );
 }
@@ -1283,9 +1344,65 @@ function BottomCTA({ lang }) {
 }
 
 
+// ============================================================
+// MULTI-PAGE SHELL COMPONENTS (from v2 bundle)
+// ============================================================
+function PageHero({ ix, kicker, titleA, titleB, sub }) {
+  const ref = window.useReveal();
+  return (
+    <section className="page-hero reveal" ref={ref} data-screen-label={`${ix} ${kicker}`}>
+      <div className="s-label"><span className="dot"></span><span className="ix">{ix}</span> {kicker}</div>
+      <h1 className="page-hero-title">{titleA} <span className="r">{titleB}</span></h1>
+      {sub && <p className="page-hero-sub">{sub}</p>}
+    </section>
+  );
+}
+
+function ProseSection({ id, ix, label, titleA, titleB, lead, paras = [], dark = false }) {
+  const ref = window.useReveal();
+  return (
+    <section id={id} className={`s-section prose-sec reveal ${dark ? "is-dark" : ""}`} ref={ref} data-screen-label={`${ix} ${label}`}>
+      <div className="s-label">
+        <span className="dot"></span><span className="ix">{ix}</span> {label}
+      </div>
+      <h2 className="prose-title">{titleA} <span className="r">{titleB}</span></h2>
+      {lead && <p className="prose-lead">{lead}</p>}
+      <div className="prose-body">
+        {paras.map((p, i) => <p key={i}>{p}</p>)}
+      </div>
+    </section>
+  );
+}
+
+function NavCards() {
+  const cards = [
+    { href: "menu.html",  num: "01", title: "Menu",      sub: "Coffee, pizza, pasta, all-day breakfast", arr: "→" },
+    { href: "about.html", num: "02", title: "The place", sub: "Who we are & the room itself",            arr: "→" },
+    { href: "visit.html", num: "03", title: "Visit",     sub: "Hours, map, FAQ & contact",               arr: "→" },
+  ];
+  const ref = window.useReveal();
+  return (
+    <section id="explore" className="s-section navcards-sec reveal" ref={ref} data-screen-label="explore">
+      <div className="s-label"><span className="dot"></span><span className="ix">→</span> Explore</div>
+      <div className="navcards-grid">
+        {cards.map((c) => (
+          <a key={c.href} className="navcard" href={c.href}>
+            <span className="navcard-num">{c.num}</span>
+            <span className="navcard-title">{c.title}</span>
+            <span className="navcard-sub">{c.sub}</span>
+            <span className="navcard-arr" aria-hidden="true">{c.arr}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // Export to window
 Object.assign(window, {
   SignaHeader, HeroSection, BrandSection, MenuSection, SignatureSection,
   ExperienceSection, OrderSection, LocationSection, FeedbackSection,
-  FooterSection, BottomCTA
+  FooterSection, BottomCTA,
+  // Multi-page shell extras
+  PageHero, ProseSection, NavCards
 });

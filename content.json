@@ -30,10 +30,9 @@
     { "id": 8,  "title": "Mango smoothie",                    "price": "55k",  "cat": "drinks",    "img": "assets/photo-smoothie.webp",        "tags": ["veg"] },
     { "id": 9,  "title": "Bali signature cocktail",           "price": "95k",  "cat": "drinks",    "img": "assets/photo-cocktail.webp" },
     { "id": 10, "title": "Today's special",                   "price": "ask waiter", "cat": "special", "accent": true,                       "badge": "Today" },
-    { "id": 11, "title": "Lemon tart",                        "price": "45k",  "cat": "dessert",   "img": "assets/photo-8962.webp",            "badge": "−30% after 20:00", "tags": ["veg"] },
-    { "id": 12, "title": "Kids menu",                         "price": "from 45k", "cat": "kids",  "img": "assets/photo-interior.webp" }
+    { "id": 11, "title": "Lemon tart",                        "price": "45k",  "cat": "dessert",   "img": "assets/photo-8962.webp",            "badge": "−30% after 20:00", "tags": ["veg"] }
   ],
-  "menuCategories": ["All", "Breakfast", "Pizza", "Pasta", "Main", "Drinks", "Dessert", "Kids"],
+  "menuCategories": ["All", "Breakfast", "Pizza", "Pasta", "Main", "Drinks", "Dessert"],
   "promos": [
     {
       "tag": "EVERY DAY · 20:00–22:00",
@@ -50,7 +49,7 @@
     {
       "tag": "BIRTHDAY PERK",
       "title": "Cake on us + coffee",
-      "body": "Show your ID at the counter on your birthday — a slice of cake and a coffee are on the house. Bring the family.",
+      "body": "Show your ID at the counter on your birthday — a slice of cake and a coffee are on the house. Bring whoever you like.",
       "style": "default"
     },
     {
@@ -61,7 +60,7 @@
     }
   ],
   "faq": [
-    { "q": "Is it family-friendly?",        "a": "Yes. Family-run cafe, kids menu, booster seats on request. Children — and their noise — welcome." },
+    { "q": "Is it a good spot to work or meet?",  "a": "Absolutely. A relaxed room that works for solo laptop sessions, friends and groups alike." },
     { "q": "Vegetarian or vegan options?",  "a": "Many. Most breakfast, salad, pasta, bakery and pizza items have plant-based versions. Ask the waiter — we'll point them out." },
     { "q": "WiFi for working?",             "a": "Free fast WiFi. Outlets at most tables. It's a popular spot for laptops — especially weekday mornings." },
     { "q": "Parking?",                      "a": "Free parking on-site. Motorbikes and cars." },
@@ -73,9 +72,9 @@
   "signatureDishes": [
     { "n": 1, "title": "Ricotta\nPancakes",  "meta": "Brunch · 75k",     "img": "assets/photo-breakfast.webp" },
     { "n": 2, "title": "Mango\nSmoothie",    "meta": "Cold · 55k",       "img": "assets/photo-smoothie.webp"  },
-    { "n": 3, "title": "Family\nDinner",     "meta": "Evening · 120k+",  "img": "assets/photo-dinner.webp" },
+    { "n": 3, "title": "Evening\nDinner",     "meta": "Evening · 120k+",  "img": "assets/photo-dinner.webp" },
     { "n": 4, "title": "Bali\nCocktail",     "meta": "Drinks · 95k",     "img": "assets/photo-cocktail.webp" },
     { "n": 5, "title": "Sunset\nPlates",     "meta": "Main · 110k+",     "img": "assets/photo-9831.webp" },
-    { "n": 6, "title": "Kids'\nFavourites",  "meta": "Family · 45k",     "img": "assets/photo-8962.webp" }
+    { "n": 6, "title": "Bakery\nCounter",  "meta": "All day · from 35k", "img": "assets/photo-8962.webp" }
   ]
 }
