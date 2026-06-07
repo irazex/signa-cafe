@@ -149,22 +149,46 @@
   ],
   "promos": [
     {
-      "tag": "EVERY DAY · 20:00–22:00",
-      "title": "Bakery −30%",
-      "body": "Lemon tart, apple tart, pumpkin tart, eclair, napoleon. Last two hours of the day, all desserts thirty percent off.",
+      "tag": "FROM 08:00 TILL 09:00",
+      "title": "Free coffee with any order",
+      "body": "Every day, the first hour after we open. Order anything and your coffee is on the house — espresso-based, hot or iced.",
       "style": "default"
     },
     {
-      "tag": "BIRTHDAY PERK",
-      "title": "Cake on us + coffee",
-      "body": "Show your ID at the counter on your birthday — a slice of cake and a coffee are on the house. Bring whoever you like.",
+      "tag": "EVERY DAY · 14:00–18:00",
+      "title": "Pizza for 89.000 IDR",
+      "body": "Great pizza, great price. One fixed-price pie every afternoon — on Italian flour, baked in-house.",
+      "style": "primary"
+    },
+    {
+      "tag": "EVERY DAY · 21:00–23:00",
+      "title": "Bakery desserts −30%",
+      "body": "Napoleon, eclair, tarts and the rest of the case — thirty percent off in the last two hours before close.",
       "style": "default"
     },
     {
-      "tag": "LOYAL REGULAR",
-      "title": "11th coffee free",
-      "body": "Stamp card at the bar. Every 11th coffee — on us. Works for any espresso-based drink, hot or iced.",
+      "tag": "MON–THU",
+      "title": "Buy 2 cocktails, 3rd free",
+      "body": "Order two cocktails Monday through Thursday — the third one is on us. Mix and match.",
       "style": "dark"
+    },
+    {
+      "tag": "SAT & SUN",
+      "title": "Buy 2 wines, 3rd glass free",
+      "body": "Make weekend brunches longer. Two glasses ordered together, the third one's on the house.",
+      "style": "dark"
+    },
+    {
+      "tag": "BIRTHDAY · LOYALTY MEMBERS",
+      "title": "20% off your entire order",
+      "body": "Celebrate at Signa — show your loyalty card on your birthday for 20% off the whole bill. Bring whoever you like.",
+      "style": "primary"
+    },
+    {
+      "tag": "EVERY ORDER · LOYALTY MEMBERS",
+      "title": "Earn cashback every day",
+      "body": "0–2M IDR → 0%. 2–10M IDR → 5%. Over 10M → 10%. Cashback can cover up to 50% of your next order.",
+      "style": "default"
     }
   ],
   "faq": [
