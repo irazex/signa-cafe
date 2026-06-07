@@ -6,14 +6,33 @@ const { useState, useEffect } = React;
 
 // ---------- Content hydration ----------
 async function hydrateContent() {
-  try {
-    const local = localStorage.getItem("signa.admin.content");
-    if (local) { window.CONTENT = JSON.parse(local); return; }
-  } catch (_) {}
+  // Always fetch the live content.json first so we can compare versions.
+  // If a localStorage admin override exists for the SAME version → keep it
+  // (admin edits in progress). Otherwise it's stale and we discard it —
+  // avoids the trap where someone saved a snapshot months ago via /admin
+  // and their browser keeps serving that snapshot to themselves instead of
+  // the freshly deployed site content.
+  let server = null;
   try {
     const r = await fetch("content.json", { cache: "no-store" });
-    if (r.ok) window.CONTENT = await r.json();
+    if (r.ok) server = await r.json();
   } catch (_) {}
+
+  try {
+    const localRaw = localStorage.getItem("signa.admin.content");
+    if (localRaw) {
+      const local = JSON.parse(localRaw);
+      if (server && local && local.version && server.version && local.version === server.version) {
+        window.CONTENT = local;
+        return;
+      }
+      if (server) {
+        try { localStorage.removeItem("signa.admin.content"); } catch (_) {}
+      }
+    }
+  } catch (_) {}
+
+  if (server) window.CONTENT = server;
 }
 window.hydrateContent = hydrateContent;
 
