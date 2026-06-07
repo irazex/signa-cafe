@@ -20,19 +20,133 @@
     "reviewCount": "1426"
   },
   "menu": [
-    { "id": 1,  "title": "Syrniki — cottage cheese pancakes", "price": "93k",  "cat": "breakfast", "img": "assets/syrniki.webp",              "badge": "★ Popular",        "tags": ["veg"] },
-    { "id": 2,  "title": "Big Breakfast",                     "price": "79k",  "cat": "breakfast", "img": "assets/photo-breakfast.webp",      "badge": "★ Popular" },
-    { "id": 3,  "title": "Best Scramble",                     "price": "71k",  "cat": "breakfast", "img": "assets/photo-9742.webp",            "tags": ["veg"] },
-    { "id": 4,  "title": "Pizza Margarita",                   "price": "69k",  "cat": "pizza",     "img": "assets/pizza-margherita.webp",      "badge": "from 14:00",       "tags": ["veg"] },
-    { "id": 5,  "title": "Creamy Bacon Pasta",                "price": "89k",  "cat": "pasta",     "img": "assets/photo-dinner.webp" },
-    { "id": 6,  "title": "Big Salmon Poke Bowl",              "price": "145k", "cat": "main",      "img": "assets/photo-9887.webp",            "badge": "★ Chef's" },
-    { "id": 7,  "title": "Caesar with chicken",               "price": "92k",  "cat": "main",      "img": "assets/photo-9831.webp" },
-    { "id": 8,  "title": "Mango smoothie",                    "price": "55k",  "cat": "drinks",    "img": "assets/photo-smoothie.webp",        "tags": ["veg"] },
-    { "id": 9,  "title": "Bali signature cocktail",           "price": "95k",  "cat": "drinks",    "img": "assets/photo-cocktail.webp" },
-    { "id": 10, "title": "Today's special",                   "price": "ask waiter", "cat": "special", "accent": true,                       "badge": "Today" },
-    { "id": 11, "title": "Lemon tart",                        "price": "45k",  "cat": "dessert",   "img": "assets/photo-8962.webp",            "badge": "−30% after 20:00", "tags": ["veg"] }
+    {
+      "id": 1,
+      "title": "Syrniki — cottage cheese pancakes",
+      "price": "93k",
+      "cat": "breakfast",
+      "img": "assets/menu-01-syrniki-cottage-cheese-pancake.webp",
+      "badge": "Popular",
+      "tags": [
+        "veg"
+      ],
+      "desc": "Cottage cheese pancakes with sour cream, salted caramel and berries."
+    },
+    {
+      "id": 2,
+      "title": "Big Breakfast",
+      "price": "79k",
+      "cat": "breakfast",
+      "img": "assets/menu-02-big-breakfast.webp",
+      "badge": "Popular",
+      "desc": "Eggs, sausage, hashbrowns, beans, toast — the full plate."
+    },
+    {
+      "id": 3,
+      "title": "Best Scramble",
+      "price": "71k",
+      "cat": "breakfast",
+      "img": "assets/menu-03-best-scramble.webp",
+      "tags": [
+        "veg"
+      ],
+      "desc": "Creamy scrambled eggs with fresh herbs and sourdough toast."
+    },
+    {
+      "id": 4,
+      "title": "Avo Benedict Toast",
+      "price": "65k",
+      "cat": "breakfast",
+      "img": "assets/menu-04-avo-benedict-toast.webp",
+      "tags": [
+        "veg"
+      ],
+      "desc": "Sourdough, smashed avocado, poached eggs, hollandaise."
+    },
+    {
+      "id": 5,
+      "title": "French Omelette",
+      "price": "75k",
+      "cat": "breakfast",
+      "img": "assets/menu-05-french-omelette.webp",
+      "tags": [
+        "veg"
+      ],
+      "desc": "Classic French folded omelette with herbs."
+    },
+    {
+      "id": 6,
+      "title": "Creamy Bacon Pasta",
+      "price": "89k",
+      "cat": "pasta",
+      "img": "assets/menu-06-creamy-bacon-pasta.webp",
+      "desc": "Penne in cream sauce with crispy bacon and parmesan."
+    },
+    {
+      "id": 7,
+      "title": "Big Salmon Poke Bowl",
+      "price": "145k",
+      "cat": "main",
+      "img": "assets/menu-07-big-salmon-poke-bowl.webp",
+      "badge": "★ Chef's",
+      "desc": "Salmon, rice, edamame, mango, avocado, sesame, soy."
+    },
+    {
+      "id": 8,
+      "title": "Caesar with chicken",
+      "price": "92k",
+      "cat": "main",
+      "img": "assets/menu-08-caesar-with-chicken.webp",
+      "desc": "Grilled chicken, romaine, parmesan, anchovy dressing, croutons."
+    },
+    {
+      "id": 9,
+      "title": "Mango smoothie bowl",
+      "price": "86k",
+      "cat": "drinks",
+      "img": "assets/menu-09-mango-smoothie-bowl.webp",
+      "badge": "Popular",
+      "tags": [
+        "veg"
+      ],
+      "desc": "Mango, banana, coconut milk, chia, granola, fresh fruit."
+    },
+    {
+      "id": 10,
+      "title": "Norwegian salmon soup",
+      "price": "89k",
+      "cat": "main",
+      "img": "assets/menu-10-norwegian-salmon-soup.webp",
+      "desc": "Creamy salmon soup with potato, leek, dill."
+    },
+    {
+      "id": 11,
+      "title": "Classic Burger",
+      "price": "80k",
+      "cat": "main",
+      "img": "assets/menu-11-classic-burger.webp",
+      "desc": "Beef patty, cheddar, lettuce, tomato, signa sauce, brioche."
+    },
+    {
+      "id": 12,
+      "title": "Napoleon cake with Nutella",
+      "price": "85k",
+      "cat": "dessert",
+      "img": "assets/menu-12-napoleon-cake-with-nutella.webp",
+      "tags": [
+        "veg"
+      ],
+      "desc": "Flaky layers, vanilla cream and a generous Nutella swirl."
+    }
   ],
-  "menuCategories": ["All", "Breakfast", "Pizza", "Pasta", "Main", "Drinks", "Dessert"],
+  "menuCategories": [
+    "All",
+    "Breakfast",
+    "Pasta",
+    "Main",
+    "Drinks",
+    "Dessert"
+  ],
   "promos": [
     {
       "tag": "EVERY DAY · 20:00–22:00",
@@ -60,21 +174,75 @@
     }
   ],
   "faq": [
-    { "q": "Is it a good spot to work or meet?",  "a": "Absolutely. A relaxed room that works for solo laptop sessions, friends and groups alike." },
-    { "q": "Vegetarian or vegan options?",  "a": "Many. Most breakfast, salad, pasta, bakery and pizza items have plant-based versions. Ask the waiter — we'll point them out." },
-    { "q": "WiFi for working?",             "a": "Free fast WiFi. Outlets at most tables. It's a popular spot for laptops — especially weekday mornings." },
-    { "q": "Parking?",                      "a": "Free parking on-site. Motorbikes and cars." },
-    { "q": "Pets?",                         "a": "Outdoor seating is pet-friendly. Water bowls available." },
-    { "q": "Book a table?",                 "a": "Walk-ins always welcome. For groups of 4+ or a specific time slot, WhatsApp the manager. We hold tables for 15 minutes." },
-    { "q": "Delivery?",                     "a": "GoFood, GrabFood, or directly via signa.dishi.rest. In-house ordering is the fastest." },
-    { "q": "Pizza all day?",                "a": "Pizza opens at 14:00 — the oven needs the morning to come up to temperature. Everything else is all day, 08:00–23:00." }
+    {
+      "q": "Is it a good spot to work or meet?",
+      "a": "Absolutely. A relaxed room that works for solo laptop sessions, friends and groups alike."
+    },
+    {
+      "q": "Vegetarian or vegan options?",
+      "a": "Many. Most breakfast, salad, pasta, bakery and pizza items have plant-based versions. Ask the waiter — we'll point them out."
+    },
+    {
+      "q": "WiFi for working?",
+      "a": "Free fast WiFi. Outlets at most tables. It's a popular spot for laptops — especially weekday mornings."
+    },
+    {
+      "q": "Parking?",
+      "a": "Free parking on-site. Motorbikes and cars."
+    },
+    {
+      "q": "Pets?",
+      "a": "Outdoor seating is pet-friendly. Water bowls available."
+    },
+    {
+      "q": "Book a table?",
+      "a": "Walk-ins always welcome. For groups of 4+ or a specific time slot, WhatsApp the manager. We hold tables for 15 minutes."
+    },
+    {
+      "q": "Delivery?",
+      "a": "GoFood, GrabFood, or directly via signa.dishi.rest. In-house ordering is the fastest."
+    },
+    {
+      "q": "Pizza all day?",
+      "a": "Pizza opens at 14:00 — the oven needs the morning to come up to temperature. Everything else is all day, 08:00–23:00."
+    }
   ],
   "signatureDishes": [
-    { "n": 1, "title": "Ricotta\nPancakes",  "meta": "Brunch · 75k",     "img": "assets/photo-breakfast.webp" },
-    { "n": 2, "title": "Mango\nSmoothie",    "meta": "Cold · 55k",       "img": "assets/photo-smoothie.webp"  },
-    { "n": 3, "title": "Evening\nDinner",     "meta": "Evening · 120k+",  "img": "assets/photo-dinner.webp" },
-    { "n": 4, "title": "Bali\nCocktail",     "meta": "Drinks · 95k",     "img": "assets/photo-cocktail.webp" },
-    { "n": 5, "title": "Sunset\nPlates",     "meta": "Main · 110k+",     "img": "assets/photo-9831.webp" },
-    { "n": 6, "title": "Bakery\nCounter",  "meta": "All day · from 35k", "img": "assets/photo-8962.webp" }
+    {
+      "n": 1,
+      "title": "Ricotta\nPancakes",
+      "meta": "Brunch · 75k",
+      "img": "assets/photo-breakfast.webp"
+    },
+    {
+      "n": 2,
+      "title": "Mango\nSmoothie",
+      "meta": "Cold · 55k",
+      "img": "assets/photo-smoothie.webp"
+    },
+    {
+      "n": 3,
+      "title": "Evening\nDinner",
+      "meta": "Evening · 120k+",
+      "img": "assets/photo-dinner.webp"
+    },
+    {
+      "n": 4,
+      "title": "Bali\nCocktail",
+      "meta": "Drinks · 95k",
+      "img": "assets/photo-cocktail.webp"
+    },
+    {
+      "n": 5,
+      "title": "Sunset\nPlates",
+      "meta": "Main · 110k+",
+      "img": "assets/photo-9831.webp"
+    },
+    {
+      "n": 6,
+      "title": "Bakery\nCounter",
+      "meta": "All day · from 35k",
+      "img": "assets/photo-8962.webp"
+    }
   ]
 }
