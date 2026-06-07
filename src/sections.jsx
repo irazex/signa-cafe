@@ -698,7 +698,8 @@ function MenuSection({ scrapOn, lang }) {
             {m.badge && <span className="badge">{window.loc(m, "badge", lang)}</span>}
             <div className="ovl"></div>
             <div className="cap">
-              {window.loc(m, "title", lang)}
+              <span className="title">{window.loc(m, "title", lang)}</span>
+              {m.desc && <span className="desc">{window.loc(m, "desc", lang)}</span>}
               <span className="price">{m.price}</span>
             </div>
           </a>

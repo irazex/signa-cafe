@@ -7,7 +7,6 @@ window.mountSitePage("menu", ({ lang, scrapbook }) => (
       sub="A few of today's picks below. The full live menu — 180+ items with photos, current prices and availability — lives on our ordering page."
     />
     <window.MenuSection scrapOn={scrapbook} lang={lang}/>
-    <window.FullMenuCTA lang={lang}/>
     <window.PromosSection scrapOn={scrapbook} lang={lang}/>
     <window.SignatureSection scrapOn={scrapbook} lang={lang}/>
     <window.ProseSection
