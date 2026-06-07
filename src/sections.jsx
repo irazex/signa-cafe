@@ -12,6 +12,9 @@ const STRINGS = {
     nav_tell: "Contact us", nav_menu: "Menu", nav_sig: "Signature",
     nav_place: "Place", nav_order: "Order", nav_find: "Find us",
     nav_home: "Home", nav_about: "Place", nav_visit: "Visit",
+    fullmenu_kicker: "These are just a few. The full menu — 180+ items —",
+    fullmenu_cta: "OPEN FULL MENU ON DISHI",
+    fullmenu_note: "live prices · photos · order online",
     cta_order: "Order →",
     // hero meta block
     hero_meta_loc: "— Nusa Dua · Bali", hero_meta_run: "Family-run · Since 2024",
@@ -60,6 +63,9 @@ const STRINGS = {
     nav_tell: "Контакты", nav_menu: "Меню", nav_sig: "Сигнечные",
     nav_place: "Место", nav_order: "Заказ", nav_find: "Как найти",
     nav_home: "Главная", nav_about: "О нас", nav_visit: "Визит",
+    fullmenu_kicker: "Это лишь часть. Полное меню — 180+ блюд —",
+    fullmenu_cta: "ОТКРЫТЬ ПОЛНОЕ МЕНЮ",
+    fullmenu_note: "актуальные цены · фото · заказ онлайн",
     cta_order: "Заказать →",
     hero_meta_loc: "— Нуса Дуа · Бали", hero_meta_run: "Семейное · С 2024 года",
     hero_meta_rating_lbl: "— Рейтинг Google", hero_meta_rating_val: "★ 4.7 · 1426+ отзывов",
@@ -103,6 +109,9 @@ const STRINGS = {
     nav_tell: "Kontak", nav_menu: "Menu", nav_sig: "Andalan",
     nav_place: "Tempat", nav_order: "Pesan", nav_find: "Lokasi",
     nav_home: "Beranda", nav_about: "Tentang", nav_visit: "Kunjungi",
+    fullmenu_kicker: "Ini hanya beberapa. Menu lengkap — 180+ item —",
+    fullmenu_cta: "BUKA MENU LENGKAP",
+    fullmenu_note: "harga terkini · foto · pesan online",
     cta_order: "Pesan →",
     hero_meta_loc: "— Nusa Dua · Bali", hero_meta_run: "Bisnis keluarga · Sejak 2024",
     hero_meta_rating_lbl: "— Rating Google", hero_meta_rating_val: "★ 4.7 · 1.426+ ulasan",
@@ -1393,11 +1402,32 @@ function NavCards() {
   );
 }
 
+// ============================================================
+// FULL MENU CTA — sits below the menu grid pointing visitors to
+// the real, full live menu on signa.dishi.rest (the on-site sample
+// is intentionally short and curated).
+// ============================================================
+function FullMenuCTA({ lang }) {
+  const t = window.T(lang || "en");
+  return (
+    <section className="s-section fullmenu-cta-sec" data-screen-label="full menu cta">
+      <a className="fullmenu-cta" href="https://signa.dishi.rest/" target="_blank" rel="noreferrer">
+        <span className="fullmenu-kicker">{t("fullmenu_kicker")}</span>
+        <span className="fullmenu-main">
+          <span>{t("fullmenu_cta")}</span>
+          <span className="fullmenu-arr" aria-hidden="true">→</span>
+        </span>
+        <span className="fullmenu-note">{t("fullmenu_note")}</span>
+      </a>
+    </section>
+  );
+}
+
 // Export to window
 Object.assign(window, {
   SignaHeader, HeroSection, BrandSection, MenuSection, SignatureSection,
   ExperienceSection, OrderSection, LocationSection, FeedbackSection,
   FooterSection, BottomCTA,
   // Multi-page shell extras
-  PageHero, ProseSection, NavCards
+  PageHero, ProseSection, NavCards, FullMenuCTA
 });
