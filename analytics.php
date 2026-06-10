@@ -53,12 +53,14 @@ $human_sids = [];
 $bot_sids = [];
 $by_day = [];        // YYYY-MM-DD -> count
 $clicks = [];        // target -> count
+$clicks_by_page = []; // page (home/menu/about/visit) -> [target -> count]
 $lang_counts = [];
 $devices = ['mobile' => 0, 'tablet' => 0, 'desktop' => 0];
 $referrers = [];     // host -> count
 $pages = [];         // path -> count
+$page_views_by_page = []; // logical page name -> count
 $tz_counts = [];     // timezone -> count
-$scroll_max_per_sid = []; // sid -> max section index seen
+$scroll_max_per_sid_page = []; // "$sid|$page" -> max section idx
 
 foreach ($events as $r) {
     $t = $r['t'] ?? '';
@@ -93,28 +95,64 @@ foreach ($events as $r) {
         $path = (string)($d['path'] ?? '/');
         $pages[$path] = ($pages[$path] ?? 0) + 1;
 
+        // Logical page name (home/menu/about/visit/unknown) — emitted by
+        // useSiteAnalytics. Fallback derived from path.
+        $page = (string)($d['page'] ?? '');
+        if (!$page) {
+            if ($path === '/' || $path === '' || $path === '/index.html') $page = 'home';
+            elseif (preg_match('~/(menu|about|visit)\.html~', $path, $mm)) $page = $mm[1];
+            else $page = 'unknown';
+        }
+        $page_views_by_page[$page] = ($page_views_by_page[$page] ?? 0) + 1;
+
         $tz = (string)($d['tz'] ?? '');
         if ($tz) $tz_counts[$tz] = ($tz_counts[$tz] ?? 0) + 1;
     } elseif ($t === 'click') {
         $target = (string)($d['target'] ?? 'unknown');
         $clicks[$target] = ($clicks[$target] ?? 0) + 1;
+        $page = (string)($d['page'] ?? 'unknown');
+        if (!isset($clicks_by_page[$page])) $clicks_by_page[$page] = [];
+        $clicks_by_page[$page][$target] = ($clicks_by_page[$page][$target] ?? 0) + 1;
     } elseif ($t === 'scroll') {
         $section = (string)($d['section'] ?? '');
-        // section is like "04_menu" -> idx = 4
+        $page = (string)($d['page'] ?? 'unknown');
+        // Section labels like "04_menu" — keep the whole string (sections IDs
+        // now come from the live DOM, not a fixed 0–10 list)
+        $key = $sid . '|' . $page;
+        $prev = $scroll_max_per_sid_page[$key] ?? null;
+        // Track BOTH the highest numeric index AND the latest seen section
+        // label so the funnel can render real section names.
         $idx = intval(substr($section, 0, 2));
-        if (!isset($scroll_max_per_sid[$sid]) || $idx > $scroll_max_per_sid[$sid]) {
-            $scroll_max_per_sid[$sid] = $idx;
+        if (!isset($prev) || $idx > $prev['idx']) {
+            $scroll_max_per_sid_page[$key] = ['idx' => $idx, 'section' => $section, 'page' => $page];
         }
     }
 }
 
-// Scroll funnel: how many SESSIONS reached at least section i
+// Scroll funnel per page: how many SESSIONS reached at least section i
+$scroll_funnel_by_page = []; // page -> [section_label -> sessions]
+$page_sids = []; // page -> set of sids that emitted at least one scroll event
+foreach ($scroll_max_per_sid_page as $rec) {
+    $page_sids[$rec['page']][/* sid implied via key */] = true;
+}
+foreach ($scroll_max_per_sid_page as $key => $rec) {
+    list($sid, $page) = explode('|', $key, 2);
+    $idx = $rec['idx'];
+    $sections_per_page[$page][$idx] = $rec['section'];
+    for ($i = 0; $i <= $idx; $i++) {
+        $scroll_funnel_by_page[$page][$i] = ($scroll_funnel_by_page[$page][$i] ?? 0) + 1;
+    }
+}
+foreach ($scroll_funnel_by_page as $page => &$row) ksort($row);
+unset($row);
+
+// Flat scroll funnel (legacy compat)
 $max_section_idx = 0;
-foreach ($scroll_max_per_sid as $m) if ($m > $max_section_idx) $max_section_idx = $m;
+foreach ($scroll_max_per_sid_page as $rec) if ($rec['idx'] > $max_section_idx) $max_section_idx = $rec['idx'];
 $scroll_funnel = [];
 for ($i = 0; $i <= $max_section_idx; $i++) {
     $count = 0;
-    foreach ($scroll_max_per_sid as $m) if ($m >= $i) $count++;
+    foreach ($scroll_max_per_sid_page as $rec) if ($rec['idx'] >= $i) $count++;
     $scroll_funnel[$i] = $count;
 }
 
@@ -123,7 +161,10 @@ ksort($by_day);
 arsort($clicks);
 arsort($referrers);
 arsort($pages);
+arsort($page_views_by_page);
 arsort($tz_counts);
+foreach ($clicks_by_page as &$row) arsort($row);
+unset($row);
 
 // Latest 30 events for sanity check
 $sample = array_slice($events, -30);
@@ -143,7 +184,10 @@ echo json_encode([
     'devices'          => $devices,
     'top_referrers'    => array_slice($referrers, 0, 15, true),
     'top_pages'        => array_slice($pages, 0, 15, true),
+    'page_views_by_page' => $page_views_by_page,
+    'clicks_by_page'   => $clicks_by_page,
     'top_timezones'    => array_slice($tz_counts, 0, 10, true),
     'scroll_funnel'    => $scroll_funnel,
+    'scroll_funnel_by_page' => $scroll_funnel_by_page,
     'sample'           => $sample,
 ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
