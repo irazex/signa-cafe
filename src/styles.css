@@ -2975,3 +2975,96 @@ body.is-hero-mode .header-open-status.hero-overlay{
 @media (min-width: 1000px){
   .story{ padding-top: 130px; }
 }
+
+/* ---------- Mobile nav drawer ----------
+   The burger used to be a plain link to menu.html, which left /stories
+   unreachable from the header on phones. It is a real toggle now. */
+.signa-header .burger{
+  padding: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.signa-header .burger span,
+.signa-header .burger span::before,
+.signa-header .burger span::after{
+  transition: transform .22s ease, opacity .18s ease;
+}
+.signa-header .burger.is-open span{ background: transparent;}
+.signa-header .burger.is-open span::before{ top: 0; transform: rotate(45deg);}
+.signa-header .burger.is-open span::after { top: 0; transform: rotate(-45deg);}
+
+.mobile-nav{
+  border-top: 1px solid rgba(0,0,0,.08);
+  background: var(--paper);
+  padding: 8px var(--pad-x) 18px;
+  position: relative;
+  z-index: 2;
+}
+/* .signa-header nav is display:none on phones - the drawer's nav must opt out. */
+.signa-header .mobile-nav nav{
+  display: flex;
+  flex-direction: column;
+}
+.signa-header .mobile-nav nav a{
+  font-family: var(--display);
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.signa-header .mobile-nav nav a.is-current{ color: var(--red);}
+.mobile-nav-cta{
+  display: block;
+  margin-top: 18px;
+  text-align: center;
+  font-family: var(--mono); font-size: 12px;
+  letter-spacing: .08em; text-transform: uppercase;
+  background: var(--red); color: var(--paper);
+  padding: 14px 16px; border-radius: 999px;
+}
+.mobile-nav-veil{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 1;
+}
+@media (min-width: 900px){
+  .mobile-nav, .mobile-nav-veil{ display: none !important;}
+}
+
+/* Feed subscription affordance on the stories index. Search engines read the
+   <link rel=alternate>; people need something to click. */
+.story-subscribe{
+  margin-top: 18px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .06em; text-transform: uppercase;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+}
+.story-subscribe a{
+  color: var(--paper); background: var(--ink);
+  padding: 8px 14px; border-radius: 999px;
+}
+.story-subscribe a:hover{ background: var(--red);}
+.story-subscribe span{ color: rgba(0,0,0,.55);}
+
+/* Header overflow on phones: the open/close timeline is 207px wide and was
+   pushing the burger off the right edge (row scrollWidth 410 in a 375 viewport),
+   so no nav control was reachable at all. The timeline is repeated in the page
+   body, so the header copy stands down on narrow screens. */
+.signa-header .burger,
+.signa-header .lang-toggle,
+.signa-header .signa-mark{ flex-shrink: 0;}
+@media (max-width: 639px){
+  .signa-header .header-open-status{ display: none;}
+}
+
+/* The server-rendered pages have no React, so their drawer is a checkbox.
+   Same markup and styles, different switch. */
+.mnav-toggle{ position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none;}
+.signa-header .burger[for]{ cursor: pointer;}
+.mnav-toggle:checked ~ .mobile-nav[hidden]{ display: block;}
+.mnav-toggle:checked ~ .signa-header-row .burger span{ background: transparent;}
+.mnav-toggle:checked ~ .signa-header-row .burger span::before{ top: 0; transform: rotate(45deg);}
+.mnav-toggle:checked ~ .signa-header-row .burger span::after { top: 0; transform: rotate(-45deg);}

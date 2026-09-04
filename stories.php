@@ -71,6 +71,10 @@ st_head([
     <div class="s-label"><span class="dot"></span><span class="ix">STORIES</span> <?= e(st_t('kicker', $lang)) ?></div>
     <h1 class="page-hero-title"><?= e(st_t('index_title_a', $lang)) ?> <span class="r"><?= e(st_t('index_title_b', $lang)) ?></span></h1>
     <p class="page-hero-sub"><?= e(st_t('index_sub', $lang)) ?></p>
+    <p class="story-subscribe">
+      <a href="<?= ST_BASE ?>/feed.xml" type="application/rss+xml"><?= e(st_t('subscribe', $lang)) ?> &#8599;</a>
+      <span><?= e(st_t('subscribe_note', $lang)) ?></span>
+    </p>
   </section>
 
   <section class="s-section story-index">

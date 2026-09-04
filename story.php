@@ -48,6 +48,12 @@ $jsonld[] = [
     'timeRequired' => 'PT' . $readMin . 'M',
     'articleSection' => $b['category'] ?? 'Food',
     'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $canon],
+    // Voice assistants read the headline and the lead aloud when answering
+    // "where can I get X near Nusa Dua".
+    'speakable' => [
+        '@type' => 'SpeakableSpecification',
+        'cssSelector' => ['.story-title', '.story-lead'],
+    ],
     'author' => ['@type' => 'Organization', 'name' => 'Signa Cafe', '@id' => ST_BASE . '/#org'],
     'publisher' => [
         '@type' => 'Organization', 'name' => 'Signa Cafe', '@id' => ST_BASE . '/#org',

@@ -89,7 +89,12 @@ function st_url(?string $slug = null, string $lang = 'en', bool $absolute = true
 
 // ---------- text ----------
 
-function e($s): string { return htmlspecialchars((string)$s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
+function e($s): string {
+    // Keywords arrive as an array from the generator and as a string from
+    // hand-written posts. Flatten rather than let PHP stringify an array.
+    if (is_array($s)) $s = implode(', ', $s);
+    return htmlspecialchars((string)$s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
 
 function st_plain(array $b): string {
     $out = (string)($b['lead'] ?? '');
@@ -122,7 +127,8 @@ function st_t(string $key, string $lang): string {
             'cta_order' => 'Order →',
             'section' => 'Stories', 'kicker' => 'One dish, one story, every week',
             'index_title_a' => 'ONE DISH,', 'index_title_b' => 'ONE STORY.',
-            'index_sub' => 'Every week we take one thing off the Signa menu and write down where it actually comes from — the history, the argument about the recipe, and what it takes to cook it in Nusa Dua.',
+            'subscribe' => 'Subscribe by RSS', 'subscribe_note' => 'New dish every Thursday.',
+            'index_sub' => 'Every week we take one thing off the Signa menu and write down where it actually comes from - the history, the argument about the recipe, and what it takes to cook it in Nusa Dua.',
             'read' => 'min read', 'read_more' => 'Read the story',
             'facts' => 'The short version', 'faq' => 'Questions people ask',
             'more' => 'More stories', 'back' => 'All stories',
@@ -139,6 +145,7 @@ function st_t(string $key, string $lang): string {
             'cta_order' => 'Заказать →',
             'section' => 'Истории', 'kicker' => 'Одно блюдо, одна история, каждую неделю',
             'index_title_a' => 'ОДНО БЛЮДО,', 'index_title_b' => 'ОДНА ИСТОРИЯ.',
+            'subscribe' => 'Подписаться по RSS', 'subscribe_note' => 'Новое блюдо каждый четверг.',
             'index_sub' => 'Каждую неделю берём одну позицию из меню Signa и разбираемся, откуда она взялась на самом деле: история, спор о рецепте и что нужно, чтобы приготовить это в Нуса Дуа.',
             'read' => 'мин чтения', 'read_more' => 'Читать историю',
             'facts' => 'Коротко', 'faq' => 'Частые вопросы',
@@ -216,6 +223,9 @@ function st_header(string $lang, ?string $altUrl): void {
     $site = st_site();
     ?>
 <header class="signa-header">
+  <?php /* CSS-only drawer: these pages must work with JavaScript switched off,
+           which is the entire point of rendering them on the server. */ ?>
+  <input type="checkbox" id="mnav-toggle" class="mnav-toggle" aria-hidden="true" tabindex="-1">
   <div class="signa-header-row">
     <a class="signa-mark" href="/index.html">
       <span class="star" aria-hidden="true"></span>
@@ -238,7 +248,18 @@ function st_header(string $lang, ?string $altUrl): void {
     </div>
     <?php endif; ?>
     <a class="desk-cta" href="<?= e($site['orderUrl']) ?>" target="_blank" rel="noreferrer"><?= e(st_t('cta_order', $lang)) ?></a>
-    <a class="burger" href="/menu.html" aria-label="Menu"><span></span></a>
+    <label class="burger" for="mnav-toggle" aria-label="Menu"><span></span></label>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <nav>
+      <a href="/index.html"><?= e(st_t('nav_home', $lang)) ?></a>
+      <a href="/menu.html"><?= e(st_t('nav_menu', $lang)) ?></a>
+      <a href="<?= e(st_url(null, $lang, false)) ?>" class="is-current"><?= e(st_t('nav_stories', $lang)) ?></a>
+      <a href="/about.html"><?= e(st_t('nav_about', $lang)) ?></a>
+      <a href="/visit.html"><?= e(st_t('nav_visit', $lang)) ?></a>
+    </nav>
+    <a class="mobile-nav-cta" href="<?= e($site['orderUrl']) ?>" target="_blank" rel="noreferrer"><?= e(st_t('cta_order', $lang)) ?></a>
   </div>
 </header>
 <?php

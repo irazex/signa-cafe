@@ -4,7 +4,7 @@
   "posts": [
     {
       "slug": "syrniki-cottage-cheese-pancakes",
-      "date": "2026-09-04",
+      "date": "2026-09-03",
       "cover": "assets/menu-01-syrniki-cottage-cheese-pancake.webp",
       "dish": {
         "name": "Syrniki",
@@ -12,186 +12,235 @@
         "menuUrl": "https://signa.dishi.rest/"
       },
       "tags": [
-        "breakfast",
         "syrniki",
-        "nusa dua",
+        "breakfast",
+        "brunch",
+        "nusa-dua",
+        "kampial",
         "bukit",
-        "brunch"
+        "vegetarian",
+        "kid-friendly"
       ],
       "en": {
-        "title": "Syrniki: the 500-year-old pancake that became a Nusa Dua breakfast",
-        "seoTitle": "Syrniki in Nusa Dua - the history behind Signa Cafe's cottage cheese pancakes",
-        "description": "Where syrniki come from, why they use cottage cheese not flour, and how they became the most-ordered breakfast at Signa Cafe in Nusa Dua, Bali.",
-        "keywords": "syrniki Bali, cottage cheese pancakes Nusa Dua, breakfast Nusa Dua, brunch Bukit Bali, Signa Cafe, breakfast Ungasan, cafe Benoa, Russian breakfast Bali",
+        "title": "Syrniki in Kampial: the cottage cheese pancake built for breakfast",
+        "seoTitle": "Syrniki in Nusa Dua: cottage cheese breakfast",
+        "description": "Syrniki - cottage cheese pancakes at Signa Cafe in Kampial make a sweet, soft breakfast near Nusa Dua with sour cream, caramel and berries.",
+        "keywords": [
+          "syrniki",
+          "cottage cheese pancakes",
+          "breakfast nusa dua",
+          "brunch nusa dua",
+          "kampial cafe",
+          "bukit breakfast",
+          "kid-friendly cafe",
+          "family cafe bali",
+          "coffee nusa dua",
+          "vegetarian breakfast",
+          "jimbaran breakfast",
+          "ungasan cafe"
+        ],
         "category": "Breakfast",
-        "coverAlt": "Golden syrniki - cottage cheese pancakes with sour cream, salted caramel and berries - at Signa Cafe, Nusa Dua",
-        "lead": "Three ingredients, five centuries, and a queue every morning in Kampial. This is the dish people cross the Bukit for.",
+        "coverAlt": "Syrniki cottage cheese pancakes with sour cream, salted caramel and berries",
+        "lead": "Syrniki - cottage cheese pancakes bring a cottage-cheese breakfast from Eastern Europe to Kampial, minutes from Nusa Dua.",
         "blocks": [
           {
-            "h": "A pancake that starts with cheese, not flour",
+            "h": "A pancake named after fresh cheese",
             "p": [
-              "Most pancakes begin with flour and end with something poured over them. Syrniki work the other way around. The base is tvorog - fresh, unripened cottage cheese, drained until it is dry enough to hold a shape. Flour is only there to keep the cheese from falling apart in the pan. Get the ratio wrong and you either have a rubber disc or a puddle; get it right and you have a pancake that is soft and slightly grainy inside, with a lacquered brown crust.",
-              "The name gives away the recipe. In old East Slavic, syr meant cheese in general, not the aged wheels the word describes today. A syrnik was simply a small cheese thing. Written recipes appear in Russian and Ukrainian household books from the sixteenth century, but the dish is older than the writing - it was the practical answer to a jar of soured milk before anyone owned a refrigerator."
+              "Syrniki are cottage cheese pancakes from the East Slavic kitchen, and the name carries an older food history inside one small word. In Russian, Ukrainian and Belarusian food traditions, syr once pointed to fresh cheese or curd, long before the modern Russian word tvorog became the everyday name for cottage cheese.",
+              "Fresh acid-set cheese was practical in cold-climate farm kitchens because milk could be soured, drained and cooked without a cave, a press or months of aging. Curd pancakes made that cheese last one more meal. A spoon of flour, an egg and a hot pan turned a perishable dairy product into breakfast.",
+              "By the 19th and 20th centuries, syrniki were common in home kitchens and canteens across the region. Syrniki never needed ceremony. Syrniki were the kind of food made for children before school, for grandparents with tea, or for a late morning table where jam, sour cream and berries were already within reach."
             ]
           },
           {
-            "h": "Peasant economics, not chef invention",
+            "h": "Why simple syrniki are hard to cook well",
             "p": [
-              "Syrniki were never designed. They were what happened when milk turned. Farms across Ukraine, Russia, Belarus and Poland made tvorog constantly because it kept longer than milk did, and when a batch was about to go, it went into a pan with an egg and whatever flour was in the house. Sweet, with honey and sour cream. Savoury, with herbs and salt. Both versions are correct and both are still argued about.",
-              "That is why every family recipe is different and every grandmother's is the best one. Some add semolina instead of flour, which absorbs moisture more slowly and gives a lighter middle. Some add raisins, which is either essential or heresy depending on which side of a very old argument you were raised on. Some fry in butter, some in oil, some finish them in the oven so the centre sets without the crust burning.",
-              "By the twentieth century syrniki had travelled with the diaspora into Germany, Israel, the United States and eventually anywhere a Slavic family opened a kitchen. They arrived in Bali the same way most food does here - in someone's memory of home."
+              "A good syrnik is not just a small pancake with cheese added. A good syrnik is mostly cottage cheese, bound lightly enough to hold its shape and gently enough to stay tender in the centre. Too much flour makes syrniki heavy, while too little structure makes syrniki spread and tear in the pan.",
+              "Moisture is the main test. Cottage cheese brings acidity, protein and water, and the cook has to control all three. The curd needs enough draining or careful mixing so the batter can be shaped, but the pancake still has to taste like dairy rather than dough.",
+              "Heat matters as much as the mix. If the pan is too hot, the outside browns before the middle warms through. If the pan is too cool, the syrniki drink fat and lose their clean edge. The target is a pale golden crust, a warm curd centre and a shape that looks hand-made rather than factory-cut."
             ]
           },
           {
-            "h": "How they made it onto a Bali menu",
+            "h": "How Signa Cafe builds the plate",
             "p": [
-              "Nusa Dua is not an obvious home for a Slavic breakfast. But the Bukit peninsula has spent the last decade filling up with people who stay for months rather than days - remote workers, families on long visas, surfers who came for a season and are still here. A large share of them grew up eating syrniki, and they ask for it.",
-              "The harder problem was the cheese. Proper tvorog is not something you buy at a supermarket in Benoa. Indonesian dairy runs toward sweetened condensed milk and processed cheddar; the fresh curd that syrniki need has to be sourced carefully and used fast in a climate that is 30 degrees and humid by nine in the morning. Ours is made in small batches and drained overnight, which is the unglamorous half of why the dish works.",
-              "The other half is heat management. In a Bali kitchen the butter browns faster than it does in Kyiv. The pan runs lower and slower than a classic recipe would tell you, and the pancakes finish in the oven. It takes longer. It also means the middle is set and warm rather than raw, which is the difference between a good syrnik and an apology."
+              "Signa Cafe serves Syrniki - cottage cheese pancakes with sour cream, salted caramel and berries for 93k. The plate keeps the traditional logic of the dish: dairy on dairy, fruit for acidity, and a sweet element that works with the slight tang of the cheese.",
+              "Sour cream is not decoration on syrniki. Sour cream returns the lactic sharpness that makes the pancake taste clean after the first sweet bite. Salted caramel gives the plate a darker sweetness than plain sugar or jam, and berries bring the quick acidity that cottage cheese likes.",
+              "This version fits the way people eat in Nusa Dua now: familiar enough for a breakfast order, specific enough for someone looking beyond eggs on toast. Syrniki at Signa Cafe are vegetarian, sweet but not pastry-heavy, and easy to share with a child who wants pancakes while an adult wants something with more protein."
             ]
           },
           {
-            "h": "What arrives at the table",
+            "h": "When to cross the Bukit for syrniki",
             "p": [
-              "Four pancakes, sour cream, salted caramel, fresh berries. The caramel is not traditional - honey or jam would be - but salt against the sourness of the curd does something that honey cannot, and it has become the version people come back for.",
-              "It is on the menu from the moment we open at 08:00 until we close at 23:00, which means it works as a breakfast in Ungasan before a surf, as a late brunch after the school run in Nusa Dua, and as a dessert at nine in the evening. Most people order it before noon. Some order it twice."
+              "Signa Cafe opens daily at 08:00, and syrniki make the most sense early. From 08:00 till 09:00, Signa Cafe offers free coffee with any order, so Syrniki - cottage cheese pancakes can become a complete breakfast without overthinking the table.",
+              "The dish also works for brunch after a beach morning or a slow start from Ungasan, Jimbaran or the Nusa Dua resort strip. Syrniki are filling without being a heavy lunch, which matters on the Bukit when the next plan might be a swim, a meeting or a drive across Bali.",
+              "Coffee is the easiest drink match because bitterness cuts the caramel and dairy. A plain black coffee keeps the plate bright, while a milk coffee makes the meal softer and more dessert-like. Families can order syrniki for the table because the shape, sweetness and sour cream make the dish kid-friendly without turning breakfast into candy."
+            ]
+          },
+          {
+            "h": "A useful order in a family cafe",
+            "p": [
+              "Signa Cafe is a family cafe in Kampial, between Nusa Dua and Benoa, and syrniki suit the practical side of choosing where to eat in the next hour. The dish is quick to understand, neat to share, and gentle enough for breakfast with children.",
+              "The address is Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Signa Cafe is open 08:00-23:00 daily, with last order at 22:30, and the online menu and delivery are at https://signa.dishi.rest/. The pizza oven fires from 14:00, but syrniki belong to the quieter morning rhythm.",
+              "For travellers staying in Nusa Dua, workers moving through Benoa, and residents driving down from Jimbaran or Ungasan, Syrniki - cottage cheese pancakes are a clear answer to a common local search: where can I get a proper sweet breakfast in Kampial that is not just cake. Signa Cafe has a 4.7 Google rating from 1426+ reviews, and the phone number is +62 896 540 27190."
             ]
           }
         ],
         "facts": [
           [
-            "Dish",
-            "Syrniki - cottage cheese pancakes"
+            "Origin",
+            "East Slavic home cooking, especially Russian, Ukrainian and Belarusian kitchens"
+          ],
+          [
+            "Name",
+            "Syrniki comes from syr, an older word for fresh cheese or curd"
+          ],
+          [
+            "Key ingredient",
+            "Cottage cheese"
           ],
           [
             "Price",
-            "93,000 IDR"
+            "93k"
           ],
           [
-            "Served",
-            "08:00 - 23:00, every day"
+            "Best time",
+            "08:00-09:00 with coffee, or late morning brunch"
           ],
           [
-            "Diet",
-            "Vegetarian"
-          ],
-          [
-            "Origin",
-            "East Slavic - Ukraine, Russia, Belarus"
-          ],
-          [
-            "Where",
-            "Signa Cafe, Jl. Raya Kampial, Benoa, Nusa Dua"
+            "Who it suits",
+            "Vegetarians, families, kids, and anyone who wants a sweet dairy breakfast"
           ]
         ],
         "faq": [
           {
-            "q": "What are syrniki made of?",
-            "a": "Fresh cottage cheese (tvorog), egg, a little flour and sugar, fried in butter. The cheese is the main ingredient - the flour is only there to bind it."
+            "q": "Where can I eat syrniki for breakfast in Nusa Dua?",
+            "a": "You can eat Syrniki - cottage cheese pancakes at Signa Cafe in Kampial, near Nusa Dua. The dish is served with sour cream, salted caramel and berries for 93k."
           },
           {
-            "q": "Are syrniki vegetarian?",
-            "a": "Yes. Ours contain no meat, gelatine or animal rennet additions beyond dairy and egg."
+            "q": "Is Signa Cafe in Kampial good for brunch with kids?",
+            "a": "Signa Cafe in Kampial is a family cafe, and syrniki are a kid-friendly brunch choice because the pancakes are soft, sweet and easy to share. The cafe opens daily at 08:00."
           },
           {
-            "q": "Where can I eat syrniki in Nusa Dua?",
-            "a": "At Signa Cafe on Jl. Dharmawangsa / Jl. Raya Kampial in Benoa, Nusa Dua - about ten minutes from Ungasan and fifteen from Jimbaran. Served all day, 08:00 to 23:00."
+            "q": "What should I drink with syrniki at Signa Cafe?",
+            "a": "Coffee is the best drink with syrniki at Signa Cafe because bitterness balances the salted caramel, sour cream and cottage cheese. From 08:00 till 09:00, Signa Cafe offers free coffee with any order."
           },
           {
-            "q": "How much are syrniki at Signa Cafe?",
-            "a": "93,000 IDR for a plate of four with sour cream, salted caramel and berries."
+            "q": "Where is Signa Cafe on the Bukit peninsula?",
+            "a": "Signa Cafe is on Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Kampial sits between Nusa Dua and Benoa, with Ungasan and Jimbaran a short drive away."
           }
         ]
       },
       "ru": {
-        "title": "Сырники: пятивековая история блюда, которое стало завтраком Нуса Дуа",
-        "seoTitle": "Сырники в Нуса Дуа - история блюда в кафе Signa на Бали",
-        "description": "Откуда взялись сырники, почему их делают из творога, а не из муки, и как они стали самым заказываемым завтраком в кафе Signa в Нуса Дуа на Бали.",
-        "keywords": "сырники Бали, завтрак Нуса Дуа, русское кафе Бали, сырники Унгасан, кафе Букит, Signa Cafe, завтрак Букит, творожные оладьи Бали",
+        "title": "Сырники в Кампьяле: творожный завтрак рядом с Нуса Дуа",
+        "seoTitle": "Сырники в Нуса Дуа: завтрак с творогом",
+        "description": "В кафе Signa в Кампьяле сырники подают со сметаной, соленой карамелью и ягодами - хороший завтрак рядом с Нуса Дуа.",
+        "keywords": [
+          "сырники",
+          "творожные оладьи",
+          "завтрак нуса дуа",
+          "бранч нуса дуа",
+          "кафе кампьял",
+          "завтрак букит",
+          "семейное кафе бали",
+          "кафе с детьми",
+          "кофе нуса дуа",
+          "вегетарианский завтрак",
+          "джимбаран",
+          "унгасан"
+        ],
         "category": "Завтрак",
-        "coverAlt": "Румяные сырники со сметаной, солёной карамелью и ягодами в кафе Signa, Нуса Дуа",
-        "lead": "Три ингредиента, пять веков и очередь каждое утро в Кампиале. За этим блюдом едут через весь Букит.",
+        "coverAlt": "Сырники со сметаной, соленой карамелью и ягодами",
+        "lead": "Сырники в Кампьяле - теплый творожный завтрак, за которым удобно заехать по дороге из Нуса Дуа.",
         "blocks": [
           {
-            "h": "Блин, который начинается с сыра, а не с муки",
+            "h": "Почему сырники называются сырниками",
             "p": [
-              "Большинство блинов начинаются с муки и заканчиваются тем, что на них что-то льют. Сырники устроены наоборот. Основа - творог, отжатый до состояния, в котором он держит форму. Мука нужна только чтобы творог не развалился на сковороде. Ошибись в пропорции - получишь либо резиновый диск, либо лужу. Попади точно - получишь мягкую, чуть зернистую середину под лакированной румяной корочкой.",
-              "Название выдаёт рецепт. В древнерусском слово сыр означало не выдержанные головы, а творог вообще. Сырник - просто маленькая творожная штука. Первые письменные рецепты встречаются в русских и украинских домашних книгах XVI века, но само блюдо старше любых записей: это был практичный ответ на банку скисшего молока в мире без холодильников."
+              "Название держится на старом значении слова «сыр». В восточнославянской кухне так называли свежий творожный сыр, а привычное сегодня слово «творог» закрепилось позже. Поэтому сырники вовсе не спорят со своим составом: в их имени осталась память о молоке, которое скисло, стекло в полотне и попало на сковороду.",
+              "Это еда не ресторанного, а домашнего происхождения. Кислое молоко было проще сохранить, чем свежее, творожную массу легко связать яйцом и мукой, а дальше нужны были только горячая сковорода и несколько минут. Так вчерашний молочный продукт становился завтраком.",
+              "В русских, украинских и белорусских домах сырники давно идут рядом со сметаной, вареньем, медом и ягодами. Их готовили детям перед школой, ставили к чаю, оставляли для позднего бранча дома, когда до обеда еще далеко. У сырников нет парадности - и именно в этом их обаяние."
             ]
           },
           {
-            "h": "Крестьянская экономика, а не изобретение повара",
+            "h": "Где сырник легко испортить",
             "p": [
-              "Сырники никто не придумывал. Они просто случались, когда молоко скисало. На хозяйствах Украины, России, Беларуси и Польши творог делали постоянно - он хранился дольше молока, - и когда партия начинала уходить, её отправляли на сковороду с яйцом и горстью муки. Сладкие, с мёдом и сметаной. Солёные, с зеленью. Оба варианта правильные, и об обоих до сих пор спорят.",
-              "Поэтому в каждой семье свой рецепт и в каждой бабушкин - лучший. Кто-то кладёт манку вместо муки: она забирает влагу медленнее и даёт более лёгкую середину. Кто-то добавляет изюм - и это либо обязательный элемент, либо ересь, в зависимости от того, на какой стороне очень старого спора вас вырастили. Кто-то жарит на масле, кто-то доводит в духовке, чтобы середина схватилась, а корочка не сгорела.",
-              "К XX веку сырники уехали вместе с эмиграцией в Германию, Израиль, США и в конце концов туда, где славянская семья открывала кухню. На Бали они приехали так же, как приезжает почти вся еда здесь - в чьей-то памяти о доме."
+              "Хороший сырник не должен напоминать мучную лепешку с запахом творога. В середине главным остается творог - мягкий, теплый, с легкой кислинкой. Мука здесь нужна только для формы, а не для того, чтобы забить вкус.",
+              "Слишком влажный творог тянет за собой лишнюю муку, и сырник становится тяжелым. Пересушенная масса крошится еще до сковороды. Сильный огонь быстро румянит корочку, но оставляет холодную середину; слабый жар, наоборот, вытягивает масло и делает края вялыми.",
+              "Повара могут долго спорить о деталях: протирать творог или оставить зерно, жарить сразу или дать массе постоять, класть сахар внутрь или перенести сладость в соус. Главное проще. Сырник должен держать форму на тарелке, но под вилкой ломаться без усилия."
             ]
           },
           {
-            "h": "Как они попали в балийское меню",
+            "h": "Как тарелка собрана в кафе Signa",
             "p": [
-              "Нуса Дуа - неочевидное место для славянского завтрака. Но полуостров Букит за последнее десятилетие заполнился людьми, которые живут здесь месяцами, а не днями: удалёнщиками, семьями на длинных визах, сёрферами, приехавшими на сезон и оставшимися. Многие выросли на сырниках - и спрашивают их.",
-              "Сложнее было с творогом. Нормальный творог не покупается в супермаркете в Беноа. Индонезийская молочка - это сгущёнка и плавленый чеддер; свежий творожный сгусток нужно искать отдельно и использовать быстро в климате, где к девяти утра уже тридцать градусов и высокая влажность. Наш делается маленькими партиями и отвешивается ночь - это неромантичная половина ответа на вопрос, почему блюдо работает.",
-              "Вторая половина - температура. В балийской кухне масло темнеет быстрее, чем в Киеве. Сковорода идёт ниже и медленнее, чем советует классический рецепт, а доходят сырники в духовке. Дольше. Зато середина прогретая и схватившаяся, а не сырая - в этом вся разница между хорошим сырником и извинением."
+              "В кафе Signa в Кампьяле сырники подают со сметаной, соленой карамелью и ягодами. Цена - 93 000 IDR. На тарелке все работает на вкус: творог дает основу, сметана возвращает кислинку, ягоды освежают, а карамель добавляет темную сладость и соль.",
+              "Сметана здесь не декор. Она нужна сырнику почти так же, как лимон жареной рыбе: не спорит с главным продуктом, а делает вкус собраннее. Соленая карамель отличается от варенья - у нее сливочная глубина, легкая горчинка сахара и более взрослый характер.",
+              "Такие сырники удобно заказать на завтрак в Нуса Дуа, когда хочется сладкого, но не пирожного. Творог дает сытность, ягоды не дают блюду окончательно уйти в десерт, а формат небольших оладий хорошо подходит для стола, где едят и взрослые, и дети."
             ]
           },
           {
-            "h": "Что приносят на стол",
+            "h": "Когда заезжать и что пить",
             "p": [
-              "Четыре сырника, сметана, солёная карамель, свежие ягоды. Карамель - не канон, по традиции был бы мёд или варенье, но соль против кислинки творога делает то, чего мёд не умеет. Именно за этой версией возвращаются.",
-              "Блюдо в меню с открытия в 08:00 и до закрытия в 23:00 - то есть работает и как завтрак в Унгасане перед сёрфом, и как поздний бранч после школы в Нуса Дуа, и как десерт в девять вечера. Большинство заказывает до полудня. Некоторые - дважды."
+              "Кафе Signa открывается каждый день в 08:00, и утром сырники звучат особенно уместно. С 08:00 до 09:00 к любому заказу дают кофе, так что творожные оладьи легко складываются в понятный завтрак: горячая тарелка, чашка рядом, день еще только начинается.",
+              "При позднем старте сырники подходят и для бранча. Из Унгасана, Джимбарана или с курортной полосы Нуса Дуа до Кампьяла удобно доехать перед делами на Буките. Тарелка насыщает, но не прибивает к стулу, а на Бали в жаркий день это особенно ценно.",
+              "К сырникам лучше брать кофе без лишней сладости. Черный подчеркивает карамель и сметану, молочный делает завтрак мягче. Для гостей с детьми это тоже удобный заказ: сырники легко делить, они не острые, а вкус понятен даже тем, кто не знает слова «творог»."
+            ]
+          },
+          {
+            "h": "Кому подходит такой заказ",
+            "p": [
+              "Signa - семейное кафе в Кампьяле, между Нуса Дуа и Беноа. Сюда удобно заехать с детьми, когда нужен не долгий ресторанный обед, а нормальная еда в ближайший час. Сырники ровно про это: аккуратная сладкая тарелка, понятный состав и творожная сытность.",
+              "Адрес кафе: Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Кафе работает ежедневно с 08:00 до 23:00, последний заказ принимают в 22:30. Меню и доставка доступны на https://signa.dishi.rest/, телефон - +62 896 540 27190.",
+              "Для жителей Букита, гостей Нуса Дуа, поездок из Джимбарана и остановки по дороге через Беноа сырники закрывают простой запрос: где съесть сладкий завтрак с творогом, а не просто булку. У кафе Signa рейтинг 4.7 в Google на основе 1426+ отзывов. Но для голодного человека важнее другое - тарелка приезжает на стол горячей, понятной и уместной с самого утра."
             ]
           }
         ],
         "facts": [
           [
-            "Блюдо",
-            "Сырники творожные"
+            "Происхождение",
+            "Восточнославянская домашняя кухня"
+          ],
+          [
+            "Название",
+            "«Сыр» раньше означал свежий творожный сыр"
+          ],
+          [
+            "Главный продукт",
+            "Творог"
           ],
           [
             "Цена",
             "93 000 IDR"
           ],
           [
-            "Подача",
-            "08:00 - 23:00, ежедневно"
+            "Лучшее время",
+            "Утро с 08:00 до 09:00 или поздний бранч"
           ],
           [
-            "Диета",
-            "Вегетарианское"
-          ],
-          [
-            "Происхождение",
-            "Восточная Европа - Украина, Россия, Беларусь"
-          ],
-          [
-            "Где",
-            "Signa Cafe, Jl. Raya Kampial, Беноа, Нуса Дуа"
+            "Кому подходит",
+            "Вегетарианцам, семьям, гостям с детьми и тем, кто любит сладкий завтрак"
           ]
         ],
         "faq": [
           {
-            "q": "Из чего делают сырники?",
-            "a": "Свежий творог, яйцо, немного муки и сахара, обжарка на сливочном масле. Основа - творог, мука нужна только для связки."
+            "q": "Где поесть сырники на завтрак в Нуса Дуа?",
+            "a": "Сырники на завтрак в Нуса Дуа можно заказать в кафе Signa в Кампьяле. Их подают со сметаной, соленой карамелью и ягодами за 93 000 IDR."
           },
           {
-            "q": "Сырники вегетарианские?",
-            "a": "Да. В составе только молочные продукты и яйцо, без мяса и животного сычуга."
+            "q": "Подходит ли кафе Signa в Кампьяле для бранча с детьми?",
+            "a": "Кафе Signa в Кампьяле подходит для бранча с детьми. Сырники мягкие, не острые, легко делятся и хорошо смотрятся на семейном столе."
           },
           {
-            "q": "Где поесть сырники в Нуса Дуа?",
-            "a": "В кафе Signa на Jl. Dharmawangsa / Jl. Raya Kampial в Беноа, Нуса Дуа - примерно десять минут от Унгасана и пятнадцать от Джимбарана. Подаём весь день, с 08:00 до 23:00."
+            "q": "Что пить с сырниками в кафе Signa?",
+            "a": "С сырниками в кафе Signa лучше пить кофе. Его горечь уравновешивает карамель, сметану и творог, а с 08:00 до 09:00 кофе дают к любому заказу."
           },
           {
-            "q": "Сколько стоят сырники в Signa Cafe?",
-            "a": "93 000 IDR за порцию из четырёх штук со сметаной, солёной карамелью и ягодами."
+            "q": "Где находится кафе Signa на Буките?",
+            "a": "Кафе Signa находится по адресу Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Кампьял расположен между Нуса Дуа и Беноа, недалеко от Унгасана и Джимбарана."
           }
         ]
       }
     },
     {
       "slug": "margherita-pizza-history",
-      "date": "2026-08-28",
+      "date": "2026-08-27",
       "cover": "assets/pizza-margherita.webp",
       "dish": {
         "name": "Pizza Margherita",
@@ -201,179 +250,924 @@
       "tags": [
         "pizza",
         "margherita",
-        "nusa dua",
-        "ungasan",
-        "dinner"
+        "nusa-dua",
+        "kampial",
+        "bukit",
+        "family-cafe"
       ],
       "en": {
-        "title": "Margherita: the pizza named after a queen who probably never ate it",
-        "seoTitle": "Pizza Margherita in Nusa Dua - the real story behind Signa Cafe's classic",
-        "description": "The Naples legend, the flag that was never a flag, and what it takes to bake a proper Margherita in Bali. Signa Cafe, Nusa Dua - 89,000 IDR every afternoon.",
-        "keywords": "pizza Nusa Dua, margherita pizza Bali, best pizza Bukit, pizza Ungasan, pizza delivery Benoa, Signa Cafe pizza, cheap pizza Bali, pizza Jimbaran",
+        "title": "Pizza Margherita and the queen story that will not die",
+        "seoTitle": "Pizza Margherita in Nusa Dua, royal myth",
+        "description": "Pizza Margherita at Signa Cafe in Kampial, Nusa Dua, is a clean tomato, mozzarella and basil pizza with a royal Naples myth and a 14:00 oven.",
+        "keywords": [
+          "pizza margherita",
+          "pizza nusa dua",
+          "kampial cafe",
+          "bukit pizza",
+          "family cafe nusa dua",
+          "kid-friendly cafe",
+          "brunch nusa dua",
+          "coffee nusa dua",
+          "pizza after 14:00",
+          "jimbaran to nusa dua"
+        ],
         "category": "Pizza",
-        "coverAlt": "Pizza Margherita with tomato, mozzarella and basil, baked at Signa Cafe in Nusa Dua, Bali",
-        "lead": "Three toppings, one queen, and a story that historians have been quietly dismantling for forty years. It is still the best pizza on the menu.",
+        "coverAlt": "Pizza Margherita with tomato, mozzarella and basil on a plate",
+        "lead": "Pizza Margherita in Kampial is three toppings, one queen, and a Naples story with loose paperwork. The pizza still gives the Bukit a reason to drive.",
         "blocks": [
           {
-            "h": "The legend everyone repeats",
+            "h": "The queen, the letter and the older Naples record",
             "p": [
-              "June 1889. Queen Margherita of Savoy is in Naples and tired of French court food. She sends for the city's best pizzaiolo, Raffaele Esposito, who bakes three pizzas for her. She prefers the one with tomato, mozzarella and basil - red, white and green, the colours of the newly unified Italian flag. Esposito names it in her honour. A national dish is born.",
-              "It is a very good story. It appears on menus from Naples to Nusa Dua. The problem is that almost none of it survives contact with the archives."
+              "Pizza Margherita usually enters the room with a crown. The famous version says Raffaele Esposito of Pizzeria Brandi made a tomato, mozzarella and basil pizza in Naples in 1889 for Queen Margherita of Savoy, with the red, white and green echoing the new Italian flag. A thank-you letter from the royal household became the proof that diners repeated for generations.",
+              "Food historians have been pulling threads from that story since the late twentieth century. Tomato, mozzarella and basil pizzas were already part of Naples before 1889, and Francesco De Bourcard described a similar combination in his 1866 account of Neapolitan customs. The royal visit may have helped the story travel, but Pizza Margherita did not suddenly appear because a queen was hungry.",
+              "The better history is more interesting than the postcard. Pizza Margherita belongs to the street-food world of nineteenth-century Naples, where bakers worked fast, ingredients were local, and a good pizza had to satisfy workers without ceremony. The queen legend gave Pizza Margherita a neat origin scene; Naples had already done the harder work."
             ]
           },
           {
-            "h": "What the archives actually say",
+            "h": "Why three toppings are not easy",
             "p": [
-              "The only evidence for the royal visit is a thank-you note, supposedly from the head of the royal household, which has been dated by handwriting analysis to decades after 1889 and is now widely considered a fake produced by the pizzeria itself. Food historian Zachary Nowak published the case in 2014, and Italian scholars had raised doubts long before that.",
-              "Worse for the legend: pizza with tomato, cheese and basil is documented in Naples well before Margherita ever arrived. A book from 1849 by Emanuele Rocco describes exactly this combination. The tricolour flag reading was also retrofitted - the association between the pizza and Italian unity only becomes common in the twentieth century, when Italy needed national symbols more than it needed accurate menus.",
-              "None of which makes the pizza worse. What the story really records is the moment pizza stopped being poor food from Naples' back streets and became something a country was willing to claim. That transition was real, even if the queen's dinner was not."
+              "Pizza Margherita looks simple because Pizza Margherita has nowhere to hide. Tomato brings acidity and water, mozzarella brings fat and more water, and basil brings perfume that can turn bitter when heat goes too far. A crowded pizza can distract from mistakes; a Margherita puts the crust, sauce and cheese under a bright lamp.",
+              "In Naples, the classic high-heat bake runs very hot and very fast, often around 430-480 C for about 60-90 seconds. That style asks the dough to blister before drying out, asks the mozzarella to melt without flooding the centre, and asks the basil to survive long enough to smell fresh. Even outside Naples, the same balance matters more than decoration.",
+              "A good Pizza Margherita should bend without collapsing, carry tomato all the way to the last bite, and keep the cheese in patches rather than a rubber blanket. The crust should taste like bread, not like a plate for toppings. The margin for error is narrow because three toppings make every shortcut visible."
             ]
           },
           {
-            "h": "Why simple is the hardest thing to bake",
+            "h": "How Signa keeps the classic shape",
             "p": [
-              "A Margherita has nowhere to hide. Four elements - dough, tomato, mozzarella, basil - and every flaw in any of them lands on the plate. There is no pepperoni to cover an underproved base and no barbecue sauce to rescue watery cheese.",
-              "The dough matters most. We use Italian flour and a long, slow fermentation, which develops flavour in the base itself rather than relying on toppings to supply it. That is also why our pizza starts at 14:00 rather than at opening: the oven needs the morning to come up to temperature, and the dough needs the time anyway.",
-              "The tomato is uncooked - crushed, salted, spread thin. Cooking it twice, once in a pan and once in the oven, is the most common way to make a Margherita taste flat. The mozzarella is torn rather than grated, so it melts in pools instead of forming a uniform plastic sheet. The basil goes on hot, at the end, not before the bake where it turns black and bitter."
+              "Signa Cafe in Kampial keeps Pizza Margherita close to the form that made the pizza famous: tomato, mozzarella and basil. The menu line says the quiet part clearly - three toppings, one queen, and a story that historians have been dismantling for forty years. The same line also calls Pizza Margherita the best pizza on the menu, which is a bold claim for the least crowded pizza.",
+              "Signa Cafe does not need extra furniture on Pizza Margherita. The point is the red sauce, the white cheese and the green basil, with enough oven heat to make the base matter. The pizza oven at Signa Cafe fires from 14:00, so Pizza Margherita belongs to the afternoon and evening part of the day rather than the breakfast rush.",
+              "From 14:00-18:00, Pizza Margherita is 89,000 IDR (14:00-18:00). That timing is useful for anyone moving between Nusa Dua, Benoa and the Bukit after the beach, a school run or a late meeting. The price window also makes Pizza Margherita an easy shared order before dinner becomes a larger plan."
             ]
           },
           {
-            "h": "89,000 rupiah, every afternoon",
+            "h": "When to come from Nusa Dua, Ungasan or Jimbaran",
             "p": [
-              "Pizza on the Bukit has a price problem. Between the resorts of Nusa Dua and the cliff bars of Ungasan, a decent Margherita often lands somewhere north of 150,000 IDR, which turns a peasant food into an occasion.",
-              "We run one fixed-price pie every afternoon between 14:00 and 18:00 at 89,000 IDR - the same dough, the same oven, the same flour as at dinner. It is deliberately the window when the neighbourhood, rather than the tourist bus, is most likely to walk in. Locals from Kampial and Benoa, people finishing a work day, families before the evening rush.",
-              "Delivery runs through GoFood and GrabFood across Nusa Dua, Benoa, Ungasan and Jimbaran, though a Margherita is always better eaten four metres from the oven than twenty minutes from it."
+              "Signa Cafe opens daily from 08:00-23:00, with last order at 22:30, but Pizza Margherita starts when the oven starts at 14:00. Breakfast, brunch and coffee fit the morning at Signa Cafe; pizza belongs to the afternoon. That split matters for anyone searching for where to eat in Nusa Dua and deciding in the next hour.",
+              "Pizza Margherita suits a table that cannot agree on spice, seafood or heavy sauces. Families often need that kind of middle ground, and Signa Cafe works as a family cafe for people coming from Ungasan, Jimbaran, Benoa or the Nusa Dua resort strip. The pizza is kid-friendly because tomato, mozzarella and bread are familiar before the first slice reaches the plate.",
+              "Coffee is still a sensible order with Pizza Margherita if the stop is more about work, a late lunch or a pause between errands. A cooler drink may make more sense after the beach, but coffee keeps the meal in cafe territory rather than turning the afternoon into dinner. The useful answer is simple: come after 14:00, order Pizza Margherita, and let the rest of the table add what they need."
+            ]
+          },
+          {
+            "h": "The reason to cross the Bukit for a plain pizza",
+            "p": [
+              "The plain pizza is rarely plain. Pizza Margherita carries the rise of the tomato in southern Italian cooking, the industrial growth of mozzarella, the politics of Italian unification, and the way Naples sold its own appetite to the world. One slice can hold more history than a pizza with ten toppings.",
+              "Signa Cafe sits on Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361, between Nusa Dua and Benoa on the Bukit peninsula. Ungasan and Jimbaran are a short drive away, so Pizza Margherita can be a practical stop rather than a special expedition. Signa Cafe has been open since 2024 and carries the line Eat. Meet. Create.",
+              "For quick planning, Signa Cafe lists the online menu and delivery at https://signa.dishi.rest/, takes calls at +62 896 540 27190, and posts on Instagram at @signa.cafe. The Google rating is 4.7 from 1426+ reviews. The reason to cross the Bukit for Pizza Margherita is not novelty; the reason is a clean pizza with a messy history, served at a cafe where the oven starts when the afternoon begins."
             ]
           }
         ],
         "facts": [
           [
-            "Dish",
-            "Pizza Margherita"
+            "Origin",
+            "Naples, Italy"
+          ],
+          [
+            "Documented before the legend",
+            "A similar tomato, mozzarella and basil pizza was described in 1866"
+          ],
+          [
+            "Famous royal date",
+            "1889, Queen Margherita of Savoy story"
+          ],
+          [
+            "Key ingredients",
+            "Tomato, mozzarella, basil"
           ],
           [
             "Price",
-            "89,000 IDR during the 14:00-18:00 window"
+            "89,000 IDR (14:00-18:00)"
           ],
           [
-            "Served",
-            "From 14:00 daily - the oven needs the morning"
-          ],
-          [
-            "Diet",
-            "Vegetarian"
-          ],
-          [
-            "Origin",
-            "Naples, Italy - documented from the 1840s"
-          ],
-          [
-            "Delivery",
-            "GoFood and GrabFood across Nusa Dua, Benoa, Ungasan, Jimbaran"
+            "Best time",
+            "After 14:00, when the pizza oven fires"
           ]
         ],
         "faq": [
           {
-            "q": "Was pizza Margherita really invented for a queen?",
-            "a": "Almost certainly not. The 1889 royal letter is widely considered a forgery, and pizza with tomato, cheese and basil is documented in Naples from at least 1849. The queen story dates the moment pizza became a national symbol, not the moment the recipe appeared."
+            "q": "Where can I eat Pizza Margherita in Nusa Dua?",
+            "a": "Pizza Margherita is served at Signa Cafe in Kampial, between Nusa Dua and Benoa on the Bukit peninsula. The pizza oven fires from 14:00, and the menu and delivery are at https://signa.dishi.rest/."
           },
           {
-            "q": "What time does Signa Cafe serve pizza?",
-            "a": "From 14:00 until close at 23:00. The wood oven needs the morning to reach temperature, so pizza is not available at breakfast."
+            "q": "Is Signa Cafe in Kampial good for pizza with kids?",
+            "a": "Signa Cafe in Kampial is a kid-friendly family cafe, and Pizza Margherita is one of the easiest pizzas for children because the toppings are tomato, mozzarella and basil. The cafe is open daily from 08:00-23:00, with last order at 22:30."
           },
           {
-            "q": "How much is pizza in Nusa Dua at Signa Cafe?",
-            "a": "One fixed-price pizza at 89,000 IDR every day between 14:00 and 18:00. Regular menu prices apply outside that window."
+            "q": "What time is Pizza Margherita available at Signa Cafe?",
+            "a": "Pizza Margherita is available after the pizza oven fires from 14:00 at Signa Cafe. From 14:00-18:00, Pizza Margherita is priced at 89,000 IDR (14:00-18:00)."
           },
           {
-            "q": "Do you deliver pizza in Nusa Dua and Ungasan?",
-            "a": "Yes - via GoFood, GrabFood, or directly through signa.dishi.rest."
+            "q": "Where should I stop for pizza between Jimbaran, Ungasan and Nusa Dua?",
+            "a": "Signa Cafe is a practical pizza stop in Kampial for people driving between Jimbaran, Ungasan and Nusa Dua. The address is Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361."
           }
         ]
       },
       "ru": {
-        "title": "Маргарита: пицца, названная в честь королевы, которая её, скорее всего, не ела",
-        "seoTitle": "Пицца Маргарита в Нуса Дуа - настоящая история классики в Signa Cafe",
-        "description": "Неаполитанская легенда, флаг, которого не было, и что нужно, чтобы испечь настоящую Маргариту на Бали. Signa Cafe, Нуса Дуа - 89 000 IDR каждый день днём.",
-        "keywords": "пицца Нуса Дуа, пицца Бали, маргарита Бали, пицца Унгасан, доставка пиццы Беноа, Signa Cafe пицца, недорогая пицца Бали, пицца Джимбаран",
+        "title": "Пицца Маргарита: королевская легенда и настоящая неаполитанская простота",
+        "seoTitle": "Пицца Маргарита в Нуса Дуа без лишних мифов",
+        "description": "Пицца Маргарита в кафе Signa в Кампьяле, Нуса Дуа - томат, моцарелла и базилик, неаполитанская легенда и печь после 14:00 на Буките.",
+        "keywords": [
+          "пицца маргарита",
+          "пицца нуса дуа",
+          "кафе кампьял",
+          "пицца на буките",
+          "семейное кафе нуса дуа",
+          "кафе с детьми",
+          "бранч нуса дуа",
+          "кофе нуса дуа",
+          "пицца после 14:00",
+          "джимбаран нуса дуа"
+        ],
         "category": "Пицца",
-        "coverAlt": "Пицца Маргарита с томатом, моцареллой и базиликом в кафе Signa, Нуса Дуа, Бали",
-        "lead": "Три ингредиента, одна королева и история, которую историки тихо разбирают уже сорок лет. Пицца от этого не хуже.",
+        "coverAlt": "Пицца Маргарита с томатом, моцареллой и базиликом на тарелке",
+        "lead": "Пицца Маргарита в Кампьяле держится на трех вещах: томате, моцарелле и базилике. Королевская легенда спорная, но сама пицца от этого только крепче.",
         "blocks": [
           {
-            "h": "Легенда, которую все пересказывают",
+            "h": "Неаполь до короны",
             "p": [
-              "Июнь 1889 года. Королева Маргарита Савойская в Неаполе и устала от французской придворной кухни. Она посылает за лучшим пиццайоло города, Раффаэле Эспозито, и тот печёт ей три пиццы. Королева выбирает ту, что с томатом, моцареллой и базиликом - красное, белое, зелёное, цвета флага только что объединённой Италии. Эспозито называет её в честь королевы. Так рождается национальное блюдо.",
-              "Очень хорошая история. Она есть в меню от Неаполя до Нуса Дуа. Проблема в том, что почти ничего из неё не выдерживает встречи с архивами."
+              "У пиццы Маргарита есть легенда, которую удобно пересказывать. В 1889 году, как принято считать, неаполитанский пиццайоло Раффаэле Эспозито испек пиццу для королевы Маргариты Савойской: красный томат, белая моцарелла, зеленый базилик - цвета итальянского флага. Позже появилась благодарственная записка от королевского двора, а вместе с ней - готовый сюжет для меню, путеводителей и туристических открыток.",
+              "Историки давно не дают этой истории спокойно лежать на тарелке. Пиццу с томатом, моцареллой и базиликом в Неаполе ели еще до визита королевы, а Франческо Де Буркар уже в 1866 году описывал похожее неаполитанское сочетание. Королева, возможно, помогла названию стать известнее, но городу не требовалось одобрение дворца, чтобы оценить горячее тесто, кислый томат и молочный сыр.",
+              "От этого история не беднеет, а становится вкуснее. Пицца Маргарита выросла не из одного парадного заказа, а из неаполитанской уличной еды XIX века. Жаркая печь, недорогие продукты, голодные люди - минимум церемоний. Корона дала красивую рамку, Неаполь - саму пиццу."
             ]
           },
           {
-            "h": "Что говорят архивы",
+            "h": "Три ингредиента не прощают халтуры",
             "p": [
-              "Единственное доказательство королевского визита - благодарственная записка якобы от управляющего королевским двором. Почерковедческий анализ датирует её десятилетиями позже 1889 года, и сегодня её считают подделкой самой пиццерии. Историк еды Захари Новак опубликовал разбор в 2014 году, а итальянские исследователи сомневались задолго до него.",
-              "Хуже для легенды другое: пицца с томатом, сыром и базиликом описана в Неаполе задолго до приезда Маргариты. Книга Эмануэле Рокко 1849 года описывает ровно это сочетание. Трактовка через триколор тоже приделана задним числом - связь пиццы с единством Италии становится общим местом только в XX веке, когда стране нужны были национальные символы больше, чем точные меню.",
-              "Пицца от этого не портится. История на самом деле фиксирует момент, когда пицца перестала быть едой неаполитанских задворков и стала тем, что страна готова присвоить. Этот переход был настоящим, даже если королевский ужин - нет."
+              "Пицца Маргарита кажется простой ровно до первой плохой версии. Томат дает кислоту и влагу, моцарелла плавится и тоже делится влагой, базилик быстро темнеет и может горчить. Когда сверху нет салями, грибов, густых соусов и горы сыра, тесто слышно сразу.",
+              "В неаполитанской традиции печь работает на очень высокой температуре: часто около 430-480 °C, а выпечка занимает примерно 60-90 секунд. За это короткое время бортик должен подняться и покрыться подпалинами, середина - остаться гибкой, сыр - расплавиться, но не превратить центр в лужу. Такая пицца проверяет не фантазию, а руки.",
+              "Хорошая Маргарита не хрустит как сухарь и не провисает мокрой тряпкой. Ломтик сгибается, но удерживает начинку. Томат чувствуется до последнего укуса, моцарелла лежит мягкими пятнами, базилик пахнет зеленью, а не печной гарью. Простота здесь работает как строгий экзамен."
             ]
           },
           {
-            "h": "Почему простое печь труднее всего",
+            "h": "Как Маргарита устроена в Signa",
             "p": [
-              "Маргарите негде спрятаться. Четыре элемента - тесто, томат, моцарелла, базилик - и любой изъян в любом из них оказывается на тарелке. Здесь нет пепперони, чтобы прикрыть недорасстоявшееся тесто, и нет соуса барбекю, чтобы спасти водянистый сыр.",
-              "Главное - тесто. Итальянская мука и длинная холодная ферментация: вкус развивается в самой основе, а не берётся у начинки. Поэтому пицца у нас начинается в 14:00, а не с открытия: печи нужно утро, чтобы выйти на температуру, а тесту это время нужно в любом случае.",
-              "Томат не варится - его давят, солят и тонко распределяют. Приготовить его дважды, сначала в сотейнике, потом в печи, - самый частый способ сделать Маргариту плоской. Моцареллу рвут руками, а не трут: она плавится островками, а не сплошным пластиковым листом. Базилик кладут на горячую, в конце, а не до выпечки, где он чернеет и горчит."
+              "В кафе Signa в Кампьяле Маргарита остается в классической логике: томат, моцарелла, базилик. Меню опирается на эту тройку и на королевскую историю, которую исследователи разбирают уже десятилетиями. Самая спокойная пицца часто оказывается самой требовательной к печи и тесту.",
+              "Пицца в Signa начинается не с утра. Кафе открыто ежедневно с 08:00 до 23:00, последний заказ принимают в 22:30, но печь для пиццы запускают с 14:00. Поэтому завтрак, бранч и кофе остаются в первой половине дня, а Маргарита приходит позже, когда Кампьял уже пережил утренний поток из Нуса Дуа и Беноа.",
+              "С 14:00 до 18:00 пицца Маргарита стоит 89 000 IDR (14:00-18:00). Это удобное окно для позднего обеда после пляжа, дороги по Букиту или встречи, которая закончилась слишком поздно для ланча и слишком рано для ужина. Никакой сложной математики: горячая пицца, понятная цена, понятное время."
             ]
           },
           {
-            "h": "89 000 рупий каждый день днём",
+            "h": "Кому подойдет такая пицца",
             "p": [
-              "У пиццы на Буките проблема с ценой. Между отелями Нуса Дуа и клифф-барами Унгасана приличная Маргарита нередко стоит за 150 000 IDR, и крестьянская еда превращается в повод.",
-              "Мы держим одну пиццу по фиксированной цене каждый день с 14:00 до 18:00 за 89 000 IDR - то же тесто, та же печь, та же мука, что и вечером. Это сознательно то окно, когда заходит район, а не туристический автобус: местные из Кампиала и Беноа, люди после работы, семьи до вечернего наплыва.",
-              "Доставка работает через GoFood и GrabFood по Нуса Дуа, Беноа, Унгасану и Джимбарану - хотя Маргариту всегда лучше есть в четырёх метрах от печи, чем в двадцати минутах."
+              "Маргарита хорошо выручает стол, где у всех разные планы. Кто-то хочет пиццу, кто-то не ест острое, кто-то пришел с детьми, а кто-то вообще думал только о кофе. Томат, моцарелла и хлебный край редко становятся поводом для споров, а базилик добавляет взрослый аромат без лишней тяжести.",
+              "Signa работает как семейное кафе для тех, кто едет из Унгасана, Джимбарана, Беноа или с курортной полосы Нуса Дуа. С детьми такая пицца понятна: начинка видна, соус не агрессивный, сыр знакомый. Взрослым Маргарита дает редкую вещь - еду без перегруза, после которой можно вернуться к делам, ноутбуку или дороге.",
+              "Напиток к Маргарите зависит от часа. После пляжа на Бали обычно хочется чего-то холодного, но кофе тоже уместен, если это рабочая пауза или поздний бранч, незаметно дотянувшийся до пиццы. Главное - приходить после 14:00: раньше печь еще не работает."
+            ]
+          },
+          {
+            "h": "Зачем ехать за самой простой пиццей",
+            "p": [
+              "Самая простая пицца часто рассказывает больше остальных. В Маргарите слышны Неаполь XIX века, путь томата из Америки в итальянскую кухню, местная любовь к моцарелле и национальный миф, который оказался слишком гладким. Лишние начинки иногда прячут историю; здесь она лежит на поверхности.",
+              "Кафе Signa находится по адресу Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Это Кампьял между Нуса Дуа и Беноа, на Буките; Унгасан и Джимбаран - в короткой поездке. Для тех, кто живет или отдыхает рядом, Маргарита может быть не отдельным событием, а нормальной остановкой по дороге.",
+              "Кафе Signa работает с 2024 года и живет под фразой Eat. Meet. Create. Онлайн-меню и доставка доступны на https://signa.dishi.rest/, телефон для связи: +62 896 540 27190, инстаграм: @signa.cafe. Рейтинг в Google - 4.7 на основе 1426+ отзывов. За Маргаритой стоит ехать не ради легенды о королеве, а ради пиццы, в которой нечему спрятаться за лишними ингредиентами."
             ]
           }
         ],
         "facts": [
           [
-            "Блюдо",
-            "Пицца Маргарита"
+            "Происхождение",
+            "Неаполь, Италия"
+          ],
+          [
+            "Раннее описание",
+            "Похожая пицца с томатом, моцареллой и базиликом описана в 1866 году"
+          ],
+          [
+            "Знаменитая дата",
+            "1889 год, легенда о королеве Маргарите Савойской"
+          ],
+          [
+            "Главные ингредиенты",
+            "Томат, моцарелла, базилик"
           ],
           [
             "Цена",
-            "89 000 IDR в окне 14:00-18:00"
+            "89 000 IDR (14:00-18:00)"
           ],
           [
-            "Подача",
-            "С 14:00 ежедневно - печи нужно утро"
-          ],
-          [
-            "Диета",
-            "Вегетарианское"
-          ],
-          [
-            "Происхождение",
-            "Неаполь, Италия - описано с 1840-х"
-          ],
-          [
-            "Доставка",
-            "GoFood и GrabFood по Нуса Дуа, Беноа, Унгасану, Джимбарану"
+            "Лучшее время",
+            "После 14:00, когда запускают печь для пиццы"
           ]
         ],
         "faq": [
           {
-            "q": "Правда ли пиццу Маргариту придумали для королевы?",
-            "a": "Почти наверняка нет. Письмо 1889 года считается подделкой, а пицца с томатом, сыром и базиликом описана в Неаполе как минимум с 1849 года. История с королевой датирует момент, когда пицца стала национальным символом, а не появление рецепта."
+            "q": "Где поесть пиццу Маргарита в Нуса Дуа?",
+            "a": "Пиццу Маргарита можно заказать в кафе Signa в Кампьяле, между Нуса Дуа и Беноа на Буките. Печь для пиццы работает с 14:00, онлайн-меню и доставка доступны на https://signa.dishi.rest/."
           },
           {
-            "q": "Во сколько в Signa Cafe пицца?",
-            "a": "С 14:00 и до закрытия в 23:00. Печи нужно утро, чтобы выйти на температуру, поэтому на завтрак пиццы нет."
+            "q": "Подходит ли кафе Signa в Кампьяле для пиццы с детьми?",
+            "a": "Кафе Signa в Кампьяле подходит для гостей с детьми, а пицца Маргарита обычно понятна детям благодаря томату, моцарелле и хлебному краю. Кафе открыто ежедневно с 08:00 до 23:00, последний заказ принимают в 22:30."
           },
           {
-            "q": "Сколько стоит пицца в Нуса Дуа в Signa Cafe?",
-            "a": "Одна пицца по фиксированной цене 89 000 IDR каждый день с 14:00 до 18:00. Вне окна действуют обычные цены меню."
+            "q": "Во сколько в Signa можно заказать пиццу Маргарита?",
+            "a": "Пиццу Маргарита в Signa можно заказать после 14:00, когда запускают печь для пиццы. С 14:00 до 18:00 пицца Маргарита стоит 89 000 IDR (14:00-18:00)."
           },
           {
-            "q": "Есть доставка пиццы в Нуса Дуа и Унгасан?",
-            "a": "Да - через GoFood, GrabFood или напрямую на signa.dishi.rest."
+            "q": "Где остановиться на пиццу между Джимбараном, Унгасаном и Нуса Дуа?",
+            "a": "Кафе Signa в Кампьяле удобно для остановки на пиццу между Джимбараном, Унгасаном и Нуса Дуа. Адрес: Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "classic-burger-kampial-nusa-dua",
+      "date": "2026-08-20",
+      "cover": "assets/menu-11-classic-burger.webp",
+      "dish": {
+        "name": "Classic Burger",
+        "price": "80k",
+        "menuId": 11,
+        "menuUrl": "https://signa.dishi.rest/"
+      },
+      "tags": [
+        "classic burger",
+        "nusa dua",
+        "kampial",
+        "bukit",
+        "brunch",
+        "family cafe"
+      ],
+      "en": {
+        "title": "Classic Burger in Kampial: the beef-and-cheddar sandwich that travelled well",
+        "seoTitle": "Classic Burger in Kampial near Nusa Dua",
+        "description": "Classic Burger in Kampial pairs beef, cheddar, lettuce, tomato, Signa sauce and brioche for brunch or dinner at a family cafe near Nusa Dua.",
+        "keywords": [
+          "classic burger",
+          "burger in nusa dua",
+          "kampial cafe",
+          "bukit brunch",
+          "beef patty",
+          "cheddar burger",
+          "family cafe bali",
+          "kid-friendly cafe",
+          "coffee nusa dua",
+          "jimbaran to nusa dua",
+          "benoa cafe"
+        ],
+        "category": "Burger",
+        "coverAlt": "Classic Burger with beef patty, cheddar, lettuce, tomato and brioche bun",
+        "lead": "Classic Burger in Kampial is a direct answer to hunger on the Bukit: beef, cheddar, salad crunch, Signa sauce and brioche.",
+        "blocks": [
+          {
+            "h": "A Hamburg idea, finished in America",
+            "p": [
+              "The Classic Burger belongs to a food line that starts before the word burger meant a sandwich. Hamburg steak was minced or chopped beef shaped into a patty, named for the German port city of Hamburg and carried into the United States by 19th century migrants and shipping routes.",
+              "The hamburger sandwich became American fairground food around the turn of the 20th century, although several towns still argue over who put the patty in bread first. Charlie Nagreen sold a portable meat sandwich at the Seymour Fair in Wisconsin in 1885, Louis' Lunch in New Haven is tied to a 1900 claim, and Fletcher Davis served hamburgers at the 1904 St. Louis World's Fair.",
+              "Cheese arrived as the burger matured into diner food. Lionel Sternberger in Pasadena is often linked with an early cheeseburger in the 1920s, while the word cheeseburger was trademarked in Louisville in 1935. A Classic Burger with cheddar is therefore not a new trick - a Classic Burger with cheddar is the durable version of a century-old idea."
+            ]
+          },
+          {
+            "h": "Why a simple burger is easy to spoil",
+            "p": [
+              "A good burger gives very little cover to the cook. The beef patty has to brown before the inside dries out, and that means the surface needs enough heat for a crust while the centre keeps some juice.",
+              "Salt timing matters because salt pulls moisture from minced meat. Too much handling makes a patty dense, while too little shaping lets a patty split at the edge. A burger can taste heavy when the bun is too sweet, the sauce is too thick, or the salad disappears under hot fat.",
+              "Cheddar helps because cheddar brings salt, milk fat and a clean melt. Lettuce and tomato help for the opposite reason: lettuce breaks the fat with cold crunch, and tomato adds water and acidity. Brioche is a richer bread than a standard white bun, so brioche asks for a patty with enough savoury weight to hold the sandwich steady."
+            ]
+          },
+          {
+            "h": "How Signa builds the Classic Burger",
+            "p": [
+              "The Classic Burger at Signa Cafe is listed with a beef patty, cheddar, lettuce, tomato, Signa sauce and brioche. The price is 80k, and the build is deliberately familiar: beef first, cheese second, fresh vegetables for lift, sauce for moisture, soft bread around the edges.",
+              "Signa Cafe sits on Jl. Dharmawangsa, Jl. Raya Kampial, between Nusa Dua and Benoa. The location matters because a burger is one of the few main dishes that fits a quick solo lunch, a family table and a late dinner without asking the room to slow down.",
+              "The Signa sauce is named on the menu but not described as a recipe, so the honest way to read the Classic Burger is by structure. Beef gives the base. Cheddar gives the salt and melt. Lettuce and tomato keep the sandwich from turning into only meat and bread. Brioche makes the bite softer than a lean bakery roll would."
+            ]
+          },
+          {
+            "h": "When to eat the Classic Burger in Nusa Dua",
+            "p": [
+              "Signa Cafe opens from 08:00-23:00 daily, with last order at 22:30, so the Classic Burger can sit in several parts of the day. The Classic Burger is a practical brunch order after a late start on the Bukit, especially when a full breakfast feels too sweet and a rice plate feels too large.",
+              "For coffee drinkers, the early window matters. From 08:00 till 09:00, Signa Cafe offers free coffee with any order, and a burger at that hour is for people who treat breakfast as fuel rather than ceremony. Later in the day, coffee still works with a cheeseburger because bitterness cuts fat better than a sugary drink.",
+              "The Classic Burger is also kid-friendly in the ordinary, useful sense: the parts are recognisable. Beef, cheddar, lettuce, tomato and brioche do not need a long explanation to a hungry child, and a family cafe is often judged by how quickly everyone at the table understands the menu."
+            ]
+          },
+          {
+            "h": "Who should cross the Bukit for this burger",
+            "p": [
+              "The Classic Burger suits someone driving from Ungasan who wants a main dish before errands in Nusa Dua. The Classic Burger also suits someone coming from Jimbaran who wants an uncomplicated stop before heading toward Benoa or the resort strip.",
+              "Signa Cafe has been open since 2024 and carries the tagline Eat. Meet. Create. The useful part for a visitor is more concrete: the cafe is open all day, the online menu and delivery are at https://signa.dishi.rest/, and the phone number is +62 896 540 27190.",
+              "A burger is not rare in Bali, but a well-built Classic Burger is still a good test of a cafe. The patty cannot hide, the cheese has to earn its space, and the bun has to survive the last bite. In Kampial, the Classic Burger at Signa Cafe gives Nusa Dua a clean beef-and-cheddar answer for brunch, lunch or a late main."
+            ]
+          }
+        ],
+        "facts": [
+          [
+            "Origin",
+            "Hamburg steak became the American hamburger sandwich around 1885-1904"
+          ],
+          [
+            "Key ingredient",
+            "Beef patty with cheddar"
+          ],
+          [
+            "Signa build",
+            "Beef patty, cheddar, lettuce, tomato, Signa sauce, brioche"
+          ],
+          [
+            "Price",
+            "80k"
+          ],
+          [
+            "Best time",
+            "Brunch, lunch or late dinner before last order at 22:30"
+          ],
+          [
+            "Who it suits",
+            "Solo diners, families and kid-friendly cafe meals"
+          ]
+        ],
+        "faq": [
+          {
+            "q": "Where can I get a Classic Burger in Nusa Dua?",
+            "a": "You can get the Classic Burger at Signa Cafe in Kampial, between Nusa Dua and Benoa. The burger is built with a beef patty, cheddar, lettuce, tomato, Signa sauce and brioche."
+          },
+          {
+            "q": "Is Signa Cafe in Kampial good for brunch with kids?",
+            "a": "Signa Cafe in Kampial is a family cafe with kid-friendly choices such as the Classic Burger. The burger uses familiar ingredients, which makes the order easy for children and adults at the same table."
+          },
+          {
+            "q": "What time is Signa Cafe open for burgers near Benoa?",
+            "a": "Signa Cafe is open for burgers near Benoa from 08:00-23:00 daily, with last order at 22:30. The Classic Burger works for brunch, lunch or a late main."
+          },
+          {
+            "q": "How much is the Classic Burger at Signa Cafe Bali?",
+            "a": "The Classic Burger at Signa Cafe Bali is 80k. The listed build is beef patty, cheddar, lettuce, tomato, Signa sauce and brioche."
+          }
+        ]
+      },
+      "ru": {
+        "title": "Классический бургер в Кампьяле: котлета, чеддер и бриошь без лишнего шума",
+        "seoTitle": "Классический бургер в Кампьяле у Нуса Дуа",
+        "description": "Классический бургер в Кампьяле: говяжья котлета, чеддер, салат, томат, фирменный соус и бриошь для бранча или ужина рядом с Нуса Дуа на Бали.",
+        "keywords": [
+          "классический бургер",
+          "бургер в нуса дуа",
+          "кафе в кампьяле",
+          "бранч на буките",
+          "говяжья котлета",
+          "чеддер",
+          "семейное кафе бали",
+          "с детьми в кафе",
+          "кофе нуса дуа",
+          "джимбаран",
+          "беноа"
+        ],
+        "category": "Бургер",
+        "coverAlt": "Классический бургер с говяжьей котлетой, чеддером, салатом, томатом и бриошью",
+        "lead": "Классический бургер в Кампьяле обходится без фокусов: говядина, чеддер, салат, томат, фирменный соус и мягкая бриошь.",
+        "blocks": [
+          {
+            "h": "Булка превратила котлету в городскую еду",
+            "p": [
+              "Бургер родился не из ресторанной роскоши, а из потребности есть быстро и удобно. До него был гамбургский бифштекс - рубленая говядина, которую связывали с портовым Гамбургом и немецкой эмиграцией в США XIX века. Мясо уже знали и любили, но именно хлеб изменил его судьбу.",
+              "В конце XIX и начале XX века американские ярмарки спорили не о тонкости подачи, а о скорости. Висконсин вспоминает Чарли Нагрина и 1885 год, Нью-Хейвен - закусочную Louis' Lunch и 1900 год, Сент-Луис держится за Всемирную выставку 1904 года. Важнее не победитель в этом споре, а сама перемена: котлету положили в хлеб, и обед стало можно есть на ходу.",
+              "Сыр появился позже, когда бургер обосновался в дайнерах. Пасадена любит историю Лайонела Штернбергера и 1920-х, Луисвилл в 1935 году закрепил слово «cheeseburger» как торговую марку. Чеддер прижился не случайно: соленый, молочный, ровно плавится и не перетягивает внимание с мяса на себя."
+            ]
+          },
+          {
+            "h": "Классика держится на мелочах",
+            "p": [
+              "Хороший бургер - не про высоту башни. Говяжья котлета должна успеть покрыться корочкой, пока середина не пересохла. Сковорода или гриль быстро дают цвет, а дальше все решают секунды: передержал - сок ушел, поспешил - вкус остался плоским.",
+              "Фарш не любит, когда его долго мнут руками. Слишком плотная формовка делает котлету упругой, почти колбасной. Слишком слабая - крошит края, и даже сыр уже не спасает. Соль тоже влияет на текстуру: если рано и грубо вмешать ее в мясо, она вытянет влагу и утяжелит котлету.",
+              "Булка кажется второстепенной только до первого укуса. Бриошь мягче и богаче обычной белой булки, в ней есть сладость и жир. Поэтому рядом так нужны салат и томат: они добавляют холод, влагу и легкую кислотность. Без них бургер быстро превращается просто в горячую говядину с хлебом."
+            ]
+          },
+          {
+            "h": "Что кладут в бургер в Signa",
+            "p": [
+              "В кафе Signa в Кампьяле классический бургер собирают из понятных частей: говяжья котлета, чеддер, салат, томат, фирменный соус и бриошь. Цена - 80 000 IDR. В такой сборке случайным деталям некуда спрятаться: каждый слой чувствуется отдельно.",
+              "Говядина дает основу и жареный вкус. Чеддер добавляет соль и мягкую молочную жирность. Салат хрустит, томат дает сок, соус связывает мясо с булкой. Бриошь держит все мягко, без жесткой корки, которая спорила бы с котлетой.",
+              "Для такой еды Кампьял расположен удачно. Signa находится на Jl. Dharmawangsa, Jl. Raya Kampial, между Нуса Дуа и Беноа, поэтому бургер легко вписать в короткую остановку по дороге через Букит. Не обязательно устраивать долгий обед, когда нужен нормальный основной заказ и чашка кофе."
+            ]
+          },
+          {
+            "h": "Когда заказывать: завтрак, бранч или поздний ужин",
+            "p": [
+              "Signa открыта каждый день с 08:00 до 23:00, последний заказ принимают в 22:30. Тем, кто не хочет начинать день со сладкого завтрака, классический бургер подойдет как ранний плотный вариант. С 08:00 до 09:00 в кафе дают бесплатный кофе к любому заказу, и с бургером его горечь работает особенно хорошо: кофе режет жир лучше сладкой газировки.",
+              "Для бранча бургер особенно уместен после позднего утра в Нуса Дуа. Он достаточно сытный, чтобы заменить обед, но не требует тарелки с гарнирами и длинной паузы. Когда день дальше ведет в сторону Беноа, такой заказ закрывает вопрос еды на несколько часов.",
+              "С детьми бургер тоже понятен. Ребенок видит котлету, сыр, салат, томат и булку, а не набор незнакомых соусов и специй. Семейное кафе часто проверяется не интерьером, а тем, как быстро за столом исчезают сомнения у голодных людей."
+            ]
+          },
+          {
+            "h": "Кому ехать за бургером через Букит",
+            "p": [
+              "Классический бургер подойдет тем, кто едет из Унгасана и хочет поесть до дел в Нуса Дуа. Из Джимбарана дорога к Кампьялу тоже не требует большого плана: бургер можно взять как полноценный прием пищи, а не как перекус на бегу.",
+              "Signa работает с 2024 года и живет под короткой формулой Eat. Meet. Create. Для гостя важнее практические вещи: адрес в Кампьяле, ежедневный график, онлайн-меню и доставка на https://signa.dishi.rest/, телефон +62 896 540 27190 и инстаграм @signa.cafe.",
+              "На Бали бургер найдется во многих местах, но классическая версия быстро показывает, как кафе обращается с простыми продуктами. Котлета не должна прятаться за декором, чеддеру важно расплавиться без тяжести, бриоши - дожить до последнего укуса. В Кампьяле этот бургер хорош своей прямотой."
+            ]
+          }
+        ],
+        "facts": [
+          [
+            "Происхождение",
+            "Гамбургский бифштекс стал американским бургером на рубеже XIX и XX веков"
+          ],
+          [
+            "Важная дата",
+            "1885-1904 годы - ранние ярмарочные истории бургера в США"
+          ],
+          [
+            "Главный продукт",
+            "Говяжья котлета и чеддер"
+          ],
+          [
+            "Состав в Signa",
+            "Говяжья котлета, чеддер, салат, томат, фирменный соус, бриошь"
+          ],
+          [
+            "Цена",
+            "80 000 IDR"
+          ],
+          [
+            "Кому подходит",
+            "Гостям на бранч, семьям и тем, кто приходит с детьми"
+          ]
+        ],
+        "faq": [
+          {
+            "q": "Где поесть классический бургер в Нуса Дуа?",
+            "a": "Классический бургер можно поесть в кафе Signa в Кампьяле, между Нуса Дуа и Беноа. В составе - говяжья котлета, чеддер, салат, томат, фирменный соус и бриошь."
+          },
+          {
+            "q": "Подходит ли Signa в Кампьяле для бранча с детьми?",
+            "a": "Signa в Кампьяле подходит для бранча с детьми: в меню есть понятные блюда вроде классического бургера. Котлета, сыр, салат, томат и булка легко считываются за семейным столом."
+          },
+          {
+            "q": "Во сколько можно заказать бургер рядом с Беноа?",
+            "a": "Бургер рядом с Беноа можно заказать в Signa ежедневно с 08:00 до 23:00, последний заказ принимают в 22:30. Классический бургер подходит для завтрака, бранча, обеда или позднего ужина."
+          },
+          {
+            "q": "Сколько стоит классический бургер в Signa на Бали?",
+            "a": "Классический бургер в Signa на Бали стоит 80 000 IDR. Его подают с говяжьей котлетой, чеддером, салатом, томатом, фирменным соусом и бриошью."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "caesar-with-chicken-kampial-nusa-dua",
+      "date": "2026-08-13",
+      "cover": "assets/menu-08-caesar-with-chicken.webp",
+      "dish": {
+        "name": "Caesar with chicken",
+        "price": "92k",
+        "menuId": 8,
+        "menuUrl": "https://signa.dishi.rest/"
+      },
+      "tags": [
+        "caesar salad",
+        "chicken salad",
+        "nusa dua",
+        "kampial",
+        "bukit",
+        "brunch"
+      ],
+      "en": {
+        "title": "Caesar with chicken: the border-town salad built for lunch",
+        "seoTitle": "Caesar with chicken in Nusa Dua: crisp lunch",
+        "description": "Caesar with chicken in Kampial brings grilled chicken, romaine, parmesan, anchovy dressing and croutons to a practical Nusa Dua lunch or brunch.",
+        "keywords": [
+          "caesar with chicken",
+          "caesar salad nusa dua",
+          "chicken salad kampial",
+          "brunch nusa dua",
+          "breakfast kampial",
+          "family cafe bali",
+          "kid-friendly cafe nusa dua",
+          "coffee kampial",
+          "bukit lunch",
+          "benoa cafe",
+          "jimbaran to nusa dua",
+          "ungasan cafe"
+        ],
+        "category": "Main",
+        "coverAlt": "Caesar with chicken with romaine, grilled chicken, parmesan and croutons",
+        "lead": "Caesar with chicken at Signa Cafe in Kampial is the salad for a Nusa Dua lunch that needs substance without becoming heavy.",
+        "blocks": [
+          {
+            "h": "A salad born on the Mexico border",
+            "p": [
+              "Caesar salad began in Tijuana, not Rome. The most accepted origin story points to Caesar Cardini, an Italian-born restaurateur who was working in Mexico during Prohibition, when Americans crossed the border from San Diego for restaurants and drinks.",
+              "The date usually attached to Caesar salad is 1924, often linked to the busy Fourth of July weekend at Cardini's restaurant. The original Caesar salad was theatre as much as food: romaine leaves tossed tableside with garlic, olive oil, lemon, egg, Worcestershire sauce, parmesan and croutons.",
+              "Chicken was not part of the first Caesar salad. Grilled chicken became common later, when American restaurants turned Caesar salad from a side or starter into a full plate for lunch, brunch and hotel-room service. Caesar with chicken works because the structure was already there: cold romaine, salt, fat, acid, crunch and cheese."
+            ]
+          },
+          {
+            "h": "The hard part is balance, not decoration",
+            "p": [
+              "A good Caesar with chicken depends on contrast. Romaine has to stay cold and crisp, croutons have to keep their dry crunch, parmesan has to bring salt and savoury depth, and grilled chicken has to make the plate feel like a main course without flattening the salad.",
+              "The dressing is the risk point. Anchovy dressing should taste savoury and saline rather than fishy, and the acid has to cut through the cheese and oil. Too little dressing leaves the leaves bare; too much dressing turns romaine into wet paper before the plate reaches the table.",
+              "Caesar salad also punishes poor timing. Warm chicken can soften the lettuce, stale croutons disappear into the dressing, and thin supermarket leaves collapse under parmesan. Caesar with chicken looks simple because every part is visible, which means every mistake is visible too."
+            ]
+          },
+          {
+            "h": "How Signa builds the plate",
+            "p": [
+              "Signa Cafe serves Caesar with chicken as a main at 92k. The menu lists grilled chicken, romaine, parmesan, anchovy dressing and croutons, which is the modern Caesar formula without unnecessary side plots.",
+              "The grilled chicken gives Caesar with chicken the weight many diners want at midday in Bali. Romaine carries the dressing better than delicate lettuce, parmesan brings the familiar nutty salt, anchovy dressing ties the salad to its old-school restaurant roots, and croutons add the bite that makes the plate feel complete.",
+              "Caesar with chicken suits Signa Cafe because the cafe is a family cafe rather than a white-tablecloth dining room. The plate is familiar enough for someone arriving from the Nusa Dua resort strip, but the anchovy dressing keeps the salad from becoming plain chicken and leaves."
+            ]
+          },
+          {
+            "h": "When to eat Caesar with chicken in Kampial",
+            "p": [
+              "Caesar with chicken is a practical order when breakfast has passed but dinner still feels far away. Signa Cafe opens daily from 08:00-23:00, with last order at 22:30, so Caesar with chicken can cover a late breakfast mood, a clean brunch, a working lunch or an early dinner before driving back toward Benoa.",
+              "Coffee works with Caesar with chicken better than many people expect. Black coffee cuts through parmesan and anchovy dressing, while a milk coffee makes the meal feel closer to brunch. From 08:00 till 09:00, Signa Cafe offers free coffee with any order, which makes an early Caesar with chicken a sensible choice for diners who do not want something sweet.",
+              "Caesar with chicken is also one of the easier main-course salads to share with kids. Some children avoid anchovy dressing because the savoury flavour is stronger than mayonnaise, but grilled chicken, croutons and parmesan are familiar parts of the plate. For a kid-friendly cafe choice, Caesar with chicken gives parents vegetables without turning lunch into a negotiation over an unfamiliar sauce."
+            ]
+          },
+          {
+            "h": "Why the Bukit drive makes sense",
+            "p": [
+              "Signa Cafe sits on Jl. Dharmawangsa, Jl. Raya Kampial, between Nusa Dua and Benoa on the Bukit peninsula. Kampial is useful for diners moving between the resort strip, local homes, gyms, schools and work stops, because the area does not require entering a hotel gate for a straightforward meal.",
+              "Caesar with chicken is worth crossing from Ungasan or Jimbaran when the plan is a reliable main rather than a long restaurant session. The dish is quick to understand, easy to pair with coffee, and light enough for Bali heat while still giving the protein of grilled chicken.",
+              "For local search purposes, Caesar with chicken at Signa Cafe answers a very specific need: where to have a chicken Caesar salad near Nusa Dua that works for brunch, a family cafe lunch, or a kid-friendly stop in Kampial. Signa Cafe has been open since 2024 and holds a Google rating of 4.7 from 1426+ reviews, but the real reason to order the salad is simpler - romaine, chicken, parmesan, anchovy dressing and croutons are built for the hour when hunger is real and the day is not over."
+            ]
+          }
+        ],
+        "facts": [
+          [
+            "Origin",
+            "Tijuana, Mexico, usually dated to 1924"
+          ],
+          [
+            "Key ingredient",
+            "Romaine with anchovy dressing"
+          ],
+          [
+            "Signa version",
+            "Grilled chicken, romaine, parmesan, anchovy dressing, croutons"
+          ],
+          [
+            "Price",
+            "92k"
+          ],
+          [
+            "Best time",
+            "Brunch, lunch or early dinner"
+          ],
+          [
+            "Who it suits",
+            "Diners who want a light main with protein"
+          ]
+        ],
+        "faq": [
+          {
+            "q": "Where can I eat Caesar with chicken in Nusa Dua?",
+            "a": "You can eat Caesar with chicken at Signa Cafe in Kampial, near Nusa Dua. The salad is served as a main with grilled chicken, romaine, parmesan, anchovy dressing and croutons."
+          },
+          {
+            "q": "Is Caesar with chicken at Signa Cafe good for brunch in Kampial?",
+            "a": "Caesar with chicken at Signa Cafe is a good brunch option in Kampial because the grilled chicken makes the salad filling without making the meal heavy. Coffee also pairs well with the parmesan and anchovy dressing."
+          },
+          {
+            "q": "Is Signa Cafe kid-friendly for a chicken Caesar salad near Benoa?",
+            "a": "Signa Cafe is a kid-friendly family cafe near Benoa, and Caesar with chicken can work for families because grilled chicken, croutons and parmesan are familiar to many children. The anchovy dressing has a savoury flavour, so children who dislike stronger dressings may prefer to share selectively."
+          },
+          {
+            "q": "What time is Signa Cafe open for Caesar salad on the Bukit?",
+            "a": "Signa Cafe is open daily from 08:00-23:00, with last order at 22:30. Caesar with chicken works for brunch, lunch or an early dinner when driving between Nusa Dua, Kampial, Ungasan and Jimbaran."
+          }
+        ]
+      },
+      "ru": {
+        "title": "Цезарь с курицей: салат, который появился у границы",
+        "seoTitle": "Цезарь с курицей в Нуса Дуа: обед у Букита",
+        "description": "Цезарь с курицей в Кампьяле - это гриль-курица, ромэн, пармезан, анчоусная заправка и сухарики для сытного обеда рядом с Нуса Дуа на Бали.",
+        "keywords": [
+          "цезарь с курицей",
+          "салат цезарь нуса дуа",
+          "куриный салат кампьял",
+          "бранч нуса дуа",
+          "завтрак кампьял",
+          "семейное кафе бали",
+          "кафе с детьми нуса дуа",
+          "кофе кампьял",
+          "обед на буките",
+          "кафе беноа",
+          "джимбаран нуса дуа",
+          "унгасан кафе"
+        ],
+        "category": "Салат",
+        "coverAlt": "Цезарь с курицей с ромэном, гриль-курицей, пармезаном и сухариками",
+        "lead": "Цезарь с курицей в Кампьяле - салат для Нуса Дуа на тот случай, когда нужен плотный обед, но без тяжелой тарелки.",
+        "blocks": [
+          {
+            "h": "Не Рим, а Тихуана",
+            "p": [
+              "Салат Цезарь родился не у Колизея. Самая известная версия ведет в Тихуану - мексиканский город у границы с США, где ресторатор Цезарь Кардини кормил гостей из Сан-Диего во времена сухого закона.",
+              "Чаще всего вспоминают 1924 год и шумные июльские выходные. В зале ресторана листья ромэна смешивали прямо при гостях с чесноком, оливковым маслом, лимоном, яйцом, вустерским соусом, пармезаном и сухариками. Для начала двадцатого века это было почти маленькое представление у стола: быстро, солено, свежо и очень понятно.",
+              "Курица появилась позже. Когда американские рестораны превратили Цезарь из закуски в полноценный обед, к листьям добавили гриль-курицу. Салат выдержал это без потерь: ромэн отвечает за хруст, пармезан - за соль, заправка - за кислоту и умами, а курица делает тарелку сытной."
+            ]
+          },
+          {
+            "h": "Почему простой салат легко испортить",
+            "p": [
+              "Цезарь с курицей держится на температуре и текстуре. Ромэн хорош холодным и хрустким, сухарики должны ломаться под вилкой, пармезан - солить и пахнуть орехом, а курица не должна перетягивать всю тарелку в сторону тяжелого гриля.",
+              "Заправка здесь важнее, чем кажется. Анчоусная нота нужна не ради рыбного запаха, а ради соленой глубины. Кислота уравновешивает масло и сыр, сухарики собирают соус, а листья остаются живыми только тогда, когда заправки ровно столько, сколько нужно.",
+              "Слишком горячая курица быстро утомляет ромэн. Лишний соус превращает лист в мокрую салфетку. Сухарики без сухого хруста пропадают уже после нескольких вилок. В Цезаре ошибки не спрячешь: вся конструкция лежит на виду."
+            ]
+          },
+          {
+            "h": "Что кладут в тарелку в Signa Cafe",
+            "p": [
+              "В Signa Cafe Цезарь с курицей стоит 92 000 IDR. В составе - гриль-курица, ромэн, пармезан, анчоусная заправка и сухарики: современная версия салата без лишнего декора.",
+              "Гриль-курица превращает салат в основное блюдо, а не в зеленый гарнир. Ромэн лучше нежных листьев держит соус, пармезан добавляет соль, анчоусная заправка напоминает о ресторанной родословной Цезаря, а сухарики дают вилке нужное сопротивление.",
+              "Для Кампьяла такой салат особенно удобен. Signa Cafe работает как семейное кафе, куда можно зайти после дороги, встречи или прогулки, а не только ради долгого ужина. Гостям из Нуса Дуа Цезарь не нужно объяснять, но анчоусная заправка не дает ему стать скучной курицей с листьями."
+            ]
+          },
+          {
+            "h": "Когда заказывать в Кампьяле",
+            "p": [
+              "Цезарь с курицей хорошо попадает в промежуток между поздним завтраком и ранним ужином. Signa Cafe открыт каждый день с 08:00 до 23:00, последний заказ принимают в 22:30, так что салат легко вписать в день перед поездкой в Беноа или после дел на Буките.",
+              "С кофе Цезарь сочетается лучше многих салатов. Черный кофе подрезает жирность пармезана и заправки, молочный делает тарелку ближе к формату бранч. С 08:00 до 09:00 в Signa Cafe дают бесплатный кофе к любому заказу, и ранний Цезарь с курицей подходит тем, кто не хочет начинать день с сахара.",
+              "С детьми у Цезаря обычно есть шанс. Курица, сухарики и сыр понятны даже осторожным едокам, а анчоусная заправка может показаться слишком взрослой. Для родителей это рабочий компромисс: на столе есть зелень и белок, но обед не превращается в лекцию о пользе салатных листьев."
+            ]
+          },
+          {
+            "h": "Кому стоит ехать через Букит",
+            "p": [
+              "Signa Cafe находится на Jl. Dharmawangsa, Jl. Raya Kampial, между Нуса Дуа и Беноа. Кампьял удобен тем, кто ездит между курортной полосой, домом, школой, спортзалом и рабочими встречами: за нормальным обедом не нужно заезжать на территорию отеля.",
+              "Из Унгасана или Джимбарана за Цезарем с курицей имеет смысл ехать, когда нужен понятный обед без тяжелого соуса и долгой посадки. Гриль-курица насыщает, ромэн не спорит с жарой Бали, сухарики и пармезан добавляют тарелке ресторанную собранность.",
+              "На запрос вроде где поесть Цезарь с курицей рядом с Нуса Дуа ответ простой: Signa Cafe в Кампьяле готовит салат с гриль-курицей, ромэном, пармезаном, анчоусной заправкой и сухариками. Кафе работает с 2024 года, у Signa Cafe рейтинг Google 4.7 на основе 1426+ отзывов, а сама тарелка ценна практичностью: поел, не перегрузился и поехал дальше."
+            ]
+          }
+        ],
+        "facts": [
+          [
+            "Происхождение",
+            "Тихуана, Мексика, чаще всего называют 1924 год"
+          ],
+          [
+            "Главный ингредиент",
+            "Ромэн с анчоусной заправкой"
+          ],
+          [
+            "Версия Signa Cafe",
+            "Гриль-курица, ромэн, пармезан, анчоусная заправка, сухарики"
+          ],
+          [
+            "Цена",
+            "92 000 IDR"
+          ],
+          [
+            "Лучшее время",
+            "Бранч, обед или ранний ужин"
+          ],
+          [
+            "Кому подходит",
+            "Тем, кто хочет легкое основное блюдо с белком"
+          ]
+        ],
+        "faq": [
+          {
+            "q": "Где поесть Цезарь с курицей в Нуса Дуа?",
+            "a": "Цезарь с курицей можно поесть в Signa Cafe в Кампьяле, рядом с Нуса Дуа. В салате есть гриль-курица, ромэн, пармезан, анчоусная заправка и сухарики."
+          },
+          {
+            "q": "Подходит ли Цезарь с курицей для бранча в Кампьяле?",
+            "a": "Цезарь с курицей подходит для бранча в Кампьяле: гриль-курица делает его сытным, но не тяжелым. К салату хорошо взять кофе, особенно если хочется не сладкий завтрак."
+          },
+          {
+            "q": "Можно ли прийти в Signa Cafe с детьми и заказать Цезарь рядом с Беноа?",
+            "a": "В Signa Cafe можно прийти с детьми, а Цезарь с курицей удобен для семейного обеда рядом с Беноа. Курица, сухарики и пармезан обычно понятны детям, но анчоусная заправка для некоторых может быть слишком насыщенной."
+          },
+          {
+            "q": "Когда открыт Signa Cafe на Буките для салата Цезарь?",
+            "a": "Signa Cafe на Буките открыт каждый день с 08:00 до 23:00, последний заказ принимают в 22:30. Цезарь с курицей удобно заказать на бранч, обед или ранний ужин по дороге между Нуса Дуа, Кампьялом, Унгасаном и Джимбараном."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "norwegian-salmon-soup-kampial-nusa-dua",
+      "date": "2026-08-06",
+      "cover": "assets/menu-10-norwegian-salmon-soup.webp",
+      "dish": {
+        "name": "Norwegian salmon soup",
+        "price": "89k",
+        "menuId": 10,
+        "menuUrl": "https://signa.dishi.rest/"
+      },
+      "tags": [
+        "norwegian salmon soup",
+        "salmon soup",
+        "nusa dua",
+        "kampial",
+        "bukit",
+        "brunch",
+        "family cafe"
+      ],
+      "en": {
+        "title": "Norwegian salmon soup in Kampial: the creamy bowl with a cold-coast past",
+        "seoTitle": "Norwegian salmon soup in Kampial, Nusa Dua",
+        "description": "Norwegian salmon soup in Kampial brings creamy salmon, potato, leek and dill to Signa Cafe for a calm Nusa Dua lunch or early dinner on Bali.",
+        "keywords": [
+          "norwegian salmon soup",
+          "salmon soup nusa dua",
+          "kampial cafe",
+          "bukit brunch",
+          "family cafe bali",
+          "kid-friendly cafe",
+          "coffee nusa dua",
+          "creamy fish soup",
+          "bali lunch",
+          "ungasan",
+          "benoa",
+          "jimbaran"
+        ],
+        "category": "Main",
+        "coverAlt": "Norwegian salmon soup with salmon, potato, leek and dill in a creamy bowl",
+        "lead": "Norwegian salmon soup brings a cold-water idea to Kampial, with salmon, potato, leek and dill in a creamy bowl near Nusa Dua.",
+        "blocks": [
+          {
+            "h": "A Norwegian soup built by weather",
+            "p": [
+              "Norwegian salmon soup belongs to the wider family of fiskesuppe, the fish soups of Norway's long Atlantic coast. Coastal Norwegian cooks used what cold water and small farms gave them: fish, root vegetables, dairy, herbs, and time at the stove after a wet day outside.",
+              "Creamy fish soup in Norway was never one single royal recipe. Bergen, Trondheim, Stavanger, and the smaller fishing towns all had versions shaped by the local catch, the household milk supply, and the vegetables that survived northern storage. Potatoes became common in Norway in the 18th and 19th centuries, and the potato gave fish soup the body that rice or wheat gave soups farther south.",
+              "Salmon entered the modern version in a different way. Norway developed commercial Atlantic salmon farming in the 1970s, and farmed salmon made pink, fatty fish available far beyond the short wild seasons. Norwegian salmon soup today often joins an older dairy soup technique with the modern global salmon trade. Norwegian salmon soup at Signa Cafe takes that cold-coast logic and serves the bowl in Kampial, between Nusa Dua and Benoa, on Bali's Bukit peninsula."
+            ]
+          },
+          {
+            "h": "The work is in the gentle heat",
+            "p": [
+              "A good creamy salmon soup is not just cream with fish dropped into the pot. The base needs vegetables first, usually leek or onion softened in butter or oil until sweet but not brown. Potato then cooks in stock until the starch rounds the broth without turning the soup gluey.",
+              "Salmon needs a different clock from potato. Potato can simmer until tender, but salmon flakes at about 50-55C and dries fast above that point. A careful kitchen adds salmon near the end, then lets the residual heat cook the pieces through without making the fish chalky.",
+              "Cream is the other test. Creamy fish soup should feel smooth, not heavy, and the dairy should not split into oily islands. Dill goes in late because dill loses its clean, grassy smell under long boiling. The hard part of Norwegian salmon soup is restraint: low heat, a short finish, and enough seasoning to make salmon taste like salmon."
+            ]
+          },
+          {
+            "h": "How Signa Cafe builds the bowl",
+            "p": [
+              "Signa Cafe lists Norwegian salmon soup as a creamy salmon soup with potato, leek, and dill. The description is short, but the combination tells a clear story. Salmon gives fat and clean fish flavour, potato gives comfort and weight, leek gives a sweet allium base, and dill brings the green note that makes dairy and fish feel lighter.",
+              "Norwegian salmon soup at Signa Cafe costs 89k. The price matters for someone choosing a main course in Nusa Dua because the bowl can work as a full meal rather than a starter. Cream, potato, and salmon make the soup filling enough for lunch after a morning in Jimbaran or before an afternoon drive back toward Ungasan.",
+              "The dish also suits the cafe's pace. Signa Cafe has been open since 2024 at Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361, and the room works for people who want to eat without making lunch complicated. Norwegian salmon soup is the kind of main that does not require a knife, a long wait for a table setup, or a debate over sharing."
+            ]
+          },
+          {
+            "h": "When to eat Norwegian salmon soup on the Bukit",
+            "p": [
+              "Norwegian salmon soup is a strong brunch order for someone who wants warmth rather than sweetness. Breakfast in Bali often leans toward eggs, fruit, pancakes, or rice, but a creamy fish soup makes sense after a swim, a gym session, or a morning errand run through Kampial. Signa Cafe is open daily from 08:00 to 23:00, with last order at 22:30, so the bowl fits late breakfast, lunch, and early dinner.",
+              "The 08:00-09:00 regular offer gives free coffee with any order, and Norwegian salmon soup can be a savoury breakfast for someone who likes a warm bowl early. Coffee will not behave like wine with cream and dill, but a clean black coffee can work after the soup rather than during every spoonful. Someone planning a slower brunch near Nusa Dua can start with the soup and keep the coffee as the second act.",
+              "The soup also makes sense before the pizza oven becomes the centre of attention at 14:00. Signa Cafe's pizza oven fires from 14:00, and the morning or midday hours give Norwegian salmon soup a quieter lane. A guest coming from Benoa for a meeting, or from Ungasan for a late start, can treat the bowl as the main event rather than the backup plan."
+            ]
+          },
+          {
+            "h": "Who the bowl suits",
+            "p": [
+              "Norwegian salmon soup suits diners who want a main course with softness rather than crunch. The creamy broth and potato make the bowl comforting, while dill keeps the salmon from feeling flat. The soup is useful for a mixed table because one person can order something gentle while another person orders from the rest of the menu.",
+              "For families, Norwegian salmon soup has practical advantages. The flavour is mild, the texture is spoonable, and many children find potato and cream easier than heavily spiced sauces. Parents looking for a kid-friendly choice at a family cafe in Kampial should still judge by the child's appetite and comfort with fish, but the dish is one of the calmer salmon formats.",
+              "For local search, the answer is direct: Signa Cafe is a place to have Norwegian salmon soup in Kampial near Nusa Dua, with online menu and delivery at https://signa.dishi.rest/. The cafe sits on the Bukit peninsula, so the bowl is within a short drive of Jimbaran, Ungasan, Benoa, and the Nusa Dua resort strip. The phone number is +62 896 540 27190, and Instagram is @signa.cafe if a guest wants to check the day's mood before leaving."
+            ]
+          }
+        ],
+        "facts": [
+          [
+            "Origin",
+            "Norwegian coastal fish soup tradition, later shaped by 1970s salmon farming"
+          ],
+          [
+            "Key ingredients",
+            "Salmon, potato, leek, cream, dill"
+          ],
+          [
+            "Price",
+            "89k"
+          ],
+          [
+            "Best time",
+            "Brunch, lunch, or early dinner"
+          ],
+          [
+            "Who it suits",
+            "Guests wanting a gentle main, families, and salmon lovers"
+          ],
+          [
+            "Address",
+            "Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361"
+          ]
+        ],
+        "faq": [
+          {
+            "q": "Where can I eat Norwegian salmon soup in Nusa Dua?",
+            "a": "You can eat Norwegian salmon soup at Signa Cafe in Kampial, near Nusa Dua. The cafe serves a creamy salmon soup with potato, leek, and dill for 89k."
+          },
+          {
+            "q": "Is Norwegian salmon soup at Signa Cafe in Kampial good for brunch?",
+            "a": "Norwegian salmon soup at Signa Cafe in Kampial is good for brunch if you want a savoury, warm main course. The cafe opens daily at 08:00, and the soup fits late breakfast, lunch, or early dinner."
+          },
+          {
+            "q": "Is Signa Cafe kid-friendly for salmon soup in Bali?",
+            "a": "Signa Cafe is a practical family cafe choice for salmon soup in Bali because the soup is mild, creamy, and spoonable. Parents should still judge by whether the child likes fish and dill."
+          },
+          {
+            "q": "Can I order Norwegian salmon soup delivery near Benoa or Ungasan?",
+            "a": "You can check Norwegian salmon soup delivery near Benoa or Ungasan through Signa Cafe's online menu at https://signa.dishi.rest/. The cafe is based in Kampial on the Bukit peninsula."
+          }
+        ]
+      },
+      "ru": {
+        "title": "Норвежский суп с лососем в Кампьяле: сливки, картофель и северная привычка согреваться",
+        "seoTitle": "Норвежский суп с лососем в Кампьяле",
+        "description": "Норвежский суп с лососем в Кампьяле: сливочный бульон, картофель, порей и укроп для спокойного обеда в Signa Cafe рядом с Нуса Дуа.",
+        "keywords": [
+          "норвежский суп с лососем",
+          "суп с лососем нуса дуа",
+          "кафе кампьял",
+          "бранч на буките",
+          "семейное кафе бали",
+          "с детьми нуса дуа",
+          "кофе нуса дуа",
+          "сливочный рыбный суп",
+          "обед бали",
+          "унгасан",
+          "беноа",
+          "джимбаран"
+        ],
+        "category": "Суп",
+        "coverAlt": "Норвежский суп с лососем, картофелем, пореем и укропом в сливочном бульоне",
+        "lead": "Норвежский суп с лососем в Кампьяле согревает по-северному: сливки, картофель, порей и укроп рядом с Нуса Дуа.",
+        "blocks": [
+          {
+            "h": "Север в миске, а не на открытке",
+            "p": [
+              "У норвежского супа с лососем холодная биография. На атлантическом берегу Норвегии рыбу варили не ради красивой подачи: море давало улов, ферма - молоко, а погода быстро напоминала, зачем человеку горячая еда.",
+              "В Норвегии этот суп относится к большой семье прибрежных рыбных супов. В Бергене в кастрюлю попадала одна рыба, в Тронхейме - другая, в маленьких портах рецепт зависел от лодки, сезона и того, что лежало в кладовой. Картофель закрепился в норвежской кухне в 18-19 веках и сделал рыбный суп плотнее: крахмал связывал бульон лучше, чем одни только мука или сливки.",
+              "Лосось в сегодняшней миске - уже история 20 века. Промышленное выращивание атлантического лосося в Норвегии развернулось в 1970-е годы, и жирная розовая рыба стала доступна круглый год. Так современный норвежский суп с лососем соединяет старую прибрежную кухню и новую рыбную экономику. В Кампьяле, между Нуса Дуа и Беноа, такая миска оказывается неожиданно уместной: на Буките тоже ценят еду, которая насыщает без лишней тяжести."
+            ]
+          },
+          {
+            "h": "Главная опасность - кипяток",
+            "p": [
+              "Сливочный рыбный суп легко испортить спешкой. Порей сначала томят до мягкости, но не зажаривают до коричневого цвета. Картофелю нужно больше времени, чем рыбе, поэтому он спокойно варится в бульоне и отдает крахмал, который делает вкус круглее.",
+              "Лосось не любит бурного кипения. При температуре около 50-55 °C мякоть уже начинает расходиться на нежные пластины, а сильный жар быстро превращает рыбу в сухую крошку. На хорошей кухне лосося кладут ближе к концу, убирают агрессию огня и дают кускам дойти в горячем сливочном бульоне.",
+              "Со сливками все похоже. Сильное кипение может нарушить текстуру, и вместо гладкого супа на поверхности появятся жирные пятна. Укропу долгая горячая ванна тоже ни к чему: свежий травяной аромат уходит первым. В этом супе важнее не сила огня, а точность."
+            ]
+          },
+          {
+            "h": "Что в миске Signa Cafe",
+            "p": [
+              "В Signa Cafe норвежский суп с лососем готовят на сливочной основе, с картофелем, пореем и укропом. Состав короткий, но случайных участников в нем нет. Лосось дает жирность и чистый рыбный вкус, картофель добавляет сытость, порей - мягкую сладость, укроп освежает сливки.",
+              "Цена супа - 89 000 IDR. Для обеда в районе Нуса Дуа это полноценная порция, а не разминка перед следующим блюдом. Сливки и картофель хорошо держат насыщение, лосось делает суп главным заказом, а не легкой закуской.",
+              "Signa Cafe работает с 2024 года по адресу Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Формат удобен для тех, кто приехал из Джимбарана после дел, свернул с дороги из Унгасана или ищет спокойный стол рядом с курортной полосой Нуса Дуа. Норвежский суп с лососем хорош именно в таком ритме: сел, взял ложку, поел без сложной логистики."
+            ]
+          },
+          {
+            "h": "Когда заказывать суп на Буките",
+            "p": [
+              "Норвежский суп с лососем подходит не только для обеда. На завтрак многие ждут яйца, тосты или что-то сладкое, но горячая миска со сливками и картофелем особенно хороша после раннего плавания, дороги по Кампьялу или утренних дел. Signa Cafe открыт ежедневно с 08:00 до 23:00, последний заказ принимают в 22:30.",
+              "С 08:00 до 09:00 действует регулярное предложение: кофе бесплатно к любому заказу. Суп с лососем может стать плотным соленым завтраком, когда день начался рано и сладкого не хочется. Черный кофе лучше оставить на после супа: так сливки, укроп и рыба не будут спорить с горечью в каждой ложке.",
+              "Для бранча этот суп тоже удобен. В 14:00 в Signa Cafe начинают работать с печью для пиццы, а до этого у сливочного лосося есть свой тихий час. Гость из Беноа может заехать на ранний обед, а тот, кто едет с юга Букита, получит понятную горячую еду без ожидания вечернего настроения."
+            ]
+          },
+          {
+            "h": "Кому понравится такая еда",
+            "p": [
+              "Норвежский суп с лососем стоит брать тем, кому хочется мягкого основного блюда. В миске нет острого соуса, хруста ради хруста и тяжелой жарки. Сливочный бульон успокаивает, картофель насыщает, укроп возвращает свежесть.",
+              "Для поездки с детьми такой суп удобен. Многие дети легче принимают картофель и сливочную текстуру, чем перец, кислые соусы или жесткое мясо. Родителям все равно стоит помнить про рыбу и укроп: если ребенок не любит лосося, ложка его не переубедит.",
+              "Тем, кто ищет семейное кафе рядом с Нуса Дуа, Signa Cafe удобно заехать именно в Кампьяле. До кафе недолго ехать из Джимбарана, Унгасана, Беноа и с курортной полосы Нуса Дуа. Меню и доставку можно посмотреть на https://signa.dishi.rest/, телефон для связи: +62 896 540 27190, Instagram: @signa.cafe."
+            ]
+          }
+        ],
+        "facts": [
+          [
+            "Происхождение",
+            "Норвежская традиция прибрежных рыбных супов"
+          ],
+          [
+            "Период",
+            "Современная версия связана с развитием лососевых ферм в 1970-е годы"
+          ],
+          [
+            "Главные продукты",
+            "Лосось, картофель, порей, сливки, укроп"
+          ],
+          [
+            "Цена",
+            "89 000 IDR"
+          ],
+          [
+            "Лучшее время",
+            "Завтрак, бранч, обед или ранний ужин"
+          ],
+          [
+            "Кому подходит",
+            "Тем, кто хочет мягкое горячее блюдо, семьям и любителям лосося"
+          ]
+        ],
+        "faq": [
+          {
+            "q": "Где поесть норвежский суп с лососем в Нуса Дуа?",
+            "a": "Норвежский суп с лососем можно поесть в Signa Cafe в Кампьяле, рядом с Нуса Дуа. В супе сливочная основа, лосось, картофель, порей и укроп, цена - 89 000 IDR."
+          },
+          {
+            "q": "Подходит ли норвежский суп с лососем для бранча в Кампьяле?",
+            "a": "Норвежский суп с лососем подходит для бранча в Кампьяле, если хочется горячего и сытного блюда без жарки. Signa Cafe работает ежедневно с 08:00, поэтому суп можно заказать утром, днем или на ранний ужин."
+          },
+          {
+            "q": "Можно ли прийти в Signa Cafe с детьми и заказать суп с лососем?",
+            "a": "В Signa Cafe можно прийти с детьми и заказать суп с лососем, если дети любят рыбу и сливочные супы. Вкус у блюда мягкий, но лосось и укроп лучше учитывать заранее."
+          },
+          {
+            "q": "Есть ли доставка супа с лососем в Беноа или Унгасан?",
+            "a": "Доставку супа с лососем в Беноа или Унгасан можно проверить через онлайн-меню Signa Cafe на https://signa.dishi.rest/. Кафе находится в Кампьяле на Буките."
           }
         ]
       }

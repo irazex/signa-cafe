@@ -49,6 +49,21 @@ const PAGE_NAV = [
 // ---------- Header ----------
 function PageHeader({ page = "home", lang, setLang }) {
   const t = window.T(lang || "en");
+  const [open, setOpen] = useState(false);
+
+  // Escape closes the drawer; while it is open the page behind must not scroll.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   return (
     <header className="signa-header" data-screen-label="header">
       <div className="signa-header-row">
@@ -64,8 +79,29 @@ function PageHeader({ page = "home", lang, setLang }) {
         <window.LangToggle lang={lang || "en"} onChange={setLang} />
         <span className="header-open-status header-slot"><window.OpenStatus compact /></span>
         <a className="desk-cta" href="https://signa.dishi.rest/" target="_blank" rel="noreferrer">{t("cta_order")}</a>
-        <a className="burger" href="menu.html" aria-label="Menu"><span></span></a>
+        <button
+          type="button"
+          className={"burger" + (open ? " is-open" : "")}
+          aria-label="Menu"
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          onClick={() => setOpen((o) => !o)}
+        >
+          <span></span>
+        </button>
       </div>
+
+      <div id="mobile-nav" className={"mobile-nav" + (open ? " is-open" : "")} hidden={!open}>
+        <nav>
+          {PAGE_NAV.map((p) => (
+            <a key={p.id} href={p.href} className={page === p.id ? "is-current" : ""} onClick={() => setOpen(false)}>
+              {t(p.key)}
+            </a>
+          ))}
+        </nav>
+        <a className="mobile-nav-cta" href="https://signa.dishi.rest/" target="_blank" rel="noreferrer">{t("cta_order")}</a>
+      </div>
+      {open && <div className="mobile-nav-veil" onClick={() => setOpen(false)} aria-hidden="true"></div>}
     </header>
   );
 }
