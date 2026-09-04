@@ -53,8 +53,8 @@ else
   echo "  IndexNow skipped: no key file in repo root" >&2
 fi
 
-# Nudge Google to re-read the sitemap.
-curl -sS -o /dev/null -w '  Google sitemap ping -> HTTP %{http_code}\n' --max-time 30 \
-  "https://www.google.com/ping?sitemap=https://signa.cafe/sitemap.xml" || true
+# There is no Google equivalent any more - the /ping?sitemap endpoint was retired
+# and now answers 404. Google picks the sitemap up from robots.txt on its own
+# schedule; a one-off resubmit is a manual job in Search Console.
 
 echo "done"
