@@ -17,6 +17,63 @@
 - **SEO** — Restaurant + Organization + BreadcrumbList + FAQPage JSON-LD, Open Graph, Twitter, hreflang en/ru/id, robots.txt, sitemap.xml
 - **Real menu** — 12 items с реальными ценами из signa.dishi.rest (Syrniki 93k, Big Breakfast 79k, Margarita 69k, Pasta 89k, Salmon Poke 145k, etc.)
 
+## Stories — еженедельные SEO-посты (v3, sept 2026)
+
+> **Почему PHP, а не React.** Проверено запросом с User-Agent ClaudeBot: раньше живой
+> `signa.cafe` отдавал 8558 байт HTML, из которых видимого текста — **287 символов**
+> (только `<noscript>`). React+Babel транспилируется в браузере, а GPTBot / ClaudeBot /
+> PerplexityBot / CCBot **JS не выполняют** и индексировали пустой `<div id="root">`.
+> Googlebot JS выполняет, поэтому он-то страницу видел. Раздел Stories поэтому
+> рендерится **на сервере**: весь текст в сыром HTML с первого байта.
+
+### Как это устроено
+
+```
+data/stories.json      ← единственный источник правды (посты EN+RU)
+lib/stories.php        ← общие хелперы: загрузка, i18n, <head>, header, footer, CTA
+story.php              ← одна статья       → /stories/<slug>, /stories/ru/<slug>
+stories.php            ← индекс раздела    → /stories, /stories/ru
+feed.php               ← RSS               → /feed.xml
+sitemap.php            ← карта сайта       → /sitemap.xml  (статический файл УДАЛЁН)
+llms.php               ← сводка для ИИ     → /llms.txt
+tools/dev-router.php   ← локальный превью-роутер для `php -S` (повторяет mod_rewrite)
+tools/new-story.mjs    ← скелет нового поста + `--check` валидатор SEO
+tools/build-noscript.mjs ← генерит <noscript> для 4 React-страниц из content.json
+```
+
+**Билд-шага нет.** Меняешь `data/stories.json` → заливаешь по FTP → всё обновилось,
+включая sitemap, RSS и llms.txt. Роутинг — в `.htaccess`, секция 6.
+
+### Публикация поста — два пути
+
+```bash
+# A. Через файл + скрипт
+node tools/new-story.mjs "Napoleon cake with Nutella"   # скелет на ближайший четверг
+# заполнить TODO в data/stories.json (сначала en, потом ru)
+node tools/new-story.mjs --check                        # длина description, объём, FAQ, локальные топонимы
+php -S 127.0.0.1:8099 -t . tools/dev-router.php         # превью на http://127.0.0.1:8099/stories
+
+# B. Через админку
+# /admin.html → таб Stories → правки → Export stories.json → залить в /data/stories.json
+```
+
+### Инварианты — не сломать
+
+1. **Stories не должны стать React.** Смысл раздела в том, что текст в сыром HTML.
+   Любая «оптимизация» в сторону клиентского рендера убивает индексацию ИИ-ботами.
+2. **`sitemap.xml` больше не файл** — это rewrite на `sitemap.php`. Не создавать статический.
+3. **`<noscript>` на 4 React-страницах генерируется**, руками не править —
+   `node tools/build-noscript.mjs` после каждой правки `content.json`
+   (иначе цены в фолбэке разъедутся с ценами в приложении).
+4. **Даты в будущем скрыты** — `st_load()` отбрасывает посты с `date > сегодня`.
+   Это и есть планировщик: пишешь пост заранее, он появится сам.
+5. **Ключевые слова**: в каждом посте должны быть Nusa Dua / Ungasan / Bukit / Benoa /
+   Jimbaran / Kampial. `--check` ругается, если топонимов нет.
+6. **`robots.txt`** явно разрешает GPTBot, ClaudeBot, PerplexityBot, Google-Extended,
+   CCBot и остальных по именам. Не убирать — это сигнал согласия на обучение и цитирование.
+
+---
+
 ## Быстрый старт
 
 ```bash
@@ -46,6 +103,10 @@ signa-cafe-repo/
 ├── assets/                 # 20 файлов: бренд (star.png, logo-dotted-sigma.png, bernard.png),
 │                           # фото блюд (photo-*.jpg), 3D-модель (syrnik-model.obj + textures)
 ├── uploads/                # User uploads (pasted images, mtl files)
+├── data/stories.json       # посты раздела Stories (EN+RU) — см. раздел выше
+├── lib/stories.php         # рендер-хелперы Stories
+├── story.php · stories.php · feed.php · sitemap.php · llms.php   # server-side рендер
+├── tools/                  # new-story.mjs · build-noscript.mjs · dev-router.php
 ├── tablesnew.html          # PWA-обёртка → редирект на dishi.rest/m/signa/table-map (inline manifest)
 ├── tables/tablesnew.html   # Мирор того же PWA (по реальному URL который сохранён на iPad/iPhone)
 └── CLAUDE.md               # Этот файл
@@ -179,5 +240,5 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 
 ---
 
-*Последнее обновление: 2026-05-24*
+*Последнее обновление: 2026-09-04 — добавлен server-rendered раздел /stories + noscript-фолбэки*
 *Полная переделка с шаблона Montoya на React 18 + Babel standalone*

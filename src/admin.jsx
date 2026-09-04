@@ -840,6 +840,233 @@ function AnalyticsTab() {
 
 // ============================================================
 
+// ============================================================
+// STORIES TAB — edits data/stories.json (the weekly dish essays)
+//
+// Separate from content.json on purpose: the essays are long, and every page
+// on the site fetches content.json. Stories are read only by story.php /
+// stories.php, which render them server-side so AI crawlers see the text.
+// This tab therefore keeps its own load / save / export cycle.
+// ============================================================
+const STORIES_KEY = "signa.admin.stories";
+const STORIES_URL = "data/stories.json";
+
+async function loadStories() {
+  try {
+    const local = localStorage.getItem(STORIES_KEY);
+    if (local) return JSON.parse(local);
+  } catch (_) {}
+  try {
+    const r = await fetch(STORIES_URL, { cache: "no-store" });
+    if (r.ok) return await r.json();
+  } catch (_) {}
+  return { version: new Date().toISOString().slice(0, 10).replace(/-/g, ""), posts: [] };
+}
+
+function downloadStories(data) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "stories.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function slugify(s) {
+  return String(s).toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "").trim()
+    .replace(/\s+/g, "-").replace(/-+/g, "-").slice(0, 70);
+}
+
+// blocks[] <-> plain text. One heading per block, paragraphs split on blank lines.
+const blocksToText = (blocks) =>
+  (blocks || []).map((b) => `## ${b.h || ""}\n\n${(b.p || []).join("\n\n")}`).join("\n\n");
+
+const textToBlocks = (text) => {
+  const out = [];
+  let cur = null;
+  String(text).split(/\n\s*\n/).forEach((chunk) => {
+    const t = chunk.trim();
+    if (!t) return;
+    if (t.startsWith("##")) { cur = { h: t.replace(/^#+\s*/, ""), p: [] }; out.push(cur); }
+    else { if (!cur) { cur = { h: "", p: [] }; out.push(cur); } cur.p.push(t); }
+  });
+  return out;
+};
+
+function StoriesTab() {
+  const [data, setData] = useState(null);
+  const [lang, setLang] = useState("en");
+  const [open, setOpen] = useState(0);
+  const [dirty, setDirty] = useState(false);
+
+  useEffect(() => { loadStories().then(setData); }, []);
+  if (!data) return <div className="note">Loading data/stories.json…</div>;
+
+  const posts = data.posts || [];
+  const set = (next) => { setData(next); setDirty(true); };
+  const updPosts = (next) => set({ ...data, posts: next, version: new Date().toISOString().slice(0, 10).replace(/-/g, "") + "a" });
+  const updPost = (i, patch) => updPosts(ImmReplace(posts, i, { ...posts[i], ...patch }));
+  const updLang = (i, k, v) =>
+    updPost(i, { [lang]: { ...(posts[i][lang] || {}), [k]: v } });
+
+  const addPost = () => {
+    const today = new Date().toISOString().slice(0, 10);
+    updPosts([{
+      slug: "new-story-" + today,
+      date: today,
+      cover: "assets/photo-breakfast.webp",
+      dish: { name: "", price: "", menuUrl: "https://signa.dishi.rest/" },
+      tags: ["nusa dua"],
+      en: { title: "New story", seoTitle: "", description: "", keywords: "", category: "Food",
+            coverAlt: "", lead: "", blocks: [{ h: "Heading", p: ["First paragraph."] }], facts: [], faq: [] },
+      ru: { title: "", seoTitle: "", description: "", keywords: "", category: "",
+            coverAlt: "", lead: "", blocks: [], facts: [], faq: [] },
+    }, ...posts]);
+    setOpen(0);
+  };
+
+  const save = () => {
+    try { localStorage.setItem(STORIES_KEY, JSON.stringify(data)); } catch (_) {}
+    setDirty(false);
+    alert("✓ Saved in THIS browser only.\n\nTo publish:\n1. Click 'Export stories.json'\n2. Upload it to /data/stories.json on the server (replace the existing file)\n\nThe /stories pages are rendered by PHP straight from that file — no rebuild needed. New posts also appear in sitemap.xml, feed.xml and llms.txt automatically.");
+  };
+  const reset = async () => {
+    if (!confirm("Discard local edits and reload data/stories.json from the server?")) return;
+    localStorage.removeItem(STORIES_KEY);
+    const r = await fetch(STORIES_URL, { cache: "no-store" });
+    if (r.ok) { setData(await r.json()); setDirty(false); }
+  };
+
+  return (
+    <div>
+      <div className="actions-bar">
+        <button className="btn primary" onClick={save} disabled={!dirty}>Save</button>
+        <button className="btn" onClick={() => downloadStories(data)}>Export stories.json</button>
+        <button className="btn ghost" onClick={reset}>Reset</button>
+        <span style={{ flex: 1 }}/>
+        <span className={`status ${dirty ? "dirty" : ""}`}>{dirty ? "● Unsaved changes" : "● Saved"}</span>
+      </div>
+
+      <div className="note">
+        <b>How this works.</b> Posts live in <code>/data/stories.json</code>, not content.json.
+        The pages at <code>/stories</code> are rendered on the server by PHP, so the full text is in
+        the raw HTML — that is what makes them readable by ChatGPT, Claude, Perplexity and other
+        crawlers that do not run JavaScript. Publish by exporting this file and uploading it to
+        <code>/data/stories.json</code>. Sitemap, RSS and llms.txt update themselves.
+        <br/><br/>
+        <b>Writing tips for SEO:</b> mention Nusa Dua, Benoa, Ungasan, Jimbaran or the Bukit
+        naturally in the text; keep the description under 160 characters; give every post a real
+        FAQ — those become rich snippets in Google.
+      </div>
+
+      <div className="row">
+        <label>Editing language</label>
+        <div className="lang-tabs">
+          {["en", "ru"].map((l) => (
+            <button key={l} className={`btn ${lang === l ? "primary" : "ghost"}`} onClick={() => setLang(l)}>
+              {l.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <button className="add-card" onClick={addPost}>+ New weekly post</button>
+
+      {posts.map((p, i) => {
+        const b = p[lang] || {};
+        const isOpen = open === i;
+        return (
+          <div key={i} className="card">
+            <div className="head">
+              <span className="num">{String(i + 1).padStart(2, "0")}</span>
+              <span style={{ flex: 1, cursor: "pointer" }} onClick={() => setOpen(isOpen ? -1 : i)}>
+                <b>{b.title || p[ "en" ]?.title || p.slug}</b>
+                <span style={{ opacity: .5 }}> · {p.date}{!b.title ? "  (no " + lang.toUpperCase() + " version)" : ""}</span>
+              </span>
+              <span className="ctrls">
+                <a className="icon-btn" href={`/stories${lang === "ru" ? "/ru" : ""}/${p.slug}`} target="_blank" rel="noreferrer" title="Preview">↗</a>
+                <button className="icon-btn" disabled={i === 0} onClick={() => updPosts(ImmMove(posts, i, i - 1))} title="Move up">↑</button>
+                <button className="icon-btn" disabled={i === posts.length - 1} onClick={() => updPosts(ImmMove(posts, i, i + 1))} title="Move down">↓</button>
+                <button className="icon-btn danger" onClick={() => { if (confirm("Delete this post?")) updPosts(ImmRemove(posts, i)); }} title="Delete">×</button>
+                <button className="icon-btn" onClick={() => setOpen(isOpen ? -1 : i)}>{isOpen ? "–" : "+"}</button>
+              </span>
+            </div>
+
+            {isOpen && (
+              <>
+                <Field label="URL slug (a-z, digits, dashes)" value={p.slug}
+                  onChange={(v) => updPost(i, { slug: slugify(v) })} placeholder="syrniki-cottage-cheese-pancakes" />
+                <Field label="Publish date (YYYY-MM-DD — future dates stay hidden)" value={p.date}
+                  onChange={(v) => updPost(i, { date: v })} placeholder="2026-09-04" />
+                <Field label="Tags (comma separated)" value={(p.tags || []).join(", ")}
+                  onChange={(v) => updPost(i, { tags: v.split(",").map((t) => t.trim()).filter(Boolean) })} />
+                <Field label="Dish name" value={p.dish?.name}
+                  onChange={(v) => updPost(i, { dish: { ...(p.dish || {}), name: v } })} />
+                <Field label="Dish price (shown under the photo)" value={p.dish?.price}
+                  onChange={(v) => updPost(i, { dish: { ...(p.dish || {}), price: v } })} placeholder="93,000 IDR" />
+                <ImagePicker label="Cover photo" value={p.cover}
+                  onChange={(v) => updPost(i, { cover: v })} content={{ posts }} />
+
+                <div className="note" style={{ marginTop: 18 }}>
+                  <b>{lang.toUpperCase()} text</b> — everything below belongs to this language only.
+                </div>
+
+                <Field label="Headline (shown on the page)" value={b.title} onChange={(v) => updLang(i, "title", v)} multiline />
+                <Field label="SEO title (browser tab & Google result — leave empty to reuse the headline)"
+                  value={b.seoTitle} onChange={(v) => updLang(i, "seoTitle", v)} multiline />
+                <Field label="Meta description (max ~160 chars — this is the Google snippet)"
+                  value={b.description} onChange={(v) => updLang(i, "description", v)} multiline />
+                <Field label="Keywords (comma separated — include Nusa Dua / Ungasan / Bukit etc.)"
+                  value={b.keywords} onChange={(v) => updLang(i, "keywords", v)} multiline />
+                <Field label="Category label" value={b.category} onChange={(v) => updLang(i, "category", v)} placeholder="Breakfast" />
+                <Field label="Photo alt text (describe the dish — read by image search and screen readers)"
+                  value={b.coverAlt} onChange={(v) => updLang(i, "coverAlt", v)} multiline />
+                <Field label="Lead (the bold opening line)" value={b.lead} onChange={(v) => updLang(i, "lead", v)} multiline />
+
+                <div className="row">
+                  <label>Body — start a section with <code>## Heading</code>, separate paragraphs with a blank line</label>
+                  <textarea
+                    rows={18}
+                    value={blocksToText(b.blocks)}
+                    onChange={(e) => updLang(i, "blocks", textToBlocks(e.target.value))}
+                  />
+                </div>
+
+                <div className="row">
+                  <label>Fact box — one <code>Label | Value</code> per line</label>
+                  <textarea
+                    rows={6}
+                    value={(b.facts || []).map((f) => `${f[0]} | ${f[1]}`).join("\n")}
+                    onChange={(e) => updLang(i, "facts",
+                      e.target.value.split("\n").map((l) => l.split("|").map((x) => x.trim()))
+                        .filter((r) => r[0]))}
+                  />
+                </div>
+
+                <div className="row">
+                  <label>FAQ — <code>Question ? Answer</code>, one per line, split on the first <code>|</code></label>
+                  <textarea
+                    rows={6}
+                    value={(b.faq || []).map((f) => `${f.q} | ${f.a}`).join("\n")}
+                    onChange={(e) => updLang(i, "faq",
+                      e.target.value.split("\n").map((l) => {
+                        const k = l.indexOf("|");
+                        return k < 0 ? null : { q: l.slice(0, k).trim(), a: l.slice(k + 1).trim() };
+                      }).filter(Boolean))}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        );
+      })}
+
+      {posts.length === 0 && <div className="note">No posts yet. Click “+ New weekly post”.</div>}
+    </div>
+  );
+}
+
 // ---------- App ----------
 function App() {
   // Auth handled at server level by Apache Basic Auth (.htaccess).
@@ -920,6 +1147,7 @@ function App() {
     { id: "faq",       label: "FAQ" },
     { id: "signature", label: "Signature" },
     { id: "photos",    label: "Photos" },
+    { id: "stories",   label: "Stories" },
     { id: "analytics", label: "Analytics" },
   ];
   const activeTab = tabs.find(t => t.id === tab);
@@ -953,7 +1181,7 @@ function App() {
           </span>
         </div>
 
-        <div className="actions-bar">
+        {tab !== "stories" && <div className="actions-bar">
           <button className="btn primary" onClick={handleSave} disabled={!dirty}>Save</button>
           <button className="btn" onClick={handleExport}>Export content.json</button>
           <button className="btn ghost" onClick={handleReset}>Reset</button>
@@ -964,7 +1192,7 @@ function App() {
           <button className="btn ghost" onClick={handleClearTranslations} title="Remove all *_ru / *_id fields">
             Clear translations
           </button>
-        </div>
+        </div>}
 
         {trProgress && (
           <div className="tr-progress">
@@ -981,6 +1209,7 @@ function App() {
         {tab === "faq"       && <FAQTab       content={content} set={update}/>}
         {tab === "signature" && <SignatureTab content={content} set={update}/>}
         {tab === "photos"    && <PhotosTab    content={content} set={update}/>}
+        {tab === "stories"   && <StoriesTab/>}
         {tab === "analytics" && <AnalyticsTab/>}
       </main>
     </div>

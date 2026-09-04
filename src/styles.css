@@ -2732,3 +2732,246 @@ body.is-hero-mode .header-open-status.hero-overlay{
   .fullmenu-main{ gap: 12px; }
   .fullmenu-note{ font-size: 10px; }
 }
+
+/* =============================================================
+   STORIES — weekly dish essays (/stories, server-rendered PHP)
+   Reuses the site tokens only: Anton display, Onest body, mono
+   labels, --red accent, --pad-x rhythm. No new colours.
+============================================================= */
+
+/* current page in the header nav */
+.signa-header nav a.is-current{ color: var(--ink); }
+.signa-header nav a.is-current::after{
+  content: ""; display: block; height: 1.5px; background: var(--red); margin-top: 3px;
+}
+/* header lang toggle renders as <a> on server-rendered pages */
+.signa-header .lang-toggle a.lang-btn{ display: inline-block; text-decoration: none; }
+
+/* ---------- article ---------- */
+.story{
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 108px var(--pad-x) 0;
+}
+.story-crumbs{
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(0,0,0,.45);
+  display: flex; gap: 8px; margin-bottom: 22px;
+}
+.story-crumbs a:hover{ color: var(--red); }
+.story-head .s-label{ margin-bottom: 14px; }
+.story-title{
+  font-family: var(--display);
+  font-size: clamp(34px, 6.4vw, 60px);
+  line-height: 1.0; letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.story-lead{
+  margin-top: 20px;
+  font-size: clamp(18px, 2.4vw, 22px);
+  line-height: 1.45;
+  color: rgba(0,0,0,.72);
+  border-left: 2px solid var(--red);
+  padding-left: 16px;
+}
+.story-altlang{
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+}
+.story-altlang a{ color: rgba(0,0,0,.55); }
+.story-altlang a:hover{ color: var(--red); }
+
+.story-cover{ margin: 34px 0 0; }
+.story-cover img{
+  width: 100%; height: auto;
+  border: 1px solid rgba(0,0,0,.12);
+  object-fit: cover;
+}
+.story-cover figcaption{
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  color: rgba(0,0,0,.5);
+}
+.story-cover figcaption b{ color: var(--ink); font-weight: 500; }
+.story-cover figcaption a{ color: var(--red); }
+
+.story-body{ margin-top: 40px; }
+.story-body h2{
+  font-family: var(--display);
+  font-size: clamp(22px, 3.4vw, 30px);
+  line-height: 1.06; letter-spacing: -0.015em;
+  text-transform: uppercase;
+  margin: 44px 0 16px;
+}
+.story-body h2:first-child{ margin-top: 0; }
+.story-body p{
+  font-size: 17px; line-height: 1.68;
+  color: rgba(0,0,0,.78);
+  margin-bottom: 18px;
+  max-width: 68ch;
+}
+
+/* ---------- fact box ---------- */
+.story-facts{
+  margin-top: 48px;
+  border: 1px solid rgba(0,0,0,.14);
+  padding: 24px var(--pad-x) 20px;
+  background: rgba(255,254,249,.72);
+}
+.story-facts h2{
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(0,0,0,.5); font-weight: 400;
+  margin-bottom: 14px;
+}
+.story-facts dl{ display: flex; flex-direction: column; }
+.story-facts dl > div{
+  display: flex; justify-content: space-between; gap: 20px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+  font-family: var(--mono);
+  font-size: 12px; letter-spacing: .03em;
+}
+.story-facts dt{ color: rgba(0,0,0,.5); text-transform: uppercase; font-size: 11px; flex: 0 0 auto; }
+.story-facts dd{ text-align: right; color: var(--ink); }
+
+/* ---------- FAQ ---------- */
+.story-faq{ margin-top: 48px; }
+.story-faq > h2{
+  font-family: var(--display);
+  font-size: clamp(22px, 3.4vw, 30px);
+  text-transform: uppercase; letter-spacing: -0.015em;
+  margin-bottom: 18px;
+}
+.story-faq-item{ border-top: 1px solid rgba(0,0,0,.12); padding: 16px 0; }
+.story-faq-item h3{
+  font-size: 16px; font-weight: 600; line-height: 1.35; margin-bottom: 6px;
+}
+.story-faq-item p{ font-size: 15px; line-height: 1.6; color: rgba(0,0,0,.68); }
+
+.story-tags{
+  margin-top: 36px; display: flex; flex-wrap: wrap; gap: 8px;
+}
+.story-tags span{
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  border: 1px solid rgba(0,0,0,.18); border-radius: 999px;
+  padding: 5px 11px; color: rgba(0,0,0,.55);
+}
+.story-meta{
+  margin-top: 20px; padding-bottom: 8px;
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .06em; text-transform: uppercase;
+  color: rgba(0,0,0,.42);
+}
+
+/* ---------- closing CTA ---------- */
+.story-cta{
+  max-width: 760px; margin: 72px auto 0;
+  padding: 34px var(--pad-x);
+  background: var(--ink); color: var(--paper);
+}
+.story-cta h2{
+  font-family: var(--display);
+  font-size: clamp(24px, 4vw, 36px);
+  line-height: 1.02; letter-spacing: -0.02em; text-transform: uppercase;
+}
+.story-cta p{
+  margin-top: 12px; font-size: 15px; line-height: 1.6;
+  color: rgba(255,254,249,.74); max-width: 52ch;
+}
+.story-cta-row{ margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+.story-cta .h-btn.outline{ color: var(--paper); border-color: rgba(255,254,249,.5); }
+.story-cta .h-btn.outline:hover{ background: var(--paper); color: var(--ink); }
+
+/* ---------- related ---------- */
+.story-more{ max-width: 1100px; margin: 0 auto; padding: 72px var(--pad-x) 24px; }
+.story-more .s-label{ margin-bottom: 20px; }
+.story-grid{ display: grid; grid-template-columns: 1fr; gap: 18px; }
+.story-card{
+  position: relative;
+  border: 1px solid rgba(0,0,0,.14);
+  padding: 0 0 18px;
+  transition: transform .2s, background .2s, color .2s;
+}
+.story-card img{ width: 100%; height: 180px; object-fit: cover; margin-bottom: 14px; }
+.story-card-date,
+.story-card-title{ display: block; padding: 0 16px; }
+.story-card-date{
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(0,0,0,.45); margin-bottom: 6px;
+}
+.story-card-title{
+  font-family: var(--display);
+  font-size: 19px; line-height: 1.08; letter-spacing: -0.01em; text-transform: uppercase;
+}
+.story-card-arr{ position: absolute; right: 14px; bottom: 14px; color: var(--red); transition: transform .2s; }
+.story-card:hover{ transform: translateY(-3px); background: var(--ink); color: var(--paper); }
+.story-card:hover .story-card-date{ color: rgba(255,254,249,.6); }
+.story-card:hover .story-card-arr{ transform: translateX(5px); }
+.story-back{
+  margin-top: 28px;
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(0,0,0,.5);
+}
+.story-back a:hover{ color: var(--red); }
+
+/* ---------- index ---------- */
+.story-index{ padding-top: 8px; padding-bottom: 40px; }
+.story-empty{ color: rgba(0,0,0,.55); padding: 40px 0 60px; }
+.story-row{ border-top: 1px solid rgba(0,0,0,.14); }
+.story-row:last-child{ border-bottom: 1px solid rgba(0,0,0,.14); }
+.story-row-link{
+  display: grid; grid-template-columns: 1fr; gap: 18px;
+  padding: 26px 0;
+  transition: opacity .2s;
+}
+.story-row-img img{
+  width: 100%; height: 200px; object-fit: cover;
+  border: 1px solid rgba(0,0,0,.1);
+}
+.story-row-meta{
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(0,0,0,.45); margin-bottom: 10px;
+}
+.story-row-title{
+  font-family: var(--display);
+  font-size: clamp(24px, 4vw, 34px);
+  line-height: 1.02; letter-spacing: -0.018em; text-transform: uppercase;
+  text-wrap: balance;
+}
+.story-row-lead{
+  display: block; margin-top: 12px;
+  font-size: 15px; line-height: 1.6; color: rgba(0,0,0,.68);
+  max-width: 62ch;
+}
+.story-row-cta{
+  display: inline-block; margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--red);
+}
+.story-row-link:hover .story-row-cta{ text-decoration: underline; }
+.story-row.is-lead .story-row-title{ font-size: clamp(30px, 6vw, 52px); }
+
+/* footer on server-rendered pages: no sticky bottom CTA to clear */
+.story-foot{ min-height: 0; padding-bottom: 40px; }
+
+@media (min-width: 760px){
+  .story-grid{ grid-template-columns: repeat(3, 1fr); }
+  .story-row-link{ grid-template-columns: 300px 1fr; gap: 28px; align-items: start; }
+  .story-row-img img{ height: 210px; }
+  .story-row.is-lead .story-row-link{ grid-template-columns: 420px 1fr; }
+  .story-row.is-lead .story-row-img img{ height: 300px; }
+}
+@media (min-width: 1000px){
+  .story{ padding-top: 130px; }
+}

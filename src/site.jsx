@@ -38,10 +38,12 @@ window.hydrateContent = hydrateContent;
 
 // ---------- Page nav model ----------
 const PAGE_NAV = [
-  { id: "home",  href: "index.html", key: "nav_home" },
-  { id: "menu",  href: "menu.html",  key: "nav_menu" },
-  { id: "about", href: "about.html", key: "nav_about" },
-  { id: "visit", href: "visit.html", key: "nav_visit" },
+  { id: "home",    href: "index.html", key: "nav_home" },
+  { id: "menu",    href: "menu.html",  key: "nav_menu" },
+  // /stories is server-rendered PHP, not a React page — absolute path on purpose.
+  { id: "stories", href: "/stories",   key: "nav_stories" },
+  { id: "about",   href: "about.html", key: "nav_about" },
+  { id: "visit",   href: "visit.html", key: "nav_visit" },
 ];
 
 // ---------- Header ----------
@@ -180,6 +182,7 @@ function useSiteAnalytics({ page = "unknown", lang = "en" } = {}) {
       if (/^menu\.html?(\?|#|$)/.test(href))  return "page_menu";
       if (/^about\.html?(\?|#|$)/.test(href)) return "page_about";
       if (/^visit\.html?(\?|#|$)/.test(href)) return "page_visit";
+      if (/^\/stories(\/|\?|#|$)/.test(href))   return "page_stories";
       if (href.includes("signa.dishi.rest")) return "menu_dishi";
       if (href.includes("gofood.link")) return "gofood";
       if (href.includes("food.grab.com")) return "grabfood";

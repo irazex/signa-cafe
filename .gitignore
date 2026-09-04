@@ -17,3 +17,6 @@ dist/
 # Backup files
 *.bak
 .openai_key
+
+# Runtime analytics logs written by track.php (never commit, never deploy)
+analytics/

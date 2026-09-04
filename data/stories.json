@@ -1,0 +1,382 @@
+{
+  "version": "20260904a",
+  "note": "Source of truth for /stories. Edited by hand or via /admin.html -> Stories tab. Rendered server-side by story.php / stories.php - no build step, no JS required, so AI crawlers see full text.",
+  "posts": [
+    {
+      "slug": "syrniki-cottage-cheese-pancakes",
+      "date": "2026-09-04",
+      "cover": "assets/menu-01-syrniki-cottage-cheese-pancake.webp",
+      "dish": {
+        "name": "Syrniki",
+        "price": "93,000 IDR",
+        "menuUrl": "https://signa.dishi.rest/"
+      },
+      "tags": [
+        "breakfast",
+        "syrniki",
+        "nusa dua",
+        "bukit",
+        "brunch"
+      ],
+      "en": {
+        "title": "Syrniki: the 500-year-old pancake that became a Nusa Dua breakfast",
+        "seoTitle": "Syrniki in Nusa Dua - the history behind Signa Cafe's cottage cheese pancakes",
+        "description": "Where syrniki come from, why they use cottage cheese not flour, and how they became the most-ordered breakfast at Signa Cafe in Nusa Dua, Bali.",
+        "keywords": "syrniki Bali, cottage cheese pancakes Nusa Dua, breakfast Nusa Dua, brunch Bukit Bali, Signa Cafe, breakfast Ungasan, cafe Benoa, Russian breakfast Bali",
+        "category": "Breakfast",
+        "coverAlt": "Golden syrniki - cottage cheese pancakes with sour cream, salted caramel and berries - at Signa Cafe, Nusa Dua",
+        "lead": "Three ingredients, five centuries, and a queue every morning in Kampial. This is the dish people cross the Bukit for.",
+        "blocks": [
+          {
+            "h": "A pancake that starts with cheese, not flour",
+            "p": [
+              "Most pancakes begin with flour and end with something poured over them. Syrniki work the other way around. The base is tvorog - fresh, unripened cottage cheese, drained until it is dry enough to hold a shape. Flour is only there to keep the cheese from falling apart in the pan. Get the ratio wrong and you either have a rubber disc or a puddle; get it right and you have a pancake that is soft and slightly grainy inside, with a lacquered brown crust.",
+              "The name gives away the recipe. In old East Slavic, syr meant cheese in general, not the aged wheels the word describes today. A syrnik was simply a small cheese thing. Written recipes appear in Russian and Ukrainian household books from the sixteenth century, but the dish is older than the writing - it was the practical answer to a jar of soured milk before anyone owned a refrigerator."
+            ]
+          },
+          {
+            "h": "Peasant economics, not chef invention",
+            "p": [
+              "Syrniki were never designed. They were what happened when milk turned. Farms across Ukraine, Russia, Belarus and Poland made tvorog constantly because it kept longer than milk did, and when a batch was about to go, it went into a pan with an egg and whatever flour was in the house. Sweet, with honey and sour cream. Savoury, with herbs and salt. Both versions are correct and both are still argued about.",
+              "That is why every family recipe is different and every grandmother's is the best one. Some add semolina instead of flour, which absorbs moisture more slowly and gives a lighter middle. Some add raisins, which is either essential or heresy depending on which side of a very old argument you were raised on. Some fry in butter, some in oil, some finish them in the oven so the centre sets without the crust burning.",
+              "By the twentieth century syrniki had travelled with the diaspora into Germany, Israel, the United States and eventually anywhere a Slavic family opened a kitchen. They arrived in Bali the same way most food does here - in someone's memory of home."
+            ]
+          },
+          {
+            "h": "How they made it onto a Bali menu",
+            "p": [
+              "Nusa Dua is not an obvious home for a Slavic breakfast. But the Bukit peninsula has spent the last decade filling up with people who stay for months rather than days - remote workers, families on long visas, surfers who came for a season and are still here. A large share of them grew up eating syrniki, and they ask for it.",
+              "The harder problem was the cheese. Proper tvorog is not something you buy at a supermarket in Benoa. Indonesian dairy runs toward sweetened condensed milk and processed cheddar; the fresh curd that syrniki need has to be sourced carefully and used fast in a climate that is 30 degrees and humid by nine in the morning. Ours is made in small batches and drained overnight, which is the unglamorous half of why the dish works.",
+              "The other half is heat management. In a Bali kitchen the butter browns faster than it does in Kyiv. The pan runs lower and slower than a classic recipe would tell you, and the pancakes finish in the oven. It takes longer. It also means the middle is set and warm rather than raw, which is the difference between a good syrnik and an apology."
+            ]
+          },
+          {
+            "h": "What arrives at the table",
+            "p": [
+              "Four pancakes, sour cream, salted caramel, fresh berries. The caramel is not traditional - honey or jam would be - but salt against the sourness of the curd does something that honey cannot, and it has become the version people come back for.",
+              "It is on the menu from the moment we open at 08:00 until we close at 23:00, which means it works as a breakfast in Ungasan before a surf, as a late brunch after the school run in Nusa Dua, and as a dessert at nine in the evening. Most people order it before noon. Some order it twice."
+            ]
+          }
+        ],
+        "facts": [
+          [
+            "Dish",
+            "Syrniki - cottage cheese pancakes"
+          ],
+          [
+            "Price",
+            "93,000 IDR"
+          ],
+          [
+            "Served",
+            "08:00 - 23:00, every day"
+          ],
+          [
+            "Diet",
+            "Vegetarian"
+          ],
+          [
+            "Origin",
+            "East Slavic - Ukraine, Russia, Belarus"
+          ],
+          [
+            "Where",
+            "Signa Cafe, Jl. Raya Kampial, Benoa, Nusa Dua"
+          ]
+        ],
+        "faq": [
+          {
+            "q": "What are syrniki made of?",
+            "a": "Fresh cottage cheese (tvorog), egg, a little flour and sugar, fried in butter. The cheese is the main ingredient - the flour is only there to bind it."
+          },
+          {
+            "q": "Are syrniki vegetarian?",
+            "a": "Yes. Ours contain no meat, gelatine or animal rennet additions beyond dairy and egg."
+          },
+          {
+            "q": "Where can I eat syrniki in Nusa Dua?",
+            "a": "At Signa Cafe on Jl. Dharmawangsa / Jl. Raya Kampial in Benoa, Nusa Dua - about ten minutes from Ungasan and fifteen from Jimbaran. Served all day, 08:00 to 23:00."
+          },
+          {
+            "q": "How much are syrniki at Signa Cafe?",
+            "a": "93,000 IDR for a plate of four with sour cream, salted caramel and berries."
+          }
+        ]
+      },
+      "ru": {
+        "title": "Сырники: пятивековая история блюда, которое стало завтраком Нуса Дуа",
+        "seoTitle": "Сырники в Нуса Дуа - история блюда в кафе Signa на Бали",
+        "description": "Откуда взялись сырники, почему их делают из творога, а не из муки, и как они стали самым заказываемым завтраком в кафе Signa в Нуса Дуа на Бали.",
+        "keywords": "сырники Бали, завтрак Нуса Дуа, русское кафе Бали, сырники Унгасан, кафе Букит, Signa Cafe, завтрак Букит, творожные оладьи Бали",
+        "category": "Завтрак",
+        "coverAlt": "Румяные сырники со сметаной, солёной карамелью и ягодами в кафе Signa, Нуса Дуа",
+        "lead": "Три ингредиента, пять веков и очередь каждое утро в Кампиале. За этим блюдом едут через весь Букит.",
+        "blocks": [
+          {
+            "h": "Блин, который начинается с сыра, а не с муки",
+            "p": [
+              "Большинство блинов начинаются с муки и заканчиваются тем, что на них что-то льют. Сырники устроены наоборот. Основа - творог, отжатый до состояния, в котором он держит форму. Мука нужна только чтобы творог не развалился на сковороде. Ошибись в пропорции - получишь либо резиновый диск, либо лужу. Попади точно - получишь мягкую, чуть зернистую середину под лакированной румяной корочкой.",
+              "Название выдаёт рецепт. В древнерусском слово сыр означало не выдержанные головы, а творог вообще. Сырник - просто маленькая творожная штука. Первые письменные рецепты встречаются в русских и украинских домашних книгах XVI века, но само блюдо старше любых записей: это был практичный ответ на банку скисшего молока в мире без холодильников."
+            ]
+          },
+          {
+            "h": "Крестьянская экономика, а не изобретение повара",
+            "p": [
+              "Сырники никто не придумывал. Они просто случались, когда молоко скисало. На хозяйствах Украины, России, Беларуси и Польши творог делали постоянно - он хранился дольше молока, - и когда партия начинала уходить, её отправляли на сковороду с яйцом и горстью муки. Сладкие, с мёдом и сметаной. Солёные, с зеленью. Оба варианта правильные, и об обоих до сих пор спорят.",
+              "Поэтому в каждой семье свой рецепт и в каждой бабушкин - лучший. Кто-то кладёт манку вместо муки: она забирает влагу медленнее и даёт более лёгкую середину. Кто-то добавляет изюм - и это либо обязательный элемент, либо ересь, в зависимости от того, на какой стороне очень старого спора вас вырастили. Кто-то жарит на масле, кто-то доводит в духовке, чтобы середина схватилась, а корочка не сгорела.",
+              "К XX веку сырники уехали вместе с эмиграцией в Германию, Израиль, США и в конце концов туда, где славянская семья открывала кухню. На Бали они приехали так же, как приезжает почти вся еда здесь - в чьей-то памяти о доме."
+            ]
+          },
+          {
+            "h": "Как они попали в балийское меню",
+            "p": [
+              "Нуса Дуа - неочевидное место для славянского завтрака. Но полуостров Букит за последнее десятилетие заполнился людьми, которые живут здесь месяцами, а не днями: удалёнщиками, семьями на длинных визах, сёрферами, приехавшими на сезон и оставшимися. Многие выросли на сырниках - и спрашивают их.",
+              "Сложнее было с творогом. Нормальный творог не покупается в супермаркете в Беноа. Индонезийская молочка - это сгущёнка и плавленый чеддер; свежий творожный сгусток нужно искать отдельно и использовать быстро в климате, где к девяти утра уже тридцать градусов и высокая влажность. Наш делается маленькими партиями и отвешивается ночь - это неромантичная половина ответа на вопрос, почему блюдо работает.",
+              "Вторая половина - температура. В балийской кухне масло темнеет быстрее, чем в Киеве. Сковорода идёт ниже и медленнее, чем советует классический рецепт, а доходят сырники в духовке. Дольше. Зато середина прогретая и схватившаяся, а не сырая - в этом вся разница между хорошим сырником и извинением."
+            ]
+          },
+          {
+            "h": "Что приносят на стол",
+            "p": [
+              "Четыре сырника, сметана, солёная карамель, свежие ягоды. Карамель - не канон, по традиции был бы мёд или варенье, но соль против кислинки творога делает то, чего мёд не умеет. Именно за этой версией возвращаются.",
+              "Блюдо в меню с открытия в 08:00 и до закрытия в 23:00 - то есть работает и как завтрак в Унгасане перед сёрфом, и как поздний бранч после школы в Нуса Дуа, и как десерт в девять вечера. Большинство заказывает до полудня. Некоторые - дважды."
+            ]
+          }
+        ],
+        "facts": [
+          [
+            "Блюдо",
+            "Сырники творожные"
+          ],
+          [
+            "Цена",
+            "93 000 IDR"
+          ],
+          [
+            "Подача",
+            "08:00 - 23:00, ежедневно"
+          ],
+          [
+            "Диета",
+            "Вегетарианское"
+          ],
+          [
+            "Происхождение",
+            "Восточная Европа - Украина, Россия, Беларусь"
+          ],
+          [
+            "Где",
+            "Signa Cafe, Jl. Raya Kampial, Беноа, Нуса Дуа"
+          ]
+        ],
+        "faq": [
+          {
+            "q": "Из чего делают сырники?",
+            "a": "Свежий творог, яйцо, немного муки и сахара, обжарка на сливочном масле. Основа - творог, мука нужна только для связки."
+          },
+          {
+            "q": "Сырники вегетарианские?",
+            "a": "Да. В составе только молочные продукты и яйцо, без мяса и животного сычуга."
+          },
+          {
+            "q": "Где поесть сырники в Нуса Дуа?",
+            "a": "В кафе Signa на Jl. Dharmawangsa / Jl. Raya Kampial в Беноа, Нуса Дуа - примерно десять минут от Унгасана и пятнадцать от Джимбарана. Подаём весь день, с 08:00 до 23:00."
+          },
+          {
+            "q": "Сколько стоят сырники в Signa Cafe?",
+            "a": "93 000 IDR за порцию из четырёх штук со сметаной, солёной карамелью и ягодами."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "margherita-pizza-history",
+      "date": "2026-08-28",
+      "cover": "assets/pizza-margherita.webp",
+      "dish": {
+        "name": "Pizza Margherita",
+        "price": "89,000 IDR (14:00-18:00)",
+        "menuUrl": "https://signa.dishi.rest/"
+      },
+      "tags": [
+        "pizza",
+        "margherita",
+        "nusa dua",
+        "ungasan",
+        "dinner"
+      ],
+      "en": {
+        "title": "Margherita: the pizza named after a queen who probably never ate it",
+        "seoTitle": "Pizza Margherita in Nusa Dua - the real story behind Signa Cafe's classic",
+        "description": "The Naples legend, the flag that was never a flag, and what it takes to bake a proper Margherita in Bali. Signa Cafe, Nusa Dua - 89,000 IDR every afternoon.",
+        "keywords": "pizza Nusa Dua, margherita pizza Bali, best pizza Bukit, pizza Ungasan, pizza delivery Benoa, Signa Cafe pizza, cheap pizza Bali, pizza Jimbaran",
+        "category": "Pizza",
+        "coverAlt": "Pizza Margherita with tomato, mozzarella and basil, baked at Signa Cafe in Nusa Dua, Bali",
+        "lead": "Three toppings, one queen, and a story that historians have been quietly dismantling for forty years. It is still the best pizza on the menu.",
+        "blocks": [
+          {
+            "h": "The legend everyone repeats",
+            "p": [
+              "June 1889. Queen Margherita of Savoy is in Naples and tired of French court food. She sends for the city's best pizzaiolo, Raffaele Esposito, who bakes three pizzas for her. She prefers the one with tomato, mozzarella and basil - red, white and green, the colours of the newly unified Italian flag. Esposito names it in her honour. A national dish is born.",
+              "It is a very good story. It appears on menus from Naples to Nusa Dua. The problem is that almost none of it survives contact with the archives."
+            ]
+          },
+          {
+            "h": "What the archives actually say",
+            "p": [
+              "The only evidence for the royal visit is a thank-you note, supposedly from the head of the royal household, which has been dated by handwriting analysis to decades after 1889 and is now widely considered a fake produced by the pizzeria itself. Food historian Zachary Nowak published the case in 2014, and Italian scholars had raised doubts long before that.",
+              "Worse for the legend: pizza with tomato, cheese and basil is documented in Naples well before Margherita ever arrived. A book from 1849 by Emanuele Rocco describes exactly this combination. The tricolour flag reading was also retrofitted - the association between the pizza and Italian unity only becomes common in the twentieth century, when Italy needed national symbols more than it needed accurate menus.",
+              "None of which makes the pizza worse. What the story really records is the moment pizza stopped being poor food from Naples' back streets and became something a country was willing to claim. That transition was real, even if the queen's dinner was not."
+            ]
+          },
+          {
+            "h": "Why simple is the hardest thing to bake",
+            "p": [
+              "A Margherita has nowhere to hide. Four elements - dough, tomato, mozzarella, basil - and every flaw in any of them lands on the plate. There is no pepperoni to cover an underproved base and no barbecue sauce to rescue watery cheese.",
+              "The dough matters most. We use Italian flour and a long, slow fermentation, which develops flavour in the base itself rather than relying on toppings to supply it. That is also why our pizza starts at 14:00 rather than at opening: the oven needs the morning to come up to temperature, and the dough needs the time anyway.",
+              "The tomato is uncooked - crushed, salted, spread thin. Cooking it twice, once in a pan and once in the oven, is the most common way to make a Margherita taste flat. The mozzarella is torn rather than grated, so it melts in pools instead of forming a uniform plastic sheet. The basil goes on hot, at the end, not before the bake where it turns black and bitter."
+            ]
+          },
+          {
+            "h": "89,000 rupiah, every afternoon",
+            "p": [
+              "Pizza on the Bukit has a price problem. Between the resorts of Nusa Dua and the cliff bars of Ungasan, a decent Margherita often lands somewhere north of 150,000 IDR, which turns a peasant food into an occasion.",
+              "We run one fixed-price pie every afternoon between 14:00 and 18:00 at 89,000 IDR - the same dough, the same oven, the same flour as at dinner. It is deliberately the window when the neighbourhood, rather than the tourist bus, is most likely to walk in. Locals from Kampial and Benoa, people finishing a work day, families before the evening rush.",
+              "Delivery runs through GoFood and GrabFood across Nusa Dua, Benoa, Ungasan and Jimbaran, though a Margherita is always better eaten four metres from the oven than twenty minutes from it."
+            ]
+          }
+        ],
+        "facts": [
+          [
+            "Dish",
+            "Pizza Margherita"
+          ],
+          [
+            "Price",
+            "89,000 IDR during the 14:00-18:00 window"
+          ],
+          [
+            "Served",
+            "From 14:00 daily - the oven needs the morning"
+          ],
+          [
+            "Diet",
+            "Vegetarian"
+          ],
+          [
+            "Origin",
+            "Naples, Italy - documented from the 1840s"
+          ],
+          [
+            "Delivery",
+            "GoFood and GrabFood across Nusa Dua, Benoa, Ungasan, Jimbaran"
+          ]
+        ],
+        "faq": [
+          {
+            "q": "Was pizza Margherita really invented for a queen?",
+            "a": "Almost certainly not. The 1889 royal letter is widely considered a forgery, and pizza with tomato, cheese and basil is documented in Naples from at least 1849. The queen story dates the moment pizza became a national symbol, not the moment the recipe appeared."
+          },
+          {
+            "q": "What time does Signa Cafe serve pizza?",
+            "a": "From 14:00 until close at 23:00. The wood oven needs the morning to reach temperature, so pizza is not available at breakfast."
+          },
+          {
+            "q": "How much is pizza in Nusa Dua at Signa Cafe?",
+            "a": "One fixed-price pizza at 89,000 IDR every day between 14:00 and 18:00. Regular menu prices apply outside that window."
+          },
+          {
+            "q": "Do you deliver pizza in Nusa Dua and Ungasan?",
+            "a": "Yes - via GoFood, GrabFood, or directly through signa.dishi.rest."
+          }
+        ]
+      },
+      "ru": {
+        "title": "Маргарита: пицца, названная в честь королевы, которая её, скорее всего, не ела",
+        "seoTitle": "Пицца Маргарита в Нуса Дуа - настоящая история классики в Signa Cafe",
+        "description": "Неаполитанская легенда, флаг, которого не было, и что нужно, чтобы испечь настоящую Маргариту на Бали. Signa Cafe, Нуса Дуа - 89 000 IDR каждый день днём.",
+        "keywords": "пицца Нуса Дуа, пицца Бали, маргарита Бали, пицца Унгасан, доставка пиццы Беноа, Signa Cafe пицца, недорогая пицца Бали, пицца Джимбаран",
+        "category": "Пицца",
+        "coverAlt": "Пицца Маргарита с томатом, моцареллой и базиликом в кафе Signa, Нуса Дуа, Бали",
+        "lead": "Три ингредиента, одна королева и история, которую историки тихо разбирают уже сорок лет. Пицца от этого не хуже.",
+        "blocks": [
+          {
+            "h": "Легенда, которую все пересказывают",
+            "p": [
+              "Июнь 1889 года. Королева Маргарита Савойская в Неаполе и устала от французской придворной кухни. Она посылает за лучшим пиццайоло города, Раффаэле Эспозито, и тот печёт ей три пиццы. Королева выбирает ту, что с томатом, моцареллой и базиликом - красное, белое, зелёное, цвета флага только что объединённой Италии. Эспозито называет её в честь королевы. Так рождается национальное блюдо.",
+              "Очень хорошая история. Она есть в меню от Неаполя до Нуса Дуа. Проблема в том, что почти ничего из неё не выдерживает встречи с архивами."
+            ]
+          },
+          {
+            "h": "Что говорят архивы",
+            "p": [
+              "Единственное доказательство королевского визита - благодарственная записка якобы от управляющего королевским двором. Почерковедческий анализ датирует её десятилетиями позже 1889 года, и сегодня её считают подделкой самой пиццерии. Историк еды Захари Новак опубликовал разбор в 2014 году, а итальянские исследователи сомневались задолго до него.",
+              "Хуже для легенды другое: пицца с томатом, сыром и базиликом описана в Неаполе задолго до приезда Маргариты. Книга Эмануэле Рокко 1849 года описывает ровно это сочетание. Трактовка через триколор тоже приделана задним числом - связь пиццы с единством Италии становится общим местом только в XX веке, когда стране нужны были национальные символы больше, чем точные меню.",
+              "Пицца от этого не портится. История на самом деле фиксирует момент, когда пицца перестала быть едой неаполитанских задворков и стала тем, что страна готова присвоить. Этот переход был настоящим, даже если королевский ужин - нет."
+            ]
+          },
+          {
+            "h": "Почему простое печь труднее всего",
+            "p": [
+              "Маргарите негде спрятаться. Четыре элемента - тесто, томат, моцарелла, базилик - и любой изъян в любом из них оказывается на тарелке. Здесь нет пепперони, чтобы прикрыть недорасстоявшееся тесто, и нет соуса барбекю, чтобы спасти водянистый сыр.",
+              "Главное - тесто. Итальянская мука и длинная холодная ферментация: вкус развивается в самой основе, а не берётся у начинки. Поэтому пицца у нас начинается в 14:00, а не с открытия: печи нужно утро, чтобы выйти на температуру, а тесту это время нужно в любом случае.",
+              "Томат не варится - его давят, солят и тонко распределяют. Приготовить его дважды, сначала в сотейнике, потом в печи, - самый частый способ сделать Маргариту плоской. Моцареллу рвут руками, а не трут: она плавится островками, а не сплошным пластиковым листом. Базилик кладут на горячую, в конце, а не до выпечки, где он чернеет и горчит."
+            ]
+          },
+          {
+            "h": "89 000 рупий каждый день днём",
+            "p": [
+              "У пиццы на Буките проблема с ценой. Между отелями Нуса Дуа и клифф-барами Унгасана приличная Маргарита нередко стоит за 150 000 IDR, и крестьянская еда превращается в повод.",
+              "Мы держим одну пиццу по фиксированной цене каждый день с 14:00 до 18:00 за 89 000 IDR - то же тесто, та же печь, та же мука, что и вечером. Это сознательно то окно, когда заходит район, а не туристический автобус: местные из Кампиала и Беноа, люди после работы, семьи до вечернего наплыва.",
+              "Доставка работает через GoFood и GrabFood по Нуса Дуа, Беноа, Унгасану и Джимбарану - хотя Маргариту всегда лучше есть в четырёх метрах от печи, чем в двадцати минутах."
+            ]
+          }
+        ],
+        "facts": [
+          [
+            "Блюдо",
+            "Пицца Маргарита"
+          ],
+          [
+            "Цена",
+            "89 000 IDR в окне 14:00-18:00"
+          ],
+          [
+            "Подача",
+            "С 14:00 ежедневно - печи нужно утро"
+          ],
+          [
+            "Диета",
+            "Вегетарианское"
+          ],
+          [
+            "Происхождение",
+            "Неаполь, Италия - описано с 1840-х"
+          ],
+          [
+            "Доставка",
+            "GoFood и GrabFood по Нуса Дуа, Беноа, Унгасану, Джимбарану"
+          ]
+        ],
+        "faq": [
+          {
+            "q": "Правда ли пиццу Маргариту придумали для королевы?",
+            "a": "Почти наверняка нет. Письмо 1889 года считается подделкой, а пицца с томатом, сыром и базиликом описана в Неаполе как минимум с 1849 года. История с королевой датирует момент, когда пицца стала национальным символом, а не появление рецепта."
+          },
+          {
+            "q": "Во сколько в Signa Cafe пицца?",
+            "a": "С 14:00 и до закрытия в 23:00. Печи нужно утро, чтобы выйти на температуру, поэтому на завтрак пиццы нет."
+          },
+          {
+            "q": "Сколько стоит пицца в Нуса Дуа в Signa Cafe?",
+            "a": "Одна пицца по фиксированной цене 89 000 IDR каждый день с 14:00 до 18:00. Вне окна действуют обычные цены меню."
+          },
+          {
+            "q": "Есть доставка пиццы в Нуса Дуа и Унгасан?",
+            "a": "Да - через GoFood, GrabFood или напрямую на signa.dishi.rest."
+          }
+        ]
+      }
+    }
+  ]
+}

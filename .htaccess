@@ -75,8 +75,36 @@ AddType model/mtl .mtl
   Header set X-Frame-Options "SAMEORIGIN"
 </IfModule>
 
-# 6. Pretty URLs — /admin → /admin.html (so Basic Auth still triggers)
+# 6. Pretty URLs + server-rendered Stories
+#
+# WHY: index/menu/about/visit are React transpiled in the browser. Googlebot runs
+# JS and copes, but AI crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot) do not —
+# they see an empty <div id="root">. The Stories section is therefore rendered
+# server-side by PHP so every word is in the raw HTML on first byte.
+# sitemap.xml / feed.xml / llms.txt are generated too, so a new post in
+# data/stories.json appears everywhere with no build step and no manual edit.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule ^admin/?$ admin.html [L]
+
+  # Order matters: the /ru variants must be tested before the generic slug rule.
+  RewriteRule ^stories/?$                  stories.php                 [L]
+  RewriteRule ^stories/ru/?$               stories.php?lang=ru         [L]
+  RewriteRule ^stories/ru/([a-z0-9-]+)/?$  story.php?slug=$1&lang=ru   [L]
+  RewriteRule ^stories/([a-z0-9-]+)/?$     story.php?slug=$1           [L]
+
+  RewriteRule ^feed\.xml$    feed.php     [L,QSA]
+  RewriteRule ^sitemap\.xml$ sitemap.php  [L]
+  RewriteRule ^llms\.txt$    llms.php     [L]
 </IfModule>
+
+# 7. Story source data: readable (it is public content anyway) but kept out of
+#    the index so it cannot compete with the rendered pages.
+<Files "stories.json">
+  <IfModule mod_headers.c>
+    Header set X-Robots-Tag "noindex"
+  </IfModule>
+</Files>
+
+# 8. No directory listings anywhere.
+Options -Indexes
