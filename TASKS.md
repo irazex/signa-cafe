@@ -2,6 +2,10 @@
 
 ## 🟡 В работе
 
+- [ ] **Скилл + инструкция по еженедельному постингу** (задача от 05.09.2026) -
+      описать схему так, чтобы её можно было развернуть на другом сайте.
+      Первый перенос - портал IJEN SPA.
+
 - [ ] **11. Google Search Console + Bing Webmaster** - ждём токены от владельца.
       Инструмент готов: `node tools/verify-site.mjs --google <token> --bing <token> --deploy`
 - [ ] **10б. Google Business Profile через API** - доступ к Business Profile API

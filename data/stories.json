@@ -1,5 +1,5 @@
 {
-  "version": "20260904a",
+  "version": "20260905a",
   "note": "Source of truth for /stories. Edited by hand or via /admin.html -> Stories tab. Rendered server-side by story.php / stories.php - no build step, no JS required, so AI crawlers see full text.",
   "posts": [
     {
@@ -236,6 +236,114 @@
             "a": "Кафе Signa находится по адресу Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Кампьял расположен между Нуса Дуа и Беноа, недалеко от Унгасана и Джимбарана."
           }
         ]
+      },
+      "id": {
+        "faq": [
+          {
+            "q": "Di mana makan syrniki untuk sarapan di Nusa Dua?",
+            "a": "Untuk sarapan di Nusa Dua, syrniki bisa dipesan di Signa Cafe, Kampial, dengan sour cream, salted caramel, dan buah beri seharga 93 000 IDR. Signa Cafe buka setiap hari mulai 08:00."
+          },
+          {
+            "q": "Apakah ada brunch ramah anak di Kampial?",
+            "a": "Di Kampial, brunch ramah anak bisa dimulai dengan Syrniki di Signa Cafe karena panekuk cottage cheese ini lembut dan mudah dibagi. Manisnya ramah untuk meja keluarga tanpa berubah menjadi kue penuh gula."
+          },
+          {
+            "q": "Syrniki di Signa Cafe cocok diminum dengan apa?",
+            "a": "Syrniki di Signa Cafe paling enak ditemani kopi karena pahitnya menahan salted caramel dan rasa susu dari cottage cheese. Dari 08:00 sampai 09:00, Signa Cafe memberi kopi gratis untuk setiap pesanan."
+          },
+          {
+            "q": "Di mana alamat Signa Cafe di Bukit Bali?",
+            "a": "Di Bukit Bali, Signa Cafe beralamat di Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Jam buka Signa Cafe 08:00-23:00 setiap hari, dengan pesanan terakhir pukul 22:30."
+          }
+        ],
+        "seoTitle": "Syrniki Nusa Dua: sarapan cottage cheese",
+        "category": "Sarapan",
+        "description": "Di Kampial dekat Nusa Dua, Syrniki disajikan sebagai panekuk cottage cheese dengan sour cream, salted caramel, dan buah beri untuk brunch manis di Bukit Bali.",
+        "keywords": [
+          "syrniki",
+          "panekuk cottage cheese",
+          "sarapan nusa dua",
+          "brunch nusa dua",
+          "kafe kampial",
+          "bukit bali",
+          "kopi nusa dua",
+          "kafe keluarga",
+          "ramah anak",
+          "benoa",
+          "jimbaran",
+          "ungasan"
+        ],
+        "facts": [
+          [
+            "Asal",
+            "Dapur Slavia Timur: Rusia, Ukraina, dan Belarus"
+          ],
+          [
+            "Tahun",
+            "1861 sebagai jejak buku masak Rusia abad ke-19; syrniki tidak punya tahun lahir tunggal"
+          ],
+          [
+            "Bahan utama",
+            "Cottage cheese"
+          ],
+          [
+            "Harga",
+            "93 000 IDR"
+          ],
+          [
+            "Waktu terbaik",
+            "08:00-09:00 dengan kopi, atau menjelang siang untuk brunch"
+          ],
+          [
+            "Cocok untuk",
+            "Vegetarian, keluarga, anak-anak, dan pencari sarapan manis yang tidak seberat kue"
+          ]
+        ],
+        "lead": "Di Kampial, syrniki menjadi panekuk cottage cheese ala Eropa Timur untuk meja sarapan, hanya beberapa menit dari Nusa Dua.",
+        "title": "Syrniki di Kampial: panekuk cottage cheese buat pagi",
+        "blocks": [
+          {
+            "h": "Keju yang jadi panekuk",
+            "p": [
+              "Syrniki berangkat dari dapur Slavia Timur, terutama dari tradisi Rusia, Ukraina, dan Belarus. Kata syr di sana dulu menunjuk ke keju segar atau dadih; istilah itu lebih tua daripada kebiasaan sekarang menyebut bahan semacam ini cottage cheese. Dalam bahasa Rusia modern, bahan yang paling dekat adalah tvorog, keju yang diasamkan lalu ditiriskan.",
+              "Di dapur rumah, alasan hidangan ini bertahan sangat sederhana. Susu yang mulai berubah rasa tidak langsung dibuang. Susu itu diasamkan, ditiriskan, lalu diaduk dengan telur dan sedikit tepung sebelum masuk wajan. Panekuk kecil itu membuat bahan yang tidak bisa menunggu masih punya satu kali makan lagi. Dari situ terasa jelas: ini makanan lahir dari kerja dapur, bukan dari gaya hidup.",
+              "Jejak resepnya sudah muncul di buku masak rumah Rusia abad ke-19. A Gift to Young Housewives karya Elena Molokhovets, pertama terbit di St. Petersburg pada 1861, mencatat syrniki sebagai olahan tvorog untuk meja rumah. Pada abad ke-20, syrniki tetap hidup di rumah dan kantin; kantin mengubah resep rumahan menjadi standar pagi. Anak yang hendak berangkat sekolah bisa makan tanpa perlu banyak penjelasan."
+            ]
+          },
+          {
+            "h": "Air adalah urusan utama",
+            "p": [
+              "Syrniki yang bagus bukan pancake tepung yang diberi keju sebagai tambahan. Buat sarapan manis, ia lebih menarik daripada pancake biasa karena rasa susu jadi pusat piring. Telur dan tepung tetap perlu, tetapi cukup sebagai pengikat, bukan pemeran utama. Begitu tepung mengambil alih, syrniki berubah menjadi bantalan yang rapi tapi rasa susunya mundur.",
+              "Bagian sulitnya bukan membentuk bulatan, melainkan menahan tangan agar tidak terus menambah tepung. Cottage cheese mengandung asam, protein, dan air. Kalau air terlalu banyak, adonan melebar di wajan; kalau pengikat berlebihan, bagian tengah kehilangan rasa susunya. Di titik ini, tukang masak sedang mengatur air, bukan mengejar bentuk rapi. Sentuhannya harus ringan.",
+              "Wajan juga punya tempo. Terlalu panas, permukaannya cepat cokelat sementara tengahnya belum sempat hangat. Terlalu dingin, syrniki menyerap minyak dan berakhir lembek. Yang dicari adalah kulit pucat keemasan dengan tengah yang masih terasa susu; bentuknya boleh menunjukkan bahwa panekuk ini dibuat tangan, bukan dicetak pabrik."
+            ]
+          },
+          {
+            "h": "Di piring Signa, asamnya tetap hidup",
+            "p": [
+              "Di Signa Cafe, Syrniki disajikan sebagai panekuk cottage cheese dengan sour cream, salted caramel, dan buah beri seharga 93 000 IDR. Piring ini nyambung dengan ritme Kampial, tempat orang mampir untuk sarapan cepat sebelum rapat pagi atau sekadar menurunkan kecepatan sebentar sebelum turun ke Nusa Dua.",
+              "Sour cream di piring ini lebih menentukan daripada karamel. Sour cream itu mengembalikan asam susu, jadi suapan berikutnya tidak terasa berat. Salted caramel memberi manis yang lebih gelap daripada gula putih, bukan sekadar manis yang rata. Buah beri memotong lemak dengan asam yang cepat muncul di lidah.",
+              "Yang saya suka, syrniki di sini tetap terasa sebagai makanan susu, bukan dessert yang kebetulan berbentuk panekuk. Manisnya jelas ada, tetapi piringnya tidak membuat orang buru-buru mencari air putih. Untuk jam sarapan, keputusan seperti ini terasa benar karena tubuh belum siap diajak makan kue."
+            ]
+          },
+          {
+            "h": "Datang pagi kalau ingin paling enak",
+            "p": [
+              "Kalau mau makan syrniki sebagai sarapan, datanglah pagi. Signa Cafe buka setiap hari pukul 08:00, dan dari 08:00 sampai 09:00 ada kopi gratis untuk setiap pesanan. Kopi hitam menahan manis karamel; kopi susu membuat cottage cheese terasa lebih lembut tanpa menghapus asamnya.",
+              "Untuk keluarga yang mencari kafe keluarga di sekitar Nusa Dua, Syrniki masuk akal karena mudah dibagi. Anak-anak langsung paham bentuk panekuk, sementara orang dewasa tetap mendapat protein dari cottage cheese dan asam dari sour cream. Brunch jadi ramah anak tanpa berubah menjadi piring permen.",
+              "Setelah jalan pagi dari pantai atau berangkat pelan dari Ungasan, porsinya cukup mengisi tanpa terasa seperti makan siang. Di meja beda umur, buah beri dan karamel bisa dipilih sesuai selera; anak yang lebih suka bagian lembut bisa mengambil tengahnya lebih dulu. Tanpa pisau pun beres."
+            ]
+          },
+          {
+            "h": "Alamatnya mudah dicari",
+            "p": [
+              "Signa Cafe berada di Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Jam bukanya panjang: 08:00-23:00 setiap hari, dengan pesanan terakhir pukul 22:30. Kalau datang setelah pukul 14:00, oven pizza sudah menyala; untuk syrniki, iramanya tetap pagi dan menjelang siang.",
+              "Signa Cafe buka sejak 2024, punya rating Google 4.7 dari 1426+ ulasan, menyediakan menu online dan pesan antar di https://signa.dishi.rest/, bisa dihubungi lewat +62 896 540 27190, dan bisa ditemukan di Instagram @signa.cafe.",
+              "Kalau sedang mencari sarapan Nusa Dua yang manis tapi bukan kue, Syrniki di Signa Cafe adalah piring cottage cheese dengan sour cream, salted caramel, dan buah beri di Kampial. Dari Jimbaran atau Ungasan, belokan ke Kampial di Bukit Bali terasa masuk akal saat meja butuh makanan yang bisa dibagi tanpa drama. Buat tamu area resort yang mulai jenuh dengan roti manis, piring ini lebih berisi."
+            ]
+          }
+        ],
+        "coverAlt": "Syrniki dengan sour cream, salted caramel, dan buah beri"
       }
     },
     {
@@ -466,6 +574,114 @@
             "a": "Кафе Signa в Кампьяле удобно для остановки на пиццу между Джимбараном, Унгасаном и Нуса Дуа. Адрес: Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361."
           }
         ]
+      },
+      "id": {
+        "faq": [
+          {
+            "q": "Di mana makan Pizza Margherita di Nusa Dua?",
+            "a": "Pizza Margherita tersedia di Signa Cafe, Kampial, di jalur antara Nusa Dua dan Benoa di Bukit. Oven pizza menyala mulai 14:00; menu online dan delivery ada di https://signa.dishi.rest/."
+          },
+          {
+            "q": "Jam berapa Pizza Margherita tersedia di Signa Cafe Kampial?",
+            "a": "Pizza Margherita tersedia di Signa Cafe Kampial setelah oven pizza menyala pada 14:00. Pada 14:00-18:00, harganya 89 000 IDR (14:00-18:00)."
+          },
+          {
+            "q": "Apakah Signa Cafe ramah anak untuk pizza di Bukit?",
+            "a": "Signa Cafe ramah anak untuk pizza di Bukit karena Pizza Margherita berisi tomat, mozzarella, dan basil yang gampang dikenali. Kafe ini buka setiap hari 08:00-23:00, last order 22:30."
+          },
+          {
+            "q": "Tempat pizza apa yang praktis antara Jimbaran, Ungasan, dan Nusa Dua?",
+            "a": "Signa Cafe di Kampial praktis untuk pizza di antara Jimbaran, Ungasan, Benoa, dan Nusa Dua. Alamatnya Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361."
+          }
+        ],
+        "seoTitle": "Pizza Margherita Nusa Dua, cerita ratu",
+        "category": "Pizza",
+        "description": "Pizza Margherita di Kampial, Nusa Dua, menyatukan tomat, mozzarella, basil, dan kisah Napoli yang lebih tua dari legenda ratu. Pas untuk sore setelah pantai.",
+        "keywords": [
+          "pizza margherita",
+          "pizza nusa dua",
+          "pizza kampial",
+          "kafe keluarga nusa dua",
+          "ramah anak",
+          "brunch nusa dua",
+          "kopi kampial",
+          "bukit bali",
+          "pizza sore",
+          "benoa",
+          "jimbaran",
+          "ungasan"
+        ],
+        "facts": [
+          [
+            "Asal",
+            "Napoli, Italia"
+          ],
+          [
+            "Tahun cerita terkenal",
+            "Legenda 1889; kombinasi serupa dicatat pada 1866"
+          ],
+          [
+            "Bahan utama",
+            "Tomat, mozzarella, basil"
+          ],
+          [
+            "Harga",
+            "89 000 IDR (14:00-18:00)"
+          ],
+          [
+            "Waktu terbaik",
+            "Setelah 14:00, saat oven pizza menyala"
+          ],
+          [
+            "Cocok untuk",
+            "Kafe keluarga, meja ramah anak, makan sore setelah pantai"
+          ]
+        ],
+        "lead": "Di Kampial, Pizza Margherita datang tanpa ramai-ramai: tomat, mozzarella, basil. Cerita ratunya boleh diperdebatkan; potongannya tetap gampang disukai.",
+        "title": "Pizza Margherita dan cerita ratu yang membandel",
+        "blocks": [
+          {
+            "h": "Ratu itu datang belakangan",
+            "p": [
+              "Begitu nama Margherita disebut, cerita istana ikut masuk. Versi yang paling telanjur terkenal begini: pada 1889, Raffaele Esposito dari Pizzeria Brandi di Napoli membuat pizza untuk Ratu Margherita dari Savoy. Warna tomat, mozzarella, dan basil dibaca sebagai bendera Italia yang baru disatukan: merah, putih, hijau. Surat terima kasih dari rumah tangga kerajaan dipajang seperti tanda sah, lalu cerita itu berkeliling lebih cepat daripada adonan sempat naik.",
+              "Di dapur Napoli, susunan itu sudah jalan sebelum nama sang ratu masuk menu. Francesco De Bourcard menulis kebiasaan makan orang Napoli pada 1866, termasuk pizza dengan tomat, mozzarella, dan basil. Jadi saya sulit menerima versi bahwa Pizza Margherita lahir utuh dari satu kunjungan kerajaan. Kunjungan itu membuat lampu panggung menyala; kerja beratnya sudah lebih dulu dilakukan para pembuat roti yang memberi makan pekerja lapar, hari demi hari, tanpa perlu cap kerajaan.",
+              "Legenda ratu tetap punya guna. Nama Margherita membuat pizza ini mudah menempel di ingatan, dan makanan memang butuh cerita untuk menyeberang dari kota ke negara lain, lalu sampai ke Bali. Namun bagian yang paling enak digigit bukan mahkota. Saya lebih percaya jalanan Napoli abad ke-19, dengan oven panas, tangan cekatan, dan bahan yang tidak bisa sembunyi di balik saus berlebih."
+            ]
+          },
+          {
+            "h": "Topping sedikit, tuntutannya banyak",
+            "p": [
+              "Pizza dengan daging, jamur, bawang, saus tebal, sampai keju ekstra bisa menyembunyikan banyak dosa. Margherita tidak begitu murah hati. Tomat membawa asam dan air; mozzarella membawa lemak sekaligus cairan; basil wangi, tetapi cepat getir kalau kena panas terlalu lama. Karena itu, pizza yang tampak polos ini lebih galak daripada pizza yang penuh topping. Satu tepi gosong atau dasar becek langsung ketahuan.",
+              "Dalam gaya Napoli, oven bermain di kisaran 430-480 C, dan pizza matang dalam rentang 60-90 detik. Angka itu bukan pajangan di brosur. Pada waktu sependek itu, pinggir adonan harus naik dan melepuh sebelum kering, tengahnya tetap lentur tanpa berubah jadi kolam, sementara keju meleleh sebagai pulau kecil, bukan selimut karet. Telat sedikit, teksturnya langsung berubah.",
+              "Yang paling susah justru menahan tangan, karena saus berlebih membuat dasar lembek, mozzarella yang terlalu basah menarik potongan seperti benang, dan basil harus masuk dengan wangi yang masih hidup saat pisau turun di meja."
+            ]
+          },
+          {
+            "h": "Di Signa, oven punya jam sendiri",
+            "p": [
+              "Di Signa Cafe, Pizza Margherita dibiarkan sederhana: tomat, mozzarella, basil. Tidak ada jagung manis atau saus manis yang mengambil alih rasa; sosis pun tidak ikut campur. Kalau dasar pizzanya benar, topping sedikit sudah bicara. Kalau dasar itu meleset, tambahan apa pun hanya membuat kesalahan terasa lebih mahal. Satu gigitan cukup memberi tahu apakah adonannya beres.",
+              "Oven pizza di Signa Cafe mulai menyala dari 14:00, jadi Margherita bukan urusan sarapan. Pagi di Kampial lebih enak buat kopi sambil membuka laptop; brunch bisa jalan pelan tanpa mengejar oven. Lewat jam dua, suasananya bergeser. Orang dari Nusa Dua atau Benoa yang baru selesai pantai punya alasan jelas untuk berhenti sebelum malam turun. Ritme Bukit memang berubah cepat setelah matahari mulai miring.",
+              "Setiap hari pukul 14:00-18:00, Pizza Margherita harganya 89 000 IDR (14:00-18:00). Rentang waktunya terasa pas untuk perut yang mulai kosong setelah pantai, bukan untuk makan berat yang butuh keputusan panjang. Makan pizza jam empat tidak sama dengan makan besar jam tujuh; ritmenya lebih ringan, masih ada waktu pulang, dan anak yang lapar tidak tersandera rapat kecil bernama rencana makan malam."
+            ]
+          },
+          {
+            "h": "Untuk meja yang tidak mau debat",
+            "p": [
+              "Pizza Margherita enak dipasang di meja yang seleranya tidak kompak. Di satu meja bisa ada yang menghindari pedas, sementara anak kecil lebih tenang melihat roti dan keju. Yang dewasa tinggal makan rapi sambil meneguk kopi, tanpa harus memisahkan lauk atau bertanya isi saus. Di Bukit, pemandangan begini gampang ditemui: keluarga dari Ungasan, teman yang turun dari Jimbaran, sampai tamu Nusa Dua yang mencari tempat tanpa drama.",
+              "Signa Cafe cocok menjadi kafe keluarga karena pilihan seperti Margherita tidak memaksa orang tua memberi kuliah kecil sebelum anak makan. Pizza ini ramah anak bukan karena bentuknya dibuat lucu, melainkan karena bahannya terang-terangan: tomat dan keju terlihat jelas, rotinya pun langsung terasa akrab. Basil boleh disingkirkan oleh anak yang sedang keras kepala, meski saya tetap akan minta ia mencoba satu gigitan dengan daun itu. Kadang satu daun hijau saja cukup untuk membuka negosiasi.",
+              "Untuk minum, kopi masih cocok kalau berhentinya sore dan laptop ikut dibuka. Setelah pantai di Bali, minuman dingin terasa lebih masuk akal. Pizza tidak tersinggung."
+            ]
+          },
+          {
+            "h": "Kenapa menyeberang ke Kampial?",
+            "p": [
+              "Datang untuk Margherita bukan karena pizza ini aneh. Justru karena ia tidak bisa pura-pura. Sepotongnya membawa jejak tomat di dapur Italia selatan, mozzarella yang menjadi industri, penyatuan Italia, dan kecerdikan Napoli mendorong makanan jalanan ke dunia. Di permukaan ia terlihat seperti pilihan aman. Di bawahnya, sejarah bergerak panjang.",
+              "Signa Cafe berada di Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Kafe ini buka setiap hari 08:00-23:00, last order 22:30, dan berdiri sejak 2024 dengan tagline Eat. Meet. Create. Kalau rutenya sedang menghubungkan kawasan resort Nusa Dua, Benoa, Ungasan, dan Jimbaran, berhenti setelah 14:00 lebih masuk akal daripada memaksa pizza saat pagi. Jarak pendek di Bukit bisa terasa jauh saat semua orang lapar.",
+              "Menu online dan delivery ada di https://signa.dishi.rest/, teleponnya +62 896 540 27190, Instagram @signa.cafe. Rating Google Signa Cafe 4.7 dari 1426+ ulasan. Di atas piring, potongan yang tampak polos itu mengingatkan saya bahwa cerita paling ramai tidak selalu datang dengan topping paling banyak. Kadang ia datang bersama saus tomat yang jujur dan keju yang meleleh tepat waktu."
+            ]
+          }
+        ],
+        "coverAlt": "Pizza Margherita dengan tomat, mozzarella, dan basil di atas piring"
       }
     },
     {
@@ -699,6 +915,113 @@
             "a": "Классический бургер в Signa на Бали стоит 80 000 IDR. Его подают с говяжьей котлетой, чеддером, салатом, томатом, фирменным соусом и бриошью."
           }
         ]
+      },
+      "id": {
+        "faq": [
+          {
+            "q": "Di mana makan Classic Burger di Nusa Dua?",
+            "a": "Classic Burger bisa dimakan di Signa Cafe di Kampial, di antara Nusa Dua dan Benoa. Isinya patty sapi, cheddar, selada, tomat, Signa sauce, roti brioche kentang, lalu disajikan dengan beet chips."
+          },
+          {
+            "q": "Apakah Signa Cafe di Kampial cocok untuk brunch keluarga?",
+            "a": "Signa Cafe di Kampial cocok untuk brunch keluarga karena Classic Burger berisi bahan yang akrab untuk anak-anak dan orang dewasa. Pilihan ini ramah anak dan tidak butuh penjelasan panjang di meja."
+          },
+          {
+            "q": "Jam berapa bisa pesan burger dekat Benoa?",
+            "a": "Burger dekat Benoa bisa dipesan di Signa Cafe selama jam buka 08:00-23:00 setiap hari, dengan last order 22:30. Classic Burger masuk untuk sarapan, brunch, makan siang, atau makan malam."
+          },
+          {
+            "q": "Berapa harga Classic Burger di Signa Cafe Bali?",
+            "a": "Harga Classic Burger di Signa Cafe Bali adalah 80 000 IDR. Dalam sajiannya ada patty sapi, cheddar, selada, tomat, Signa sauce, roti brioche kentang, serta beet chips."
+          }
+        ],
+        "seoTitle": "Classic Burger Kampial dekat Nusa Dua",
+        "category": "Burger",
+        "description": "Classic Burger di Kampial berisi patty sapi, cheddar, selada, tomat, Signa sauce, dan brioche kentang untuk sarapan, brunch, atau makan malam dekat Nusa Dua.",
+        "keywords": [
+          "classic burger",
+          "burger nusa dua",
+          "burger kampial",
+          "sarapan nusa dua",
+          "brunch bukit",
+          "kafe keluarga",
+          "ramah anak",
+          "kopi nusa dua",
+          "beef patty",
+          "cheddar burger",
+          "benoa",
+          "jimbaran"
+        ],
+        "facts": [
+          [
+            "Asal",
+            "Hamburg steak dari Jerman berubah menjadi sandwich hamburger di Amerika"
+          ],
+          [
+            "Tahun penting",
+            "1885-1904 untuk klaim awal hamburger; 1935 untuk nama cheeseburger"
+          ],
+          [
+            "Bahan utama",
+            "Patty sapi, cheddar, selada, tomat, Signa sauce, brioche kentang"
+          ],
+          [
+            "Harga",
+            "80 000 IDR"
+          ],
+          [
+            "Waktu terbaik",
+            "Sarapan berat, brunch, makan siang, atau sebelum last order 22:30"
+          ],
+          [
+            "Cocok untuk",
+            "Makan sendiri, kafe keluarga, dan pilihan ramah anak"
+          ]
+        ],
+        "lead": "Classic Burger di Kampial mengurus lapar di Bukit dengan patty sapi, cheddar leleh, selada, tomat, Signa sauce, dan roti brioche kentang.",
+        "title": "Classic Burger di Kampial: burger sapi tanpa banyak gaya",
+        "blocks": [
+          {
+            "h": "Dari Hamburg sampai kedai Amerika",
+            "p": [
+              "Nama hamburger sering membuat orang salah sangka, padahal burger ini tidak lahir dari ham. Jejaknya kembali ke Hamburg steak, daging sapi cincang atau dicacah yang dibentuk pipih, lalu namanya melekat pada kota pelabuhan Hamburg di Jerman. Pada abad ke-19, kapal dan migran membawa cara makan daging itu ke Amerika Serikat, bersama kebiasaan makan yang praktis. Roti datang kemudian, ketika daging panas perlu lebih gampang dipegang.",
+              "Bagian sandwich tidak punya satu tanggal lahir yang bersih. Bentuk itu mulai ramai di arena pameran dan kedai kecil, tempat makanan harus cepat dibeli dan cepat habis. Charlie Nagreen dikaitkan dengan sandwich daging portabel di Seymour Fair, Wisconsin, pada 1885. Louis' Lunch di New Haven punya klaim tahun 1900, sementara Fletcher Davis dari Athens, Texas, menjual hamburger di St. Louis World's Fair 1904. Riwayatnya memang berantakan, pas untuk makanan yang tumbuh dari tangan orang lapar di perjalanan.",
+              "Keju masuk setelah burger jadi menu sehari-hari di kedai makan Amerika. Lionel Sternberger di Pasadena dikaitkan dengan cheeseburger awal pada dekade 1920-an, lalu nama cheeseburger tercatat dalam urusan merek dagang pada 1935. Dari situ, cheddar di Classic Burger bukan tempelan gaya baru. Daging sapi memberi gurih, keju membawa asin dan lemak susu, lalu keduanya bertemu tanpa perlu penjelasan panjang."
+            ]
+          },
+          {
+            "h": "Burger polos gampang terbaca",
+            "p": [
+              "Burger klasik dengan daftar isi pendek justru gampang ketahuan kalau ada yang meleset. Patty sapi perlu menyentuh permukaan panas yang cukup kuat supaya sisi luarnya cepat kecokelatan sebelum bagian tengah kehilangan jus. Reaksi Maillard bergerak kencang ketika permukaan daging melewati kira-kira 140 derajat Celsius. Masalahnya, daging cincang juga cepat kering kalau terlalu lama ditahan di panas. Jarak antara kerak gurih dan patty kaku hanya beberapa menit di wajan atau grill.",
+              "Garam, tekanan tangan, ukuran patty, sampai roti ikut menentukan hasil akhir. Garam menarik cairan dari daging cincang; masuk terlalu awal dan terlalu banyak, teksturnya bisa mendekati sosis. Patty yang terlalu sering diremas jadi padat sebelum kena panas. Roti kelewat manis mengambil panggung sendiri, sedangkan saus berat membuat selada dan tomat kehilangan peran segarnya. Burger klasik yang dibuat terlalu tinggi sering kalah dari burger yang bisa digigit rapi tanpa harus dibongkar dulu.",
+              "Cheddar membantu dengan asin yang jelas dan lemak susu yang meleleh bersih. Selada memberi dingin renyah, dengan pahit tipis di ujung. Tomat menambah air dan asam, dua hal yang penting saat daging dan keju sedang dominan. Roti brioche kentang lebih kaya daripada roti putih biasa, jadi patty harus punya gurih yang cukup untuk menahan seluruh susunan dalam satu gigitan."
+            ]
+          },
+          {
+            "h": "Susunan ala Signa",
+            "p": [
+              "Di Signa Cafe, Classic Burger seharga 80 000 IDR disusun dari patty sapi, cheddar leleh, selada, tomat, Signa sauce, dan roti brioche kentang yang dipanggang, lalu disajikan dengan beet chips.",
+              "Signa sauce tertulis di menu, tetapi resep saus bukan bahan tebak-tebakan di meja. Yang bisa dibaca dari susunannya cukup jelas: daging memberi badan, cheddar menambah asin, selada dan tomat menahan lemak, sementara brioche menjaga gigitan tetap empuk. Beet chips memberi suara kering saat dikunyah, lalu manis bit muncul dengan aroma tanah basah yang halus.",
+              "Alamat Signa Cafe ada di Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Posisi Kampial membuat burger ini berguna untuk orang yang sedang berada di antara makan berat dan camilan. Di jalur Bukit, kalimatnya sederhana: duduk sebentar, pesan, lalu makan."
+            ]
+          },
+          {
+            "h": "Jam makan yang masuk akal",
+            "p": [
+              "Signa Cafe buka 08:00-23:00 setiap hari, last order 22:30. Classic Burger bisa masuk sebagai sarapan untuk orang yang bangun dengan lapar betulan, bukan sekadar ingin roti manis. Pukul 08:00-09:00, ada kopi gratis dengan pesanan apa pun. Kopi pahit cocok dengan cheddar karena pahit memotong lemak lebih tegas daripada minuman manis.",
+              "Untuk brunch di Nusa Dua, Classic Burger enak karena tidak meminta komitmen seperti sepiring nasi lengkap. Menjelang siang, burger ini menjadi makanan utama yang rapi sebelum urusan ke Benoa. Malam hari, apalagi setelah muter di Bukit, daging sapi dan cheddar terasa lebih masuk akal daripada menu yang membuat orang lama menimbang."
+            ]
+          },
+          {
+            "h": "Untuk siapa burger ini?",
+            "p": [
+              "Classic Burger cocok untuk makan sendiri maupun kafe keluarga; meja berdua juga tidak terasa canggung. Anak-anak cepat membaca isinya: roti, daging, keju, selada, tomat. Di situ ramah anak terasa praktis, bukan sekadar label di halaman menu. Tidak semua anak mau saus, tetapi komponen yang dikenal membuat negosiasi di meja lebih singkat.",
+              "Orang dari Ungasan bisa menjadikan Signa Cafe sebagai titik makan sebelum turun ke Nusa Dua. Dari Jimbaran, Kampial masuk akal untuk berhenti sebelum lanjut ke Benoa atau kawasan resort. Di Bali, burger bukan barang langka. Yang rapi tetap punya nilai, karena bagian paling penting tidak bisa sembunyi di balik saus dan roti.",
+              "Signa Cafe mulai buka pada 2024 dengan tagline Eat. Meet. Create. Menu online dan delivery ada di https://signa.dishi.rest/, Instagram di @signa.cafe, dan telepon di +62 896 540 27190. Untuk pertanyaan praktis tentang tempat makan burger di Kampial dekat Nusa Dua hari ini, catatannya jelas: Classic Burger di Signa Cafe berisi patty sapi, cheddar, brioche, beet chips, dan bisa dipesan sampai sebelum last order 22:30."
+            ]
+          }
+        ],
+        "coverAlt": "Classic Burger dengan patty sapi, cheddar, selada, tomat, dan roti brioche"
       }
     },
     {
@@ -934,6 +1257,114 @@
             "a": "Signa Cafe на Буките открыт каждый день с 08:00 до 23:00, последний заказ принимают в 22:30. Цезарь с курицей удобно заказать на бранч, обед или ранний ужин по дороге между Нуса Дуа, Кампьялом, Унгасаном и Джимбараном."
           }
         ]
+      },
+      "id": {
+        "faq": [
+          {
+            "q": "Di mana makan Caesar with chicken di Nusa Dua?",
+            "a": "Caesar with chicken bisa dipesan di Signa Cafe di Kampial, dekat Nusa Dua. Salad ini disajikan sebagai menu utama dengan ayam panggang, romaine, parmesan, saus anchovy dan croutons."
+          },
+          {
+            "q": "Apakah Caesar with chicken di Kampial cocok untuk brunch?",
+            "a": "Caesar with chicken di Kampial cocok untuk brunch karena ayam panggang memberi isi tanpa membuat makan terasa berat. Kopi juga cocok dengan parmesan dan saus anchovy."
+          },
+          {
+            "q": "Apakah Signa Cafe ramah anak untuk salad ayam dekat Benoa?",
+            "a": "Signa Cafe adalah pilihan kafe keluarga yang ramah anak untuk makan dekat Benoa, dan Caesar with chicken mudah dibagi lewat ayam panggang, croutons dan parmesan. Saus anchovy punya rasa gurih yang lebih kuat, jadi anak yang sensitif terhadap saus bisa mengambil bagian lain dulu."
+          },
+          {
+            "q": "Jam berapa Signa Cafe buka untuk makan siang di Bukit?",
+            "a": "Signa Cafe buka setiap hari pukul 08:00-23:00, dengan pesanan terakhir 22:30. Caesar with chicken cocok untuk brunch, makan siang, atau makan malam awal saat bergerak antara Nusa Dua, Kampial, Ungasan dan Jimbaran."
+          }
+        ],
+        "seoTitle": "Caesar with chicken Nusa Dua, salad siang",
+        "category": "Menu utama",
+        "description": "Caesar with chicken di Kampial menyatukan ayam panggang, romaine, parmesan, saus anchovy dan croutons untuk brunch atau makan siang Nusa Dua.",
+        "keywords": [
+          "caesar with chicken",
+          "caesar salad nusa dua",
+          "salad ayam kampial",
+          "brunch nusa dua",
+          "sarapan kampial",
+          "kafe keluarga bali",
+          "ramah anak nusa dua",
+          "kopi kampial",
+          "makan siang bukit",
+          "kafe benoa",
+          "jimbaran ke nusa dua",
+          "kafe ungasan"
+        ],
+        "facts": [
+          [
+            "Asal",
+            "Tijuana, Meksiko"
+          ],
+          [
+            "Tahun",
+            "1924"
+          ],
+          [
+            "Bahan kunci",
+            "Romaine dengan saus anchovy"
+          ],
+          [
+            "Harga",
+            "92 000 IDR"
+          ],
+          [
+            "Waktu terbaik",
+            "brunch, makan siang, atau makan malam awal"
+          ],
+          [
+            "Cocok untuk",
+            "tamu yang ingin menu utama ringan dengan protein"
+          ]
+        ],
+        "lead": "Caesar with chicken di Signa Cafe Kampial adalah salad untuk makan siang Nusa Dua yang butuh isi, tanpa terasa berat.",
+        "title": "Caesar with chicken: salad Tijuana untuk siang Bukit",
+        "blocks": [
+          {
+            "h": "Bukan dari Roma",
+            "p": [
+              "Nama Caesar membuat orang cepat berpikir ke Italia, padahal salad Caesar lahir di Tijuana, Meksiko. Cerita asal yang paling kuat membawa kita ke Caesar Cardini, pemilik restoran kelahiran Italia yang bekerja di perbatasan saat masa pelarangan alkohol membuat orang Amerika menyeberang dari San Diego untuk makan dan minum.",
+              "Angka yang menempel pada salad ini adalah 1924. Putri Cardini, Rosa, mengaitkan lahirnya Caesar salad dengan akhir pekan Fourth of July yang penuh tamu, ketika dapur harus bergerak dengan bahan yang ada: daun romaine, bawang putih, minyak zaitun, telur, lemon, Worcestershire sauce, parmesan dan roti panggang.",
+              "Versi awal tidak memakai ayam, dan anchovy juga bukan potongan ikan di atas daun. Rosa Cardini pernah mengatakan ayahnya mengandalkan Worcestershire sauce untuk nada asin-fermentasi itu. Restoran kemudian memasukkan anchovy langsung ke saus; untuk Caesar modern, langkah itu masuk akal. Ayam datang belakangan, saat restoran Amerika mengubah Caesar dari pembuka menjadi sepiring makan siang. Struktur dasarnya sudah siap: daun dingin, garam, lemak, asam, keju dan bunyi croutons."
+            ]
+          },
+          {
+            "h": "Saus menentukan nasibnya",
+            "p": [
+              "Caesar with chicken gampang terlihat rapi, tetapi susah dibuat rapi sampai suapan terakhir. Romaine harus dingin dan patah saat digigit. Croutons harus tetap kering. Parmesan memberi asin yang menempel di bibir, sementara ayam panggang membuat piring ini pantas disebut menu utama. Daging yang baru turun dari panggangan membawa panas; kalau langsung menekan romaine, daun di bawahnya menyerah duluan.",
+              "Saus menempel di daun. Bagian itu kelihatannya sederhana, tetapi di sana banyak Caesar jatuh. Saus anchovy perlu terasa gurih dan asin, bukan amis. Asam dari lemon atau cuka harus cukup tajam untuk memotong minyak dan keju; terlalu sedikit saus membuat romaine telanjang, terlalu banyak membuat daun seperti kertas basah.",
+              "Waktu juga galak. Ayam yang terlalu panas melembekkan daun, croutons lama hilang setelah kena saus, dan parmesan yang terlalu tipis cuma menjadi debu asin. Sepuluh menit setelah saus menyentuh romaine, bunyi renyah mulai pergi."
+            ]
+          },
+          {
+            "h": "Piring Signa tidak berputar-putar",
+            "p": [
+              "Di Signa Cafe, Caesar with chicken masuk menu utama dengan harga 92 000 IDR. Isi piringnya jelas: ayam panggang, romaine, parmesan, saus anchovy dan croutons.",
+              "Pilihan itu penting untuk Kampial, karena banyak orang mampir setelah urusan Nusa Dua, sebelum kembali ke Benoa, atau di tengah hari kerja di Bukit. Menurut saya, Caesar dengan ayam adalah salad Barat paling masuk akal untuk cuaca Bali. Romaine menahan saus lebih baik daripada selada lembut, ayam memberi protein, parmesan membawa rasa kacang dan garam, lalu croutons memberi jeda kering di antara daun. Begitu garpu masuk, rasa pertama seharusnya asin-gurih dari saus, lalu ayam, lalu bunyi roti.",
+              "Tomat ceri tidak dibutuhkan. Saus manis tambahan juga tidak dibutuhkan. Caesar with chicken lebih enak saat piringnya tegas, bukan ramai."
+            ]
+          },
+          {
+            "h": "Kapan memesannya?",
+            "p": [
+              "Caesar with chicken paling berguna saat sarapan sudah lewat dan makan malam masih jauh. Signa Cafe buka setiap hari pukul 08:00-23:00, pesanan terakhir 22:30, jadi salad ini masuk akal untuk brunch, makan siang, atau makan malam awal sebelum menyetir ke area resort Nusa Dua. Salad ini juga berguna saat satu meja ingin sarapan manis, tetapi Anda butuh sesuatu yang lebih serius.",
+              "Kalau datang pukul 08:00-09:00, Signa Cafe memberi kopi gratis untuk setiap pesanan. Kopi hitam cocok dengan parmesan dan saus anchovy karena rasa pahitnya membersihkan mulut. Kopi susu membuat piring ini terasa lebih dekat ke brunch daripada makan siang kantor.",
+              "Untuk keluarga, Caesar with chicken lebih mudah dibagi daripada banyak salad lain. Signa Cafe bisa menjadi pilihan kafe keluarga yang ramah anak, tetapi saus anchovy tidak dibuat untuk pura-pura menjadi mayones manis. Anak yang ragu bisa mulai dari ayam, croutons dan parmesan; orang tua tetap mendapat sayur di piring yang sama."
+            ]
+          },
+          {
+            "h": "Dari Ungasan atau Jimbaran, jaraknya masuk akal",
+            "p": [
+              "Signa Cafe berada di Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Posisi Kampial berguna karena tidak perlu masuk gerbang hotel untuk makan yang jelas: satu piring, satu minuman, lalu jalan lagi. Kampial juga menjadi titik tengah yang enak untuk orang yang bergerak antara rumah, gym, sekolah dan kerja. Signa Cafe buka sejak 2024 dan punya rating Google 4.7 dari 1426+ ulasan.",
+              "Caesar with chicken layak ditempuh dari Ungasan atau Jimbaran saat badan butuh protein tetapi kepala tidak mau menu berat. Ada ayam di piring. Ada daun yang masih dingin. Ada croutons yang berderak, bukan hiasan lembek. Kalau yang dicari pedas, kuah, atau nasi, pesan yang lain; Caesar with chicken menang karena dingin, asin dan renyah.",
+              "Untuk orang yang mencari chicken Caesar salad dekat Nusa Dua, Caesar with chicken di Signa Cafe Kampial adalah pilihan praktis untuk brunch, makan siang kafe keluarga, atau berhenti sebentar di Bukit dengan kopi di samping piring."
+            ]
+          }
+        ],
+        "coverAlt": "Caesar with chicken dengan romaine, ayam panggang, parmesan dan croutons"
       }
     },
     {

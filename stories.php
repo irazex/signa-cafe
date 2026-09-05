@@ -69,7 +69,7 @@ st_head([
 
 <main>
   <section class="page-hero">
-    <div class="s-label"><span class="dot"></span><span class="ix">STORIES</span> <?= e(st_t('kicker', $lang)) ?></div>
+    <div class="s-label"><span class="dot"></span><span class="ix"><?= e(mb_strtoupper(st_t('section', $lang), 'UTF-8')) ?></span> <?= e(st_t('kicker', $lang)) ?></div>
     <h1 class="page-hero-title"><?= e(st_t('index_title_a', $lang)) ?> <span class="r"><?= e(st_t('index_title_b', $lang)) ?></span></h1>
     <p class="page-hero-sub"><?= e(st_t('index_sub', $lang)) ?></p>
     <p class="story-subscribe">
