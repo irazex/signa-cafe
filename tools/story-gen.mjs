@@ -25,7 +25,13 @@ const SYRVE = path.join(ROOT, "data", "syrve-menu.json");
 
 // Bottled drinks are somebody else's product, not Signa's cooking, so they make
 // weak dish stories. Everything else in the menu is fair game.
+// Bought-in bottles have no story of Signa's own - the label already tells it.
 const SKIP_CATEGORIES = /^(BOTTLES|SPIRITS|BEER|WINES BY GLASS)/i;
+
+// Names that are not dishes: a bulk preorder, a resold bottle, or the "build
+// your own" placeholder. A weekly story needs something a reader can order and
+// eat this afternoon.
+const SKIP_NAMES = /preorder|\b\d+\s*(kg|pcs)\b|\bcreate your meal\b|^(borjomi|coca-cola|coke|sprite|fanta)\b|\b\d,\d+\s*l\b/i;
 
 // ---------- cli ----------
 const argv = process.argv.slice(2);
@@ -76,13 +82,20 @@ const norm = (s) => String(s || "").toLowerCase().replace(/[^a-zа-я0-9]+/gi, "
 
 // Syrve is the real menu (194 dishes with photos); content.json is the fallback
 // for a machine that cannot reach the RPC adapter.
+// The POS prefixes names with marker emoji - ⭐️ signature, 🌱 vegetarian,
+// 🐟/🐔 protein. They are shelf labels for the till, not part of the dish name,
+// and they must not reach a title, a slug or a meta description.
+const cleanName = (s) =>
+  String(s).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{2B00}-\u{2BFF}]/gu, "")
+           .replace(/\s{2,}/g, " ").trim();
+
 function catalog() {
   if (fs.existsSync(SYRVE)) {
     const c = readJson(SYRVE);
     return c.dishes
-      .filter((d) => !SKIP_CATEGORIES.test(d.category))
+      .filter((d) => !SKIP_CATEGORIES.test(d.category) && !SKIP_NAMES.test(d.name))
       .map((d) => ({
-        key: d.id, title: d.name, price: d.priceLabel, cat: d.category,
+        key: d.id, title: cleanName(d.name), price: d.priceLabel, cat: d.category,
         desc: d.desc, imageUrl: d.imageUrl, source: "syrve",
       }));
   }
@@ -348,6 +361,17 @@ async function main() {
     else date = nextThursday(store.posts.map((p) => p.date).sort().pop() || iso(new Date()));
 
     log(`[${n + 1}/${opts.count}] ${date}  ${dish.title}  ${dish.price}  (${pool.length} dishes left)`);
+
+    // A dry run answers "what would you write next" - it must not spend money
+    // finding out. Everything above this line is free; everything below calls
+    // the model. Push a stub so the dish registry and the date both advance and
+    // --count 3 plans three different dishes on three different Thursdays; the
+    // store is never written in this mode, so the stub costs nothing.
+    if (opts.dryRun) {
+      store.posts.unshift({ slug: slugify(dish.title), date, cover: dish.img || null,
+                            dish: { name: dish.title, syrveId: dish.key }, en: { title: dish.title } });
+      continue;
+    }
 
     let data, issues;
     for (let attempt = 1; attempt <= 2; attempt++) {
