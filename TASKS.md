@@ -16,7 +16,10 @@
 - [ ] **Перенести раздел на IJEN SPA** - план готов, ждёт решения владельца по
       порядку релизов (у IJEN деплой идёт через мастера деплоя, а крон деплоит сам).
       План: `~/.claude/skills/weekly-seo-stories/reference/ijen-spa-plan.md`
-- [ ] **11. Google Search Console + Bing Webmaster** - ждём токены от владельца.
+- [~] **11. Google Search Console + Bing Webmaster**. Google - готово 05.09.2026: сайт уже
+      DNS-подтверждённый Domain property, токен не нужен; sitemap.xml (21 URL) и feed.xml
+      отправлены, индексация запрошена для 6 EN-адресов. Bing - ждёт входа владельца
+      (кнопка Google во встроенном браузере), дальше Import from GSC + sitemap.
       Инструмент готов: `node tools/verify-site.mjs --google <token> --bing <token> --deploy`
 - [ ] **10б. Google Business Profile через API** - доступ к Business Profile API
       Google выдаёт по заявке, мгновенно его не получить. До одобрения работает
@@ -33,6 +36,9 @@
 
 ## 📝 Открытые вопросы к пользователю
 
+- **Bing Webmaster**: войти на bing.com/webmasters во встроенном браузере (кнопка «Sign in with
+  Google», один клик) - пароль и OAuth-согласие агент вводить не может. После входа агент сам
+  сделает Import from GSC и отправит sitemap.
 _(закрыты 05.09.2026 — ответы перенесены в «В работе»)_
 
 ## ✅ Сделано (последнее)
