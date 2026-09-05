@@ -21,7 +21,7 @@ import { fileURLToPath } from "node:url";
 import { systemPrompt, userPrompt, editorPrompt, schema, geoFixPrompt, geoFixSchema,
          LANGS, GEO, GEO_PRIMARY, GEO_SECONDARY, POSITIONING } from "./story-prompt.mjs";
 import { fetchDishPhoto } from "./dish-photo.mjs";
-import { record as recordCost, spentOn } from "./cost-ledger.mjs";
+import { record as recordCost, spentOn, spentInMonth } from "./cost-ledger.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const STORIES = path.join(ROOT, "data", "stories.json");
@@ -71,6 +71,14 @@ const opts = {
   // the shape the 05.09 overspend actually had. Override per run with
   // --daily-cap, or for good with SIGNA_DAILY_CAP in the environment.
   dailyCap: Number(flag("daily-cap", process.env.SIGNA_DAILY_CAP || 3)),
+  // $10 a month for post generation - the owner's figure, 05.09.2026. A post is
+  // ~$0.40 on gpt-5.5, so a normal month (4-5 posts) uses a fifth of it; the
+  // rest is headroom for rewrites and --addlang, not for a bigger model.
+  monthlyCap: Number(flag("monthly-cap", process.env.SIGNA_MONTHLY_CAP || 10)),
+  // The budget is forward-looking. The $96.69 of 05.09 is paid history; a cap
+  // that counted it would refuse every Thursday until October and protect
+  // nothing. Spend before this date is outside the budget window.
+  capSince: flag("cap-since", process.env.SIGNA_CAP_SINCE || "2026-09-06"),
   langs: (flag("langs") || LANGS.join(",")).split(","),
   noEdit: has("no-edit"),
   noPhoto: has("no-photo"),
@@ -230,6 +238,12 @@ async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "wri
     throw new Error(`daily cap reached: $${today.toFixed(2)} spent today, cap is $${opts.dailyCap.toFixed(2)}.`
       + ` Everything already written is saved. Raise it for one run with --daily-cap <usd>,`
       + ` or permanently with SIGNA_DAILY_CAP.`);
+  }
+  const month = spentInMonth(undefined, opts.capSince);
+  if (month >= opts.monthlyCap) {
+    throw new Error(`monthly cap reached: $${month.toFixed(2)} spent this month, cap is $${opts.monthlyCap.toFixed(2)}.`
+      + ` Everything already written is saved. The cap is the owner's budget for post generation;`
+      + ` raise it for one run with --monthly-cap <usd> only with their say-so.`);
   }
 
   // The retry inside api() re-sends on a network failure. For a POST that
@@ -443,6 +457,7 @@ async function main() {
   const cat = catalog();
 
   log(`model ${opts.model} | langs ${opts.langs.join("+")} | catalog ${cat.length} dishes (${cat[0]?.source})`);
+  log(`caps: $${opts.dailyCap}/day  $${opts.monthlyCap}/month  $${opts.budget}/run | spent: $${spentOn().toFixed(2)} today, $${spentInMonth(undefined, opts.capSince).toFixed(2)} this month (counted since ${opts.capSince})`);
 
   // --fix-geo: move the title, seoTitle, description and lead off the street
   // address and onto the districts people search for. Only those four short

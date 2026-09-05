@@ -181,6 +181,13 @@ export function spentOn(day = new Date().toISOString().slice(0, 10)) {
     .reduce((n, r) => n + (r.usd || 0), 0);
 }
 
+/** Spend booked for a calendar month, "YYYY-MM". Abandoned jobs are in here too. */
+export function spentInMonth(month = new Date().toISOString().slice(0, 7), since = "") {
+  return load().runs
+    .filter((r) => (r.at || "").slice(0, 7) === month && (r.at || "") >= since)
+    .reduce((n, r) => n + (r.usd || 0), 0);
+}
+
 export function summary() {
   const led = load();
   const byPost = new Map();
