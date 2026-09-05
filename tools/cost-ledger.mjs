@@ -18,14 +18,22 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const LEDGER = path.join(ROOT, "data/story-costs.json");
 const PRICING = path.join(ROOT, "data/model-pricing.json");
 
-// USD per 1M tokens. Defaults are a placeholder until the real rate card is
-// confirmed - edit data/model-pricing.json or the Costs tab in /admin.html.
+// USD per 1M tokens, used only when data/model-pricing.json is missing.
+//
+// These were invented placeholders until 05.09.2026, and understated
+// gpt-5.5-pro by half ($15/$120 against the real $30/$180). A neighbouring
+// session read them as fact and built a cost analysis on them. Numbers that
+// look like facts get used like facts - so these are now the confirmed rates,
+// checked against developers.openai.com, and carry the date they were checked.
 const FALLBACK = {
-  updated: null,
-  note: "USD per 1M tokens. Confirm against platform.openai.com/docs/pricing before billing.",
+  updated: "2026-09-05",
+  source: "https://developers.openai.com/api/docs/pricing - Standard tier",
+  note: "USD per 1M tokens. Re-check before billing; prices move.",
   models: {
-    "gpt-5.5-pro": { input: 15, cachedInput: 1.5, output: 120 },
-    "gpt-5.5": { input: 1.25, cachedInput: 0.125, output: 10 },
+    "gpt-5.5-pro": { input: 30, cachedInput: 30, output: 180 },
+    "gpt-5.5": { input: 5, cachedInput: 0.5, output: 30 },
+    "gpt-5.4": { input: 2.5, cachedInput: 0.25, output: 15 },
+    "gpt-5.4-mini": { input: 0.75, cachedInput: 0.075, output: 4.5 },
   },
 };
 

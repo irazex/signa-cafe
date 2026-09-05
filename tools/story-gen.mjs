@@ -52,13 +52,17 @@ const opts = {
   editOnly: flag("edit-only"),
   fixGeo: has("fix-geo"),
   slug: flag("slug"),
-  // MEASURED 05.09.2026 from the account's own usage export, not estimated:
-  // gpt-5.5-pro ran 17 calls for $57.22 - $3.37 a call. gpt-5.5 ran 14 calls
-  // for $1.64 - $0.12 a call. Pro is 6x the price per token AND spends 18 251
-  // output tokens per call against 3 526, because half of what it bills is
-  // reasoning that never reaches the article. Net: ~30x per call.
-  // Owner's call 05.09.2026 - the cheap model is the default and pro needs
-  // --allow-pro said out loud.
+  // gpt-5.5 - the owner's decision, 05.09.2026, taken against measured numbers.
+  //
+  // From the account's own usage export that day, not estimated:
+  //   gpt-5.5-pro   17 calls  $57.22   $3.37 a call   18 251 output tokens a call
+  //   gpt-5.5       14 calls   $1.64   $0.12 a call    3 526 output tokens a call
+  //
+  // Pro is 6x the price per token AND writes 5x the tokens, because half of
+  // what it bills is reasoning that never reaches the article - ~30x a call.
+  // At $0.40 a post gpt-5.5 puts a 52-post year at about $21, so the cheaper
+  // models below it were rejected on quality, not cost: the saving between
+  // them is a few dollars a year and the Russian has to read native.
   model: flag("model", "gpt-5.5"),
   allowPro: has("allow-pro"),
   budget: Number(flag("budget", 5)),
