@@ -9,7 +9,6 @@ $lang  = st_lang();
 $data  = st_load();
 $posts = array_values(array_filter($data['posts'], fn($p) => st_has($p, $lang)));
 $canon = st_url(null, $lang);
-$alt   = $lang === 'ru' ? 'en' : 'ru';
 
 $jsonld = [];
 $jsonld[] = [
@@ -48,23 +47,25 @@ header('Cache-Control: public, max-age=600');
 
 st_head([
     'lang' => $lang,
-    'title' => $lang === 'ru'
-        ? 'Истории блюд — Signa Cafe, Нуса Дуа, Бали'
-        : 'Stories — one dish, one story, every week | Signa Cafe, Nusa Dua',
+    'title' => [
+        'ru' => 'Истории блюд - Signa Cafe, Нуса Дуа, Бали',
+        'id' => 'Cerita hidangan - Signa Cafe, Nusa Dua, Bali',
+    ][$lang] ?? 'Stories - one dish, one story, every week | Signa Cafe, Nusa Dua',
     'description' => st_t('index_sub', $lang),
-    'keywords' => $lang === 'ru'
-        ? 'истории блюд Бали, кафе Нуса Дуа, еда Букит, рецепты Бали, Signa Cafe, Унгасан, Беноа, Джимбаран'
-        : 'food stories Bali, Nusa Dua cafe, dish history, Bukit Bali food, Signa Cafe, Ungasan, Benoa, Jimbaran, food blog Bali',
+    'keywords' => [
+        'ru' => 'истории блюд Бали, кафе Нуса Дуа, еда Букит, рецепты Бали, Signa Cafe, Унгасан, Беноа, Джимбаран, завтрак Нуса Дуа, семейное кафе Бали',
+        'id' => 'cerita hidangan Bali, kafe Nusa Dua, sarapan Nusa Dua, kafe keluarga Bali, makanan Bukit, Signa Cafe, Ungasan, Benoa, Jimbaran',
+    ][$lang] ?? 'food stories Bali, Nusa Dua cafe, dish history, Bukit Bali food, Signa Cafe, Ungasan, Benoa, Jimbaran, breakfast Nusa Dua, family cafe Bali',
     'canonical' => $canon,
-    'altUrl' => st_url(null, $alt),
+    'alts' => array_combine(ST_LANGS, array_map(fn($l) => st_url(null, $l), ST_LANGS)),
     'xdefault' => st_url(null, 'en'),
-    'image' => ST_BASE . '/assets/photo-breakfast.webp',
+    'image' => st_og(ST_BASE . '/assets/photo-breakfast.webp'),
     'jsonld' => $jsonld,
 ]);
 ?>
 <body data-screen-label="stories index">
 <div class="signa-app">
-<?php st_header($lang, st_url(null, $alt, false)); ?>
+<?php st_header($lang, array_combine(ST_LANGS, array_map(fn($l) => st_url(null, $l, false), ST_LANGS))); ?>
 
 <main>
   <section class="page-hero">

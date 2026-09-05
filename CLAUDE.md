@@ -29,17 +29,51 @@
 ### Как это устроено
 
 ```
-data/stories.json      ← единственный источник правды (посты EN+RU)
+data/stories.json      ← единственный источник правды (посты EN+RU+ID)
+data/syrve-menu.json   ← каталог блюд из Syrve: 194 позиции с фото/описанием/ценой
 lib/stories.php        ← общие хелперы: загрузка, i18n, <head>, header, footer, CTA
-story.php              ← одна статья       → /stories/<slug>, /stories/ru/<slug>
-stories.php            ← индекс раздела    → /stories, /stories/ru
+story.php              ← одна статья       → /stories/<slug>, /stories/{ru,id}/<slug>
+stories.php            ← индекс раздела    → /stories, /stories/{ru,id}
 feed.php               ← RSS               → /feed.xml
 sitemap.php            ← карта сайта       → /sitemap.xml  (статический файл УДАЛЁН)
 llms.php               ← сводка для ИИ     → /llms.txt
 tools/dev-router.php   ← локальный превью-роутер для `php -S` (повторяет mod_rewrite)
 tools/new-story.mjs    ← скелет нового поста + `--check` валидатор SEO
 tools/build-noscript.mjs ← генерит <noscript> для 4 React-страниц из content.json
+tools/story-gen.mjs    ← генератор постов (gpt-5.5-pro, Responses API, фоновый режим)
+tools/story-prompt.mjs ← промты: писатель + языковой редактор + JSON-схема
+tools/syrve-menu.mjs   ← выгрузка каталога блюд из Syrve RPC
+tools/dish-photo.mjs   ← скачивание и конвертация фото блюда в webp
+tools/og-images.mjs    ← JPEG 1200x630 для og:image (WebP соцсети не берут)
+tools/notify-telegram.mjs ← «вышел новый пост» + черновик для Google Business Profile
+tools/gbp-post.mjs     ← пост для Google Business Profile из истории (лимит 1500)
+tools/verify-site.mjs  ← подтверждение прав в Search Console / Bing Webmaster
+tools/cron-weekly.sh   ← четверговый запуск на VPS
+tools/deploy-stories.sh ← FTP-заливка + IndexNow
 ```
+
+### Крон - как работает конвейер
+
+`0 9 * * 4` на VPS (`/home/razex/signa-cafe-repo`, лог `~/logs/signa-stories.log`).
+Один четверговый запуск делает **две** вещи:
+
+1. **Анонсирует** пост, датированный сегодня. Он был написан неделю назад и стал
+   виден в полночь (`st_load()` прячет будущие даты) - значит ссылка в Telegram
+   уже открывается. Перед отправкой скрипт проверяет, что страница отдаёт 200.
+2. **Пишет** пост на следующий четверг.
+
+Конвейер всегда на неделю вперёд: есть семь дней прочитать, поправить или удалить
+пост до того, как он опубликуется сам. Второй крон и файл состояния не нужны -
+«сегодня» это дата публикации, «следующий четверг» дата черновика.
+
+**Почему VPS, а не хостинг сайта**: у multihost.cloud нет SSH, а его egress-регион
+заблокирован со стороны OpenAI (см. `key.php`). VPS дотягивается и до
+`api.openai.com`, и до FTP signa.cafe.
+
+**Пуш в GitHub с VPS не настроен** - нет токена. Крон коммитит локально, деплоит
+по FTP и логирует неудачу пуша; пост при этом выходит. Поэтому в начале запуска
+стоит `git pull --rebase --autostash`, а НЕ `reset --hard`: иначе неотправленный
+коммит прошлой недели был бы стёрт.
 
 **Билд-шага нет.** Меняешь `data/stories.json` → заливаешь по FTP → всё обновилось,
 включая sitemap, RSS и llms.txt. Роутинг — в `.htaccess`, секция 6.
@@ -114,6 +148,15 @@ Node 20 и crontab есть, FTP-порт открыт. Поэтому VPS ге�
    после правок `content.json` или новых постов (он проставляет `subjectOf` на посты).
 9. **Русский текст — не перевод.** Если правишь промт, не трогай секцию
    THE RUSSIAN CONTRACT, не разобравшись: она написана по конкретным дефектам.
+10. **`gpt-5.5-pro` живёт только в Responses API** (`/v1/responses`).
+    `chat/completions` отвечает «This is not a chat model». Запрос идёт
+    `background: true` с опросом статуса - обычный держащийся сокет умирает
+    с `fetch failed`, не дождавшись ответа (пост считается 4-6 минут).
+11. **`og:image` — только JPEG.** Telegram Bot API отклоняет WebP целиком
+    («failed to get HTTP URL content»), часть скраперов его пропускает.
+    Двойники строит `node tools/og-images.mjs`, оригиналы остаются WebP.
+12. **Крон не делает `git reset --hard`.** Пуш с VPS может не пройти, и тогда
+    локальный коммит - единственная копия поста прошлой недели.
 
 ---
 

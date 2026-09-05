@@ -18,7 +18,7 @@
 if (!defined('SIGNA_STORIES')) define('SIGNA_STORIES', 1);
 
 const ST_BASE   = 'https://signa.cafe';
-const ST_LANGS  = ['en', 'ru'];
+const ST_LANGS  = ['en', 'ru', 'id'];
 const ST_WPM    = 180; // reading speed used for the "N min read" label
 
 // ---------- data ----------
@@ -83,11 +83,22 @@ function st_has(array $post, string $lang): bool {
 // ---------- urls ----------
 
 function st_url(?string $slug = null, string $lang = 'en', bool $absolute = true): string {
-    $p = '/stories' . ($lang === 'ru' ? '/ru' : '') . ($slug ? '/' . $slug : '');
+    $p = '/stories' . ($lang !== 'en' && in_array($lang, ST_LANGS, true) ? '/' . $lang : '') . ($slug ? '/' . $slug : '');
     return $absolute ? ST_BASE . $p : $p;
 }
 
 // ---------- text ----------
+
+/**
+ * Social scrapers want JPEG. Telegram's Bot API rejects WebP outright and a few
+ * crawlers still skip it, so og:image points at the JPEG twin built by
+ * tools/og-images.mjs. Falls back to the original if the twin is missing.
+ */
+function st_og(string $img): string {
+    $rel = preg_replace('#^' . preg_quote(ST_BASE, '#') . '/#', '', $img);
+    $jpg = 'assets/og/' . preg_replace('#\.[a-z0-9]+$#i', '.jpg', basename($rel));
+    return is_file(__DIR__ . '/../' . $jpg) ? ST_BASE . '/' . $jpg : $img;
+}
 
 function e($s): string {
     // Keywords arrive as an array from the generator and as a string from
@@ -116,6 +127,10 @@ function st_date(string $iso, string $lang): string {
         $m = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
         return (int)date('j', $ts) . ' ' . $m[(int)date('n', $ts) - 1] . ' ' . date('Y', $ts);
     }
+    if ($lang === 'id') {
+        $m = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        return (int)date('j', $ts) . ' ' . $m[(int)date('n', $ts) - 1] . ' ' . date('Y', $ts);
+    }
     return date('j F Y', $ts);
 }
 
@@ -133,11 +148,11 @@ function st_t(string $key, string $lang): string {
             'facts' => 'The short version', 'faq' => 'Questions people ask',
             'more' => 'More stories', 'back' => 'All stories',
             'order_h' => 'Order it, or come and sit with it',
-            'order_p' => 'Signa Cafe is on Jl. Raya Kampial in Benoa, Nusa Dua — ten minutes from Ungasan, fifteen from Jimbaran. Open 08:00 to 23:00, every day.',
+            'order_p' => 'Signa Cafe is on Jl. Raya Kampial in Benoa, Nusa Dua - ten minutes from Ungasan, fifteen from Jimbaran. Open 08:00 to 23:00, every day.',
             'order_cta' => 'SEE THE FULL MENU', 'visit_cta' => 'FIND US',
             'published' => 'Published', 'updated' => 'Updated',
             'empty' => 'The first story is being written. Check back next week.',
-            'other_lang' => 'Читать по-русски',
+            'lang_label' => 'English', 'on_menu' => 'on the menu', 'other_lang' => 'Read in another language',
         ],
         'ru' => [
             'nav_home' => 'Главная', 'nav_menu' => 'Меню', 'nav_about' => 'О нас',
@@ -151,11 +166,29 @@ function st_t(string $key, string $lang): string {
             'facts' => 'Коротко', 'faq' => 'Частые вопросы',
             'more' => 'Другие истории', 'back' => 'Все истории',
             'order_h' => 'Закажите или приходите пробовать',
-            'order_p' => 'Signa Cafe на Jl. Raya Kampial в Беноа, Нуса Дуа — десять минут от Унгасана, пятнадцать от Джимбарана. Открыто с 08:00 до 23:00, каждый день.',
+            'order_p' => 'Signa Cafe на Jl. Raya Kampial в Беноа, Нуса Дуа - десять минут от Унгасана, пятнадцать от Джимбарана. Открыто с 08:00 до 23:00, каждый день.',
             'order_cta' => 'СМОТРЕТЬ ВСЁ МЕНЮ', 'visit_cta' => 'КАК НАС НАЙТИ',
             'published' => 'Опубликовано', 'updated' => 'Обновлено',
             'empty' => 'Первая история пишется. Загляните на следующей неделе.',
-            'other_lang' => 'Read in English',
+            'lang_label' => 'Русский', 'on_menu' => 'в меню', 'other_lang' => 'Читать на другом языке',
+        ],
+        'id' => [
+            'nav_home' => 'Beranda', 'nav_menu' => 'Menu', 'nav_about' => 'Tentang',
+            'nav_visit' => 'Kunjungi', 'nav_stories' => 'Cerita',
+            'cta_order' => 'Pesan →',
+            'section' => 'Cerita', 'kicker' => 'Satu hidangan, satu cerita, setiap minggu',
+            'index_title_a' => 'SATU HIDANGAN,', 'index_title_b' => 'SATU CERITA.',
+            'subscribe' => 'Berlangganan RSS', 'subscribe_note' => 'Hidangan baru setiap Kamis.',
+            'index_sub' => 'Setiap minggu kami mengambil satu hidangan dari menu Signa dan menelusuri asal usulnya: sejarahnya, perdebatan soal resepnya, dan apa yang dibutuhkan untuk memasaknya di Nusa Dua.',
+            'read' => 'menit baca', 'read_more' => 'Baca ceritanya',
+            'facts' => 'Ringkasnya', 'faq' => 'Pertanyaan yang sering muncul',
+            'more' => 'Cerita lainnya', 'back' => 'Semua cerita',
+            'order_h' => 'Pesan sekarang, atau datang dan duduk bersamanya',
+            'order_p' => 'Signa Cafe ada di Jl. Raya Kampial, Benoa, Nusa Dua - sepuluh menit dari Ungasan, lima belas menit dari Jimbaran. Buka 08:00 sampai 23:00, setiap hari.',
+            'order_cta' => 'LIHAT MENU LENGKAP', 'visit_cta' => 'TEMUKAN KAMI',
+            'published' => 'Diterbitkan', 'updated' => 'Diperbarui',
+            'empty' => 'Cerita pertama sedang ditulis. Kembali lagi minggu depan.',
+            'lang_label' => 'Bahasa Indonesia', 'on_menu' => 'ada di menu', 'other_lang' => 'Baca dalam bahasa lain',
         ],
     ];
     return $S[$lang][$key] ?? $S['en'][$key] ?? $key;
@@ -165,11 +198,13 @@ function st_t(string $key, string $lang): string {
 
 /**
  * <head> for a stories page. Everything an indexer needs is here in raw HTML:
- * title, description, keywords, canonical, hreflang pair, OG/Twitter, geo.
+ * title, description, keywords, canonical, one hreflang per available
+ * language, OG/Twitter, geo.
  */
 function st_head(array $o): void {
-    $lang  = $o['lang'] ?? 'en';
-    $alt   = $lang === 'ru' ? 'en' : 'ru';
+    $lang = $o['lang'] ?? 'en';
+    // $o['alts'] is lang => absolute url for every language this page exists in.
+    $alts = $o['alts'] ?? [];
     ?>
 <!doctype html>
 <html lang="<?= e($lang) ?>">
@@ -186,23 +221,25 @@ function st_head(array $o): void {
 <link rel="canonical" href="<?= e($o['canonical']) ?>" />
 <link rel="icon" href="/assets/star.png" type="image/png" />
 <link rel="apple-touch-icon" href="/assets/star.png" />
-<link rel="alternate" type="application/rss+xml" title="Signa Cafe — Stories" href="<?= ST_BASE ?>/feed.xml" />
+<link rel="alternate" type="application/rss+xml" title="Signa Cafe - Stories" href="<?= ST_BASE ?>/feed.xml" />
 <link rel="alternate" hreflang="<?= e($lang) ?>" href="<?= e($o['canonical']) ?>" />
-<?php if (!empty($o['altUrl'])): ?>
-<link rel="alternate" hreflang="<?= e($alt) ?>" href="<?= e($o['altUrl']) ?>" />
-<?php endif; ?>
+<?php foreach ($alts as $l => $u): if ($l === $lang) continue; ?>
+<link rel="alternate" hreflang="<?= e($l) ?>" href="<?= e($u) ?>" />
+<?php endforeach; ?>
 <link rel="alternate" hreflang="x-default" href="<?= e($o['xdefault'] ?? $o['canonical']) ?>" />
 <meta property="og:type" content="<?= e($o['ogType'] ?? 'website') ?>" />
 <meta property="og:site_name" content="Signa Cafe" />
 <meta property="og:title" content="<?= e($o['title']) ?>" />
 <meta property="og:description" content="<?= e($o['description']) ?>" />
 <meta property="og:url" content="<?= e($o['canonical']) ?>" />
-<meta property="og:image" content="<?= e($o['image'] ?? ST_BASE . '/assets/photo-breakfast.webp') ?>" />
+<meta property="og:image" content="<?= e(st_og($o['image'] ?? ST_BASE . '/assets/photo-breakfast.webp')) ?>" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta property="og:locale" content="<?= $lang === 'ru' ? 'ru_RU' : 'en_US' ?>" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="<?= e($o['title']) ?>" />
 <meta name="twitter:description" content="<?= e($o['description']) ?>" />
-<meta name="twitter:image" content="<?= e($o['image'] ?? ST_BASE . '/assets/photo-breakfast.webp') ?>" />
+<meta name="twitter:image" content="<?= e(st_og($o['image'] ?? ST_BASE . '/assets/photo-breakfast.webp')) ?>" />
 <meta name="geo.region" content="ID-BA" />
 <meta name="geo.placename" content="Nusa Dua, Benoa, Bali" />
 <meta name="geo.position" content="-8.817627;115.190137" />
@@ -219,7 +256,7 @@ function st_head(array $o): void {
 }
 
 /** Same markup and classes as the React PageHeader — but plain HTML, no JS needed. */
-function st_header(string $lang, ?string $altUrl): void {
+function st_header(string $lang, array $alts = []): void {
     $site = st_site();
     ?>
 <header class="signa-header">
@@ -238,11 +275,11 @@ function st_header(string $lang, ?string $altUrl): void {
       <a href="/about.html"><?= e(st_t('nav_about', $lang)) ?></a>
       <a href="/visit.html"><?= e(st_t('nav_visit', $lang)) ?></a>
     </nav>
-    <?php if ($altUrl): ?>
+    <?php if ($alts): ?>
     <div class="lang-toggle">
-      <?php foreach (ST_LANGS as $l): ?>
+      <?php foreach (ST_LANGS as $l): if ($l !== $lang && empty($alts[$l])) continue; ?>
         <a class="lang-btn <?= $l === $lang ? 'active' : '' ?>"
-           href="<?= e($l === $lang ? '#' : $altUrl) ?>"
+           href="<?= e($l === $lang ? '#' : $alts[$l]) ?>"
            hreflang="<?= e($l) ?>"<?= $l === $lang ? ' aria-current="true"' : '' ?>><?= e($l) ?></a>
       <?php endforeach; ?>
     </div>

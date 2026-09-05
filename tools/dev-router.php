@@ -9,10 +9,10 @@
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $map = [
-    '#^/stories/?$#'                 => ['stories.php', []],
-    '#^/stories/ru/?$#'              => ['stories.php', ['lang' => 'ru']],
-    '#^/stories/ru/([a-z0-9-]+)/?$#' => ['story.php',   ['slug' => 1, 'lang' => 'ru']],
-    '#^/stories/([a-z0-9-]+)/?$#'    => ['story.php',   ['slug' => 1]],
+    '#^/stories/?$#'                        => ['stories.php', []],
+    '#^/stories/(ru|id)/?$#'                => ['stories.php', ['lang' => 1]],
+    '#^/stories/(ru|id)/([a-z0-9-]+)/?$#'   => ['story.php',   ['lang' => 1, 'slug' => 2]],
+    '#^/stories/([a-z0-9-]+)/?$#'           => ['story.php',   ['slug' => 1]],
     '#^/feed\.xml$#'                 => ['feed.php',    []],
     '#^/sitemap\.xml$#'              => ['sitemap.php', []],
     '#^/llms\.txt$#'                 => ['llms.php',    []],

@@ -64,6 +64,7 @@ header('Cache-Control: public, max-age=3600');
 - <?= ST_BASE ?>/visit.html — map, directions, hours, FAQ, contact
 - <?= st_url(null, 'en') ?> — Stories: one dish, one story, every week
 - <?= st_url(null, 'ru') ?> — Истории (Russian)
+- <?= st_url(null, 'id') ?> — Cerita (Indonesian)
 - <?= ST_BASE ?>/feed.xml — RSS feed of the story archive
 
 ## Stories archive
@@ -73,9 +74,9 @@ One dish per week, with its history and how it is cooked in Nusa Dua.
 <?php foreach ($posts as $p): $b = st_body($p, 'en'); ?>
 - [<?= $b['title'] ?? $p['slug'] ?>](<?= st_url($p['slug'], 'en') ?>) — <?= $p['date'] ?>. <?= $b['description'] ?? '' ?>
 
-<?php if (st_has($p, 'ru')): ?>
-  - Russian: [<?= $p['ru']['title'] ?>](<?= st_url($p['slug'], 'ru') ?>)
-<?php endif; ?>
+<?php foreach (['ru' => 'Russian', 'id' => 'Indonesian'] as $l => $label): if (!st_has($p, $l)) continue; ?>
+  - <?= $label ?>: [<?= $p[$l]['title'] ?>](<?= st_url($p['slug'], $l) ?>)
+<?php endforeach; ?>
 <?php endforeach; ?>
 
 ## Usage

@@ -19,8 +19,10 @@ if (!$post) {
 $b        = st_body($post, $lang);
 $site     = st_site();
 $canon    = st_url($slug, $lang);
-$altLang  = $lang === 'ru' ? 'en' : 'ru';
-$altUrl   = st_has($post, $altLang) ? st_url($slug, $altLang) : null;
+// Every language this post actually exists in, lang => absolute url.
+$alts = [];
+foreach (ST_LANGS as $l) if (st_has($post, $l)) $alts[$l] = st_url($slug, $l);
+$others = array_diff_key($alts, [$lang => true]);
 $image    = ST_BASE . '/' . ltrim($post['cover'] ?? 'assets/photo-breakfast.webp', '/');
 $readMin  = st_read_min($b);
 $modified = $post['updated'] ?? $post['date'];
@@ -128,7 +130,7 @@ st_head([
     'description' => $b['description'] ?? '',
     'keywords' => $b['keywords'] ?? '',
     'canonical' => $canon,
-    'altUrl' => $altUrl,
+    'alts' => $alts,
     'xdefault' => st_url($slug, 'en'),
     'image' => $image,
     'ogType' => 'article',
@@ -137,7 +139,7 @@ st_head([
 ?>
 <body data-screen-label="story <?= e($slug) ?>">
 <div class="signa-app">
-<?php st_header($lang, $altUrl); ?>
+<?php st_header($lang, $alts); ?>
 
 <main>
 <article class="story" itemscope itemtype="https://schema.org/BlogPosting">
@@ -161,8 +163,12 @@ st_head([
       <p class="story-lead"><?= e($b['lead']) ?></p>
     <?php endif; ?>
 
-    <?php if ($altUrl): ?>
-      <p class="story-altlang"><a href="<?= e($altUrl) ?>" hreflang="<?= e($altLang) ?>"><?= e(st_t('other_lang', $lang)) ?> →</a></p>
+    <?php if ($others): ?>
+      <p class="story-altlang">
+        <?php foreach ($others as $l => $u): ?>
+          <a href="<?= e($u) ?>" hreflang="<?= e($l) ?>"><?= e(st_t('lang_label', $l)) ?> →</a>
+        <?php endforeach; ?>
+      </p>
     <?php endif; ?>
   </div>
 
@@ -176,7 +182,7 @@ st_head([
       <b><?= e($post['dish']['name']) ?></b>
       <?php if (!empty($post['dish']['price'])): ?> · <?= e($post['dish']['price']) ?><?php endif; ?>
       · <a href="<?= e($post['dish']['menuUrl'] ?? $site['orderUrl']) ?>" target="_blank" rel="noreferrer">
-        <?= $lang === 'ru' ? 'в меню' : 'on the menu' ?> ↗</a>
+        <?= e(st_t('on_menu', $lang)) ?> ↗</a>
     </figcaption>
     <?php endif; ?>
   </figure>

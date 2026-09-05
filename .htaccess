@@ -88,10 +88,12 @@ AddType model/mtl .mtl
   RewriteRule ^admin/?$ admin.html [L]
 
   # Order matters: the /ru variants must be tested before the generic slug rule.
-  RewriteRule ^stories/?$                  stories.php                 [L]
-  RewriteRule ^stories/ru/?$               stories.php?lang=ru         [L]
-  RewriteRule ^stories/ru/([a-z0-9-]+)/?$  story.php?slug=$1&lang=ru   [L]
-  RewriteRule ^stories/([a-z0-9-]+)/?$     story.php?slug=$1           [L]
+  # Order matters: the language variants must be tested before the generic
+  # slug rule, or /stories/ru would be read as a post called "ru".
+  RewriteRule ^stories/?$                        stories.php                     [L]
+  RewriteRule ^stories/(ru|id)/?$                stories.php?lang=$1             [L]
+  RewriteRule ^stories/(ru|id)/([a-z0-9-]+)/?$   story.php?slug=$2&lang=$1       [L]
+  RewriteRule ^stories/([a-z0-9-]+)/?$           story.php?slug=$1               [L]
 
   RewriteRule ^feed\.xml$    feed.php     [L,QSA]
   RewriteRule ^sitemap\.xml$ sitemap.php  [L]

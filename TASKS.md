@@ -2,30 +2,51 @@
 
 ## 🟡 В работе
 
-_(пусто)_
+- [ ] **11. Google Search Console + Bing Webmaster** - ждём токены от владельца.
+      Инструмент готов: `node tools/verify-site.mjs --google <token> --bing <token> --deploy`
+- [ ] **10б. Google Business Profile через API** - доступ к Business Profile API
+      Google выдаёт по заявке, мгновенно его не получить. До одобрения работает
+      ручной путь: готовый пост приходит в Telegram вторым сообщением.
+- [ ] **Пуш с VPS в GitHub** - крон коммитит локально и деплоит по FTP, но `git push`
+      падает без токена. Одна команда от владельца включит архивирование в GitHub.
 
 ## ⬜ Backlog
 
-- [ ] Свои фото к постам вместо фото из меню (сейчас переиспользуются `assets/menu-*.webp`)
-- [ ] Индонезийская версия постов (ID) — структура готова, нужен только блок `"id"` в JSON
-- [ ] Отправить sitemap в Google Search Console и Bing Webmaster (задеплоено, ждёт отправки)
+
 - [ ] Рассмотреть server-side рендер для 4 основных страниц (сейчас закрыты `<noscript>`-фолбэком)
+- [ ] Убрать Babel-standalone (~600 КБ в браузере) - это главный тормоз Core Web Vitals
+- [ ] Дособрать переводы UI для Brand/Menu/Signature/Experience/Order (там до сих пор EN)
 
 ## 📝 Открытые вопросы к пользователю
 
-- [ ] **Фото блюд из Syrve.** Пароль `analytics` / `Syrve2024Prod` к `iiko_analytics`
-      больше не подходит (проверено 04.09 и по Tailscale, и по 127.0.0.1 - `password
-      authentication failed`). Нужен актуальный доступ + подтверждение, что фото блюд
-      вообще лежат в БД, а не только в RMS через RPC. Пока генератор берёт обложки
-      из 12 локальных `assets/menu-*.webp`.
-- [ ] **Установка крона на VPS.** Скрипты готовы (`tools/cron-weekly.sh`), но на VPS
-      нужно: склонировать репо в `/home/razex/signa-cafe`, положить `.openai_key`
-      и `~/.razex-creds/signa-ftp.txt`, добавить строку в crontab. Требует согласия -
-      это ключи на удалённой машине.
-- [ ] **Пул блюд конечен:** 12 позиций в `content.json` = 12 недель. Что дальше -
-      расширять меню, разрешить повторы с новым углом, или писать не только о блюдах?
+_(закрыты 05.09.2026 — ответы перенесены в «В работе»)_
 
 ## ✅ Сделано (последнее)
+
+- [x] **Каталог блюд из Syrve** (`tools/syrve-menu.mjs`) - через RPC-адаптер (8300),
+      джойн `online-content-map` + `menu/5352/items` + `nomenclature/products`.
+      **194 блюда** с фото, описанием и ценой против 12 в `content.json` -
+      это ~3,7 года еженедельных постов. Бары и бутылки отфильтрованы, остаётся 169.
+- [x] **Генератор на `gpt-5.5-pro` через Responses API.** `chat/completions` для pro
+      отвечает «This is not a chat model». Запрос идёт в фоновом режиме
+      (`background: true` + опрос статуса): один пост занимает 4-6 минут, и обычный
+      держащийся сокет успевал умереть с `fetch failed` до ответа.
+- [x] **Индонезийский - третий язык.** `ST_LANGS = [en, ru, id]`, роуты `/stories/id/...`,
+      hreflang с `x-default`, sitemap, `llms.txt`, RSS, метка «ada di menu».
+- [x] **Telegram-уведомление** (`tools/notify-telegram.mjs`) - в «SIGNA AI. Managers»
+      (`-1003008104766`, топик 12613) через `@inmyrest_report_bot`. Вторым сообщением
+      приходит готовый к вставке пост для Google Business Profile.
+- [x] **Крон на VPS** - `0 9 * * 4` (четверг 09:00 WITA), `/home/razex/signa-cafe-repo`.
+      Один запуск: анонсирует пост, вышедший сегодня, и пишет пост на следующий четверг.
+      Конвейер всегда на неделю вперёд - есть время прочитать и поправить.
+- [x] **JPEG-двойники для соцсетей** (`tools/og-images.mjs`) - все обложки были WebP,
+      а Telegram Bot API его не принимает вовсе («failed to get HTTP URL content»),
+      и часть скраперов пропускает. Теперь `og:image` ведёт на 1200x630 JPEG.
+      Попутно: у `about.html` og:image вообще указывал на несуществующий файл.
+- [x] **Расширена микроразметка Restaurant** - `areaServed` (Нуса Дуа, Кампьял, Букит,
+      Унгасан, Беноа, Джимбаран), `amenityFeature` (WiFi, детское меню, стульчики,
+      парковка), `knowsLanguage`, `keywords`, ссылка на блог. Плюс Twitter-карточки
+      и `og:url` на menu/about/visit, где их не было.
 
 - [x] **Автогенерация постов через gpt-5.5** — `tools/story-gen.mjs` + `tools/story-prompt.mjs`.
       Два прохода: писатель (EN+RU по JSON-схеме) и отдельный редактор русского языка,
