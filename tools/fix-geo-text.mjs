@@ -50,7 +50,8 @@ const RULES = {
     [/\s*,?\s*в\s+Кампьяле,\s*(между|недалеко|рядом)(?![а-яё])/gi, " $1"],
     [/\s+в\s+Кампьял[еа]?(?![а-яё])/gi, ""],
     [/\s*до\s+Кампьяла(?![а-яё])/gi, ""],
-    [/(?<![а-яё])Кампьял(?![а-яё])\s+(расположен|находится|лежит)/gi, "Кафе $1"],
+    [/(?<![а-яё])Кампьял(?![а-яё])\s+расположен(?![а-яё])/gi, "Кафе расположено"],
+    [/(?<![а-яё])Кампьял(?![а-яё])\s+(находится|лежит)/gi, "Кафе $1"],
     [/(?<![а-яё])Кампьял[а-яё]*/gi, ""],
   ],
   id: [
@@ -87,11 +88,12 @@ function tidy(s) {
 
 /** Capitalise if a deletion left the sentence starting lowercase. */
 function recapitalise(s) {
+  // A keyword is a lowercase phrase with no sentence punctuation - leave it be.
+  if (!/[.!?:]/.test(s) && s === s.toLowerCase()) return s;
   return s.replace(/(^|[.!?]\s+)(\p{Ll})/gu, (m, pre, ch) => pre + ch.toUpperCase());
 }
 
 function fixString(text, lang) {
-  if (ADDRESS.test(text)) return text;          // the real address stays
   if (!SECONDARY.test(text)) { SECONDARY.lastIndex = 0; return text; }
   SECONDARY.lastIndex = 0;
 
@@ -99,7 +101,10 @@ function fixString(text, lang) {
   // not per paragraph - a paragraph almost always mentions one somewhere.
   const parts = text.split(/(?<=[.!?])\s+/);
   const out = parts.map((sent) => {
-    if (!/Kampial|Кампьял/.test(sent)) return sent;
+    // The real address stays - but only the sentence that carries it. Guarding
+    // the whole paragraph let "Kampial sits between..." ride along next to it.
+    if (ADDRESS.test(sent)) return sent;
+    if (!/Kampial|Кампьял/i.test(sent)) return sent;
     const hasPrimary = PRIMARY[lang].some((g) => sent.includes(g));
     let next = sent;
     if (hasPrimary) {
@@ -107,7 +112,7 @@ function fixString(text, lang) {
     } else {
       // Only location in the sentence: swap rather than delete, or the sentence
       // loses the fact it was carrying.
-      next = next.replace(/Кампьял[а-яё]*|Kampial/gi, MAIN[lang]);
+      next = next.replace(/Кампьял[а-яё]*|Kampial/gi, (m) => (/^[a-zа-яё]/.test(m) ? MAIN[lang].toLowerCase() : MAIN[lang]));
     }
     next = recapitalise(tidy(next));
 
@@ -115,7 +120,7 @@ function fixString(text, lang) {
     // a bare complement ("the rhythm of Kampial") the deletion strands the
     // noun, so fall back to substituting the primary name instead.
     if (DANGLING.some((rx) => rx.test(next))) {
-      next = recapitalise(tidy(sent.replace(/Кампьял[а-яё]*|Kampial/gi, MAIN[lang])));
+      next = recapitalise(tidy(sent.replace(/Кампьял[а-яё]*|Kampial/gi, (m) => (/^[a-zа-яё]/.test(m) ? MAIN[lang].toLowerCase() : MAIN[lang]))));
     }
     return next;
   });
@@ -126,6 +131,13 @@ const store = JSON.parse(fs.readFileSync(STORE, "utf8"));
 let edits = 0, kept = 0;
 
 for (const post of store.posts) {
+  // Tags sit at post level, outside the language blocks, and render as the
+  // visible tag line under every story - one bare district word per page.
+  if (Array.isArray(post.tags)) {
+    const before = post.tags.length;
+    post.tags = [...new Set(post.tags.filter((t) => !/kampial|кампьял/i.test(t)))];
+    if (post.tags.length !== before) { edits++; console.log(`\n${post.slug} [tags]  dropped the district tag`); }
+  }
   for (const lang of ["en", "ru", "id"]) {
     const b = post[lang];
     if (!b) continue;
@@ -138,10 +150,19 @@ for (const post of store.posts) {
           console.log(`  -  ${obj.slice(0, 190)}`);
           console.log(`  +  ${next.slice(0, 190)}`);
           set(next);
-        } else if (/Kampial|Кампьял/.test(obj)) kept++;
+        } else if (/Kampial|Кампьял/i.test(obj)) kept++;
         return;
       }
-      if (Array.isArray(obj)) return obj.forEach((v, i) => walk(v, (n) => { obj[i] = n; }));
+      if (Array.isArray(obj)) {
+        obj.forEach((v, i) => walk(v, (n) => { obj[i] = n; }));
+        // "kampial cafe" -> "nusa dua cafe" may now equal an existing keyword.
+        if (obj.every((v) => typeof v === "string")) {
+          const seen = new Set();
+          const uniq = obj.filter((v) => (seen.has(v) ? false : (seen.add(v), true)));
+          if (uniq.length !== obj.length) obj.splice(0, obj.length, ...uniq);
+        }
+        return;
+      }
       if (obj && typeof obj === "object") return Object.entries(obj).forEach(([k, v]) => walk(v, (n) => { obj[k] = n; }));
     };
     walk(b, () => {});
