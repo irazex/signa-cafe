@@ -13,7 +13,7 @@
 - **Open/Close live timeline** — индикатор `OPEN 08:00 ●—pin—23:00` с движущимся пином (auto-updates 30s, Asia/Makassar timezone)
 - **Section rail** — sticky левая навигация 01-10 на desktop ≥1100px
 - **content.json** — single source of truth для site/menu/promos/FAQ/signature/contacts
-- **admin.html** + `src/admin.jsx` — password-protected content editor с 6 табами. Server-side `.htaccess` Basic Auth (user `admin`) + client-side SHA-256 gate (defense-in-depth). Пароли — см. локальные creds.
+- **admin.html** + `src/admin.jsx` — password-protected content editor с 6 табами. Server-side `.htaccess` Basic Auth, user `razex` (пароль - `~/.razex-creds/signa-admin.txt`). Client-side SHA-256 gate (`LoginGate` в `admin.jsx`) написан, но НЕ подключён - защита только апачевая.
 - **SEO** — Restaurant + Organization + BreadcrumbList + FAQPage JSON-LD, Open Graph, Twitter, hreflang en/ru/id, robots.txt, sitemap.xml
 - **Real menu** — 12 items с реальными ценами из signa.dishi.rest (Syrniki 93k, Big Breakfast 79k, Margarita 69k, Pasta 89k, Salmon Poke 145k, etc.)
 
@@ -40,7 +40,7 @@ llms.php               ← сводка для ИИ     → /llms.txt
 tools/dev-router.php   ← локальный превью-роутер для `php -S` (повторяет mod_rewrite)
 tools/new-story.mjs    ← скелет нового поста + `--check` валидатор SEO
 tools/build-noscript.mjs ← генерит <noscript> для 4 React-страниц из content.json
-tools/story-gen.mjs    ← генератор постов (gpt-5.5-pro, Responses API, фоновый режим)
+tools/story-gen.mjs    ← генератор постов (gpt-5.5, Responses API, фоновый режим)
 tools/story-prompt.mjs ← промты: писатель + языковой редактор + JSON-схема
 tools/syrve-menu.mjs   ← выгрузка каталога блюд из Syrve RPC
 tools/dish-photo.mjs   ← скачивание и конвертация фото блюда в webp
@@ -50,7 +50,8 @@ tools/gbp-post.mjs     ← пост для Google Business Profile из исто
 tools/verify-site.mjs  ← подтверждение прав в Search Console / Bing Webmaster
 tools/cron-weekly.sh   ← четверговый запуск на VPS
 tools/deploy-stories.sh ← FTP-заливка + IndexNow
-tools/cost-ledger.mjs  ← реестр расходов на генерацию (токены x тарифная карта)
+tools/cost-ledger.mjs  ← реестр расходов + `--reconcile` сверка с выгрузкой кабинета
+tools/fix-geo-text.mjs ← вычистить район из прозы детерминированно, без вызова модели
 tools/rename-story.mjs ← переименование поста без потери URL (старый слаг → aliases)
 ```
 
@@ -152,9 +153,16 @@ node tools/cost-ledger.mjs --json       # для скриптов
 на лету; экспортировать в `/data/model-pricing.json` и на VPS выполнить
 `node tools/cost-ledger.mjs --reprice`, чтобы совпало с генератором.
 
-**Порядок цифр** (gpt-5.5-pro, замерено): полный пост EN+RU+ID - около 6-8 вызовов
-и 4-6 минут модельного времени; один `--fix-geo` - примерно 15k выходных токенов,
-из них половина рассуждения.
+**Порядок цифр** (gpt-5.5, замерено): пост EN+RU+ID - около 8 500 входных и
+12 000 выходных токенов, **$0.40**, то есть ~$21 за 52 поста в год.
+Для сравнения на `gpt-5.5-pro` тот же пост стоил бы $17.55, а год - $912.
+
+**Предохранители** (поставлены после инцидента 05.09.2026, см.
+`ХАБ/context/incident-signa-stories-pro-model-overspend.md`):
+- любая `-pro` модель отказывается стартовать без `--allow-pro`;
+- суточный потолок `SIGNA_DAILY_CAP` (по умолчанию $3) проверяется **до** запроса;
+- потолок на прогон `--budget` (по умолчанию $5) - после каждого вызова;
+- `max_output_tokens` 12000/12000/8000 при фактическом расходе ~3.5k на вызов.
 
 ### Инварианты — не сломать
 
@@ -179,10 +187,13 @@ node tools/cost-ledger.mjs --json       # для скриптов
    после правок `content.json` или новых постов (он проставляет `subjectOf` на посты).
 9. **Русский текст — не перевод.** Если правишь промт, не трогай секцию
    THE RUSSIAN CONTRACT, не разобравшись: она написана по конкретным дефектам.
-10. **`gpt-5.5-pro` живёт только в Responses API** (`/v1/responses`).
-    `chat/completions` отвечает «This is not a chat model». Запрос идёт
-    `background: true` с опросом статуса - обычный держащийся сокет умирает
-    с `fetch failed`, не дождавшись ответа (пост считается 4-6 минут).
+10. **Генератор ходит в Responses API** (`/v1/responses`), а не в
+    `chat/completions`: pro-модели там просто нет («This is not a chat model»),
+    и режим `background: true` с опросом статуса переживает долгий ответ -
+    обычный держащийся сокет умирал с `fetch failed`. Модель по умолчанию -
+    **`gpt-5.5`** (решение владельца 05.09.2026, принято по замеренным цифрам).
+    Ниже неё варианты отвергнуты не по цене, а по качеству: разница между
+    ними - несколько долларов в год, а русский должен читаться родным.
 11. **`og:image` — только JPEG.** Telegram Bot API отклоняет WebP целиком
     («failed to get HTTP URL content»), часть скраперов его пропускает.
     Двойники строит `node tools/og-images.mjs`, оригиналы остаются WebP.
@@ -194,9 +205,19 @@ node tools/cost-ledger.mjs --json       # для скриптов
 14. **Бюджет токенов не жать.** `max_output_tokens` ниже ~20k рвёт pro-запрос
     посреди рассуждений, а неполный ответ **тарифицируется целиком**. Запас в
     лимите бесплатен - платишь за использованные токены, не за лимит.
-15. **Тарифная карта в `data/model-pricing.json` - не факт, а настройка.** API
-    отдаёт токены и никогда деньги. Пока `updated: null`, суммы во вкладке Costs
-    помечены как оценка; сверить с прайсом OpenAI до выставления счёта.
+15. **Тарифная карта в `data/model-pricing.json` - настройка, а не факт.** API
+    отдаёт токены и никогда деньги. Сверена с developers.openai.com 05.09.2026,
+    16 моделей. Заглушка, стоявшая там до этого, занижала pro вдвое, и соседняя
+    сессия приняла её за факт - **число, похожее на факт, начинают использовать
+    как факт**. Меняешь карту - проставь `updated` и выполни
+    `node tools/cost-ledger.mjs --reprice`.
+16. **Реестр расходов сводится с кабинетом**, а не живёт сам по себе:
+    `node tools/cost-ledger.mjs --reconcile <usage.csv>` (выгрузка Usage → Export
+    в кабинете OpenAI) дописывает вызовы, прошедшие мимо учёта. Проверка простая -
+    итог реестра должен совпадать со счётом.
+17. **Район вычищается из прозы без модели.** `tools/fix-geo-text.mjs` делает это
+    регулярками за $0; `--fix-geo` у генератора трогает только заголовки и лид.
+    Платить модели за удаление предложного оборота не нужно.
 
 ---
 
@@ -312,7 +333,7 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 - **SSH**: ОТКЛЮЧЁН
 - **FTP path**: `/home/aqq17894/signa.cafe/` (абсолютный путь для FTP команд)
 - **URL**: https://signa.cafe
-- **Admin Basic Auth**: `/admin.html` защищён через `.htaccess` → `.htpasswd` лежит в `/home/aqq17894/.htpasswd` (выше webroot). Пароль для user `admin` — хранится отдельно.
+- **Admin Basic Auth**: `/admin.html` (а также `admin.jsx`, `key.php`, `translate.php`, `analytics.php`) закрыт через `.htaccess` → `AuthUserFile /home/aqq17894/signa.cafe/.htpasswd`. Файл лежит ВНУТРИ webroot, но отдаёт 403 по `<FilesMatch>` в секции 1 - проверено. User `razex`, пароль - `~/.razex-creds/signa-admin.txt` (в репо не коммитится).
 
 ### GitHub
 - **Репо**: https://github.com/irazex/signa-cafe
