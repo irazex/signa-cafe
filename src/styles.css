@@ -2748,6 +2748,13 @@ body.is-hero-mode .header-open-status.hero-overlay{
 .signa-header .lang-toggle a.lang-btn{ display: inline-block; text-decoration: none; }
 
 /* ---------- article ---------- */
+main{
+  /* Block formatting context. Without it the sheet's top margin collapses through
+     main and body, the tile background starts 108px lower and the html paper colour
+     shows as a blank band under the fixed header. Only the two PHP pages use <main>. */
+  display: flow-root;
+}
+
 .story{
   /* A paper sheet on top of the tile grid. Body text at 17px was blending into
      the 44px tiles behind it (owner, 05.09.2026), so the article now sits on the

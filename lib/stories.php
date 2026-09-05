@@ -263,7 +263,7 @@ function st_head(array $o): void {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Onest:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/src/styles.css?v=20260905a" />
+<link rel="stylesheet" href="/src/styles.css?v=20260905b" />
 </head>
 <?php
 }
