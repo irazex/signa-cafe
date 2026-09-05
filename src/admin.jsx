@@ -662,7 +662,7 @@ const SECTION_LABELS = {
 function pct(n, total) { return total ? Math.round(n * 100 / total) : 0; }
 function fmtCount(n) { return n.toLocaleString(); }
 
-function StatBar({ label, value, max, suffix = "" }) {
+function StatBar({ label, value, max, suffix = "", fmt = fmtCount }) {
   const w = max ? Math.max(2, Math.round(value * 100 / max)) : 0;
   return (
     <div className="stat-bar">
@@ -670,7 +670,7 @@ function StatBar({ label, value, max, suffix = "" }) {
       <div className="stat-bar-track">
         <div className="stat-bar-fill" style={{ width: w + "%" }}/>
       </div>
-      <div className="stat-bar-value">{fmtCount(value)}{suffix}</div>
+      <div className="stat-bar-value">{fmt(value)}{suffix}</div>
     </div>
   );
 }
@@ -1067,6 +1067,422 @@ function StoriesTab() {
   );
 }
 
+// ============================================================
+// COSTS TAB — what the weekly stories cost to generate
+//
+// tools/story-gen.mjs records every model call into data/story-costs.json:
+// tokens, seconds, which post, which stage. Tokens are ground truth from the
+// API; money is tokens x a rate card that somebody has to keep current, so the
+// rate card lives in data/model-pricing.json and is editable right here.
+//
+// This tab recomputes cost from the stored tokens using whatever rate card is
+// loaded, rather than trusting the `usd` frozen into the ledger at generation
+// time. Change a rate, every number below moves with it.
+// ============================================================
+const COSTS_URL   = "data/story-costs.json";
+const PRICING_URL = "data/model-pricing.json";
+const PRICING_KEY = "signa.admin.pricing";
+const BILLING_KEY = "signa.admin.billing";
+
+// Mirrors FALLBACK in tools/cost-ledger.mjs. Keep the two in step.
+const PRICING_FALLBACK = {
+  updated: null,
+  note: "USD per 1M tokens. Confirm against platform.openai.com/docs/pricing before billing.",
+  models: {
+    "gpt-5.5-pro": { input: 15, cachedInput: 1.5, output: 120 },
+    "gpt-5.5":     { input: 1.25, cachedInput: 0.125, output: 10 },
+  },
+};
+
+// Same formula as costOf() in tools/cost-ledger.mjs.
+function costOfRun(run, rates) {
+  const r = rates.models && rates.models[run.model];
+  if (!r) return null;
+  const t = run.tokens || {};
+  const cached = t.cachedInput || 0;
+  const fresh = Math.max(0, (t.input || 0) - cached);
+  const cachedRate = r.cachedInput == null ? r.input : r.cachedInput;
+  return (fresh * r.input + cached * cachedRate + (t.output || 0) * r.output) / 1e6;
+}
+
+const usd = (n) => "$" + (n || 0).toFixed(2);
+const usd4 = (n) => "$" + (n || 0).toFixed(4);
+
+function downloadFile(name, text, type) {
+  const blob = new Blob([text], { type: type || "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function CostsTab() {
+  const [ledger, setLedger]   = useState(null);
+  const [rates, setRates]     = useState(null);
+  const [err, setErr]         = useState(null);
+  const [ratesDirty, setRatesDirty] = useState(false);
+  const [openPost, setOpenPost] = useState(null);
+  const [billing, setBilling] = useState(() => {
+    try { return JSON.parse(localStorage.getItem(BILLING_KEY)) || {}; } catch (_) { return {}; }
+  });
+
+  const perPost = Number(billing.perPost != null ? billing.perPost : 25);
+  const client  = billing.client || "";
+
+  const setBill = (patch) => {
+    const next = { ...billing, ...patch };
+    setBilling(next);
+    try { localStorage.setItem(BILLING_KEY, JSON.stringify(next)); } catch (_) {}
+  };
+
+  useEffect(() => {
+    fetch(COSTS_URL + "?t=" + Date.now(), { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : { runs: [] }))
+      .then(setLedger)
+      .catch((e) => { setErr(String(e)); setLedger({ runs: [] }); });
+
+    let local = null;
+    try { local = JSON.parse(localStorage.getItem(PRICING_KEY)); } catch (_) {}
+    if (local) { setRates(local); return; }
+    fetch(PRICING_URL + "?t=" + Date.now(), { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : PRICING_FALLBACK))
+      .then(setRates)
+      .catch(() => setRates(PRICING_FALLBACK));
+  }, []);
+
+  if (!ledger || !rates) return <div className="note">Loading data/story-costs.json…</div>;
+
+  const runs = ledger.runs || [];
+
+  const setRate = (model, field, value) => {
+    const next = {
+      ...rates,
+      models: { ...rates.models, [model]: { ...rates.models[model], [field]: Number(value) || 0 } },
+    };
+    setRates(next);
+    setRatesDirty(true);
+  };
+
+  const saveRates = () => {
+    const next = { ...rates, updated: new Date().toISOString().slice(0, 10) };
+    setRates(next);
+    setRatesDirty(false);
+    try { localStorage.setItem(PRICING_KEY, JSON.stringify(next)); } catch (_) {}
+    alert("Rate card saved in THIS browser.\n\nTo make the generator on the VPS use it too:\n1. Click 'Export model-pricing.json'\n2. Upload it to /data/model-pricing.json\n3. On the VPS run: node tools/cost-ledger.mjs --reprice");
+  };
+
+  const resetRates = async () => {
+    if (!confirm("Discard the local rate card and reload data/model-pricing.json from the server?")) return;
+    localStorage.removeItem(PRICING_KEY);
+    try {
+      const r = await fetch(PRICING_URL + "?t=" + Date.now(), { cache: "no-store" });
+      setRates(r.ok ? await r.json() : PRICING_FALLBACK);
+    } catch (_) { setRates(PRICING_FALLBACK); }
+    setRatesDirty(false);
+  };
+
+  // ---- aggregate ------------------------------------------------------
+  const byPost = new Map();
+  const byMonth = new Map();
+  const byModel = new Map();
+  let unpriced = 0;
+
+  runs.forEach((run) => {
+    const cost = costOfRun(run, rates);
+    if (cost == null) unpriced++;
+    const c = cost || 0;
+    const t = run.tokens || {};
+
+    const key = run.slug || "(no post)";
+    const p = byPost.get(key) || {
+      slug: key, postDate: run.postDate, calls: 0, input: 0, cached: 0,
+      output: 0, reasoning: 0, seconds: 0, usd: 0, runs: [],
+    };
+    p.calls++;
+    p.input += t.input || 0;
+    p.cached += t.cachedInput || 0;
+    p.output += t.output || 0;
+    p.reasoning += t.reasoning || 0;
+    p.seconds += run.seconds || 0;
+    p.usd += c;
+    p.runs.push({ ...run, cost: c });
+    byPost.set(key, p);
+
+    const mk = (run.at || "").slice(0, 7) || "unknown";
+    const m = byMonth.get(mk) || { month: mk, posts: new Set(), calls: 0, usd: 0, input: 0, output: 0, seconds: 0 };
+    m.calls++; m.usd += c; m.input += t.input || 0; m.output += t.output || 0; m.seconds += run.seconds || 0;
+    if (run.slug) m.posts.add(run.slug);
+    byMonth.set(mk, m);
+
+    const mo = byModel.get(run.model) || { model: run.model, calls: 0, usd: 0, output: 0 };
+    mo.calls++; mo.usd += c; mo.output += t.output || 0;
+    byModel.set(run.model, mo);
+  });
+
+  const posts = [...byPost.values()].sort((a, b) => (a.postDate || "") < (b.postDate || "") ? 1 : -1);
+  const months = [...byMonth.values()].sort((a, b) => (a.month < b.month ? 1 : -1));
+  const models = [...byModel.values()].sort((a, b) => b.usd - a.usd);
+
+  const totalUsd = posts.reduce((n, p) => n + p.usd, 0);
+  const totalMin = posts.reduce((n, p) => n + p.seconds, 0) / 60;
+  const postCount = posts.filter((p) => p.slug !== "(no post)").length;
+  const avgPost = postCount ? totalUsd / postCount : 0;
+  const costMax = Math.max(0.0001, ...posts.map((p) => p.usd));
+
+  const invoice = postCount * perPost;
+  const margin = invoice - totalUsd;
+
+  const exportCSV = () => {
+    const rows = [["date", "post", "model calls", "input tokens", "output tokens", "minutes", "api cost usd", "billed usd"]];
+    posts.forEach((p) => rows.push([
+      p.postDate || "", p.slug, p.calls, p.input, p.output,
+      (p.seconds / 60).toFixed(1), p.usd.toFixed(4),
+      p.slug === "(no post)" ? "0.00" : perPost.toFixed(2),
+    ]));
+    rows.push([]);
+    rows.push(["", "TOTAL", "", "", "", (totalMin).toFixed(1), totalUsd.toFixed(4), invoice.toFixed(2)]);
+    const csv = rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
+    downloadFile(`signa-stories-costs-${new Date().toISOString().slice(0, 10)}.csv`, csv, "text/csv");
+  };
+
+  const STAGES = { write: "draft", "fix-geo": "geo fix", "edit:ru": "editor ru", "edit:id": "editor id", "edit:en": "editor en" };
+  const stageLabel = (s) => STAGES[s] || String(s || "").replace("edit:", "editor ");
+
+  return (
+    <div className="analytics-tab">
+      {err && <div className="note">Could not read {COSTS_URL}: {err}</div>}
+
+      {runs.length === 0 && (
+        <div className="note">
+          <b>The ledger is empty.</b> Nothing has been generated since cost tracking was added,
+          or <code>/data/story-costs.json</code> has not been uploaded to the server yet.
+          It is written on the machine that runs <code>tools/story-gen.mjs</code> and travels
+          with the repo, so upload it alongside <code>stories.json</code>.
+        </div>
+      )}
+
+      {/* ---- KPI ---- */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
+        <div className="kpi-card">
+          <div className="kpi-label">API spend</div>
+          <div className="kpi-value">{usd(totalUsd)}</div>
+          <div className="kpi-sub">{runs.length} model call{runs.length === 1 ? "" : "s"}</div>
+        </div>
+        <div className="kpi-card">
+          <div className="kpi-label">Posts tracked</div>
+          <div className="kpi-value">{postCount}</div>
+          <div className="kpi-sub">EN + RU + ID each</div>
+        </div>
+        <div className="kpi-card">
+          <div className="kpi-label">Cost per post</div>
+          <div className="kpi-value">{usd(avgPost)}</div>
+          <div className="kpi-sub">average, all stages</div>
+        </div>
+        <div className="kpi-card">
+          <div className="kpi-label">Model time</div>
+          <div className="kpi-value">{Math.round(totalMin)} min</div>
+          <div className="kpi-sub">{postCount ? Math.round(totalMin / postCount) : 0} min per post</div>
+        </div>
+      </div>
+
+      {unpriced > 0 && (
+        <div className="note" style={{ marginTop: 16 }}>
+          {unpriced} call{unpriced === 1 ? " uses a model that is" : "s use models that are"} not in the rate
+          card below, so {unpriced === 1 ? "it counts" : "they count"} as $0. Add the model to fix the total.
+        </div>
+      )}
+      {!rates.updated && (
+        <div className="note" style={{ marginTop: 16, background: "rgba(235,51,0,.06)", borderColor: "rgba(235,51,0,.25)" }}>
+          <b>The rate card has never been confirmed.</b> The dollar figures are placeholders built on
+          guessed prices. Check them against platform.openai.com/docs/pricing, correct the numbers below
+          and press Save - then everything on this page is real money.
+        </div>
+      )}
+
+      {/* ---- Billing ---- */}
+      <h3 className="analytics-h3">Invoice</h3>
+      <div className="card">
+        <div className="row cols-2">
+          <div>
+            <label>Billed to</label>
+            <input value={client} onChange={(e) => setBill({ client: e.target.value })} placeholder="Signa Cafe"/>
+          </div>
+          <div>
+            <label>Rate per published post, USD</label>
+            <input type="number" min="0" step="1" value={perPost}
+                   onChange={(e) => setBill({ perPost: Number(e.target.value) })}/>
+          </div>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginTop: 12 }}>
+          <div className="kpi-card">
+            <div className="kpi-label">To invoice</div>
+            <div className="kpi-value">{usd(invoice)}</div>
+            <div className="kpi-sub">{postCount} x {usd(perPost)}</div>
+          </div>
+          <div className="kpi-card">
+            <div className="kpi-label">API cost</div>
+            <div className="kpi-value">{usd(totalUsd)}</div>
+          </div>
+          <div className="kpi-card">
+            <div className="kpi-label">Margin</div>
+            <div className="kpi-value" style={{ color: margin < 0 ? "#EB3300" : undefined }}>{usd(margin)}</div>
+            <div className="kpi-sub">{invoice ? Math.round(margin * 100 / invoice) : 0}% of the invoice</div>
+          </div>
+        </div>
+        <div style={{ fontSize: 13, color: "rgba(0,0,0,.55)", marginTop: 12 }}>
+          Counted from the ledger, which starts the day cost tracking was switched on. Posts
+          written before that are real work with no line here - check the Stories tab for the
+          full list before you send the invoice.
+        </div>
+        <div className="actions-bar" style={{ marginTop: 12 }}>
+          <button className="btn" onClick={exportCSV}>Export CSV for the invoice</button>
+        </div>
+      </div>
+
+      {/* ---- Per post ---- */}
+      <h3 className="analytics-h3">Cost per post</h3>
+      <div className="card">
+        {posts.length === 0
+          ? <div style={{ color: "rgba(0,0,0,.5)" }}>Nothing recorded yet.</div>
+          : posts.map((p) => (
+            <div key={p.slug} style={{ marginBottom: 4 }}>
+              <div onClick={() => setOpenPost(openPost === p.slug ? null : p.slug)} style={{ cursor: "pointer" }}>
+                <StatBar
+                  label={`${p.postDate || "-"}  ${p.slug}`}
+                  value={p.usd}
+                  max={costMax}
+                  fmt={usd}
+                />
+              </div>
+              {openPost === p.slug && (
+                <div style={{ padding: "8px 0 14px 12px", borderLeft: "2px solid rgba(0,0,0,.12)", marginLeft: 4, fontSize: 13 }}>
+                  <div style={{ color: "rgba(0,0,0,.55)", marginBottom: 6 }}>
+                    {fmtCount(p.input)} in ({fmtCount(p.cached)} cached) · {fmtCount(p.output)} out
+                    ({fmtCount(p.reasoning)} reasoning) · {Math.round(p.seconds / 60)} min
+                  </div>
+                  {p.runs.map((r, i) => (
+                    <div key={i} style={{ display: "flex", gap: 10, padding: "2px 0", color: "rgba(0,0,0,.7)" }}>
+                      <span style={{ minWidth: 90 }}>{stageLabel(r.stage)}</span>
+                      <span style={{ minWidth: 110, fontFamily: "monospace" }}>{r.model}</span>
+                      <span style={{ minWidth: 130 }}>{fmtCount(r.tokens.input)} in / {fmtCount(r.tokens.output)} out</span>
+                      <span style={{ minWidth: 50 }}>{r.seconds}s</span>
+                      <span style={{ fontWeight: 600 }}>{usd4(r.cost)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))
+        }
+        {posts.length > 0 && (
+          <div style={{ marginTop: 10, paddingTop: 10, borderTop: "1px solid rgba(0,0,0,.1)", fontSize: 13, color: "rgba(0,0,0,.6)" }}>
+            Click a bar to see every model call behind that post. A post normally costs one draft
+            plus one native-editor pass per language.
+          </div>
+        )}
+      </div>
+
+      {/* ---- Per month ---- */}
+      <h3 className="analytics-h3">By month</h3>
+      <div className="card">
+        {months.length === 0
+          ? <div style={{ color: "rgba(0,0,0,.5)" }}>Nothing recorded yet.</div>
+          : (
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
+              <thead>
+                <tr style={{ textAlign: "left", color: "rgba(0,0,0,.5)", fontSize: 12, textTransform: "uppercase", letterSpacing: ".04em" }}>
+                  <th style={{ padding: "4px 8px 8px 0" }}>Month</th>
+                  <th style={{ padding: "4px 8px 8px 0" }}>Posts</th>
+                  <th style={{ padding: "4px 8px 8px 0" }}>Calls</th>
+                  <th style={{ padding: "4px 8px 8px 0" }}>Out tokens</th>
+                  <th style={{ padding: "4px 8px 8px 0" }}>Cost</th>
+                  <th style={{ padding: "4px 8px 8px 0" }}>Per post</th>
+                </tr>
+              </thead>
+              <tbody>
+                {months.map((m) => (
+                  <tr key={m.month} style={{ borderTop: "1px solid rgba(0,0,0,.08)" }}>
+                    <td style={{ padding: "6px 8px 6px 0" }}>{m.month}</td>
+                    <td style={{ padding: "6px 8px 6px 0" }}>{m.posts.size}</td>
+                    <td style={{ padding: "6px 8px 6px 0" }}>{m.calls}</td>
+                    <td style={{ padding: "6px 8px 6px 0" }}>{fmtCount(m.output)}</td>
+                    <td style={{ padding: "6px 8px 6px 0", fontWeight: 600 }}>{usd(m.usd)}</td>
+                    <td style={{ padding: "6px 8px 6px 0" }}>{usd(m.posts.size ? m.usd / m.posts.size : 0)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )
+        }
+      </div>
+
+      {/* ---- Rate card ---- */}
+      <h3 className="analytics-h3">Rate card</h3>
+      <div className="card">
+        <div style={{ fontSize: 13, color: "rgba(0,0,0,.6)", marginBottom: 12 }}>
+          USD per 1M tokens. The API reports tokens, never money, so these numbers are what turns
+          the counts above into a bill. Changing one re-prices this whole page instantly.
+          {rates.updated ? ` Last confirmed ${rates.updated}.` : ""}
+        </div>
+        {Object.keys(rates.models || {}).map((model) => (
+          <div className="card" key={model} style={{ marginBottom: 8 }}>
+            <div className="row" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 12 }}>
+            <div>
+              <label>Model</label>
+              <input value={model} readOnly style={{ fontFamily: "monospace" }}/>
+            </div>
+            <div>
+              <label>Input</label>
+              <input type="number" min="0" step="0.01" value={rates.models[model].input}
+                     onChange={(e) => setRate(model, "input", e.target.value)}/>
+            </div>
+            <div>
+              <label>Cached input</label>
+              <input type="number" min="0" step="0.01" value={rates.models[model].cachedInput}
+                     onChange={(e) => setRate(model, "cachedInput", e.target.value)}/>
+            </div>
+            <div>
+              <label>Output</label>
+              <input type="number" min="0" step="0.01" value={rates.models[model].output}
+                     onChange={(e) => setRate(model, "output", e.target.value)}/>
+            </div>
+            </div>
+          </div>
+        ))}
+        <div className="actions-bar" style={{ marginTop: 8 }}>
+          <button className="btn primary" onClick={saveRates} disabled={!ratesDirty}>Save rate card</button>
+          <button className="btn" onClick={() => downloadFile("model-pricing.json", JSON.stringify(rates, null, 2) + "\n")}>
+            Export model-pricing.json
+          </button>
+          <button className="btn ghost" onClick={resetRates}>Reset</button>
+        </div>
+      </div>
+
+      {/* ---- Where the money goes ---- */}
+      {models.length > 0 && (
+        <>
+          <h3 className="analytics-h3">By model</h3>
+          <div className="card">
+            {models.map((m) => (
+              <StatBar key={m.model} label={`${m.model} · ${m.calls} call${m.calls === 1 ? "" : "s"}`}
+                       value={m.usd} fmt={usd} max={Math.max(0.0001, ...models.map((x) => x.usd))}/>
+            ))}
+          </div>
+        </>
+      )}
+
+      <div className="note" style={{ marginTop: 16 }}>
+        <b>Where these numbers come from.</b> <code>tools/story-gen.mjs</code> appends one line to
+        <code>/data/story-costs.json</code> for every model call, with the token counts the API
+        itself returned. That file is committed with the repo and uploaded by
+        <code>tools/deploy-stories.sh</code>. Nothing here is estimated except the rate card, and
+        the rate card is editable above.
+      </div>
+    </div>
+  );
+}
+
 // ---------- App ----------
 function App() {
   // Auth handled at server level by Apache Basic Auth (.htaccess).
@@ -1149,6 +1565,7 @@ function App() {
     { id: "photos",    label: "Photos" },
     { id: "stories",   label: "Stories" },
     { id: "analytics", label: "Analytics" },
+    { id: "costs",     label: "Costs" },
   ];
   const activeTab = tabs.find(t => t.id === tab);
 
@@ -1181,7 +1598,7 @@ function App() {
           </span>
         </div>
 
-        {tab !== "stories" && <div className="actions-bar">
+        {tab !== "stories" && tab !== "costs" && <div className="actions-bar">
           <button className="btn primary" onClick={handleSave} disabled={!dirty}>Save</button>
           <button className="btn" onClick={handleExport}>Export content.json</button>
           <button className="btn ghost" onClick={handleReset}>Reset</button>
@@ -1211,6 +1628,7 @@ function App() {
         {tab === "photos"    && <PhotosTab    content={content} set={update}/>}
         {tab === "stories"   && <StoriesTab/>}
         {tab === "analytics" && <AnalyticsTab/>}
+        {tab === "costs"     && <CostsTab/>}
       </main>
     </div>
   );

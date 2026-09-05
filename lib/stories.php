@@ -43,6 +43,19 @@ function st_find(array $posts, string $slug): ?array {
     return null;
 }
 
+/**
+ * A post that got renamed keeps its old address working. The old slug moves
+ * into the post's `aliases` array and story.php 301s from it, so a URL that
+ * was already indexed, shared or pinged to IndexNow never becomes a 404.
+ * Renames stay data in stories.json instead of piling up in .htaccess.
+ */
+function st_find_alias(array $posts, string $slug): ?array {
+    foreach ($posts as $p) {
+        if (!empty($p['aliases']) && in_array($slug, (array)$p['aliases'], true)) return $p;
+    }
+    return null;
+}
+
 /** Site-wide facts (phone, hours, address) reused from the React site's content.json. */
 function st_site(): array {
     static $site = null;

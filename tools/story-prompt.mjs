@@ -5,12 +5,29 @@
 
 export const LANGS = ["en", "ru", "id"];
 
-// Local place names the posts must anchor to. These are the terms people
-// actually type when looking for a cafe on the Bukit peninsula.
+// Place names, split by search demand - and the split is the whole point.
+// Kampial is the street address, not a search term: almost nobody types it.
+// People look for Nusa Dua, the Bukit and Ungasan. Early posts led with Kampial
+// in the slug, the title and every description, which spent the most valuable
+// real estate on the one word with no traffic behind it.
+export const GEO_PRIMARY = {
+  en: ["Nusa Dua", "Bukit", "Ungasan"],
+  ru: ["Нуса Дуа", "Букит", "Унгасан"],
+  id: ["Nusa Dua", "Bukit", "Ungasan"],
+};
+
+// Colour, not anchors. At most a couple of mentions between them, and never in
+// a title, a description or a slug.
+export const GEO_SECONDARY = {
+  en: ["Kampial", "Benoa", "Jimbaran", "Bali"],
+  ru: ["Кампьял", "Беноа", "Джимбаран", "Бали"],
+  id: ["Kampial", "Benoa", "Jimbaran", "Bali"],
+};
+
 export const GEO = {
-  en: ["Nusa Dua", "Kampial", "Bukit", "Ungasan", "Benoa", "Bali", "Jimbaran"],
-  ru: ["Нуса Дуа", "Кампьял", "Букит", "Унгасан", "Беноа", "Бали", "Джимбаран"],
-  id: ["Nusa Dua", "Kampial", "Bukit", "Ungasan", "Benoa", "Bali", "Jimbaran"],
+  en: [...GEO_PRIMARY.en, ...GEO_SECONDARY.en],
+  ru: [...GEO_PRIMARY.ru, ...GEO_SECONDARY.ru],
+  id: [...GEO_PRIMARY.id, ...GEO_SECONDARY.id],
 };
 
 // Signa wants to be found for these, not only for the dish name.
@@ -128,22 +145,29 @@ ${venueFacts(site)}
 CURRENT REGULAR OFFERS - mention at most one, and only if it genuinely fits this dish
 ${promoFacts(promos)}
 ${avoid}${ref}
-GEOGRAPHY
-Signa sits in Kampial, between Nusa Dua and Benoa, on the Bukit peninsula. Ungasan, Jimbaran and the Nusa Dua resort strip are a short drive away. Each language version must name at least four of its own place names, spread through the text rather than stacked in one paragraph:
-${langs.map((l) => `  ${LANG_NAME[l]}: ${GEO[l].join(", ")}`).join("\n")}
+GEOGRAPHY - the weighting matters more than the list
+Signa sits in Kampial, between Nusa Dua and Benoa, on the Bukit peninsula. Ungasan, Jimbaran and the Nusa Dua resort strip are a short drive away.
+
+But Kampial is the street address, not the way anybody searches. These are the names people type, and every version must use ALL of its own, spread through the text rather than stacked in one paragraph:
+${langs.map((l) => `  ${LANG_NAME[l]}: ${GEO_PRIMARY[l].join(", ")}`).join("\n")}
+
+These are colour. Between them they may appear once or twice in the whole body, and NEVER in a title, an seoTitle, a description or a slug:
+${langs.map((l) => `  ${LANG_NAME[l]}: ${GEO_SECONDARY[l].join(", ")}`).join("\n")}
+
+So: a title or a description that needs a place takes Nusa Dua, the Bukit or Ungasan. Kampial earns a mention when the sentence is genuinely about where the building stands - the address line, or a route someone is driving - and not otherwise.
 
 POSITIONING TERMS - each version uses all of its own, naturally
 ${langs.map((l) => `  ${LANG_NAME[l]}: ${POSITIONING[l].join(", ")}`).join("\n")}
 
 WHAT TO WRITE, per language (${langs.map((l) => LANG_NAME[l]).join(", ")})
-- lead: 1-2 sentences, under 200 characters, containing the dish name and one place name.
+- lead: 1-2 sentences, under 200 characters, containing the dish name and one PRIMARY place name.
 - 4 to 6 body sections, each a heading (h) and 1-3 paragraphs (p). Cover, in whatever order suits the dish: where it comes from and its real history; how it is actually made and what makes it hard; how Signa builds its version; when and with what to eat it here. Body 700-950 words per language. Deliberately vary paragraph length.
 - At least one section genuinely useful to someone choosing a cafe: who the dish suits, whether children eat it, what time to come, what to drink with it.
 - facts: 4-6 short label/value pairs. Origin, year, key ingredient, price, best time, who it suits.
 - faq: 3-4 questions phrased the way people search, at least two containing a place name. Answers 1-3 sentences, self-contained, answering in the first sentence.
 - title: the human headline.
-- seoTitle: under 60 characters - dish, place, hook.
-- description: 140-160 characters, a real sentence, containing the dish name and one place name.
+- seoTitle: under 60 characters - dish, a PRIMARY place, hook.
+- description: 140-160 characters, a real sentence, containing the dish name and one PRIMARY place name.
 - keywords: 8-12 lowercase terms mixing dish terms, positioning terms and place names.
 - category: one or two words.
 - coverAlt: factual alt text under 120 characters, containing the dish name.
@@ -273,5 +297,62 @@ export function schema(langs = LANGS) {
     name: "signa_story",
     strict: true,
     schema: { type: "object", additionalProperties: false, required: ["slug", "tags", ...langs], properties: props },
+  };
+}
+
+
+/**
+ * Re-anchor a published post on the districts people actually search for.
+ *
+ * The early posts spent the title, the seoTitle and the description on Kampial,
+ * which is the street address and almost nobody's search term. This rewrites
+ * only those short fields plus the lead - the body keeps its text, because a
+ * couple of address mentions inside 800 words read as location colour, which is
+ * what they should have been all along.
+ */
+export function geoFixPrompt(post, langs) {
+  const per = langs.map((l) => `
+${LANG_NAME[l]}
+  title:       ${post[l].title}
+  seoTitle:    ${post[l].seoTitle || ""}
+  description: ${post[l].description}
+  lead:        ${post[l].lead}
+  must use one of: ${GEO_PRIMARY[l].join(", ")}
+  must NOT contain: ${GEO_SECONDARY[l].filter((g) => !/bali/i.test(g)).join(", ")}`).join("\n");
+
+  return `These four short fields of a published post are anchored on the wrong place name.
+
+${per}
+
+Rewrite each of them so the place they name is one of that language's primary districts instead. Rules:
+
+- Keep the same dish, the same facts, the same angle and the same voice. This is a re-anchoring, not a rewrite.
+- Keep each field in its own language, written as a native speaker would. Do not translate between the versions.
+- title: a human headline, not a keyword string.
+- seoTitle: under 60 characters.
+- description: 140-160 characters, one real sentence.
+- lead: 1-2 sentences, under 200 characters, containing the dish name.
+- No long dashes, no exclamation marks. Prices in full form, never "93k".
+- The forbidden names must not appear in any of the four fields.
+
+Return only the four fields per language.`;
+}
+
+export function geoFixSchema(langs) {
+  const one = {
+    type: "object", additionalProperties: false,
+    required: ["title", "seoTitle", "description", "lead"],
+    properties: {
+      title: { type: "string" }, seoTitle: { type: "string" },
+      description: { type: "string" }, lead: { type: "string" },
+    },
+  };
+  return {
+    name: "signa_geo_fix",
+    schema: {
+      type: "object", additionalProperties: false,
+      required: langs,
+      properties: Object.fromEntries(langs.map((l) => [l, one])),
+    },
   };
 }

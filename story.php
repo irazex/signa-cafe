@@ -11,6 +11,14 @@ $data  = st_load();
 $post  = $slug ? st_find($data['posts'], $slug) : null;
 
 if (!$post) {
+    // Renamed? Send the old address to the new one permanently, keeping the
+    // reader's language when that version exists.
+    $moved = st_find_alias($data['posts'], $slug);
+    if ($moved) {
+        $to = st_has($moved, $lang) ? $lang : 'en';
+        header('Location: ' . st_url($moved['slug'], $to, false), true, 301);
+        exit;
+    }
     http_response_code(404);
     header('Location: ' . st_url(null, $lang, false), true, 302);
     exit;

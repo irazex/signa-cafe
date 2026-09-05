@@ -8,6 +8,8 @@
 //   node tools/story-gen.mjs --dish "burrata pizza" force a dish by name or id
 //   node tools/story-gen.mjs --rewrite <slug>       redo an existing post in place
 //   node tools/story-gen.mjs --addlang id           add a missing language to every post
+//   node tools/story-gen.mjs --edit-only id         re-run just the editor pass on a language
+//   node tools/story-gen.mjs --fix-geo              re-anchor titles/descriptions on the searched districts
 //   node tools/story-gen.mjs --dry-run              print, write nothing
 //
 // Exit codes: 0 ok, 1 hard failure, 2 nothing to do.
@@ -15,8 +17,10 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import { fileURLToPath } from "node:url";
-import { systemPrompt, userPrompt, editorPrompt, schema, LANGS, GEO, POSITIONING } from "./story-prompt.mjs";
+import { systemPrompt, userPrompt, editorPrompt, schema, geoFixPrompt, geoFixSchema,
+         LANGS, GEO, GEO_PRIMARY, GEO_SECONDARY, POSITIONING } from "./story-prompt.mjs";
 import { fetchDishPhoto } from "./dish-photo.mjs";
+import { record as recordCost, spentOn } from "./cost-ledger.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const STORIES = path.join(ROOT, "data", "stories.json");
@@ -45,8 +49,23 @@ const opts = {
   dish: flag("dish"),
   rewrite: flag("rewrite"),
   addlang: flag("addlang"),
+  editOnly: flag("edit-only"),
+  fixGeo: has("fix-geo"),
   slug: flag("slug"),
-  model: flag("model", "gpt-5.5-pro"),
+  // MEASURED 05.09.2026 from the account's own usage export, not estimated:
+  // gpt-5.5-pro ran 17 calls for $57.22 - $3.37 a call. gpt-5.5 ran 14 calls
+  // for $1.64 - $0.12 a call. Pro is 6x the price per token AND spends 18 251
+  // output tokens per call against 3 526, because half of what it bills is
+  // reasoning that never reaches the article. Net: ~30x per call.
+  // Owner's call 05.09.2026 - the cheap model is the default and pro needs
+  // --allow-pro said out loud.
+  model: flag("model", "gpt-5.5"),
+  allowPro: has("allow-pro"),
+  budget: Number(flag("budget", 5)),
+  // A ceiling on the whole day, not just this run - three runs of $2 each is
+  // the shape the 05.09 overspend actually had. Override per run with
+  // --daily-cap, or for good with SIGNA_DAILY_CAP in the environment.
+  dailyCap: Number(flag("daily-cap", process.env.SIGNA_DAILY_CAP || 3)),
   langs: (flag("langs") || LANGS.join(",")).split(","),
   noEdit: has("no-edit"),
   noPhoto: has("no-photo"),
@@ -54,18 +73,37 @@ const opts = {
   verbose: has("verbose"),
 };
 
+let spentThisRun = 0;
 const log = (...a) => console.log(...a);
 const warn = (...a) => console.warn("  !", ...a);
 const readJson = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
 
+/** Minimal KEY=value reader - no dependency for one variable. */
+function readDotEnv(file) {
+  if (!fs.existsSync(file)) return {};
+  const out = {};
+  for (const line of fs.readFileSync(file, "utf8").split("\n")) {
+    const m = line.match(/^\s*(?:export\s+)?([A-Z0-9_]+)\s*=\s*(.*)$/);
+    if (m) out[m[1]] = m[2].trim().replace(/^["']|["']$/g, "");
+  }
+  return out;
+}
+
 function apiKey() {
   if (process.env.OPENAI_API_KEY) return process.env.OPENAI_API_KEY.trim();
-  // .openai_key is gitignored and blocked in .htaccess; ~/.razex-creds is where
-  // the machine keeps every other credential, and is what the VPS cron uses.
+
+  // House rule: secrets live in .env. Checked first so a repo that has one
+  // never silently falls through to an older copy of the key.
+  const fromEnv = readDotEnv(path.join(ROOT, ".env")).OPENAI_API_KEY;
+  if (fromEnv) return fromEnv;
+
+  // Legacy sources, kept because removing them without a .env in place breaks
+  // the Thursday cron on the VPS, which reads ~/.razex-creds/openai.txt.
+  // Both are gitignored and chmod 600; .openai_key is also blocked in .htaccess.
   for (const f of [path.join(ROOT, ".openai_key"), path.join(os.homedir(), ".razex-creds", "openai.txt")]) {
     if (fs.existsSync(f)) return fs.readFileSync(f, "utf8").trim();
   }
-  throw new Error("no OpenAI key: set OPENAI_API_KEY, or create .openai_key or ~/.razex-creds/openai.txt");
+  throw new Error("no OpenAI key: put OPENAI_API_KEY in .env, or set it in the environment");
 }
 
 // ---------- dates ----------
@@ -145,7 +183,16 @@ async function api(key, pathname, init = {}) {
   throw new Error(`network: ${lastErr.message}`);
 }
 
-async function chat({ key, messages, jsonSchema, maxTokens = 40000 }) {
+async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "write", slug = null, date = null }) {
+  // Checked before the request, not after it: a ceiling that only notices the
+  // overspend once the money is gone is not a ceiling.
+  const today = spentOn();
+  if (today >= opts.dailyCap) {
+    throw new Error(`daily cap reached: $${today.toFixed(2)} spent today, cap is $${opts.dailyCap.toFixed(2)}.`
+      + ` Everything already written is saved. Raise it for one run with --daily-cap <usd>,`
+      + ` or permanently with SIGNA_DAILY_CAP.`);
+  }
+
   let job = await api(key, "/responses", {
     method: "POST",
     body: JSON.stringify({
@@ -179,15 +226,30 @@ async function chat({ key, messages, jsonSchema, maxTokens = 40000 }) {
   }
   if (!text) throw new Error("completed response carried no output text");
 
+  const secs = (Date.now() - started) / 1000;
+  const u = job.usage || {};
+  let entry = null;
+  try {
+    entry = recordCost({ slug, date, model: opts.model, stage, usage: u, seconds: secs });
+  } catch (e) {
+    warn(`cost not recorded: ${e.message}`);
+  }
+
+  // Nothing stopped the expensive run on 05.09 until the money was gone. A run
+  // now carries a ceiling and stops itself at it. Raise it with --budget <usd>.
+  spentThisRun += entry?.usd || 0;
+  if (spentThisRun > opts.budget) {
+    throw new Error(`budget stop: this run has spent $${spentThisRun.toFixed(2)}, over the $${opts.budget.toFixed(2)} ceiling.`
+      + ` Work already written is saved. Continue with --budget <higher>.`);
+  }
   if (opts.verbose) {
-    const u = job.usage || {};
-    const secs = Math.round((Date.now() - started) / 1000);
-    log(`    tokens: ${u.input_tokens}in + ${u.output_tokens}out (${u.output_tokens_details?.reasoning_tokens || 0} reasoning) in ${secs}s`);
+    log(`    tokens: ${u.input_tokens}in + ${u.output_tokens}out (${u.output_tokens_details?.reasoning_tokens || 0} reasoning)`
+      + ` in ${Math.round(secs)}s${entry?.usd ? ` = $${entry.usd.toFixed(2)}` : ""}`);
   }
   return JSON.parse(text);
 }
 
-async function editLang(body, dish, lang, key) {
+async function editLang(body, dish, lang, key, bill = {}) {
   const one = schema([lang]).schema.properties[lang];
   const persona = lang === "ru"
     ? "Ты русскоязычный редактор гастрономических текстов. Ты переписываешь чужие тексты так, чтобы они читались как изначально русские и как написанные человеком. Факты не трогаешь."
@@ -196,11 +258,12 @@ async function editLang(body, dish, lang, key) {
     key,
     messages: [{ role: "system", content: persona }, { role: "user", content: editorPrompt(body, dish, lang) }],
     jsonSchema: { name: `signa_story_${lang}`, strict: true, schema: one },
-    maxTokens: 32000,
+    maxTokens: 12000,
+    stage: `edit:${lang}`, slug: bill.slug ?? null, date: bill.date ?? null,
   });
 }
 
-async function generate({ dish, site, promos, usedAngles, date, key, langs = opts.langs, reference = null }) {
+async function generate({ dish, site, promos, usedAngles, date, key, langs = opts.langs, reference = null, slug = null }) {
   const data = await chat({
     key,
     messages: [
@@ -208,13 +271,14 @@ async function generate({ dish, site, promos, usedAngles, date, key, langs = opt
       { role: "user", content: userPrompt({ dish, site, promos, langs, usedAngles, date, reference }) },
     ],
     jsonSchema: schema(langs),
+    stage: langs.length === 1 ? `write:${langs[0]}` : "write", slug, date,
   });
 
   // English is written first-language; the others get a register pass.
   for (const lang of langs.filter((l) => l !== "en")) {
     if (opts.noEdit || !data[lang]) continue;
     if (opts.verbose) log(`    ${lang} editor pass`);
-    try { data[lang] = await editLang(data[lang], dish, lang, key); }
+    try { data[lang] = await editLang(data[lang], dish, lang, key, { slug, date }); }
     catch (e) { warn(`${lang} editor pass failed, keeping first draft: ${e.message}`); }
   }
   return data;
@@ -235,6 +299,21 @@ function validate(post, langs = opts.langs) {
 
     const geoHits = GEO[lang].filter((g) => low.includes(g.toLowerCase()));
     if (geoHits.length < 3) issues.push(`${tag}: only ${geoHits.length} place names`);
+
+    // The names people actually search for must all be present...
+    const primeMiss = GEO_PRIMARY[lang].filter((g) => !low.includes(g.toLowerCase()));
+    if (primeMiss.length) issues.push(`${tag}: primary places missing: ${primeMiss.join(", ")}`);
+
+    // ...and the address must not crowd them out. Kampial has almost no search
+    // volume, so a title or description spent on it is a wasted slot.
+    const headline = `${b.title} ${b.seoTitle || ""} ${b.description}`.toLowerCase();
+    const inHead = GEO_SECONDARY[lang].filter((g) => headline.includes(g.toLowerCase()) && !/bali/i.test(g));
+    if (inHead.length) issues.push(`${tag}: "${inHead.join(", ")}" in the title or description - use ${GEO_PRIMARY[lang][0]} there`);
+
+    const secondaryCount = GEO_SECONDARY[lang]
+      .filter((g) => !/bali/i.test(g))
+      .reduce((n, g) => n + (low.match(new RegExp(g.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 0);
+    if (secondaryCount > 3) issues.push(`${tag}: ${secondaryCount} mentions of the side districts, cap is 3`);
 
     const posMiss = POSITIONING[lang].filter((t) => !low.includes(t.toLowerCase()));
     if (posMiss.length) issues.push(`${tag}: positioning terms missing: ${posMiss.join(", ")}`);
@@ -287,6 +366,25 @@ function writeStore(store) {
 
 // ---------- main ----------
 async function main() {
+  // 05.09.2026: a 40-minute run on gpt-5.5-pro cost $57.22 - 28% of the whole
+  // account's monthly OpenAI bill, spent before anyone could look at it. The
+  // model is a foot-gun, so it now has a safety on it.
+  if (/-pro\b/.test(opts.model) && !opts.allowPro) {
+    console.error(`refusing to run on "${opts.model}".
+
+  measured 05.09.2026, from the account's own usage export:
+    gpt-5.5-pro   17 calls   $57.22    $3.37 a call   18 251 output tokens a call
+    gpt-5.5       14 calls    $1.64    $0.12 a call    3 526 output tokens a call
+
+  Pro is 6x the token price and writes 5x the tokens, half of them reasoning
+  that never reaches the article. A 52-post year costs ~$1300 on pro, ~$39 on
+  gpt-5.5. If a single post is genuinely worth $3.37, say so:
+
+    node tools/story-gen.mjs --model ${opts.model} --allow-pro
+`);
+    process.exit(1);
+  }
+
   const content = readJson(CONTENT);
   const store = readJson(STORIES);
   const key = apiKey();
@@ -295,6 +393,77 @@ async function main() {
   const cat = catalog();
 
   log(`model ${opts.model} | langs ${opts.langs.join("+")} | catalog ${cat.length} dishes (${cat[0]?.source})`);
+
+  // --fix-geo: move the title, seoTitle, description and lead off the street
+  // address and onto the districts people search for. Only those four short
+  // fields are touched, so this costs a few hundred output tokens per post
+  // instead of regenerating text nobody complained about.
+  if (opts.fixGeo) {
+    const targets = store.posts.filter((p) => !opts.slug || p.slug === opts.slug);
+    if (!targets.length) { console.error(`no post at slug "${opts.slug}"`); process.exit(1); }
+
+    for (const post of targets) {
+      const langs = LANGS.filter((l) => post[l]);
+      const off = langs.filter((l) => {
+        const head = `${post[l].title} ${post[l].seoTitle || ""} ${post[l].description} ${post[l].lead}`.toLowerCase();
+        return GEO_SECONDARY[l].some((g) => !/bali/i.test(g) && head.includes(g.toLowerCase()));
+      });
+      if (!off.length) { log(`  ${post.slug} - already anchored correctly`); continue; }
+
+      log(`  ${post.slug} (${off.join("+")})`);
+      if (opts.dryRun) continue;
+      try {
+        const fixed = await chat({
+          key,
+          messages: [
+            { role: "system", content: systemPrompt() },
+            { role: "user", content: geoFixPrompt(post, off) },
+          ],
+          jsonSchema: { ...geoFixSchema(off), strict: true },
+          // A pro model burns 8-13k tokens on reasoning before it writes a word,
+          // and an "incomplete" response is billed in full. The cap costs nothing
+          // when unused, so keep it well clear of that floor.
+          maxTokens: 8000,
+          stage: "fix-geo", slug: post.slug, date: post.date,
+        });
+        for (const l of off) Object.assign(post[l], fixed[l]);
+        writeStore(store);
+        for (const l of off) log(`    ${l}: ${post[l].title}`);
+      } catch (e) {
+        warn(`${post.slug}: ${e.message}`);
+      }
+    }
+    log(opts.dryRun ? "--dry-run: nothing written" : "done");
+    return;
+  }
+
+  // --edit-only: re-run the editor pass over text that already exists. The
+  // editor is a separate request, so it can fail on its own (a dead network, an
+  // empty account) and leave the writer's raw draft in place. This puts the
+  // polish back without paying to regenerate the whole post.
+  if (opts.editOnly) {
+    const lang = opts.editOnly;
+    const targets = store.posts.filter((p) => p[lang] && (!opts.slug || p.slug === opts.slug));
+    if (!targets.length) { console.error(`no post has "${lang}"${opts.slug ? ` at slug "${opts.slug}"` : ""}`); process.exit(1); }
+    log(`re-editing "${lang}" on ${targets.length} post(s)`);
+
+    for (const post of targets) {
+      const dish = cat.find((d) => norm(d.title) === norm(post.dish.name))
+        || { title: post.dish.name, price: post.dish.price, cat: post.en?.category || "Menu", desc: post.en?.lead || "" };
+      log(`  ${post.date} ${post.slug}`);
+      if (opts.dryRun) continue;
+      try {
+        post[lang] = await editLang(post[lang], dish, lang, key, { slug: post.slug, date: post.date });
+      } catch (e) {
+        warn(`editor pass failed, draft kept: ${e.message}`);
+        continue;
+      }
+      validate(post, [lang]).forEach((i) => warn(i));
+      if (!opts.dryRun) writeStore(store);
+    }
+    log(opts.dryRun ? "--dry-run: nothing written" : `done, ${targets.length} post(s) re-edited`);
+    return;
+  }
 
   // --addlang: fill a language that existing posts do not have yet.
   if (opts.addlang) {
@@ -307,9 +476,10 @@ async function main() {
       const dish = cat.find((d) => norm(d.title) === norm(post.dish.name))
         || { title: post.dish.name, price: post.dish.price, cat: post.en?.category || "Menu", desc: post.en?.lead || "" };
       log(`  ${post.date} ${post.slug}`);
+      if (opts.dryRun) continue;
       const data = await generate({
         dish, site, promos, usedAngles: [], date: post.date, key,
-        langs: [lang], reference: post.en,
+        langs: [lang], reference: post.en, slug: post.slug,
       });
       post[lang] = data[lang];
       const issues = validate(post, [lang]);
@@ -329,7 +499,7 @@ async function main() {
       || { title: old.dish.name, price: old.dish.price, cat: old.en?.category || "Menu", desc: old.en?.lead || "" };
 
     log(`rewriting ${old.slug} (${old.date}) - ${dish.title}`);
-    const data = await generate({ dish, site, promos, usedAngles: [], date: old.date, key });
+    const data = await generate({ dish, site, promos, usedAngles: [], date: old.date, key, slug: old.slug });
     const post = { ...old, tags: data.tags };
     for (const l of opts.langs) if (data[l]) post[l] = data[l];
     validate(post).forEach((i) => warn(i));

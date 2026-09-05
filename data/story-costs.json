@@ -1,0 +1,181 @@
+{
+  "runs": [
+    {
+      "at": "2026-08-12T23:59:59.000Z",
+      "slug": null,
+      "postDate": null,
+      "model": "gpt-5.5",
+      "stage": "untracked",
+      "calls": 53,
+      "seconds": 0,
+      "tokens": {
+        "input": 17726,
+        "cachedInput": 0,
+        "output": 40561,
+        "reasoning": 0
+      },
+      "usd": 1.3055,
+      "note": "reconciled against completions_usage_2026-08-06_2026-09-05.csv - calls made before the ledger existed"
+    },
+    {
+      "at": "2026-08-24T23:59:59.000Z",
+      "slug": null,
+      "postDate": null,
+      "model": "gpt-5.5",
+      "stage": "untracked",
+      "calls": 1,
+      "seconds": 0,
+      "tokens": {
+        "input": 1704,
+        "cachedInput": 0,
+        "output": 573,
+        "reasoning": 0
+      },
+      "usd": 0.0257,
+      "note": "reconciled against completions_usage_2026-08-06_2026-09-05.csv - calls made before the ledger existed"
+    },
+    {
+      "at": "2026-08-25T23:59:59.000Z",
+      "slug": null,
+      "postDate": null,
+      "model": "gpt-5.5",
+      "stage": "untracked",
+      "calls": 2,
+      "seconds": 0,
+      "tokens": {
+        "input": 1232,
+        "cachedInput": 0,
+        "output": 137,
+        "reasoning": 0
+      },
+      "usd": 0.0103,
+      "note": "reconciled against completions_usage_2026-08-06_2026-09-05.csv - calls made before the ledger existed"
+    },
+    {
+      "at": "2026-08-27T23:59:59.000Z",
+      "slug": null,
+      "postDate": null,
+      "model": "gpt-5.5",
+      "stage": "untracked",
+      "calls": 1,
+      "seconds": 0,
+      "tokens": {
+        "input": 1590,
+        "cachedInput": 0,
+        "output": 678,
+        "reasoning": 0
+      },
+      "usd": 0.0283,
+      "note": "reconciled against completions_usage_2026-08-06_2026-09-05.csv - calls made before the ledger existed"
+    },
+    {
+      "at": "2026-09-04T23:59:59.000Z",
+      "slug": null,
+      "postDate": null,
+      "model": "gpt-5.5",
+      "stage": "untracked",
+      "calls": 14,
+      "seconds": 0,
+      "tokens": {
+        "input": 34023,
+        "cachedInput": 1792,
+        "output": 49368,
+        "reasoning": 0
+      },
+      "usd": 1.6431,
+      "note": "reconciled against completions_usage_2026-08-06_2026-09-05.csv - calls made before the ledger existed"
+    },
+    {
+      "at": "2026-09-05T06:09:14.253Z",
+      "slug": "margherita-pizza-history",
+      "postDate": "2026-08-27",
+      "model": "gpt-5.5-pro",
+      "stage": "fix-geo",
+      "seconds": 99,
+      "tokens": {
+        "input": 2188,
+        "cachedInput": 0,
+        "output": 14992,
+        "reasoning": 7296
+      },
+      "usd": 2.7642
+    },
+    {
+      "at": "2026-09-05T06:11:26.632Z",
+      "slug": "classic-burger-kampial-nusa-dua",
+      "postDate": "2026-08-20",
+      "model": "gpt-5.5-pro",
+      "stage": "fix-geo",
+      "seconds": 132,
+      "tokens": {
+        "input": 2180,
+        "cachedInput": 0,
+        "output": 13154,
+        "reasoning": 6387
+      },
+      "usd": 2.4331
+    },
+    {
+      "at": "2026-09-05T06:12:49.620Z",
+      "slug": "caesar-with-chicken-kampial-nusa-dua",
+      "postDate": "2026-08-13",
+      "model": "gpt-5.5-pro",
+      "stage": "fix-geo",
+      "seconds": 82,
+      "tokens": {
+        "input": 2139,
+        "cachedInput": 0,
+        "output": 14549,
+        "reasoning": 7100
+      },
+      "usd": 2.683
+    },
+    {
+      "at": "2026-09-05T06:14:53.897Z",
+      "slug": "norwegian-salmon-soup-kampial-nusa-dua",
+      "postDate": "2026-08-06",
+      "model": "gpt-5.5-pro",
+      "stage": "fix-geo",
+      "seconds": 124,
+      "tokens": {
+        "input": 2185,
+        "cachedInput": 0,
+        "output": 10872,
+        "reasoning": 5246
+      },
+      "usd": 2.0225
+    },
+    {
+      "at": "2026-09-05T06:19:47.927Z",
+      "slug": "syrniki-cottage-cheese-pancakes",
+      "postDate": "2026-09-03",
+      "model": "gpt-5.5-pro",
+      "stage": "fix-geo",
+      "seconds": 280,
+      "tokens": {
+        "input": 2128,
+        "cachedInput": 0,
+        "output": 24000,
+        "reasoning": 11824
+      },
+      "usd": 4.3838
+    },
+    {
+      "at": "2026-09-05T23:59:59.000Z",
+      "slug": null,
+      "postDate": null,
+      "model": "gpt-5.5-pro",
+      "stage": "untracked",
+      "calls": 12,
+      "seconds": 0,
+      "tokens": {
+        "input": 34925,
+        "cachedInput": 0,
+        "output": 232710,
+        "reasoning": 0
+      },
+      "usd": 42.9355,
+      "note": "reconciled against completions_usage_2026-08-06_2026-09-05.csv - calls made before the ledger existed"
+    }
+  ]
+}
