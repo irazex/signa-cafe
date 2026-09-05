@@ -166,16 +166,71 @@
       "postDate": null,
       "model": "gpt-5.5-pro",
       "stage": "untracked",
-      "calls": 12,
+      "tier": "default",
+      "calls": 21,
       "seconds": 0,
       "tokens": {
-        "input": 34925,
+        "input": 57303,
         "cachedInput": 0,
-        "output": 232710,
+        "output": 448257,
         "reasoning": 0
       },
-      "usd": 42.9355,
-      "note": "reconciled against completions_usage_2026-08-06_2026-09-05.csv - calls made before the ledger existed"
+      "usd": 82.4053,
+      "note": "reconciled against completions_usage_2026-09-05_2026-09-05.csv - calls the ledger did not record"
+    },
+    {
+      "at": "2026-09-05T23:59:59.000Z",
+      "slug": null,
+      "postDate": null,
+      "model": "gpt-4o",
+      "stage": "untracked",
+      "tier": "incentivized-tier",
+      "calls": 14,
+      "seconds": 0,
+      "tokens": {
+        "input": 23534,
+        "cachedInput": 0,
+        "output": 1599,
+        "reasoning": 0
+      },
+      "usd": 0,
+      "note": "reconciled against completions_usage_2026-09-05_2026-09-05.csv - calls the ledger did not record (incentivized-tier: not billed)"
+    },
+    {
+      "at": "2026-09-05T23:59:59.000Z",
+      "slug": null,
+      "postDate": null,
+      "model": "gpt-5.4-mini",
+      "stage": "untracked",
+      "tier": "incentivized-tier",
+      "calls": 18,
+      "seconds": 0,
+      "tokens": {
+        "input": 37752,
+        "cachedInput": 0,
+        "output": 10481,
+        "reasoning": 0
+      },
+      "usd": 0,
+      "note": "reconciled against completions_usage_2026-09-05_2026-09-05.csv - calls the ledger did not record (incentivized-tier: not billed)"
+    },
+    {
+      "at": "2026-09-05T23:59:59.000Z",
+      "slug": null,
+      "postDate": null,
+      "model": "gpt-5.4",
+      "stage": "untracked",
+      "tier": "incentivized-tier",
+      "calls": 40,
+      "seconds": 0,
+      "tokens": {
+        "input": 408485,
+        "cachedInput": 145920,
+        "output": 17376,
+        "reasoning": 0
+      },
+      "usd": 0,
+      "note": "reconciled against completions_usage_2026-09-05_2026-09-05.csv - calls the ledger did not record (incentivized-tier: not billed)"
     }
   ]
 }

@@ -112,8 +112,14 @@ export function reconcile(csvPath) {
     const model = (col(r, "model") || "").replace(/-\d{4}-\d{2}-\d{2}$/, "");
     if (!rates.models[model]) continue;
     const day = (col(r, "start_time_iso") || "").slice(0, 10);
-    const k = `${day}|${model}`;
-    const a = actual.get(k) || { day, model, calls: 0, input: 0, cached: 0, output: 0 };
+    // Tokens spent on a non-default service tier are not billed. The
+    // incentivized tier trades prompt sharing for free usage, and on
+    // 05.09.2026 that was 72 of the day's 98 requests at exactly $0 - the
+    // whole $96.69 was the one model running on "default". Charging them at
+    // card rates would invent about a dollar a day that nobody was billed.
+    const tier = (col(r, "service_tier") || "default").trim() || "default";
+    const k = `${day}|${model}|${tier}`;
+    const a = actual.get(k) || { day, model, tier, calls: 0, input: 0, cached: 0, output: 0 };
     a.calls += Number(col(r, "num_model_requests") || 0);
     a.input += Number(col(r, "input_tokens") || 0);
     a.cached += Number(col(r, "input_cached_tokens") || 0);
@@ -121,10 +127,20 @@ export function reconcile(csvPath) {
     actual.set(k, a);
   }
 
-  // what the ledger already knows, same shape
+  // An adjustment row from an earlier, shorter export is stale the moment a
+  // longer one arrives: on 05.09.2026 a partial export produced a $57.22 row
+  // for a day that actually cost $96.69. Drop the old adjustments for every day
+  // this export covers and recompute them, so re-running with fresh numbers
+  // corrects the ledger instead of silently keeping the smaller figure.
+  const covered = new Set([...actual.values()].map((a) => a.day));
+  led.runs = led.runs.filter(
+    (r) => !(r.stage === "untracked" && covered.has((r.at || "").slice(0, 10)))
+  );
+
+  // what the ledger already knows from real, recorded calls
   const known = new Map();
   for (const r of led.runs) {
-    const k = `${(r.at || "").slice(0, 10)}|${r.model}`;
+    const k = `${(r.at || "").slice(0, 10)}|${r.model}|${r.tier || "default"}`;
     const a = known.get(k) || { calls: 0, input: 0, cached: 0, output: 0 };
     a.calls++; a.input += r.tokens.input; a.cached += r.tokens.cachedInput || 0; a.output += r.tokens.output;
     known.set(k, a);
@@ -140,15 +156,15 @@ export function reconcile(csvPath) {
       reasoning: 0,
     };
     if (gap.output <= 0 && gap.input <= 0) continue;
-    if (led.runs.some((r) => r.stage === "untracked" && r.at.slice(0, 10) === a.day && r.model === a.model)) continue;
     const row = {
       at: `${a.day}T23:59:59.000Z`,
       slug: null, postDate: null,
-      model: a.model, stage: "untracked",
+      model: a.model, stage: "untracked", tier: a.tier,
       calls: a.calls - seen.calls, seconds: 0,
       tokens: gap,
-      usd: Number((costOf(a.model, gap, rates) ?? 0).toFixed(4)),
-      note: `reconciled against ${path.basename(csvPath)} - calls made before the ledger existed`,
+      usd: a.tier === "default" ? Number((costOf(a.model, gap, rates) ?? 0).toFixed(4)) : 0,
+      note: `reconciled against ${path.basename(csvPath)} - calls the ledger did not record`
+        + (a.tier === "default" ? "" : ` (${a.tier}: not billed)`),
     };
     led.runs.push(row);
     added.push(row);

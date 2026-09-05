@@ -13,6 +13,7 @@
 //   node tools/story-gen.mjs --dry-run              print, write nothing
 //
 // Exit codes: 0 ok, 1 hard failure, 2 nothing to do.
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
@@ -55,7 +56,7 @@ const opts = {
   // gpt-5.5 - the owner's decision, 05.09.2026, taken against measured numbers.
   //
   // From the account's own usage export that day, not estimated:
-  //   gpt-5.5-pro   17 calls  $57.22   $3.37 a call   18 251 output tokens a call
+  //   gpt-5.5-pro   26 calls  $96.69   $3.72 a call   20 224 output tokens a call
   //   gpt-5.5       14 calls   $1.64   $0.12 a call    3 526 output tokens a call
   //
   // Pro is 6x the price per token AND writes 5x the tokens, because half of
@@ -169,9 +170,9 @@ const slugify = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").repla
 // many minutes and a held-open socket dies long before the answer arrives.
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function api(key, pathname, init = {}) {
+async function api(key, pathname, init = {}, attempts = 4) {
   let lastErr;
-  for (let attempt = 1; attempt <= 4; attempt++) {
+  for (let attempt = 1; attempt <= attempts; attempt++) {
     try {
       const res = await fetch(`https://api.openai.com/v1${pathname}`, {
         ...init,
@@ -181,10 +182,44 @@ async function api(key, pathname, init = {}) {
       return await res.json();
     } catch (e) {
       lastErr = e;
-      if (attempt < 4) await sleep(2000 * attempt);
+      if (attempt < attempts) await sleep(2000 * attempt);
     }
   }
   throw new Error(`network: ${lastErr.message}`);
+}
+
+/**
+ * A background job bills for what it computes whether or not anyone is still
+ * listening. On 05.09.2026 the client gave up at its own timeout and simply
+ * threw - the job carried on to its 32000-token ceiling and was charged in
+ * full, and because recordCost sits on the success path it never reached the
+ * ledger. The daily cap reads that ledger, so it was blind to precisely the
+ * failure mode that costs the most.
+ *
+ * So: cancel the job, then ask it once what it used, and record that even
+ * though the run is being abandoned. An already-finished job ignores the
+ * cancel; the usage read is what matters.
+ */
+async function abandon(key, id, { slug, date, stage, started }) {
+  if (!id) return;
+  try {
+    await api(key, `/responses/${id}/cancel`, { method: "POST" }, 2);
+    const job = await api(key, `/responses/${id}`, {}, 2);
+    const u = job?.usage;
+    if (u && (u.input_tokens || u.output_tokens)) {
+      const entry = recordCost({
+        slug, date, model: opts.model, stage: `${stage}:abandoned`,
+        usage: u, seconds: (Date.now() - started) / 1000,
+      });
+      spentThisRun += entry?.usd || 0;
+      warn(`abandoned response ${id} cancelled - billed ${u.output_tokens || 0} output tokens`
+        + `${entry?.usd ? ` ($${entry.usd.toFixed(2)})` : ""}, recorded`);
+    } else {
+      warn(`abandoned response ${id} cancelled (no usage reported)`);
+    }
+  } catch (e) {
+    warn(`could not cancel response ${id}: ${e.message} - check the dashboard`);
+  }
 }
 
 async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "write", slug = null, date = null }) {
@@ -197,8 +232,12 @@ async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "wri
       + ` or permanently with SIGNA_DAILY_CAP.`);
   }
 
+  // The retry inside api() re-sends on a network failure. For a POST that
+  // creates a billed background job, a blind re-send is a second job running
+  // in parallel - the key makes the server hand back the first one instead.
   let job = await api(key, "/responses", {
     method: "POST",
+    headers: { "Idempotency-Key": crypto.randomUUID() },
     body: JSON.stringify({
       model: opts.model,
       input: messages.map((m) => ({ role: m.role === "system" ? "developer" : m.role, content: m.content })),
@@ -212,23 +251,30 @@ async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "wri
 
   const started = Date.now();
   const LIMIT_MS = 40 * 60 * 1000;
-  while (job.status === "queued" || job.status === "in_progress") {
-    if (Date.now() - started > LIMIT_MS) throw new Error(`response ${job.id} still ${job.status} after 40 minutes`);
-    await sleep(5000);
-    job = await api(key, `/responses/${job.id}`);
-    if (job.error) throw new Error(`OpenAI: ${job.error.message || JSON.stringify(job.error)}`);
-  }
-
-  if (job.status === "incomplete") throw new Error(`model ran out of output budget (${job.incomplete_details?.reason}), raise max_output_tokens`);
-  if (job.status !== "completed") throw new Error(`response ended as "${job.status}"`);
-
-  let text = job.output_text;
-  if (!text) {
-    for (const item of job.output || []) {
-      for (const c of item.content || []) if (c.type === "output_text") text = c.text;
+  let text;
+  try {
+    while (job.status === "queued" || job.status === "in_progress") {
+      if (Date.now() - started > LIMIT_MS) throw new Error(`response ${job.id} still ${job.status} after 40 minutes`);
+      await sleep(5000);
+      job = await api(key, `/responses/${job.id}`);
+      if (job.error) throw new Error(`OpenAI: ${job.error.message || JSON.stringify(job.error)}`);
     }
+
+    if (job.status === "incomplete") throw new Error(`model ran out of output budget (${job.incomplete_details?.reason}), raise max_output_tokens`);
+    if (job.status !== "completed") throw new Error(`response ended as "${job.status}"`);
+
+    text = job.output_text;
+    if (!text) {
+      for (const item of job.output || []) {
+        for (const c of item.content || []) if (c.type === "output_text") text = c.text;
+      }
+    }
+    if (!text) throw new Error("completed response carried no output text");
+  } catch (e) {
+    // Whatever went wrong, the job exists and is billing. Stop it and book it.
+    await abandon(key, job?.id, { slug, date, stage, started });
+    throw e;
   }
-  if (!text) throw new Error("completed response carried no output text");
 
   const secs = (Date.now() - started) / 1000;
   const u = job.usage || {};
@@ -370,19 +416,19 @@ function writeStore(store) {
 
 // ---------- main ----------
 async function main() {
-  // 05.09.2026: a 40-minute run on gpt-5.5-pro cost $57.22 - 28% of the whole
-  // account's monthly OpenAI bill, spent before anyone could look at it. The
-  // model is a foot-gun, so it now has a safety on it.
+  // 05.09.2026: one day on gpt-5.5-pro cost $96.69 - the entire day's bill for
+  // the account, and it ran the balance negative before anyone could look at
+  // it. The model is a foot-gun, so it now has a safety on it.
   if (/-pro\b/.test(opts.model) && !opts.allowPro) {
     console.error(`refusing to run on "${opts.model}".
 
   measured 05.09.2026, from the account's own usage export:
-    gpt-5.5-pro   17 calls   $57.22    $3.37 a call   18 251 output tokens a call
+    gpt-5.5-pro   26 calls   $96.69    $3.72 a call   20 224 output tokens a call
     gpt-5.5       14 calls    $1.64    $0.12 a call    3 526 output tokens a call
 
-  Pro is 6x the token price and writes 5x the tokens, half of them reasoning
-  that never reaches the article. A 52-post year costs ~$1300 on pro, ~$39 on
-  gpt-5.5. If a single post is genuinely worth $3.37, say so:
+  Pro is 6x the token price and writes 6x the tokens, half of them reasoning
+  that never reaches the article. A 52-post year costs ~$1450 on pro, ~$21 on
+  gpt-5.5. If a single post is genuinely worth $3.72, say so:
 
     node tools/story-gen.mjs --model ${opts.model} --allow-pro
 `);

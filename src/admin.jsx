@@ -5,54 +5,16 @@
 const { useState, useEffect, useMemo, useRef } = React;
 
 const STORAGE_KEY = "signa.admin.content";
-const AUTH_KEY = "signa.admin.auth";
-const PASSWORD_HASH = "6fe5fdb6bd3deca4cae57d2eb6671b3a5f5036f5c08b3cb5dccd28a6e7dfc97a"; // sha-256 of z3zwa3qwX
+// Auth is a PHP session now (lib/auth.php). The old client-side gate that
+// lived here carried a sha-256 of the plaintext password in this very file —
+// it was never wired up, and it is gone rather than merely unused.
 
-async function sha256(text){
-  const buf = new TextEncoder().encode(text);
-  const hash = await crypto.subtle.digest("SHA-256", buf);
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
-}
-async function checkPassword(pwd){
-  const h = await sha256(pwd);
-  return h === PASSWORD_HASH;
-}
-function isAuthed(){
-  try { return sessionStorage.getItem(AUTH_KEY) === "1";} catch (_) { return false;}
-}
-function setAuthed(v){
-  try { v ? sessionStorage.setItem(AUTH_KEY, "1") : sessionStorage.removeItem(AUTH_KEY);} catch (_) {}
-}
-
-function LoginGate({ onAuth }){
-  const [pwd, setPwd] = useState("");
-  const [err, setErr] = useState(false);
-  const [pending, setPending] = useState(false);
-  const submit = async (e) => {
-    e?.preventDefault();
-    setPending(true);
-    const ok = await checkPassword(pwd);
-    setPending(false);
-    if (ok){ setAuthed(true); onAuth();}
-    else { setErr(true); setPwd(""); }
-  };
-  return (
-    <div className="login-gate">
-      <form className="login-card" onSubmit={submit}>
-        <div className="login-brand">Signa<span style={{ color: "var(--red)" }}>.</span></div>
-        <div className="login-sub">Admin access</div>
-        <input
-          type="password"
-          value={pwd}
-          autoFocus
-          placeholder="Password"
-          onChange={(e) => { setPwd(e.target.value); setErr(false); }}
-        />
-        {err && <div className="login-err">Wrong password</div>}
-        <button type="submit" className="btn primary" disabled={pending || !pwd}>{pending ? "Checking…" : "Enter →"}</button>
-      </form>
-    </div>
-  );
+// A 401 from any gated endpoint means the PHP session lapsed. Reloading lands
+// on the login form; without this the page would just sit there with an
+// unexplained error, which is how the Basic Auth era used to feel.
+function bailIfLoggedOut(r) {
+  if (r && r.status === 401) { location.reload(); throw new Error("AUTH_REQUIRED"); }
+  return r;
 }
 
 // ---------- Storage ----------
@@ -526,7 +488,7 @@ function setAtPath(content, path, value) {
 let _cachedApiKey = null;
 async function getApiKey() {
   if (_cachedApiKey) return _cachedApiKey;
-  const r = await fetch("key.php", { credentials: "same-origin" });
+  const r = bailIfLoggedOut(await fetch("key.php", { credentials: "same-origin" }));
   if (!r.ok) {
     throw new Error(`Cannot load API key from server (${r.status}). Make sure /.openai_key exists in webroot.`);
   }
@@ -688,6 +650,7 @@ function AnalyticsTab() {
     fetch(`analytics.php?days=${days}&bots=${bots ? 1 : 0}&t=${Date.now()}`, {
       credentials: "same-origin",
     })
+      .then(bailIfLoggedOut)
       .then(r => r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`))
       .then(j => { setData(j); setLoading(false); })
       .catch(e => { setErr(String(e)); setLoading(false); });
@@ -1079,8 +1042,8 @@ function StoriesTab() {
 // loaded, rather than trusting the `usd` frozen into the ledger at generation
 // time. Change a rate, every number below moves with it.
 // ============================================================
-const COSTS_URL   = "data/story-costs.json";
-const PRICING_URL = "data/model-pricing.json";
+const COSTS_URL   = "admin.php?asset=costs";
+const PRICING_URL = "admin.php?asset=pricing";
 const PRICING_KEY = "signa.admin.pricing";
 const BILLING_KEY = "signa.admin.billing";
 
@@ -1137,7 +1100,8 @@ function CostsTab() {
   };
 
   useEffect(() => {
-    fetch(COSTS_URL + "?t=" + Date.now(), { cache: "no-store" })
+    fetch(COSTS_URL + "&t=" + Date.now(), { cache: "no-store" })
+      .then(bailIfLoggedOut)
       .then((r) => (r.ok ? r.json() : { runs: [] }))
       .then(setLedger)
       .catch((e) => { setErr(String(e)); setLedger({ runs: [] }); });
@@ -1145,7 +1109,8 @@ function CostsTab() {
     let local = null;
     try { local = JSON.parse(localStorage.getItem(PRICING_KEY)); } catch (_) {}
     if (local) { setRates(local); return; }
-    fetch(PRICING_URL + "?t=" + Date.now(), { cache: "no-store" })
+    fetch(PRICING_URL + "&t=" + Date.now(), { cache: "no-store" })
+      .then(bailIfLoggedOut)
       .then((r) => (r.ok ? r.json() : PRICING_FALLBACK))
       .then(setRates)
       .catch(() => setRates(PRICING_FALLBACK));
@@ -1176,7 +1141,7 @@ function CostsTab() {
     if (!confirm("Discard the local rate card and reload data/model-pricing.json from the server?")) return;
     localStorage.removeItem(PRICING_KEY);
     try {
-      const r = await fetch(PRICING_URL + "?t=" + Date.now(), { cache: "no-store" });
+      const r = await fetch(PRICING_URL + "&t=" + Date.now(), { cache: "no-store" });
       setRates(r.ok ? await r.json() : PRICING_FALLBACK);
     } catch (_) { setRates(PRICING_FALLBACK); }
     setRatesDirty(false);
@@ -1247,7 +1212,11 @@ function CostsTab() {
   };
 
   const STAGES = { write: "draft", "fix-geo": "geo fix", "edit:ru": "editor ru", "edit:id": "editor id", "edit:en": "editor en" };
-  const stageLabel = (s) => STAGES[s] || String(s || "").replace("edit:", "editor ");
+  const stageLabel = (s) => {
+    const [base, flag] = String(s || "").split(/:(?=abandoned$)/);
+    const label = STAGES[base] || base.replace("edit:", "editor ");
+    return flag ? label + " (abandoned)" : label;
+  };
 
   return (
     <div className="analytics-tab">
@@ -1587,6 +1556,7 @@ function App() {
         <div className="foot">
           <a href="index.html" target="_blank" rel="noreferrer">View site →</a>
           <a href="#" onClick={(e) => { e.preventDefault(); handleCopyJSON(); }}>Copy JSON</a>
+          <a href="admin.php?logout=1">Log out →</a>
         </div>
       </aside>
 
