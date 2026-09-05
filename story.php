@@ -1,7 +1,7 @@
 <?php
 /**
  * story.php — one weekly story, rendered server-side.
- * Routed by .htaccess:  /stories/<slug>  and  /stories/ru/<slug>
+ * Routed by .htaccess:  /stories/<slug>  and  /stories/{ru,id}/<slug>
  */
 require __DIR__ . '/lib/stories.php';
 
@@ -13,6 +13,15 @@ $post  = $slug ? st_find($data['posts'], $slug) : null;
 if (!$post) {
     http_response_code(404);
     header('Location: ' . st_url(null, $lang, false), true, 302);
+    exit;
+}
+
+// A post that has no version in this language must not answer here. Falling
+// back to English under a foreign canonical publishes the same text twice and
+// declares an hreflang that points at a page in the wrong language - exactly
+// the duplicate Google penalises. Send the reader to the version that exists.
+if (!st_has($post, $lang)) {
+    header('Location: ' . st_url($slug, 'en'), true, 301);
     exit;
 }
 
