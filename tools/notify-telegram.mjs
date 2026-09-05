@@ -19,7 +19,7 @@ function token() {
   const t = process.env.INMYREST_REPORT_BOT_TOKEN || process.env.SIGNA_TG_TOKEN;
   if (t) return t.trim();
   // fall back to the same env files the other reporters read
-  for (const f of ["/home/razex/ai-cashier-report/.env", "/home/razex/syrve-analytics/.env"]) {
+  for (const f of ["/home/razex/syrve-analytics/.env", "/home/razex/cashier-app/.env"]) {
     if (!fs.existsSync(f)) continue;
     const m = fs.readFileSync(f, "utf8").match(/^INMYREST_REPORT_BOT_TOKEN=(.+)$/m);
     if (m) return m[1].trim().replace(/^["']|["']$/g, "");
@@ -90,6 +90,14 @@ const ogRel = post.cover ? ogPath(post.cover) : null;
 const cover = ogRel && fs.existsSync(path.join(ROOT, ogRel)) ? `${SITE}/${ogRel}` : null;
 
 if (args.includes("--dry-run")) {
+  // Also prove the credential resolves and the bot still sees the chat - the
+  // cron runs unattended, and "token missing" is worth learning now.
+  try {
+    const r = await fetch(`https://api.telegram.org/bot${token()}/getChat?chat_id=${CHAT}`).then((x) => x.json());
+    console.log(r.ok ? `auth OK -> ${r.result.title}` : `auth FAILED: ${r.description}`);
+  } catch (e) {
+    console.log(`auth FAILED: ${e.message}`);
+  }
   console.log(`chat ${CHAT} thread ${THREAD}`);
   console.log(cover ? `photo: ${cover}` : "no cover photo");
   console.log("---\n" + text.replace(/<[^>]+>/g, ""));
