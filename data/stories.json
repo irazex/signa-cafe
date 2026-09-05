@@ -1,5 +1,5 @@
 {
-  "version": "20260905a",
+  "version": "20260905r",
   "note": "Source of truth for /stories. Edited by hand or via /admin.html -> Stories tab. Rendered server-side by story.php / stories.php - no build step, no JS required, so AI crawlers see full text.",
   "posts": [
     {
@@ -1028,7 +1028,7 @@
       }
     },
     {
-      "slug": "classic-burger-kampial-nusa-dua",
+      "slug": "classic-burger-nusa-dua",
       "date": "2026-08-20",
       "cover": "assets/menu-11-classic-burger.webp",
       "dish": {
@@ -1365,10 +1365,13 @@
           }
         ],
         "coverAlt": "Classic Burger dengan patty sapi, cheddar, selada, tomat, dan roti brioche"
-      }
+      },
+      "aliases": [
+        "classic-burger-kampial-nusa-dua"
+      ]
     },
     {
-      "slug": "caesar-with-chicken-kampial-nusa-dua",
+      "slug": "caesar-with-chicken-nusa-dua",
       "date": "2026-08-13",
       "cover": "assets/menu-08-caesar-with-chicken.webp",
       "dish": {
@@ -1708,10 +1711,13 @@
           }
         ],
         "coverAlt": "Caesar with chicken dengan romaine, ayam panggang, parmesan dan croutons"
-      }
+      },
+      "aliases": [
+        "caesar-with-chicken-kampial-nusa-dua"
+      ]
     },
     {
-      "slug": "norwegian-salmon-soup-kampial-nusa-dua",
+      "slug": "norwegian-salmon-soup-nusa-dua",
       "date": "2026-08-06",
       "cover": "assets/menu-10-norwegian-salmon-soup.webp",
       "dish": {
@@ -1944,7 +1950,10 @@
             "a": "Доставку супа с лососем в Беноа или Унгасан можно проверить через онлайн-меню Signa Cafe на https://signa.dishi.rest/. Кафе находится в Кампьяле на Буките."
           }
         ]
-      }
+      },
+      "aliases": [
+        "norwegian-salmon-soup-kampial-nusa-dua"
+      ]
     }
   ]
 }

@@ -110,3 +110,15 @@ AddType model/mtl .mtl
 
 # 8. No directory listings anywhere.
 Options -Indexes
+
+# 9. Cost ledger and rate card: the admin Costs tab reads them, nobody else.
+#    Unlike stories.json these are not public content - they hold what the
+#    generation actually cost and what the work is billed at. Same realm as
+#    admin.html, so the browser already has the credentials by the time the
+#    tab fetches them.
+<FilesMatch "^(story-costs|model-pricing)\.json$">
+  AuthType Basic
+  AuthName "Signa Admin"
+  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
+  Require valid-user
+</FilesMatch>
