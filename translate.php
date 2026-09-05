@@ -3,9 +3,8 @@
  * translate.php — server-side OpenAI proxy for /admin "Translate via GPT".
  *
  * Why a proxy: keeps the OpenAI API key on the server (out of the public
- * JSX bundle and git history). Admin already lives behind Basic Auth
- * (.htaccess <Files "admin.html|admin.jsx">) so this proxy can simply trust
- * any caller who reaches it.
+ * JSX bundle and git history). Callers must hold an admin session — the
+ * guard below is what makes trusting the request body safe.
  *
  * Setup:
  *   1. Place this file at /signa.cafe/translate.php (webroot)
@@ -15,9 +14,11 @@
  *   3. admin.jsx fetches /translate.php with the OpenAI chat-completions
  *      request body — we forward as-is to api.openai.com and stream back.
  *
- * Same .htaccess Basic Auth rule that protects /admin.html should also
- * protect /translate.php — see the <Files> block in .htaccess.
+ * Auth is a PHP session (lib/auth.php), not Basic Auth — changed 05.09.2026.
  */
+
+require_once __DIR__ . '/lib/auth.php';
+auth_require_api();   // session login, see lib/auth.php
 
 header("Content-Type: application/json; charset=utf-8");
 header("Cache-Control: no-store, no-cache, must-revalidate");

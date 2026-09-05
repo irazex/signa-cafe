@@ -14,6 +14,10 @@ dist/
 *.pem
 *.key
 
+# Логины админки (bcrypt) и счётчик неудачных попыток — как .htpasswd, в репо не место
+/.admin-auth.php
+/.admin-throttle.json
+
 # Backup files
 *.bak
 .openai_key

@@ -2,8 +2,8 @@
 /**
  * analytics.php — reads JSONL event logs and returns aggregated stats.
  *
- * Behind Basic Auth (.htaccess <Files "analytics.php">). Admin tab calls
- * this with query: ?days=7&bots=0
+ * Behind the admin session (lib/auth.php). Admin tab calls this with
+ * query: ?days=7&bots=0
  *
  * Returns JSON:
  * {
@@ -16,6 +16,9 @@
  *   sample: [...recent events for sanity check...]
  * }
  */
+
+require_once __DIR__ . '/lib/auth.php';
+auth_require_api();   // session login, see lib/auth.php
 
 header("Content-Type: application/json; charset=utf-8");
 header("Cache-Control: no-store, no-cache, must-revalidate");

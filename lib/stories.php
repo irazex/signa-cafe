@@ -11,7 +11,7 @@
  * quoted by AI assistants, every story is rendered server-side into plain
  * HTML that is complete on first byte.
  *
- * Data source: /data/stories.json (hand-edited or via /admin.html -> Stories).
+ * Data source: /data/stories.json (hand-edited or via /admin -> Stories).
  * No build step: change the JSON, upload it, the site is updated.
  */
 

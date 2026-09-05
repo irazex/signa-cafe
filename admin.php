@@ -1,3 +1,37 @@
+<?php
+/**
+ * admin.php — the admin shell. This was a static admin.html behind Apache
+ * Basic Auth until 05.09.2026; lib/auth.php records why that had to go.
+ *
+ * Three jobs:
+ *   1. gate everything behind the session login;
+ *   2. hand out the private assets itself — src/admin.jsx and the two spend
+ *      JSON files cannot check a PHP session on their own, so .htaccess denies
+ *      them over HTTP and they are read from disk here instead;
+ *   3. render the page.
+ */
+require_once __DIR__ . '/lib/auth.php';
+
+$asset = (string)($_GET['asset'] ?? '');
+if ($asset !== '') {
+    auth_require_api();
+    $map = [
+        'jsx'     => ['src/admin.jsx',           'application/javascript; charset=utf-8'],
+        'costs'   => ['data/story-costs.json',   'application/json; charset=utf-8'],
+        'pricing' => ['data/model-pricing.json', 'application/json; charset=utf-8'],
+    ];
+    if (!isset($map[$asset])) { http_response_code(404); exit; }
+    [$rel, $type] = $map[$asset];
+    $path = __DIR__ . '/' . $rel;
+    if (!is_file($path)) { http_response_code(404); exit; }
+    header('Content-Type: ' . $type);
+    header('Cache-Control: no-store, no-cache, must-revalidate, private');
+    readfile($path);
+    exit;
+}
+
+auth_require_page();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -453,6 +487,6 @@
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel" src="src/admin.jsx?v=20260525d"></script>
+<script type="text/babel" src="admin.php?asset=jsx&amp;v=20260905a"></script>
 </body>
 </html>

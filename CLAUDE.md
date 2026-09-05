@@ -13,7 +13,7 @@
 - **Open/Close live timeline** — индикатор `OPEN 08:00 ●—pin—23:00` с движущимся пином (auto-updates 30s, Asia/Makassar timezone)
 - **Section rail** — sticky левая навигация 01-10 на desktop ≥1100px
 - **content.json** — single source of truth для site/menu/promos/FAQ/signature/contacts
-- **admin.html** + `src/admin.jsx` — password-protected content editor с 6 табами. Server-side `.htaccess` Basic Auth, user `razex` (пароль - `~/.razex-creds/signa-admin.txt`). Client-side SHA-256 gate (`LoginGate` в `admin.jsx`) написан, но НЕ подключён - защита только апачевая.
+- **admin.php** + `src/admin.jsx` — content editor с 6 табами. Вход - **своя форма на PHP-сессии** (`lib/auth.php`), Basic Auth снят 05.09.2026. Логины `razex` и `admin`, один пароль (`~/.razex-creds/signa-admin.txt`), кука на 30 дней, кнопка выхода в сайдбаре.
 - **SEO** — Restaurant + Organization + BreadcrumbList + FAQPage JSON-LD, Open Graph, Twitter, hreflang en/ru/id, robots.txt, sitemap.xml
 - **Real menu** — 12 items с реальными ценами из signa.dishi.rest (Syrniki 93k, Big Breakfast 79k, Margarita 69k, Pasta 89k, Salmon Poke 145k, etc.)
 
@@ -100,7 +100,7 @@ node tools/new-story.mjs --check                        # валидатор
 php -S 127.0.0.1:8099 -t . tools/dev-router.php         # превью на http://127.0.0.1:8099/stories
 
 # C. Через админку
-# /admin.html → таб Stories → правки → Export stories.json → залить в /data/stories.json
+# /admin → таб Stories → правки → Export stories.json → залить в /data/stories.json
 ```
 
 ### Генератор — как он устроен
@@ -147,7 +147,7 @@ node tools/cost-ledger.mjs --by-post    # строка на пост
 node tools/cost-ledger.mjs --json       # для скриптов
 ```
 
-Во вкладке **Costs** в `/admin.html`: расход, стоимость поста, разбивка по вызовам
+Во вкладке **Costs** в `/admin`: расход, стоимость поста, разбивка по вызовам
 (кликнуть по бару), таблица по месяцам, блок счёта (ставка за пост -> сумма и маржа)
 и выгрузка CSV. Тарифная карта редактируется прямо там и пересчитывает страницу
 на лету; экспортировать в `/data/model-pricing.json` и на VPS выполнить
@@ -209,10 +209,18 @@ node tools/cost-ledger.mjs --json       # для скриптов
     Двойники строит `node tools/og-images.mjs`, оригиналы остаются WebP.
 12. **Крон не делает `git reset --hard`.** Пуш с VPS может не пройти, и тогда
     локальный коммит - единственная копия поста прошлой недели.
-13. **Слаги переименовываются только через `tools/rename-story.mjs`.** Старый слаг
+13. **Порядок деплоя авторизации: `.htaccess` - последним.** Он снимает Basic Auth,
+    поэтому `lib/auth.php`, `.admin-auth.php`, `admin.php` и пропатченные `key.php` /
+    `translate.php` / `analytics.php` должны уже лежать на хосте. Иначе между двумя
+    заливками админка простоит открытой.
+14. **`src/admin.jsx`, `data/story-costs.json`, `data/model-pricing.json` закрыты в
+    `.htaccess` наглухо (`Require all denied`)** и выдаются через `admin.php?asset=jsx|costs|pricing`
+    после проверки сессии - статический файл сессию проверить не может. Ссылаться на них
+    напрямую из клиента нельзя, вернётся 403.
+15. **Слаги переименовываются только через `tools/rename-story.mjs`.** Старый слаг
     уезжает в `aliases`, `st_find_alias()` отдаёт 301. Переименование правкой
     `slug` руками ломает всё, что уже проиндексировано и отправлено в IndexNow.
-14. **Бюджет токенов не жать.** `max_output_tokens` ниже ~20k рвёт pro-запрос
+16. **Бюджет токенов не жать.** `max_output_tokens` ниже ~20k рвёт pro-запрос
     посреди рассуждений, а неполный ответ **тарифицируется целиком**. Запас в
     лимите бесплатен - платишь за использованные токены, не за лимит.
 15. **Тарифная карта в `data/model-pricing.json` - настройка, а не факт.** API
@@ -249,6 +257,7 @@ curl -s --ftp-create-dirs -T <local-file> "$FTP_URL/<remote-path>" --user "$FTP_
 
 ```
 signa-cafe-repo/
+├── admin.php               # Админка: форма входа (lib/auth.php) + оболочка приложения
 ├── index.html              # Главная страница: React 18 + Babel + Google Fonts (Anton/Onest/JetBrains Mono/Caveat)
 ├── src/                    # JSX исходники (транспилируются Babel в браузере)
 │   ├── app.jsx             # Top-level App, TWEAK_DEFAULTS, мapping пропов
@@ -343,7 +352,13 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 - **SSH**: ОТКЛЮЧЁН
 - **FTP path**: `/home/aqq17894/signa.cafe/` (абсолютный путь для FTP команд)
 - **URL**: https://signa.cafe
-- **Admin Basic Auth**: `/admin.html` (а также `admin.jsx`, `key.php`, `translate.php`, `analytics.php`) закрыт через `.htaccess` → `AuthUserFile /home/aqq17894/signa.cafe/.htpasswd`. Файл лежит ВНУТРИ webroot, но отдаёт 403 по `<FilesMatch>` в секции 1 - проверено. User `razex`, пароль - `~/.razex-creds/signa-admin.txt` (в репо не коммитится).
+- **Вход в админку**: `https://signa.cafe/admin` (равно `/admin.html`, `/admin.php` - оба
+  переписываются в `admin.php`). Своя форма в фирменном стиле, PHP-сессия, кука `signa_admin`
+  на 30 дней, `?logout=1` для выхода, троттлинг 8 попыток / 15 минут на IP.
+  Логины **`razex`** и **`admin`** - оба с одним паролем из `~/.razex-creds/signa-admin.txt`.
+  Хэши (bcrypt) - в `/.admin-auth.php` на хосте, файл gitignored и закрыт по HTTP.
+  Сменить пароль: `php -r 'echo password_hash("НОВЫЙ", PASSWORD_BCRYPT), "\n";'`, вписать хэш
+  обоим логинам, залить файл по FTP.
 
 ### GitHub
 - **Репо**: https://github.com/irazex/signa-cafe
@@ -397,5 +412,5 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 
 ---
 
-*Последнее обновление: 2026-09-04 — добавлен server-rendered раздел /stories + noscript-фолбэки*
+*Последнее обновление: 2026-09-05 — Basic Auth заменён на форму входа с PHP-сессией (admin.php + lib/auth.php)*
 *Полная переделка с шаблона Montoya на React 18 + Babel standalone*

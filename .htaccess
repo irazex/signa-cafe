@@ -1,7 +1,7 @@
 # === Signa Cafe — Apache config ===
 
 # 1. Защита служебных файлов и секретов
-<FilesMatch "^\.(htaccess|htpasswd|env|gitignore|gitattributes|openai_key)$">
+<FilesMatch "^\.(htaccess|htpasswd|env|gitignore|gitattributes|openai_key|admin-auth\.php|admin-throttle\.json)$">
   Require all denied
 </FilesMatch>
 RedirectMatch 404 /\.git
@@ -10,37 +10,25 @@ RedirectMatch 404 /CLAUDE_BRIEF\.md$
 RedirectMatch 404 /CLAUDE\.md$
 RedirectMatch 404 /README\.md$
 
-# 2. Basic Auth для admin
-<Files "admin.html">
-  AuthType Basic
-  AuthName "Signa Admin"
-  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
-  Require valid-user
-</Files>
+# 2. Доступ в админку
+#
+# Basic Auth сняли 05.09.2026: браузерный диалог не показывался ни в Arc, ни во
+# встроенном браузере Claude - обе программы рисовали апачевскую страницу 401,
+# а ввести пароль было негде. Теперь вход - PHP-сессия (lib/auth.php), и каждый
+# защищённый .php проверяет её сам. Здесь остаётся только то, что PHP проверить
+# не может: статические файлы, которые наружу отдавать нельзя вообще.
+#
+# admin.jsx и два JSON с расходами читает с диска admin.php после проверки
+# сессии (admin.php?asset=jsx|costs|pricing), поэтому по HTTP они закрыты.
 <Files "admin.jsx">
-  AuthType Basic
-  AuthName "Signa Admin"
-  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
-  Require valid-user
+  Require all denied
 </Files>
-<Files "translate.php">
-  AuthType Basic
-  AuthName "Signa Admin"
-  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
-  Require valid-user
-</Files>
-<Files "key.php">
-  AuthType Basic
-  AuthName "Signa Admin"
-  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
-  Require valid-user
-</Files>
-<Files "analytics.php">
-  AuthType Basic
-  AuthName "Signa Admin"
-  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
-  Require valid-user
-</Files>
+<FilesMatch "^(story-costs|model-pricing)\.json$">
+  Require all denied
+</FilesMatch>
+
+# Общие подключаемые файлы: нужны только через require() из PHP, по HTTP - нет.
+RedirectMatch 404 ^/lib/
 
 # Block direct access to raw analytics JSONL logs (admin reads them through analytics.php)
 RedirectMatch 404 /analytics/.*$
@@ -85,7 +73,8 @@ AddType model/mtl .mtl
 # data/stories.json appears everywhere with no build step and no manual edit.
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteRule ^admin/?$ admin.html [L]
+  RewriteRule ^admin/?$     admin.php [L,QSA]
+  RewriteRule ^admin\.html$ admin.php [L,QSA]
 
   # Order matters: the /ru variants must be tested before the generic slug rule.
   # Order matters: the language variants must be tested before the generic
@@ -116,9 +105,4 @@ Options -Indexes
 #    generation actually cost and what the work is billed at. Same realm as
 #    admin.html, so the browser already has the credentials by the time the
 #    tab fetches them.
-<FilesMatch "^(story-costs|model-pricing)\.json$">
-  AuthType Basic
-  AuthName "Signa Admin"
-  AuthUserFile /home/aqq17894/signa.cafe/.htpasswd
-  Require valid-user
-</FilesMatch>
+# (защита story-costs/model-pricing.json переехала в секцию 2)

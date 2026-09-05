@@ -3,7 +3,6 @@
 
 User-agent: *
 Allow: /
-Disallow: /admin.html
 Disallow: /admin
 Disallow: /analytics.php
 Disallow: /track.php
@@ -36,7 +35,6 @@ User-agent: cohere-ai
 User-agent: YouBot
 User-agent: Bytespider
 Allow: /
-Disallow: /admin.html
 Disallow: /admin
 Disallow: /analytics.php
 Disallow: /track.php

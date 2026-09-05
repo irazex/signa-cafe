@@ -1,6 +1,6 @@
 {
   "version": "20260905r",
-  "note": "Source of truth for /stories. Edited by hand or via /admin.html -> Stories tab. Rendered server-side by story.php / stories.php - no build step, no JS required, so AI crawlers see full text.",
+  "note": "Source of truth for /stories. Edited by hand or via /admin -> Stories tab. Rendered server-side by story.php / stories.php - no build step, no JS required, so AI crawlers see full text.",
   "posts": [
     {
       "slug": "pesto-pasta-nusa-dua",

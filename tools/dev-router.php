@@ -16,7 +16,8 @@ $map = [
     '#^/feed\.xml$#'                 => ['feed.php',    []],
     '#^/sitemap\.xml$#'              => ['sitemap.php', []],
     '#^/llms\.txt$#'                 => ['llms.php',    []],
-    '#^/admin/?$#'                   => ['admin.html',  []],
+    '#^/admin/?$#'                   => ['admin.php',   []],
+    '#^/admin\.html$#'               => ['admin.php',   []],
 ];
 
 foreach ($map as $re => [$target, $params]) {

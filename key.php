@@ -5,11 +5,13 @@
  * Why: OpenAI API blocks the hosting server's region geo (multihost.cloud is
  * RU-based), so we cannot proxy chat completions server-side. Instead the
  * browser calls OpenAI directly using the user's own IP (which is fine).
- * This file just hands the key to the browser AFTER Basic Auth has passed.
- *
- * .htaccess gates this file with the same <Files> rule as admin.html.
- * Direct anonymous HTTP gets a 401 challenge.
+ * This file hands the key to the browser only after the admin session check
+ * passes. Anonymous HTTP gets 401 JSON, and admin.jsx reloads to the login
+ * form when it sees that.
  */
+
+require_once __DIR__ . '/lib/auth.php';
+auth_require_api();   // session login, see lib/auth.php
 
 header("Cache-Control: no-store, no-cache, must-revalidate, private");
 header("Content-Type: application/json; charset=utf-8");
