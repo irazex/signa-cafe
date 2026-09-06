@@ -28,6 +28,8 @@ _(открытых вопросов нет - последний, вход в Bin
 
 ## ✅ Сделано (последнее)
 
+- [x] **Скилл `google-reviews-reply` + автопилот в Routines** - `~/.claude/skills/google-reviews-reply/` (SKILL.md, reference/browser-scripts.md, reference/reply-style.md, scripts: parse_custom / gen_replies / split_map / analyze). Крон `google-reviews-autopilot` в планировщике приложения: пн и чт 10:00, первые 6 страниц кабинета, только Signa, лог в `ХАБ/venues/signa-cafe/google-reviews-log.md`. Требует залогиненный кабинет GBP во встроенном браузере и открытое приложение. Commit 52ccce9, 2026-09-06.
+
 - [x] **11. Google Search Console + Bing Webmaster**. Google 05.09.2026: сайт - DNS-подтверждённый
       Domain property, `sitemap.xml` (21 URL) и `feed.xml` отправлены, индексация запрошена для
       6 EN-адресов. Bing 06.09.2026: владелец вошёл через Google и импортировал сайт из GSC
