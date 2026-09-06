@@ -9,11 +9,6 @@
 - [ ] **Перенести раздел на IJEN SPA** - план готов, ждёт решения владельца по
       порядку релизов (у IJEN деплой идёт через мастера деплоя, а крон деплоит сам).
       План: `~/.claude/skills/weekly-seo-stories/reference/ijen-spa-plan.md`
-- [~] **11. Google Search Console + Bing Webmaster**. Google - готово 05.09.2026: сайт уже
-      DNS-подтверждённый Domain property, токен не нужен; sitemap.xml (21 URL) и feed.xml
-      отправлены, индексация запрошена для 6 EN-адресов. Bing - ждёт входа владельца
-      (кнопка Google во встроенном браузере), дальше Import from GSC + sitemap.
-      Инструмент готов: `node tools/verify-site.mjs --google <token> --bing <token> --deploy`
 - [ ] **10б. Google Business Profile через API** - доступ к Business Profile API
       Google выдаёт по заявке, мгновенно его не получить. До одобрения работает
       ручной путь: готовый пост приходит в Telegram вторым сообщением.
@@ -29,13 +24,15 @@
 
 ## 📝 Открытые вопросы к пользователю
 
-- **Bing Webmaster**: войти на bing.com/webmasters во встроенном браузере (кнопка «Sign in with
-  Google», один клик) - пароль и OAuth-согласие агент вводить не может. После входа агент сам
-  сделает Import from GSC и отправит sitemap.
-
-_(остальные вопросы закрыты 05.09.2026 - ответы перенесены в «В работе»)_
+_(открытых вопросов нет - последний, вход в Bing, закрыт владельцем 06.09.2026)_
 
 ## ✅ Сделано (последнее)
+
+- [x] **11. Google Search Console + Bing Webmaster**. Google 05.09.2026: сайт - DNS-подтверждённый
+      Domain property, `sitemap.xml` (21 URL) и `feed.xml` отправлены, индексация запрошена для
+      6 EN-адресов. Bing 06.09.2026: владелец вошёл через Google и импортировал сайт из GSC
+      (верификация не нужна), агент отправил `sitemap.xml` (Processing) и 21 URL через
+      URL Submission (квота 10 000/день). `tools/verify-site.mjs` не понадобился. Кода нет.
 
 - [x] **Анализ отзывов Google** - 1 494 отзыва сняты из GBP, разбор по темам, годам и
       языкам: `ХАБ/venues/signa-cafe/google-reviews-analysis-2026-09.md` (сырые данные рядом).
