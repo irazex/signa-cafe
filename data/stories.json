@@ -1,7 +1,350 @@
 {
-  "version": "20260905g",
+  "version": "20260910a",
   "note": "Source of truth for /stories. Edited by hand or via /admin -> Stories tab. Rendered server-side by story.php / stories.php - no build step, no JS required, so AI crawlers see full text.",
   "posts": [
+    {
+      "slug": "mille-feuille-nutella-nusa-dua",
+      "date": "2026-09-17",
+      "cover": "assets/stories/mille-feuille-nutella-nusa-dua.webp",
+      "dish": {
+        "name": "Mille-feuille Nutella (Napoleon Cake)",
+        "price": "85 000 IDR",
+        "menuUrl": "https://signa.dishi.rest/",
+        "syrveId": "07b1fec5-618b-4ccb-9bbf-77e812150bb7",
+        "syrveCategory": "DESSERTS"
+      },
+      "tags": [
+        "mille-feuille",
+        "nutella",
+        "napoleon cake",
+        "dessert",
+        "nusa dua",
+        "bukit",
+        "ungasan",
+        "brunch"
+      ],
+      "en": {
+        "faq": [
+          {
+            "q": "Where can I eat Mille-feuille Nutella in Nusa Dua?",
+            "a": "Signa Cafe serves Mille-feuille Nutella in Nusa Dua for 85 000 IDR. The cafe is on Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, and opens daily from 08:00 to 23:00 with last order at 22:30."
+          },
+          {
+            "q": "Is Mille-feuille Nutella a good dessert for kids on the Bukit?",
+            "a": "Mille-feuille Nutella is a good dessert for kids who like crisp pastry, vanilla cream, chocolate spread and strawberries. The cake flakes when cut, so it is better on a plate than in small hands."
+          },
+          {
+            "q": "What should I drink with Napoleon Cake in Nusa Dua?",
+            "a": "Coffee is the best drink with Napoleon Cake at Signa Cafe because bitterness cuts through the Nutella and vanilla cream. Espresso works if you want a short finish, while iced black coffee suits a hot Bukit afternoon."
+          },
+          {
+            "q": "Is Signa Cafe good for brunch near Ungasan?",
+            "a": "Signa Cafe works well for brunch near Ungasan because it opens from 08:00 and serves breakfast, coffee and desserts through the day. Mille-feuille Nutella is best after a savoury dish or shared at the table."
+          }
+        ],
+        "seoTitle": "Mille-feuille Nutella Nusa Dua, crisp dessert",
+        "category": "Dessert",
+        "description": "Mille-feuille Nutella in Nusa Dua layers crisp pastry, vanilla cream, Nutella and strawberry for a rich dessert after brunch or dinner.",
+        "keywords": [
+          "mille-feuille nutella",
+          "napoleon cake",
+          "nusa dua dessert",
+          "bukit cafe",
+          "ungasan cafe",
+          "breakfast",
+          "brunch",
+          "coffee",
+          "family cafe",
+          "kid-friendly",
+          "puff pastry"
+        ],
+        "facts": [
+          [
+            "Origin",
+            "French mille-feuille, with Napoleon cake fame across Eastern Europe"
+          ],
+          [
+            "Key years",
+            "1651 for an early mille-feuille reference, 1964 for modern Nutella"
+          ],
+          [
+            "Key ingredients",
+            "Puff pastry, vanilla cream, Nutella, fresh strawberry"
+          ],
+          [
+            "Price",
+            "85 000 IDR"
+          ],
+          [
+            "Best time",
+            "After brunch, with coffee, or from 21:00 to 23:00 for the bakery dessert offer"
+          ],
+          [
+            "Who it suits",
+            "Dessert people, families and kids who like chocolate"
+          ]
+        ],
+        "lead": "Mille-feuille Nutella in Nusa Dua is crisp pastry, vanilla cream, Nutella and strawberry in one loud forkful. The flakes are part of the point.",
+        "title": "Mille-feuille Nutella in Nusa Dua: the Napoleon cake that cracks back",
+        "blocks": [
+          {
+            "h": "The sound matters",
+            "p": [
+              "A good mille-feuille should make a little mess. Press a fork through the top layer and the pastry should crack before the cream gives way. If the fork sinks quietly, somebody has waited too long, filled too early, or let the pastry steam itself soft.",
+              "Signa Cafe serves its Mille-feuille Nutella as crisp layers of puff pastry filled with delicate vanilla cream, topped generously with Nutella chocolate spread and fresh strawberry slices, then finished with flaky pastry crumbs. The price is 85 000 IDR.",
+              "That is the whole pleasure of the cake: the fork has to fight for a second. The vanilla cream smooths the bite, the Nutella adds weight, and the strawberry pulls the sweetness back from the edge. Mille-feuille Nutella is a dessert for people who want texture, not just sugar."
+            ]
+          },
+          {
+            "h": "A French pastry with a borrowed emperor",
+            "p": [
+              "Mille-feuille means thousand leaves in French. The name exaggerates, but only slightly in spirit: puff pastry separates into thin sheets as water turns to steam between layers of dough and butter. An early printed recipe is linked to François Pierre de La Varenne's Le Cuisinier françois, published in 1651, a book that helped move French cooking away from medieval heaviness toward a more recognisable modern kitchen.",
+              "The pastry became more formal in the hands of 19th century French cooks and pâtissiers. Marie-Antoine Carême, born in 1784, treated pastry like architecture. Carême did not need Nutella, obviously, but the mille-feuille family owes a lot to that French obsession with layers that stand straight and cream that does not slump.",
+              "Then comes the Napoleon name, which is less tidy. Across Russia and parts of Eastern Europe, Napoleon cake became a beloved layered cake with cream. The Russian story is tied to 1912, the centenary of the victory over Napoleon's army, when triangular pastries were said to echo his bicorne hat. Over time the joke outlived the shape. In English-language cafe menus, Napoleon Cake now usually means a layered pastry-and-cream dessert, even if no emperor would recognise the topping."
+            ]
+          },
+          {
+            "h": "What makes puff pastry unforgiving",
+            "p": [
+              "Puff pastry is not difficult because the ingredient list is long. Puff pastry is difficult because butter has opinions. Butter must stay cold enough to remain as separate sheets inside the dough, but soft enough to roll without shattering. In a warm kitchen, that window can feel as narrow as a knife.",
+              "The classic method locks a slab of butter inside dough, then rolls and folds the block again and again. Each fold multiplies the layers. During baking, usually around 190-210C, water in the dough and butter flashes into steam and pushes those layers apart. That lift is mechanical, not magic. No yeast is coming to save a bad fold.",
+              "Vanilla cream has its own temper. Custard needs heat to thicken, but too much heat turns the texture grainy. Too little heat leaves the cream loose and floury. A mille-feuille asks the kitchen to hold two opposite states in one slice: dry shattering pastry and cool smooth cream. That is why a cheap, limp version is such a disappointment. It gets the name right and the work wrong."
+            ]
+          },
+          {
+            "h": "Why Nutella belongs here",
+            "p": [
+              "Nutella is not French. Nutella was introduced in 1964 by Ferrero in Alba, in Italy's Piedmont region, though the marriage of chocolate and hazelnut goes back further. Gianduja, the chocolate-hazelnut paste associated with Turin, grew from a practical problem: cocoa was expensive and scarce, while Piedmont had hazelnuts. Good pastry history contains a lot of thrift dressed later as elegance.",
+              "On this cake, Nutella changes the mood. A traditional mille-feuille can be prim, all pastry cream and powdered sugar. Mille-feuille Nutella is less polite. The hazelnut-cocoa spread gives the top a darker, heavier sweetness, and the fresh strawberry slices are not decoration. Strawberry acidity is doing work.",
+              "I will take this version over a dry Napoleon dusted with sugar. That is an arguable position, which is fine. The Nutella makes the dessert more direct, and a cafe dessert should not always whisper. Some cakes are better when they say the obvious thing."
+            ]
+          },
+          {
+            "h": "When to order it at Signa",
+            "p": [
+              "Signa Cafe sits on Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, in Nusa Dua, close enough for a short drive from Ungasan and the resort strip. The cafe has been open since 2024, carries the tagline Eat. Meet. Create., and opens daily from 08:00 to 23:00 with last order at 22:30. The Google rating is 4.7 from 1426+ reviews.",
+              "For breakfast, Mille-feuille Nutella is not the responsible choice. It is the fun one. Order it after eggs, split it after brunch, or put it in the middle of the table at a family cafe lunch and let the children argue over the strawberry slices. The dessert is kid-friendly in flavour, though not in neatness. Puff pastry does not care about your shirt.",
+              "Coffee is the cleanest match. Espresso gives a short bitter stop after the Nutella, while iced black coffee makes sense on a hot Bukit afternoon. If you want the cake late, the regular 21:00-23:00 bakery desserts offer gives 30 percent off, which fits this dish better than any speech about restraint. The online menu and delivery are at https://signa.dishi.rest/, the phone is +62 896 540 27190, and Instagram is @signa.cafe."
+            ]
+          }
+        ],
+        "coverAlt": "Mille-feuille Nutella with puff pastry, vanilla cream, Nutella, strawberry and pastry crumbs"
+      },
+      "ru": {
+        "faq": [
+          {
+            "q": "Где поесть Mille-feuille Nutella в Нуса Дуа?",
+            "a": "Mille-feuille Nutella в Нуса Дуа подают в Signa Cafe за 85 000 IDR. Адрес: Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua; кафе открыто ежедневно с 08:00 до 23:00, последний заказ принимают в 22:30."
+          },
+          {
+            "q": "Подходит ли Napoleon Cake для детей на Буките?",
+            "a": "Napoleon Cake с Нутеллой подходит детям, которые любят хрустящее тесто, ванильный крем, шоколад и клубнику. Есть его аккуратно почти невозможно: слоеное тесто крошится от каждого движения вилки."
+          },
+          {
+            "q": "Что пить с Mille-feuille Nutella в Нуса Дуа?",
+            "a": "С Mille-feuille Nutella в Нуса Дуа лучше всего заказать кофе: горечь удерживает сладость Нутеллы и ванильного крема. Эспрессо даст короткий резкий финал, а холодный черный кофе подойдет днем на Буките."
+          },
+          {
+            "q": "Куда заехать на десерт рядом с Унгасаном?",
+            "a": "За десертом рядом с Унгасаном удобно заехать в Signa Cafe: здесь весь день подают Mille-feuille Nutella, а кухня работает с 08:00 до 23:00. С 21:00 до 23:00 действует скидка 30% на десерты из пекарни."
+          }
+        ],
+        "seoTitle": "Mille-feuille Nutella в Нуса Дуа - хрустящий десерт",
+        "category": "Десерт",
+        "description": "Mille-feuille Nutella в Нуса Дуа: слоеное тесто, ванильный крем, Нутелла и клубника после бранча, к кофе или на десерт после ужина.",
+        "keywords": [
+          "mille-feuille nutella",
+          "napoleon cake",
+          "десерт нуса дуа",
+          "кафе на буките",
+          "унгасан кафе",
+          "завтрак",
+          "бранч",
+          "кофе",
+          "семейное кафе",
+          "с детьми",
+          "слоеное тесто"
+        ],
+        "facts": [
+          [
+            "Происхождение",
+            "Французский mille-feuille и восточноевропейская слава торта Наполеон"
+          ],
+          [
+            "Важные годы",
+            "1651 для раннего упоминания mille-feuille, 1964 для современной Нутеллы"
+          ],
+          [
+            "Главные ингредиенты",
+            "Слоеное тесто, ванильный крем, Нутелла, свежая клубника"
+          ],
+          [
+            "Цена",
+            "85 000 IDR"
+          ],
+          [
+            "Лучшее время",
+            "После бранча, к кофе или с 21:00 до 23:00 по вечерней скидке на десерты"
+          ],
+          [
+            "Кому подходит",
+            "Любителям сладкого, семьям и детям, которые любят шоколад"
+          ]
+        ],
+        "lead": "Mille-feuille Nutella в Нуса Дуа хрустит слоеным тестом, держит ванильный крем и не жалеет Нутеллы. Клубника спасает от лишней сладости.",
+        "title": "Mille-feuille Nutella в Нуса Дуа: Наполеон с шоколадным характером",
+        "blocks": [
+          {
+            "h": "Крошки будут",
+            "p": [
+              "У хорошего мильфея есть звук. Вилка нажимает на верхний слой, тесто трескается, крем чуть выходит сбоку, и на тарелке сразу появляются крошки. Десерт режется беззвучно - значит, слойка уже сдалась.",
+              "В Signa Cafe Mille-feuille Nutella собирают из хрустящих пластов слоеного теста, ванильного крема, щедрой прослойки Нутеллы, свежей клубники и тестяной крошки. Цена - 85 000 IDR.",
+              "Это не десерт, который притворяется легким. Нутелла дает вес и вкус орехового шоколада, крем смягчает слой за слоем, клубника добавляет кислоту. Главный интерес здесь не в сахаре, а в столкновении сухого хруста с мягкой серединой."
+            ]
+          },
+          {
+            "h": "Французские слои и чужая фамилия",
+            "p": [
+              "Mille-feuille по-французски значит тысяча листьев. Счет, разумеется, поэтический, зато образ точный: после выпечки слоеное тесто расходится на тонкие пластины. Одно из ранних печатных упоминаний связывают с книгой Франсуа Пьера де Ла Варенна Le Cuisinier françois, вышедшей в 1651 году. Эта книга помогла французской кухне отойти от тяжеловесной средневековой манеры к более ясной технике.",
+              "В XIX веке французская кондитерская школа стала строже. Мари-Антуан Карем, родившийся в 1784 году, обращался с выпечкой почти как архитектор: следил за высотой, формой, устойчивостью и кремом без потеков. У мильфея нет одного автора, но его характер вырос из этой тяги к ровным слоям и дисциплине.",
+              "Название Napoleon Cake пошло другим путем. В России и Восточной Европе Наполеон стал тортом из множества коржей с кремом. Популярная версия ведет к 1912 году, столетию победы над армией Наполеона: маленькие треугольные пирожные будто бы напоминали его шляпу. Форма исчезла, имя осталось. В меню кафе Napoleon Cake обычно означает слойку с кремом, а не лекцию по истории."
+            ]
+          },
+          {
+            "h": "Слоеное тесто не прощает жару",
+            "p": [
+              "Список продуктов у слоеного теста короткий, зато мест для ошибки хватает. Масло должно остаться отдельным слоем внутри теста. Слишком теплое впитается, и вместо листов выйдет плотная лепешка. Слишком холодное сломается под скалкой и оставит рваные куски. На кухне у моря такой материал особенно упрям.",
+              "Классическая схема звучит просто: блок масла закрывают в тесте, раскатывают, складывают, охлаждают и повторяют. Каждая складка множит будущие слои. В печи при 190-210C вода в тесте и масле превращается в пар, он раздвигает пласты, и слойка поднимается. Дрожжи тут ни при чем.",
+              "Крем тоже требует внимания. Заварная основа должна загустеть, но не свернуться. Перегрели - текстура станет крупинчатой. Не довели - крем потечет и даст мучной привкус. В одном кусочке мильфея кухня удерживает два состояния, которые спорят между собой: сухое хрупкое тесто и прохладный мягкий крем. Поэтому вялый Наполеон обиднее многих плохих десертов."
+            ]
+          },
+          {
+            "h": "Нутелла меняет разговор",
+            "p": [
+              "Современная Nutella появилась в 1964 году у Ferrero в городе Альба, в Пьемонте. Союз шоколада и фундука старше: туринская джандуйя выросла из нехватки и дороговизны какао, зато фундук в Пьемонте был под рукой. Кондитерская история нередко начинается с экономии, а потом переодевается в праздник.",
+              "На мильфее Нутелла ведет себя громко. Классический вариант с сахарной пудрой и кремом бывает слишком чинным. Здесь орехово-шоколадная паста забирает верхний слой себе, и это удачное решение. Клубника не украшение: она возвращает кислоту и не дает крему с шоколадом превратиться в липкую сладость.",
+              "Я выберу этот вариант вместо сухого Наполеона под снегом пудры. Спорное мнение, но за столом оно звучит честно: десерт в кафе не обязан шептать. Иногда ему полезно сразу сказать, что он про шоколад."
+            ]
+          },
+          {
+            "h": "Когда заказывать в Signa Cafe",
+            "p": [
+              "Signa Cafe находится на Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, на Буките. Из Унгасана сюда удобно заехать ненадолго, из курортной полосы Нуса Дуа тоже. Кафе работает с 2024 года, слоган - Eat. Meet. Create., часы работы ежедневные: 08:00-23:00, последний заказ в 22:30. Рейтинг в Google - 4.7 на основе 1426+ отзывов.",
+              "На завтрак Mille-feuille Nutella - не самый разумный выбор. Зато самый веселый. После яиц или сэндвича он хорошо делится на двоих, а за семейным столом быстро становится предметом переговоров: кому клубника, кому край с большим количеством Нутеллы. В семейное кафе с детьми такой десерт подходит по вкусу, но не по аккуратности. Слойка крошится. Стол потом видно.",
+              "Кофе нужен рядом не для ритуала, а для вкуса. Эспрессо срезает сладость короткой горечью. Холодный черный кофе выручает днем, когда на Буките жарко и кремовый десерт просит чего-то строгого. Для позднего визита есть практичная причина: каждый день с 21:00 до 23:00 на десерты из пекарни действует скидка 30%. Меню и доставку можно открыть на https://signa.dishi.rest/, телефон +62 896 540 27190, Instagram - @signa.cafe."
+            ]
+          }
+        ],
+        "coverAlt": "Mille-feuille Nutella со слоеным тестом, ванильным кремом, Нутеллой, клубникой и крошкой"
+      },
+      "id": {
+        "faq": [
+          {
+            "q": "Di mana makan Mille-feuille Nutella di Nusa Dua?",
+            "a": "Di Nusa Dua, Mille-feuille Nutella bisa dipesan di Signa Cafe, Jl. Dharmawangsa, Jl. Raya Kampial, Benoa. Harganya 85 000 IDR, dan kafenya buka setiap hari 08:00-23:00, dengan last order 22:30."
+          },
+          {
+            "q": "Apakah Mille-feuille Nutella cocok untuk anak di Bukit?",
+            "a": "Di Bukit, Mille-feuille Nutella cocok untuk anak yang suka pastry renyah, krim vanila, cokelat, dan stroberi. Saat dipotong, lapisannya mudah berantakan, jadi piring kecil dan tisu sebaiknya siap di meja."
+          },
+          {
+            "q": "Jam berapa waktu enak makan dessert di Signa Cafe Nusa Dua?",
+            "a": "Di Signa Cafe Nusa Dua, Mille-feuille Nutella enak dimakan setelah brunch, setelah makan siang, atau malam setelah makan ringan. Untuk dessert malam, ada promo bakery desserts -30% setiap hari pukul 21:00-23:00."
+          },
+          {
+            "q": "Apa minuman yang cocok dengan Mille-feuille Nutella di Ungasan dan Nusa Dua?",
+            "a": "Di Ungasan dan Nusa Dua, kopi jadi pasangan paling aman untuk Mille-feuille Nutella karena pahitnya menahan manis Nutella dan krim vanila. Espresso atau iced black coffee membuat gigitan berikutnya terasa lebih enteng."
+          }
+        ],
+        "seoTitle": "Mille-feuille Nutella Nusa Dua, dessert renyah",
+        "category": "Dessert",
+        "description": "Mille-feuille Nutella di Nusa Dua: pastry renyah, krim vanila, Nutella, dan stroberi untuk dessert setelah brunch atau makan malam.",
+        "keywords": [
+          "mille-feuille nutella",
+          "napoleon cake",
+          "dessert nusa dua",
+          "bukit cafe",
+          "ungasan dessert",
+          "sarapan",
+          "brunch",
+          "kopi",
+          "kafe keluarga",
+          "ramah anak",
+          "pastry renyah"
+        ],
+        "facts": [
+          [
+            "Asal",
+            "Prancis untuk mille-feuille, dengan nama Napoleon cake populer di Eropa Timur"
+          ],
+          [
+            "Tahun penting",
+            "1651 untuk catatan awal mille-feuille, 1964 untuk Nutella modern"
+          ],
+          [
+            "Bahan utama",
+            "Puff pastry, krim vanila, Nutella, stroberi segar"
+          ],
+          [
+            "Harga",
+            "85 000 IDR"
+          ],
+          [
+            "Waktu terbaik",
+            "Setelah brunch, sore dengan kopi, atau pukul 21:00-23:00 saat promo bakery desserts"
+          ],
+          [
+            "Cocok untuk",
+            "Pencinta dessert, keluarga, dan anak yang suka cokelat"
+          ]
+        ],
+        "lead": "Mille-feuille Nutella di Nusa Dua mempertemukan puff pastry yang patah renyah, krim vanila, Nutella, dan stroberi. Ini dessert yang datang dengan suara, remah, dan rasa cokelat hazelnut yang tegas.",
+        "title": "Mille-feuille Nutella di Nusa Dua: Napoleon yang kena cokelat",
+        "blocks": [
+          {
+            "h": "Lapisan yang ribut saat kena garpu",
+            "p": [
+              "Di menu, nama Mille-feuille Nutella kelihatan manis dan rapi. Begitu garpu turun, urusannya lain. Puff pastry retak, krim vanila sedikit menyembul dari samping, remah jatuh ke piring, lalu Nutella menempel di ujung potongan. Justru di situ senangnya, karena mille-feuille memang harus terdengar saat dipotong.",
+              "Di Signa Cafe, versi ini tetap berangkat dari ide klasik: lapisan pastry garing, isi krim vanila yang lembut, Nutella di atasnya, irisan stroberi segar, lalu remah pastry untuk menambah tekstur. Harga Mille-feuille Nutella adalah 85 000 IDR.",
+              "Nutella mengambil panggung."
+            ]
+          },
+          {
+            "h": "Dari dapur Prancis ke nama Napoleon",
+            "p": [
+              "Mille-feuille berarti seribu lembar dalam bahasa Prancis, meski lapisannya tentu tidak sampai seribu. Nama itu masuk akal karena puff pastry yang bagus akan pecah menjadi banyak lembar tipis setelah dipanggang. Catatan awal mille-feuille sering dikaitkan dengan buku Le Cuisinier françois karya François Pierre de La Varenne pada 1651, salah satu buku yang ikut menggeser dapur Prancis dari gaya abad pertengahan ke teknik yang lebih terukur.",
+              "Pada abad ke-19, Marie-Antoine Carême membawa pastry Prancis ke bentuk yang lebih rapi dan tinggi. Ia bekerja dengan adonan berlapis, krim, gula, dan susunan yang nyaris arsitektural. Mille-feuille modern tidak lahir dari satu tangan saja, tetapi cara berpikirnya dekat dengan dunia Carême: lapisan harus presisi, krim harus tertahan, bentuk harus kuat sampai garpu menyentuhnya.",
+              "Nama Napoleon punya cerita berbeda. Di Rusia dan Eropa Timur, kue Napoleon dikenal sebagai kue berlapis dengan krim. Pada 1912, saat peringatan 100 tahun kemenangan Rusia atas Napoleon, kue kecil berbentuk segitiga disebut-sebut meniru topi bicorne sang kaisar. Sejak itu nama Napoleon melekat pada keluarga kue berlapis, walau versi kafe hari ini tidak perlu ikut membawa beban sejarah perang."
+            ]
+          },
+          {
+            "h": "Kenapa pastry ini gampang gagal",
+            "p": [
+              "Puff pastry adalah urusan suhu. Mentega harus cukup dingin supaya tetap menjadi lapisan, tetapi cukup lentur agar bisa digilas bersama adonan. Kalau terlalu hangat, mentega meresap dan pastry kehilangan lembarannya. Kalau terlalu keras, mentega pecah lalu hasil panggangan tidak rata. Di dapur panas dekat pantai, pekerjaan kecil seperti ini bisa cepat bikin repot.",
+              "Teknik dasarnya memakai lipatan berulang. Satu blok mentega dikunci di dalam adonan, kemudian digilas dan dilipat beberapa kali. Di oven sekitar 190-210C, air di dalam adonan dan mentega berubah menjadi uap. Uap itulah yang mengangkat lapisan. Sedikit garam menjaga rasa pastry supaya tidak datar, sementara gula bukan pemain utama di bagian ini.",
+              "Krim vanila juga tidak bisa asal jadi. Custard yang kurang matang terasa mentah dan tipis. Custard yang terlalu panas bisa pecah atau berubah berbutir. Karena itu dessert seperti ini bukan sekadar kue manis dengan cokelat di atasnya. Mille-feuille menuntut dapur menjaga kulit tetap kering, sementara bagian dalamnya tetap lembut."
+            ]
+          },
+          {
+            "h": "Nutella mengubah nada",
+            "p": [
+              "Nutella modern lahir di Alba, Piemonte, pada 1964, dari keluarga Ferrero. Kisah hazelnut dan cokelatnya lebih tua dari tahun itu. Di Italia utara, hazelnut dipakai untuk memperpanjang cokelat sejak masa kakao mahal dan pasokannya tidak stabil. Gianduja, campuran cokelat dan hazelnut dari Torino, sudah dikenal sejak abad ke-19.",
+              "Nutella lalu masuk ke meja sarapan banyak rumah. Di atas mille-feuille, ia melakukan sesuatu yang agak nakal: rasa hazelnut dan kakao menutup kesan pastry Prancis yang lebih kalem. Saya lebih suka arah seperti ini daripada mille-feuille yang hanya manis gula bubuk. Nutella punya bobot, dan stroberi segar diperlukan agar asamnya memotong manis krim serta cokelat.",
+              "Irisan stroberi bukan hiasan pemanis piring saja. Saat garpu membawa pastry, krim, Nutella, dan stroberi dalam satu suap, yang datang duluan adalah pecahan kering dari puff pastry. Vanila menyusul pelan. Cokelat tinggal lebih lama di mulut."
+            ]
+          },
+          {
+            "h": "Kapan pesan di Signa Cafe",
+            "p": [
+              "Signa Cafe berada di Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, di sisi Bukit yang mudah dijangkau dari Ungasan. Signa buka setiap hari 08:00-23:00, dengan last order 22:30. Tempat ini cocok untuk sarapan, brunch, makan siang santai, atau dessert malam ketika rasanya belum ingin pulang.",
+              "Untuk sarapan, Mille-feuille Nutella jelas bukan pilihan paling ringan. Setelah omelet, sandwich, atau satu kopi, sepotong pastry manis masih masuk akal kalau dibagi. Datang bersama keluarga juga tidak sulit, karena dessert ini ramah anak: cokelat dan stroberi gampang disukai. Hanya perlu ingat, mille-feuille bukan kue yang bisa dimakan bersih tanpa remah. Anak makan, meja ikut kerja.",
+              "Kopi adalah pasangan terbaik. Espresso memberi pahit pendek yang membersihkan rasa Nutella. Iced black coffee cocok saat udara Bukit sedang panas. Untuk kunjungan malam, promo bakery desserts -30% setiap hari pukul 21:00-23:00 membuat Mille-feuille Nutella lebih mudah dipesan setelah makan. Signa Cafe punya rating Google 4.7 dari 1426+ ulasan, dan menu online serta delivery ada di https://signa.dishi.rest/. Teleponnya +62 896 540 27190, Instagram @signa.cafe. Tagline di dinding singkat saja: Eat. Meet. Create."
+            ]
+          }
+        ],
+        "coverAlt": "Mille-feuille Nutella dengan puff pastry, krim vanila, Nutella, stroberi, dan remah pastry"
+      }
+    },
     {
       "slug": "pesto-pasta-nusa-dua",
       "date": "2026-09-10",
