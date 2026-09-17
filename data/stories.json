@@ -1,7 +1,339 @@
 {
-  "version": "20260910a",
+  "version": "20260917a",
   "note": "Source of truth for /stories. Edited by hand or via /admin -> Stories tab. Rendered server-side by story.php / stories.php - no build step, no JS required, so AI crawlers see full text.",
   "posts": [
+    {
+      "slug": "solo-chicken-brocoli-pizza-nusa-dua",
+      "date": "2026-09-24",
+      "cover": "assets/photo-breakfast.webp",
+      "dish": {
+        "name": "Solo Chicken-brocoli",
+        "price": "50 000 IDR",
+        "menuUrl": "https://signa.dishi.rest/",
+        "syrveId": "1a47897d-f31b-4bc6-a244-614fab58e04a",
+        "syrveCategory": "PIZZA - available 14:00 - 23:00 daily"
+      },
+      "tags": [
+        "pizza",
+        "solo chicken-brocoli",
+        "nusa dua",
+        "bukit",
+        "ungasan",
+        "family cafe",
+        "kid-friendly",
+        "coffee"
+      ],
+      "en": {
+        "faq": [
+          {
+            "q": "Where can I eat Solo Chicken-brocoli in Nusa Dua?",
+            "a": "Solo Chicken-brocoli is served at Signa Cafe in Nusa Dua from 14:00, when the pizza oven starts. The pizza costs 50 000 IDR."
+          },
+          {
+            "q": "Is Solo Chicken-brocoli a good pizza for families on the Bukit?",
+            "a": "Solo Chicken-brocoli works well for families on the Bukit who want a creamy chicken pizza to share. The menu lists a soft-spicy sauce, so spice-sensitive children should start with a small slice."
+          },
+          {
+            "q": "What time can I order pizza at Signa Cafe?",
+            "a": "Pizza at Signa Cafe is available daily from 14:00 until 23:00, with last order at 22:30. Solo Chicken-brocoli is part of the pizza menu."
+          },
+          {
+            "q": "Where is a chicken pizza near Ungasan?",
+            "a": "Signa Cafe is a short drive from Ungasan and serves Solo Chicken-brocoli, a chicken and broccoli pizza with cream sauce, mozzarella, red onion, soft-spicy sauce and sesame seeds."
+          }
+        ],
+        "seoTitle": "Solo Chicken-brocoli Nusa Dua white pizza",
+        "category": "Pizza",
+        "description": "Solo Chicken-brocoli in Nusa Dua is a 50 000 IDR white pizza with cream sauce, mozzarella, grilled chicken, broccoli, red onion and sesame.",
+        "keywords": [
+          "solo chicken-brocoli",
+          "nusa dua pizza",
+          "white pizza",
+          "chicken broccoli pizza",
+          "cream sauce pizza",
+          "family cafe",
+          "kid-friendly",
+          "brunch",
+          "coffee",
+          "bukit",
+          "ungasan"
+        ],
+        "facts": [
+          [
+            "Origin",
+            "Modern white pizza, with roots in Italian pizza bianca and Italian-American chicken pies"
+          ],
+          [
+            "Key ingredient",
+            "Cream sauce with mozzarella, grilled chicken, broccoli, red onion, soft-spicy sauce and sesame seeds"
+          ],
+          [
+            "Price",
+            "50 000 IDR"
+          ],
+          [
+            "Best time",
+            "From 14:00, when the pizza oven at Signa Cafe fires"
+          ],
+          [
+            "Who it suits",
+            "Cream-sauce pizza fans, families sharing food, and anyone avoiding tomato sauce"
+          ]
+        ],
+        "lead": "Solo Chicken-brocoli is Signa Cafe's 14:00-and-after white pizza in Nusa Dua: cream sauce, mozzarella, chicken, broccoli and a soft-spicy finish.",
+        "title": "Solo Chicken-brocoli in Nusa Dua: the white pizza after two",
+        "blocks": [
+          {
+            "h": "The pizza that skipped the tomato",
+            "p": [
+              "A red pizza is not the default law of nature. Solo Chicken-brocoli at Signa Cafe makes a better argument by leaving tomato sauce out completely: cream sauce, mozzarella, grilled chicken, broccoli, red onion, soft-spicy sauce and sesame seeds. The pizza is creamy before the chicken arrives, green before it gets heavy, and a little sharp where the onion cuts through.",
+              "White pizza has a longer memory than the brunch crowd gives it. In Rome, pizza bianca means a flatbread baked without tomato, dressed plainly with olive oil and salt or split for a filling. Tomato became central to the famous Neapolitan style after the fruit crossed from the Americas and found its place in southern Italian cooking. The white branch stayed alive beside the red one.",
+              "Chicken and broccoli belong to a newer chapter. Italian immigrants helped make pizza part of American life in the late 19th and early 20th centuries, and by the postwar decades pizzerias had room for white pies with mozzarella, cooked chicken, garlic, cream or ricotta, and green vegetables. That does not make Solo Chicken-brocoli old. That makes Solo Chicken-brocoli honest about being modern."
+            ]
+          },
+          {
+            "h": "Broccoli is the risk",
+            "p": [
+              "Broccoli is not a garnish if the kitchen treats broccoli properly. The vegetable comes from the Mediterranean brassica family; its name traces to the Italian broccolo, the flowering crest of a cabbage plant. Romans grew brassicas, Italian farmers selected broccoli into a recognisable crop, and Italian migrants later carried the habit to the United States. By the 20th century, broccoli had moved from immigrant produce stalls to ordinary dinner plates.",
+              "On pizza, broccoli can fail in two directions. Undercooked broccoli tastes like a chore. Overcooked broccoli goes dull, wet and cabbagey, which is worse because the cheese has nowhere to hide that smell. The useful point sits between the two: broccoli needs enough bite to be noticed and enough heat to sit inside the cream sauce rather than on top of it like a salad.",
+              "Red onion earns its space for the same reason. Cream sauce and mozzarella need something that wakes them up. A thin piece of onion gives a clean snap; sesame seeds bring a dry, nutty crackle against the soft chicken. You feel the seeds more than you expect."
+            ]
+          },
+          {
+            "h": "How Signa builds the bite",
+            "p": [
+              "Signa Cafe lists Solo Chicken-brocoli without mystery: cream sauce, mozzarella, grilled chicken, broccoli, red onion, soft-spicy sauce, sesame seeds. The line matters because a white pizza is less forgiving than a tomato pizza. Tomato brings acid and water. Cream brings weight. If the kitchen leans too hard on cream, the whole base turns sleepy.",
+              "The grilled chicken is the anchor. Chicken on pizza has to be cooked before the bake, which means the oven is not there to make raw meat safe; the oven is there to reheat the chicken, melt the mozzarella and finish the vegetables at the same time. That timing is awkward. Small decisions matter: too much chicken and every slice eats like a sandwich, too little and the pizza becomes cream with green dots.",
+              "The soft-spicy sauce is not decoration. A creamy chicken pizza needs heat somewhere, even gentle heat, because mozzarella is polite to the point of being bland if nobody interrupts. I would rather have a little sauce that makes the second slice interesting than a heavy hand with cheese on the first slice."
+            ]
+          },
+          {
+            "h": "Come after the oven is awake",
+            "p": [
+              "Signa Cafe opens at 08:00, so breakfast, coffee and early meetings live in the first part of the day. The pizza oven starts at 14:00. That single time changes the answer for anyone searching for pizza in Nusa Dua: Solo Chicken-brocoli is an afternoon and evening order, not a morning one.",
+              "The cafe stands on Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, on the Bukit side of the island. From Ungasan, the drive is short enough for a late lunch that was supposed to be brunch. From the resort strip, Solo Chicken-brocoli makes sense when you want a family cafe rather than another hotel lobby meal.",
+              "Two o'clock is a good hour for this pizza. Hunger has stopped being polite."
+            ]
+          },
+          {
+            "h": "Who should order it?",
+            "p": [
+              "Solo Chicken-brocoli suits the person who wants pizza without tomato and does not want a plain cheese pie. The dish also suits a table that shares: one slice gives chicken, another catches more broccoli, and the onion shows up in different places. At 50 000 IDR, the pizza sits in the everyday-food part of the decision, not the special-occasion part.",
+              "For a kid-friendly order, read the menu description carefully. The sauce is soft-spicy, not fire, but children who avoid chilli may prefer another dish or a small first bite. Children who already eat mild spice usually have an easier time here because mozzarella and cream soften the edges.",
+              "Coffee works better with Solo Chicken-brocoli than a sweet drink does. Bitterness cleans up cream sauce and cheese, especially if the pizza is part of a late brunch. In the evening, keep the drink dry or simple. Signa Cafe is open daily until 23:00 with last order at 22:30, and the cafe's 4.7 Google rating from 1426+ reviews gives searchers one more practical reason to stop debating and eat."
+            ]
+          }
+        ],
+        "coverAlt": "Solo Chicken-brocoli pizza with chicken, broccoli, mozzarella, red onion and sesame seeds"
+      },
+      "ru": {
+        "faq": [
+          {
+            "q": "Где попробовать Solo Chicken-brocoli в Нуса Дуа?",
+            "a": "Solo Chicken-brocoli готовят в Signa Cafe в Нуса Дуа с 14:00, когда запускают печь для пиццы. Цена - 50 000 IDR."
+          },
+          {
+            "q": "Подойдет ли Solo Chicken-brocoli для семьи на Буките?",
+            "a": "Solo Chicken-brocoli подойдет семье на Буките, если на стол хочется поставить сливочную пиццу с курицей и брокколи. В составе есть мягко-острый соус, поэтому ребенку, который не любит остроту, лучше сначала дать небольшой кусок."
+          },
+          {
+            "q": "Во сколько в Signa Cafe можно заказать пиццу?",
+            "a": "Пиццу в Signa Cafe можно заказать каждый день с 14:00 до 23:00, последний заказ принимают в 22:30. Solo Chicken-brocoli относится к вечернему меню кафе, а не к утреннему завтраку."
+          },
+          {
+            "q": "Где есть пицца с курицей недалеко от Унгасана?",
+            "a": "Signa Cafe находится недалеко от Унгасана и готовит Solo Chicken-brocoli с кремовым соусом, моцареллой, курицей гриль, брокколи, красным луком, мягко-острым соусом и кунжутом."
+          }
+        ],
+        "seoTitle": "Solo Chicken-brocoli в Нуса Дуа, белая пицца",
+        "category": "Пицца",
+        "description": "Solo Chicken-brocoli в Нуса Дуа - белая пицца за 50 000 IDR с кремовым соусом, моцареллой, курицей гриль, брокколи и кунжутом.",
+        "keywords": [
+          "solo chicken-brocoli",
+          "пицца нуса дуа",
+          "белая пицца",
+          "пицца с курицей",
+          "пицца с брокколи",
+          "семейное кафе",
+          "с детьми",
+          "бранч",
+          "кофе",
+          "букит",
+          "унгасан"
+        ],
+        "facts": [
+          [
+            "Происхождение",
+            "Современная белая пицца с памятью о римской pizza bianca и итало-американских пиццах с курицей"
+          ],
+          [
+            "Главные продукты",
+            "Кремовый соус, моцарелла, курица гриль, брокколи, красный лук, мягко-острый соус, кунжут"
+          ],
+          [
+            "Цена",
+            "50 000 IDR"
+          ],
+          [
+            "Лучшее время",
+            "После 14:00, когда в Signa Cafe запускают печь для пиццы"
+          ],
+          [
+            "Кому подойдет",
+            "Тем, кто хочет пиццу без томатного соуса, семьям и любителям мягкой остроты"
+          ]
+        ],
+        "lead": "Solo Chicken-brocoli в Нуса Дуа - белая пицца после 14:00: кремовый соус, моцарелла, курица гриль, брокколи, лук и кунжут.",
+        "title": "Solo Chicken-brocoli в Нуса Дуа: белая пицца после двух",
+        "blocks": [
+          {
+            "h": "Без томата - не значит тише",
+            "p": [
+              "Красная пицца переоценена: ей слишком легко прощают лишнюю кислоту и водянистую середину. В Solo Chicken-brocoli в Signa Cafe томата нет совсем, и от этого начинка звучит яснее: кремовый соус, моцарелла, курица гриль, брокколи, красный лук, мягко-острый соус и кунжут. Сливочная основа не прячет курицу, брокколи не притворяется декором, лук не дает сыру задремать.",
+              "У белой пиццы длинная биография. В Риме pizza bianca - плоский хлеб без томатного соуса, чаще с оливковым маслом и солью; иногда его разрезали и наполняли начинкой. Томат стал знаком неаполитанской пиццы позже, когда привезенный из Америки плод прижился на юге Италии. Белая линия никуда не делась, просто мировая слава ушла к красной.",
+              "Курица с брокколи - глава новее. Итальянские эмигранты в США в конце XIX и начале XX века превратили пиццу в городскую еду, а после войны пиццерии смелее взялись за белые версии: моцарелла, готовая курица, чеснок, сливки или рикотта, зеленые овощи. У этой пиццы нет древней легенды с королевой. И хорошо - не каждому ужину нужна корона."
+            ]
+          },
+          {
+            "h": "Брокколи здесь решает",
+            "p": [
+              "Брокколи на пицце легко испортить. Само слово пришло из итальянского broccolo - цветущий побег капусты. Римляне выращивали разные brassica, итальянские фермеры вывели узнаваемую брокколи, а эмигранты увезли привычный овощ в Америку. В XX веке он вышел из лавок при итальянских кварталах и добрался до домашних кухонь.",
+              "На пицце у брокколи две плохие судьбы. Недоготовленная хрустит так, будто ее положили из чувства долга. Переваренная пахнет столовой капустой и мокнет под сыром. Нужна середина: стебель держит укус, соцветия уже приняли жар, а кремовый соус не превратил овощ в пюре.",
+              "Красный лук здесь не для цвета. Он дает короткий удар, которого не хватает сливкам и моцарелле. Кунжут кажется мелочью ровно до первого укуса: сухой щелчок семечки меняет мягкий кусок сильнее, чем ждешь."
+            ]
+          },
+          {
+            "h": "Как собирается кусок",
+            "p": [
+              "Состав в Signa Cafe указан прямо: кремовый соус, моцарелла, курица гриль, брокколи, красный лук, мягко-острый соус, кунжут. Для белой пиццы такая прямота кстати. Томатный соус приносит кислоту, воду и яркость. Кремовый соус приносит вес, с которым нужно обращаться осторожно.",
+              "Курица гриль задает основу. На пиццу она попадает уже приготовленной, так что печь не начинает все с нуля: она прогревает мясо, плавит моцареллу и доводит овощи за один заход. Печь включают в 14:00. Крупные куски курицы перетягивают внимание на себя, лишний сыр глушит брокколи, а перебор с соусом делает основу вялой.",
+              "Мягко-острый соус нужен не для красивой строки в меню. Сливкам и моцарелле необходима резкость, иначе второй кусок будет скучнее первого. Я бы спорил за меньше сыра и за более живую остроту, а не наоборот."
+            ]
+          },
+          {
+            "h": "Когда ехать",
+            "p": [
+              "Signa Cafe открывается в 08:00, поэтому завтрак, кофе и ранние встречи остаются за первой половиной дня. Печь для пиццы запускают с 14:00. Solo Chicken-brocoli - заказ после двух: для позднего обеда или для бранча, который затянулся и уже потерял право называться бранчем.",
+              "Кафе находится по адресу Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua. Для тех, кто едет с Букита, это не экспедиция на полдня. Из Унгасана можно приехать за пиццей без долгих переговоров в машине; из Нуса Дуа удобно свернуть, когда не хочется снова есть в отельном зале.",
+              "После двух аппетит говорит короче."
+            ]
+          },
+          {
+            "h": "С детьми или без",
+            "p": [
+              "Solo Chicken-brocoli удобно поставить на общий стол. Курица понятна, моцарелла смягчает соус, брокколи добавляет ощущение еды, а не просто хлеба с сыром. Signa Cafe - семейное кафе, и для такого формата эта пицца работает точно: взрослым достаются лук и мягкая острота, детям - сыр и курица, если они спокойно относятся к легкому перцу.",
+              "Фраза «с детьми» здесь требует оговорки. Соус мягко-острый, но чувствительному ребенку может хватить и этого. Лучше дать маленький кусок первым, чем потом спорить с тарелкой. Пицца стоит 50 000 IDR, за эту цену ее можно взять как один вариант на стол, а не как единственную ставку.",
+              "Кофе к этой пицце звучит лучше сладкого напитка. Горечь убирает сливочный след после моцареллы, особенно днем. Signa Cafe работает каждый день до 23:00, последний заказ в 22:30; рейтинг Google 4.7 на основе 1426+ отзывов помогает тем, кто ищет еду рядом с Нуса Дуа прямо сейчас, а не когда-нибудь в отпуске."
+            ]
+          }
+        ],
+        "coverAlt": "Пицца Solo Chicken-brocoli с курицей, брокколи, моцареллой, красным луком и кунжутом"
+      },
+      "id": {
+        "faq": [
+          {
+            "q": "Di mana makan Solo Chicken-brocoli di Nusa Dua?",
+            "a": "Solo Chicken-brocoli bisa dimakan di Signa Cafe, area Nusa Dua, mulai 14:00 saat oven pizza dinyalakan. Harganya 50 000 IDR."
+          },
+          {
+            "q": "Apakah Solo Chicken-brocoli cocok untuk keluarga di Bukit?",
+            "a": "Solo Chicken-brocoli cocok untuk makan santai di kafe keluarga di Bukit, terutama bagi tamu yang suka pizza putih berisi ayam dan brokoli. Sausnya soft-spicy, jadi anak yang sensitif pedas sebaiknya mencicipi sedikit dulu."
+          },
+          {
+            "q": "Jam berapa pizza Solo Chicken-brocoli bisa dipesan di Signa Cafe?",
+            "a": "Pizza Solo Chicken-brocoli bisa dipesan setiap hari dari 14:00 sampai 23:00, dengan last order Signa Cafe pukul 22:30."
+          },
+          {
+            "q": "Apa pilihan pizza dengan ayam dekat Ungasan?",
+            "a": "Solo Chicken-brocoli di Signa Cafe adalah pilihan pizza dengan ayam dekat Ungasan, berisi cream sauce, mozzarella, grilled chicken, brokoli, bawang merah, saus soft-spicy, dan wijen."
+          }
+        ],
+        "seoTitle": "Solo Chicken-brocoli Nusa Dua, pizza putih",
+        "category": "Pizza",
+        "description": "Solo Chicken-brocoli di Nusa Dua adalah pizza putih 50 000 IDR dengan cream sauce, mozzarella, ayam panggang, brokoli, bawang merah, dan wijen.",
+        "keywords": [
+          "solo chicken-brocoli",
+          "pizza nusa dua",
+          "pizza putih",
+          "cream sauce pizza",
+          "grilled chicken pizza",
+          "brokoli",
+          "kafe keluarga",
+          "ramah anak",
+          "brunch",
+          "kopi",
+          "bukit",
+          "ungasan"
+        ],
+        "facts": [
+          [
+            "Asal gaya",
+            "Pizza putih modern, dekat dengan tradisi white pizza Italia-Amerika"
+          ],
+          [
+            "Bahan kunci",
+            "Cream sauce, mozzarella, grilled chicken, brokoli, bawang merah, saus soft-spicy, wijen"
+          ],
+          [
+            "Harga",
+            "50 000 IDR"
+          ],
+          [
+            "Waktu terbaik",
+            "Mulai 14:00, saat oven pizza Signa Cafe menyala"
+          ],
+          [
+            "Cocok untuk",
+            "Makan siang terlambat, brunch yang mundur, keluarga, dan tamu yang ingin pizza tanpa tomat"
+          ]
+        ],
+        "lead": "Solo Chicken-brocoli di Nusa Dua adalah pizza putih untuk sore: cream sauce, mozzarella, ayam panggang, brokoli, bawang merah, dan wijen.",
+        "title": "Solo Chicken-brocoli di Nusa Dua: pizza putih untuk lewat jam dua",
+        "blocks": [
+          {
+            "h": "Pizza tanpa saus tomat punya umur panjang",
+            "p": [
+              "Tidak semua pizza harus merah. Pada pizza putih, topping lebih terbaca karena tidak ditutup saus tomat: rasa susu dari keju, manis bawang, sayur, sampai daging panggang punya ruang sendiri. Solo Chicken-brocoli di Signa Cafe berjalan di jalur itu, dengan dasar cream sauce, mozzarella, grilled chicken, brokoli, bawang merah, saus soft-spicy, lalu wijen di atasnya.",
+              "Pizza putih bukan barang baru yang tiba-tiba muncul karena menu brunch modern. Di Roma, pizza bianca sudah lama dikenal sebagai roti pipih tanpa saus tomat, dimakan dengan minyak zaitun, garam, atau isian yang sederhana. Tomat sendiri baru kuat masuk dapur Italia setelah tanaman dari Amerika itu pelan-pelan diterima di Eropa. Pizza Naples yang merah memang jadi ikon dunia, tetapi jalur putih tidak pernah benar-benar pergi.",
+              "Versi ayam dan brokoli terasa lebih dekat dengan selera pizzeria modern, terutama gaya Italia-Amerika setelah Perang Dunia II, ketika mozzarella, ayam matang, krim, bawang putih, dan sayuran hijau mulai akrab di atas adonan. Tidak semua rasa perlu membawa nama kota besar. Kalau susunannya masuk akal, piringnya sudah bicara."
+            ]
+          },
+          {
+            "h": "Brokoli tidak boleh menyerah",
+            "p": [
+              "Brokoli datang dari keluarga kubis Mediterania. Kata broccoli berasal dari bahasa Italia, dari broccolo, tunas berbunga pada tanaman kubis. Bangsa Romawi sudah menanam jenis brassica, lalu petani Italia mengembangkan brokoli menjadi sayur yang kita kenal sekarang. Ke Amerika Serikat, sayur ini dibawa imigran Italia pada abad ke-19 dan baru menjadi bahan rumah tangga yang luas pada abad ke-20.",
+              "Di atas pizza, brokoli mudah sekali salah arah. Kalau terlalu mentah, batangnya terasa seperti pekerjaan rumah. Kalau terlalu matang, kepala kecilnya melembek dan membawa bau kubis rebus. Titik enaknya ada di tengah: masih ada gigitan, tetapi cukup matang untuk menerima lemak dari mozzarella dan cream sauce.",
+              "Bawang merah ikut menjaga arah rasa. Potongannya memberi tajam yang bersih, terutama saat bertemu ayam panggang. Wijen memang kecil, tetapi ada bunyinya ketika gigi menekan kerak dan biji. Detail seperti ini cepat hilang kalau pizza hanya dianggap alas keju."
+            ]
+          },
+          {
+            "h": "Cara Signa menyusun Solo Chicken-brocoli",
+            "p": [
+              "Signa Cafe menulis isi Solo Chicken-brocoli dengan terang: cream sauce, mozzarella, grilled chicken, broccoli, red onion, soft-spicy sauce, sesame seeds. Tidak ada saus tomat. Tidak ada jamur yang melepas air. Tidak ada nanas yang membuka debat di meja makan.",
+              "Cream sauce membuat dasar pizza terasa lebih bundar dibanding pizza merah. Mozzarella memberi leleh dan garam susu. Ayam panggang membawa bobot, jadi brokoli tidak bisa cuma hadir sebagai warna hijau. Saus soft-spicy penting karena krim dan keju perlu dorongan. Tanpa itu, pizza putih bisa terlalu nyaman dan cepat datar.",
+              "Yang mahal dalam pizza seperti ini bukan hanya bahan. Menahan diri juga mahal. Krim berlebihan membuat adonan basah. Mozzarella kebanyakan menenggelamkan topping. Ayam yang dipotong terlalu besar akan menang sendiri di gigitan pertama. Begitu pizza masuk oven, keputusan sudah terkunci."
+            ]
+          },
+          {
+            "h": "Datang setelah oven menyala",
+            "p": [
+              "Solo Chicken-brocoli baru masuk akal setelah 14:00 karena oven pizza Signa Cafe mulai menyala pukul 14:00. Signa Cafe buka setiap hari 08:00-23:00, dengan last order 22:30. Tamu yang datang untuk sarapan dan kopi pagi akan melihat tempat yang sama berganti ritme setelah siang lewat.",
+              "Alamat Signa Cafe ada di Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua. Dari Ungasan, jalan ke area Nusa Dua tidak perlu dibayangkan sebagai rencana besar. Dari sisi Bukit, pizza ini pas untuk sore ketika makan siang sudah lewat dan makan malam masih terasa kejauhan.",
+              "Makan pizza lewat jam dua punya enaknya sendiri: perut sudah siap menerima keju, tetapi kepala belum minta tidur."
+            ]
+          },
+          {
+            "h": "Untuk siapa piring ini?",
+            "p": [
+              "Solo Chicken-brocoli cocok untuk tamu yang mencari pizza berkrim, bukan pizza tomat. Buat keluarga, gabungan ayam, mozzarella, dan brokoli membuatnya gampang dibagi di tengah meja. Signa Cafe juga berjalan sebagai kafe keluarga yang ramah anak, dengan satu catatan kecil: sausnya soft-spicy. Anak yang senang pedas ringan akan baik-baik saja, sedangkan anak yang biasa memilih makanan polos sebaiknya mencoba sepotong kecil dulu.",
+              "Kalau datang untuk brunch yang telat, pizza ini enak ditemani kopi dingin atau espresso. Krim dan mozzarella butuh minuman yang punya pahit. Untuk malam, pilih minuman yang tidak terlalu manis karena wijen dan bawang merah sudah memberi arah rasa sendiri.",
+              "Google rating Signa Cafe tercatat 4.7 dari 1426+ reviews. Angka itu bukan bumbu dapur, tetapi membantu ketika orang mencari tempat makan dekat Nusa Dua untuk satu jam ke depan. Solo Chicken-brocoli memberi jawaban yang jelas: pizza putih 50 000 IDR, mulai jam dua, di tempat yang buka sampai malam."
+            ]
+          }
+        ],
+        "coverAlt": "Solo Chicken-brocoli pizza dengan ayam, brokoli, mozzarella, bawang merah, dan wijen"
+      }
+    },
     {
       "slug": "mille-feuille-nutella-nusa-dua",
       "date": "2026-09-17",
