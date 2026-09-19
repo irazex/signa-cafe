@@ -441,6 +441,531 @@
         "reasoning": 1527
       },
       "usd": 0.1319
+    },
+    {
+      "at": "2026-09-19T10:21:40.622Z",
+      "slug": "solo-chicken-brocoli-pizza-nusa-dua",
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 44,
+      "tokens": {
+        "input": 1543,
+        "cachedInput": 0,
+        "output": 5379,
+        "reasoning": 3102
+      },
+      "usd": 0.1691
+    },
+    {
+      "at": "2026-09-19T10:22:25.138Z",
+      "slug": "pesto-pasta-nusa-dua",
+      "postDate": "2026-09-10",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 44,
+      "tokens": {
+        "input": 1577,
+        "cachedInput": 0,
+        "output": 4339,
+        "reasoning": 1550
+      },
+      "usd": 0.1381
+    },
+    {
+      "at": "2026-09-19T10:23:09.883Z",
+      "slug": "syrniki-cottage-cheese-pancakes",
+      "postDate": "2026-09-03",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 44,
+      "tokens": {
+        "input": 1538,
+        "cachedInput": 0,
+        "output": 5134,
+        "reasoning": 3102
+      },
+      "usd": 0.1617
+    },
+    {
+      "at": "2026-09-19T10:23:49.215Z",
+      "slug": "margherita-pizza-history",
+      "postDate": "2026-08-27",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 38,
+      "tokens": {
+        "input": 1561,
+        "cachedInput": 0,
+        "output": 3172,
+        "reasoning": 516
+      },
+      "usd": 0.103
+    },
+    {
+      "at": "2026-09-19T10:25:22.893Z",
+      "slug": "pesto-pasta-nusa-dua",
+      "postDate": "2026-09-10",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 50,
+      "tokens": {
+        "input": 1654,
+        "cachedInput": 0,
+        "output": 6250,
+        "reasoning": 5170
+      },
+      "usd": 0.1958
+    },
+    {
+      "at": "2026-09-19T10:26:51.587Z",
+      "slug": "pesto-pasta-nusa-dua",
+      "postDate": "2026-09-10",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 44,
+      "tokens": {
+        "input": 1654,
+        "cachedInput": 0,
+        "output": 4253,
+        "reasoning": 1550
+      },
+      "usd": 0.1359
+    },
+    {
+      "at": "2026-09-19T10:27:52.169Z",
+      "slug": "solo-chicken-brocoli-pizza-nusa-dua",
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 38,
+      "tokens": {
+        "input": 1620,
+        "cachedInput": 0,
+        "output": 4094,
+        "reasoning": 1550
+      },
+      "usd": 0.1309
+    },
+    {
+      "at": "2026-09-19T10:28:32.185Z",
+      "slug": "syrniki-cottage-cheese-pancakes",
+      "postDate": "2026-09-03",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 39,
+      "tokens": {
+        "input": 1615,
+        "cachedInput": 0,
+        "output": 4872,
+        "reasoning": 3102
+      },
+      "usd": 0.1542
+    },
+    {
+      "at": "2026-09-19T10:29:22.607Z",
+      "slug": "margherita-pizza-history",
+      "postDate": "2026-08-27",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 49,
+      "tokens": {
+        "input": 1638,
+        "cachedInput": 0,
+        "output": 5292,
+        "reasoning": 3102
+      },
+      "usd": 0.1669
+    },
+    {
+      "at": "2026-09-19T10:30:01.936Z",
+      "slug": "classic-burger-nusa-dua",
+      "postDate": "2026-08-20",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 38,
+      "tokens": {
+        "input": 1704,
+        "cachedInput": 0,
+        "output": 4148,
+        "reasoning": 1550
+      },
+      "usd": 0.133
+    },
+    {
+      "at": "2026-09-19T10:30:46.571Z",
+      "slug": "caesar-with-chicken-nusa-dua",
+      "postDate": "2026-08-13",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 44,
+      "tokens": {
+        "input": 1685,
+        "cachedInput": 0,
+        "output": 4112,
+        "reasoning": 1550
+      },
+      "usd": 0.1318
+    },
+    {
+      "at": "2026-09-19T10:31:42.553Z",
+      "slug": "norwegian-salmon-soup-nusa-dua",
+      "postDate": "2026-08-06",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 55,
+      "tokens": {
+        "input": 1704,
+        "cachedInput": 0,
+        "output": 5113,
+        "reasoning": 3101
+      },
+      "usd": 0.1619
+    },
+    {
+      "at": "2026-09-19T10:32:38.181Z",
+      "slug": "solo-chicken-brocoli-pizza-nusa-dua",
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 40,
+      "tokens": {
+        "input": 1697,
+        "cachedInput": 0,
+        "output": 4002,
+        "reasoning": 1474
+      },
+      "usd": 0.1285
+    },
+    {
+      "at": "2026-09-19T10:33:27.198Z",
+      "slug": "syrniki-cottage-cheese-pancakes",
+      "postDate": "2026-09-03",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 48,
+      "tokens": {
+        "input": 1692,
+        "cachedInput": 0,
+        "output": 5924,
+        "reasoning": 5144
+      },
+      "usd": 0.1862
+    },
+    {
+      "at": "2026-09-19T10:34:57.237Z",
+      "slug": "solo-chicken-brocoli-pizza-nusa-dua",
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 45,
+      "tokens": {
+        "input": 1792,
+        "cachedInput": 0,
+        "output": 5124,
+        "reasoning": 3099
+      },
+      "usd": 0.1627
+    },
+    {
+      "at": "2026-09-19T10:35:41.939Z",
+      "slug": "syrniki-cottage-cheese-pancakes",
+      "postDate": "2026-09-03",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 44,
+      "tokens": {
+        "input": 1787,
+        "cachedInput": 0,
+        "output": 5081,
+        "reasoning": 3102
+      },
+      "usd": 0.1614
+    },
+    {
+      "at": "2026-09-19T10:36:52.595Z",
+      "slug": "solo-chicken-brocoli-pizza-nusa-dua",
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 55,
+      "tokens": {
+        "input": 1173,
+        "cachedInput": 0,
+        "output": 5927,
+        "reasoning": 5172
+      },
+      "usd": 0.1837
+    },
+    {
+      "at": "2026-09-19T10:37:32.460Z",
+      "slug": "mille-feuille-nutella-nusa-dua",
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 39,
+      "tokens": {
+        "input": 1202,
+        "cachedInput": 0,
+        "output": 4609,
+        "reasoning": 3102
+      },
+      "usd": 0.1443
+    },
+    {
+      "at": "2026-09-19T10:38:12.159Z",
+      "slug": "pesto-pasta-nusa-dua",
+      "postDate": "2026-09-10",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 39,
+      "tokens": {
+        "input": 1226,
+        "cachedInput": 0,
+        "output": 3919,
+        "reasoning": 1550
+      },
+      "usd": 0.1237
+    },
+    {
+      "at": "2026-09-19T10:38:57.013Z",
+      "slug": "syrniki-cottage-cheese-pancakes",
+      "postDate": "2026-09-03",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 44,
+      "tokens": {
+        "input": 1170,
+        "cachedInput": 0,
+        "output": 4702,
+        "reasoning": 3102
+      },
+      "usd": 0.1469
+    },
+    {
+      "at": "2026-09-19T10:39:47.669Z",
+      "slug": "margherita-pizza-history",
+      "postDate": "2026-08-27",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 49,
+      "tokens": {
+        "input": 1193,
+        "cachedInput": 0,
+        "output": 5042,
+        "reasoning": 3094
+      },
+      "usd": 0.1572
+    },
+    {
+      "at": "2026-09-19T10:40:21.594Z",
+      "slug": "classic-burger-nusa-dua",
+      "postDate": "2026-08-20",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 33,
+      "tokens": {
+        "input": 1182,
+        "cachedInput": 0,
+        "output": 2738,
+        "reasoning": 516
+      },
+      "usd": 0.0881
+    },
+    {
+      "at": "2026-09-19T10:41:01.545Z",
+      "slug": "caesar-with-chicken-nusa-dua",
+      "postDate": "2026-08-13",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 39,
+      "tokens": {
+        "input": 1163,
+        "cachedInput": 0,
+        "output": 3743,
+        "reasoning": 1550
+      },
+      "usd": 0.1181
+    },
+    {
+      "at": "2026-09-19T10:42:07.508Z",
+      "slug": "solo-chicken-brocoli-pizza-nusa-dua",
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 49,
+      "tokens": {
+        "input": 1175,
+        "cachedInput": 0,
+        "output": 5684,
+        "reasoning": 5172
+      },
+      "usd": 0.1764
+    },
+    {
+      "at": "2026-09-19T10:42:47.963Z",
+      "slug": "mille-feuille-nutella-nusa-dua",
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 39,
+      "tokens": {
+        "input": 1204,
+        "cachedInput": 0,
+        "output": 3951,
+        "reasoning": 1550
+      },
+      "usd": 0.1245
+    },
+    {
+      "at": "2026-09-19T10:43:43.640Z",
+      "slug": "mille-feuille-nutella-nusa-dua",
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 39,
+      "tokens": {
+        "input": 1238,
+        "cachedInput": 0,
+        "output": 4005,
+        "reasoning": 1550
+      },
+      "usd": 0.1263
+    },
+    {
+      "at": "2026-09-19T10:46:19.868Z",
+      "slug": "solo-chicken-brocoli-pizza-nusa-dua",
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 40,
+      "tokens": {
+        "input": 1391,
+        "cachedInput": 0,
+        "output": 3881,
+        "reasoning": 1550
+      },
+      "usd": 0.1234
+    },
+    {
+      "at": "2026-09-19T10:47:10.512Z",
+      "slug": "mille-feuille-nutella-nusa-dua",
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 49,
+      "tokens": {
+        "input": 1420,
+        "cachedInput": 0,
+        "output": 5604,
+        "reasoning": 5028
+      },
+      "usd": 0.1752
+    },
+    {
+      "at": "2026-09-19T10:48:29.491Z",
+      "slug": "pesto-pasta-nusa-dua",
+      "postDate": "2026-09-10",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id:abandoned",
+      "seconds": 77,
+      "tokens": {
+        "input": 1425,
+        "cachedInput": 0,
+        "output": 13858,
+        "reasoning": 4960
+      },
+      "usd": 0.4229
+    },
+    {
+      "at": "2026-09-19T10:49:19.565Z",
+      "slug": "syrniki-cottage-cheese-pancakes",
+      "postDate": "2026-09-03",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 49,
+      "tokens": {
+        "input": 1386,
+        "cachedInput": 0,
+        "output": 4795,
+        "reasoning": 3096
+      },
+      "usd": 0.1508
+    },
+    {
+      "at": "2026-09-19T10:50:03.613Z",
+      "slug": "margherita-pizza-history",
+      "postDate": "2026-08-27",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 38,
+      "tokens": {
+        "input": 1409,
+        "cachedInput": 0,
+        "output": 3755,
+        "reasoning": 1550
+      },
+      "usd": 0.1197
+    },
+    {
+      "at": "2026-09-19T10:50:48.620Z",
+      "slug": "classic-burger-nusa-dua",
+      "postDate": "2026-08-20",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 44,
+      "tokens": {
+        "input": 1398,
+        "cachedInput": 0,
+        "output": 4835,
+        "reasoning": 3102
+      },
+      "usd": 0.152
+    },
+    {
+      "at": "2026-09-19T10:51:39.068Z",
+      "slug": "caesar-with-chicken-nusa-dua",
+      "postDate": "2026-08-13",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 49,
+      "tokens": {
+        "input": 1379,
+        "cachedInput": 0,
+        "output": 4127,
+        "reasoning": 1550
+      },
+      "usd": 0.1307
+    },
+    {
+      "at": "2026-09-19T10:53:00.305Z",
+      "slug": "solo-chicken-brocoli-pizza-nusa-dua",
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 49,
+      "tokens": {
+        "input": 1391,
+        "cachedInput": 0,
+        "output": 4854,
+        "reasoning": 3102
+      },
+      "usd": 0.1526
+    },
+    {
+      "at": "2026-09-19T10:53:39.729Z",
+      "slug": "pesto-pasta-nusa-dua",
+      "postDate": "2026-09-10",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 38,
+      "tokens": {
+        "input": 1425,
+        "cachedInput": 0,
+        "output": 3584,
+        "reasoning": 1406
+      },
+      "usd": 0.1146
     }
   ]
 }

@@ -183,7 +183,7 @@ Return JSON only, matching the provided schema exactly.`;
 // The English original is supplied as a fact sheet, never as prose to translate.
 // This is deliberately not an editor pass: editing a translated draft preserves
 // its English skeleton, which is exactly what made the Russian posts read badly.
-export function transcreationPrompt({ facts, dish, site, promos = [], lang, date }) {
+export function transcreationPrompt({ facts, dish, site, promos = [], lang, date, targetSections }) {
   if (lang === "ru") {
     return `Напиши с нуля русскую статью про блюдо "${dish.title}" для Signa Cafe.
 
@@ -201,15 +201,26 @@ ${promoFacts(promos)}
 
 САМОСТОЯТЕЛЬНАЯ КОМПОЗИЦИЯ
 - Выбери свой первый кадр. Не начинай с той же мысли, что английский текст.
-- Пересобери материал в 4-6 разделов. Их порядок и границы не должны совпадать с английскими.
+- Пересобери материал ровно в ${targetSections} разделов. Это число специально
+  отличается от английской версии. Не добавляй пятый раздел по привычке.
+  Порядок и границы материала не должны совпадать с английскими.
 - Заголовки должны звучать по-русски, а не как перевод английских метафор.
-- Точное название из меню нужно для поиска, но не в каждом абзаце. После первого упоминания используй нормальное русское название блюда: мильфей, торт, десерт. Не превращай текст в повтор SEO-запроса.
+- Точное латинское название из меню оставь только в title, seoTitle и coverAlt.
+  В lead, основном тексте и FAQ используй нормальное русское название блюда:
+  мильфей, паста с песто, сырники, пицца, бургер, салат или суп. Не вставляй
+  слова pasta, pancakes, pizza, burger и другие английские названия в русскую прозу.
+- Бренд всегда пиши ровно Signa Cafe, с обеих заглавных букв.
 - Не транслитерируй обычные слова латиницей. Имена людей и книг, кроме брендов и названий из меню, пиши по-русски.
 - Добавь свою авторскую оценку. Факты не меняй.
 - Объём основного текста - 650-900 слов. Абзацы разной длины.
 
 ИСПРАВИТЬ ОБЯЗАТЕЛЬНО
 - Следы перевода: канцелярит, кальки, английский порядок слов.
+- Псевдолитературность и метафоры ради метафор. Не одушевляй еду, погоду,
+  район или кафе. Запрещены обороты вроде «блюдо спорит с жарой», «точка
+  маршрута», «без музейной пыли», «зелёная пауза», «туристический компромисс»,
+  «никакой философии», «авторская оценка», «простота не извиняется». Пиши
+  конкретно: что приготовлено, какой вкус, когда заказать и кому подойдёт.
 - Цепочки одинаково начатых предложений. Три подряд "Если..." - переписать.
 - Повтор подлежащего там, где по-русски нужно местоимение или пропуск.
 - Английские слова внутри русского текста. Разделы и теги меню перевести: breakfast - завтрак, Popular - популярное, veg - вегетарианское. Имена собственные латиницей оставить.
@@ -228,10 +239,19 @@ ${promoFacts(promos)}
 
 СОХРАНИТЬ ПО СМЫСЛУ, НО НЕ ПО ФОРМЕ
 - Все факты: даты, города, цены, часы, адрес, состав блюда, имена собственные.
-- Географию: Нуса Дуа, Букит и Унгасан должны встретиться естественно. Кампьял, Беноа и Джимбаран - вместе не более трёх упоминаний и никогда в title, seoTitle и description.
+- Географию: Нуса Дуа, Букит и Унгасан должны встретиться естественно. Кампьял, Беноа и Джимбаран - вместе не более двух упоминаний и никогда в title, seoTitle и description.
+- Если приводишь полный адрес, слова Kampial и Benoa уже занимают оба допустимых
+  упоминания: тогда вообще не пиши Джимбаран и не повторяй Кампьял или Беноа.
+- seoTitle должен быть не длиннее 58 символов, description - не длиннее 155.
 - Слова позиционирования: завтрак, семейное кафе, с детьми, бранч, кофе.
+- Каждая из пяти фраз выше должна встретиться буквально хотя бы один раз. Не
+  заменяй «семейное кафе» на «семейное место» и не пропускай «с детьми».
+- Не начинай три соседних предложения одним словом, особенно «для», «это»,
+  «здесь», «если» или названием блюда.
 - Тире только короткое "-". Без восклицательных знаков и эмодзи.
 - FAQ остаются поисковыми запросами, минимум в двух - название места; ответ отвечает первым предложением.
+- Ровно две FAQ-формулировки должны буквально содержать Нуса Дуа, Букит или
+  Унгасан. Перед возвратом JSON пересчитай районы, обязательные фразы и FAQ.
 
 Верни JSON ровно по заданной схеме.
 
@@ -255,7 +275,12 @@ Menu description: ${dish.desc || "none"}
 
 INDEPENDENT COMPOSITION
 - Choose a different opening image from the English edition.
-- Rebuild the material into 4-6 sections in an order that sounds natural in Indonesian. Do not align paragraphs with the English source.
+- Rebuild the material into exactly ${targetSections} sections. This count was
+  chosen to differ from the English edition. Do not fall back to five sections.
+  Use an order that sounds natural in Indonesian and do not align paragraphs
+  with the English source.
+- Never number section headings. Write natural headings without "1.", "2." or
+  any other outline markers.
 - Write 650-900 words with deliberately varied paragraph lengths.
 - Add your own editorial opinion without changing factual claims.
 
@@ -268,11 +293,28 @@ MUST FIX
 - Costless hedging: "biasanya", "pada umumnya", "banyak orang bilang" used to avoid committing.
 - Marketing filler and empty closing lines.
 - Prices written in full, e.g. "93 000 IDR".
+- English menu-copy inside Indonesian sentences. The exact dish name may stay
+  in English, as may brands and established food names such as Nutella,
+  mozzarella, parmesan, espresso, croissant and brunch. Translate everything
+  else: cream sauce -> saus krim; grilled chicken -> ayam panggang; broccoli ->
+  brokoli; red onion -> bawang bombai merah; soft-spicy -> pedas ringan; sesame
+  seeds -> biji wijen; homemade -> buatan sendiri; coffee -> kopi; breakfast ->
+  sarapan; lunch -> makan siang; early dinner -> makan malam lebih awal; late
+  dinner -> makan malam larut; last order -> pesanan terakhir. Never quote the
+  English menu description or any complete English sentence.
 
 KEEP IN MEANING, NOT IN FORM
 - Every fact: dates, cities, prices, opening hours, address, what is in the dish, proper nouns.
-- Use Nusa Dua, Bukit and Ungasan naturally. Kampial, Benoa and Jimbaran together appear no more than three times and never in title, seoTitle or description.
+- Use Nusa Dua, Bukit and Ungasan naturally. Do not print the full street
+  address and do not use Kampial, Benoa or Jimbaran in this edition. The page
+  already carries the address elsewhere; repeating it weakens the search focus.
+- Keep seoTitle at 58 characters or fewer and description at 155 characters or fewer.
 - The positioning terms: ${POSITIONING.id.join(", ")}.
+- Each positioning term above must appear literally at least once. Exactly two
+  FAQ questions must literally name Nusa Dua, Bukit or Ungasan. Count both
+  requirements before returning JSON.
+- Do not start three neighbouring sentences with the same word, especially
+  "di", "untuk", "ini", "kalau" or the dish name.
 - Only the short hyphen "-". No exclamation marks, no emoji.
 - The FAQ stay search-shaped, at least two naming a place, each answered in the first sentence.
 

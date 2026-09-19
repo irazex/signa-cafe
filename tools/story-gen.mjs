@@ -322,8 +322,26 @@ function factDossier(source, storedFacts = null) {
   return (source?.facts || []).map(([label, value]) => `${label}: ${value}`);
 }
 
-async function transcreateLang(facts, dish, site, promos, lang, key, bill = {}) {
+function transcreationSectionCount(dish, lang, sourceSections) {
+  const candidates = [4, 5, 6].filter((n) => n !== sourceSections);
+  const seed = [...`${dish.title}:${lang}`].reduce((n, c) => n + c.codePointAt(0), 0);
+  return candidates[seed % candidates.length];
+}
+
+function normalizeNativeBody(value, lang) {
+  if (typeof value === "string") {
+    return lang === "ru" ? value.replace(/signa cafe/gi, "Signa Cafe") : value;
+  }
+  if (Array.isArray(value)) return value.map((item) => normalizeNativeBody(item, lang));
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, normalizeNativeBody(v, lang)]));
+  }
+  return value;
+}
+
+async function transcreateLang(facts, dish, site, promos, lang, key, bill = {}, sourceSections = 5) {
   const one = schema([lang]).schema.properties[lang];
+  const targetSections = transcreationSectionCount(dish, lang, sourceSections);
   const persona = lang === "ru"
     ? "Ты русскоязычный гастрономический автор. Ты пишешь самостоятельную статью с нуля по фактическому досье. Ты не переводчик и не редактор перевода."
     : "You are a native Indonesian food writer. You write a new Bahasa Indonesia article from a factual dossier, never a translation or an edited translation. You do not change facts.";
@@ -331,11 +349,19 @@ async function transcreateLang(facts, dish, site, promos, lang, key, bill = {}) 
     key,
     messages: [
       { role: "system", content: persona },
-      { role: "user", content: transcreationPrompt({ facts, dish, site, promos, lang, date: bill.date }) },
+      { role: "user", content: transcreationPrompt({ facts, dish, site, promos, lang, date: bill.date, targetSections }) },
     ],
     jsonSchema: { name: `signa_story_${lang}`, strict: true, schema: one },
-    maxTokens: 12000,
+    // The limit is headroom, not a bill. One ID rewrite spent 13.8k including
+    // hidden reasoning and was charged despite ending incomplete at 12k.
+    maxTokens: 16000,
     stage: `transcreate:${lang}`, slug: bill.slug ?? null, date: bill.date ?? null,
+  }).then((rawBody) => {
+    const body = normalizeNativeBody(rawBody, lang);
+    if (body.blocks.length !== targetSections) {
+      throw new Error(`${lang} returned ${body.blocks.length} sections; independent edition requires ${targetSections}`);
+    }
+    return body;
   });
 }
 
@@ -370,7 +396,9 @@ async function generate({ dish, site, promos, usedAngles, date, key, langs = opt
   // There is no intermediate translated draft and no editor pass.
   for (const lang of langs.filter((l) => l !== "en")) {
     if (opts.verbose) log(`    ${lang} independent transcreation`);
-    data[lang] = await transcreateLang(facts, dish, site, promos, lang, key, { slug, date });
+    data[lang] = await transcreateLang(
+      facts, dish, site, promos, lang, key, { slug, date }, source?.blocks?.length || 5,
+    );
   }
   return data;
 }
@@ -398,11 +426,12 @@ function validate(post, langs = opts.langs) {
     // ...and the address must not crowd them out. Kampial has almost no search
     // volume, so a title or description spent on it is a wasted slot.
     const headline = `${b.title} ${b.seoTitle || ""} ${b.description}`.toLowerCase();
-    const inHead = GEO_SECONDARY[lang].filter((g) => headline.includes(g.toLowerCase()) && !/bali/i.test(g));
+    const isBali = (g) => /^(bali|бали)$/i.test(g);
+    const inHead = GEO_SECONDARY[lang].filter((g) => headline.includes(g.toLowerCase()) && !isBali(g));
     if (inHead.length) issues.push(`${tag}: "${inHead.join(", ")}" in the title or description - use ${GEO_PRIMARY[lang][0]} there`);
 
     const secondaryCount = GEO_SECONDARY[lang]
-      .filter((g) => !/bali/i.test(g))
+      .filter((g) => !isBali(g))
       .reduce((n, g) => n + (low.match(new RegExp(g.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 0);
     if (secondaryCount > 3) issues.push(`${tag}: ${secondaryCount} mentions of the side districts, cap is 3`);
 
@@ -433,7 +462,11 @@ function validate(post, langs = opts.langs) {
 
     if (lang === "ru") {
       const LABELS = /^(breakfast|lunch|dinner|pizza|pasta|main|mains|drinks|dessert|popular|veg|vegan|chef|chef's|new|hot|special)$/i;
-      const prose = blob.replace(/https?:\/\/\S+/g, " ").replace(/\S+@\S+/g, " ");
+      const prose = blob
+        .replace(/https?:\/\/\S+/g, " ")
+        .replace(/\S+@\S+/g, " ")
+        .replace(/@?signa\.cafe/gi, " ")
+        .replace(/\bSigna Cafe\b/gi, " ");
       const latin = [...new Set((prose.match(/[A-Za-z][A-Za-z'-]{2,}/g) || []).filter((w) => LABELS.test(w) || /^[a-z]/.test(w)))];
       if (latin.length) issues.push(`RU: english words in russian prose: ${latin.slice(0, 6).join(", ")}`);
       if (/\b\d+\s*k\b/i.test(blob)) issues.push('RU: menu-shorthand price ("93k"), spell it out');
@@ -441,6 +474,28 @@ function validate(post, langs = opts.langs) {
         const exact = new RegExp(`(?<![а-яё])${dead.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![а-яё])`, "i");
         if (exact.test(blob)) issues.push(`RU: dead construction "${dead}"`);
       }
+      const cringe = [
+        "музейная пыль", "авторская оценка", "моя оценка", "точка маршрута",
+        "туристического компромисса", "зеленая пауза", "зелёная пауза",
+        "не спорит с жарой", "умеет спорить с аппетитом", "без лишних реверансов",
+        "простота, которая не извиняется", "попадает в день", "никакой философии",
+      ].filter((phrase) => low.includes(phrase));
+      if (cringe.length) issues.push(`RU: pseudo-literary filler: ${cringe.join(", ")}`);
+    }
+    if (lang === "id") {
+      if (b.blocks.some((x) => /^\s*\d+[.)]/.test(x.h))) {
+        issues.push("ID: numbered section headings read like an outline");
+      }
+      const idText = [b.description, blob]
+        .join(" ")
+        .replace(/https?:\/\/\S+/g, " ")
+        .replace(/\S+@\S+/g, " ");
+      const copiedEnglish = [
+        "cream sauce", "grilled chicken", "broccoli", "red onion", "soft-spicy",
+        "sesame seeds", "homemade", "cottage cheese", "fresh cheese", "pancakes",
+        "free coffee", "breakfast", "lunch", "early dinner", "late dinner", "last order",
+      ].filter((term) => new RegExp(`(?<![a-z])${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![a-z])`, "i").test(idText));
+      if (copiedEnglish.length) issues.push(`ID: untranslated English menu copy: ${copiedEnglish.join(", ")}`);
     }
   }
 
@@ -548,7 +603,7 @@ async function main() {
       try {
         const candidate = await transcreateLang(
           factDossier(post.en, post.sourceFacts), dish, site, promos, lang, key,
-          { slug: post.slug, date: post.date },
+          { slug: post.slug, date: post.date }, post.en?.blocks?.length || 5,
         );
         const issues = validate({ ...post, [lang]: candidate }, [lang]);
         if (issues.length) {
@@ -557,6 +612,7 @@ async function main() {
           continue;
         }
         post[lang] = candidate;
+        if (!post.sourceFacts?.length) post.sourceFacts = factDossier(post.en);
       } catch (e) {
         warn(`transcreation failed, existing edition kept: ${e.message}`);
         continue;
