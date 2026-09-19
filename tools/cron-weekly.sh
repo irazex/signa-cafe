@@ -89,7 +89,10 @@ log "queued: $NEW"
 # Social cards for the fresh cover, before anything is pushed.
 node tools/og-images.mjs >/dev/null || log "og-images failed (non-fatal)"
 
-git add data/stories.json assets/
+# The cost ledger is part of the safety system: the next run reads it before
+# calling OpenAI. Commit it with the article so a pull/rebase cannot lose spend
+# that should count toward the daily and monthly caps.
+git add data/stories.json data/story-costs.json assets/
 git -c user.name="signa-cron" -c user.email="hi@signa.cafe" \
     commit --quiet -m "Stories: queue ${NEW}"
 # Best-effort. The FTP upload below is the actual publication; GitHub is the

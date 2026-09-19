@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Weekly Stories generator. Picks a dish that has never been written about,
-// asks the model for an EN+RU+ID post, pulls the dish photo out of Syrve,
+// writes one English original, commissions independent RU and ID editions,
+// pulls the dish photo out of Syrve,
 // validates the result and writes it into data/stories.json.
 //
 //   node tools/story-gen.mjs                        one post, next free Thursday
@@ -8,7 +9,7 @@
 //   node tools/story-gen.mjs --dish "burrata pizza" force a dish by name or id
 //   node tools/story-gen.mjs --rewrite <slug>       redo an existing post in place
 //   node tools/story-gen.mjs --addlang id           add a missing language to every post
-//   node tools/story-gen.mjs --edit-only id         re-run just the editor pass on a language
+//   node tools/story-gen.mjs --edit-only id         rewrite one language from the English facts
 //   node tools/story-gen.mjs --fix-geo              re-anchor titles/descriptions on the searched districts
 //   node tools/story-gen.mjs --dry-run              print, write nothing
 //
@@ -18,7 +19,7 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import { fileURLToPath } from "node:url";
-import { systemPrompt, userPrompt, editorPrompt, schema, geoFixPrompt, geoFixSchema,
+import { systemPrompt, userPrompt, transcreationPrompt, schema, geoFixPrompt, geoFixSchema,
          LANGS, GEO, GEO_PRIMARY, GEO_SECONDARY, POSITIONING } from "./story-prompt.mjs";
 import { fetchDishPhoto } from "./dish-photo.mjs";
 import { record as recordCost, spentOn, spentInMonth } from "./cost-ledger.mjs";
@@ -80,7 +81,6 @@ const opts = {
   // nothing. Spend before this date is outside the budget window.
   capSince: flag("cap-since", process.env.SIGNA_CAP_SINCE || "2026-09-06"),
   langs: (flag("langs") || LANGS.join(",")).split(","),
-  noEdit: has("no-edit"),
   noPhoto: has("no-photo"),
   dryRun: has("dry-run"),
   verbose: has("verbose"),
@@ -313,37 +313,64 @@ async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "wri
   return JSON.parse(text);
 }
 
-async function editLang(body, dish, lang, key, bill = {}) {
+function factDossier(source, storedFacts = null) {
+  if (Array.isArray(storedFacts) && storedFacts.length) return storedFacts;
+
+  // Legacy posts predate sourceFacts. Reduce their English edition to labels and
+  // values only, so a native writer receives facts but never English paragraphs,
+  // headings, jokes or sentence order that can leak into the new language.
+  return (source?.facts || []).map(([label, value]) => `${label}: ${value}`);
+}
+
+async function transcreateLang(facts, dish, site, promos, lang, key, bill = {}) {
   const one = schema([lang]).schema.properties[lang];
   const persona = lang === "ru"
-    ? "Ты русскоязычный редактор гастрономических текстов. Ты переписываешь чужие тексты так, чтобы они читались как изначально русские и как написанные человеком. Факты не трогаешь."
-    : "You are an Indonesian food editor. You rewrite drafts so they read as native Bahasa Indonesia written by a person, never as translated or machine-generated text. You never change a fact.";
+    ? "Ты русскоязычный гастрономический автор. Ты пишешь самостоятельную статью с нуля по фактическому досье. Ты не переводчик и не редактор перевода."
+    : "You are a native Indonesian food writer. You write a new Bahasa Indonesia article from a factual dossier, never a translation or an edited translation. You do not change facts.";
   return chat({
     key,
-    messages: [{ role: "system", content: persona }, { role: "user", content: editorPrompt(body, dish, lang) }],
+    messages: [
+      { role: "system", content: persona },
+      { role: "user", content: transcreationPrompt({ facts, dish, site, promos, lang, date: bill.date }) },
+    ],
     jsonSchema: { name: `signa_story_${lang}`, strict: true, schema: one },
     maxTokens: 12000,
-    stage: `edit:${lang}`, slug: bill.slug ?? null, date: bill.date ?? null,
+    stage: `transcreate:${lang}`, slug: bill.slug ?? null, date: bill.date ?? null,
   });
 }
 
 async function generate({ dish, site, promos, usedAngles, date, key, langs = opts.langs, reference = null, slug = null }) {
-  const data = await chat({
-    key,
-    messages: [
-      { role: "system", content: systemPrompt() },
-      { role: "user", content: userPrompt({ dish, site, promos, langs, usedAngles, date, reference }) },
-    ],
-    jsonSchema: schema(langs),
-    stage: langs.length === 1 ? `write:${langs[0]}` : "write", slug, date,
-  });
+  let data = {};
+  let source = reference;
+  let facts = reference ? factDossier(reference) : null;
 
-  // English is written first-language; the others get a register pass.
+  // English is the sole original. Asking one response to write all languages
+  // at once made Russian inherit English sentence order even after editing.
+  if (langs.includes("en") && !source) {
+    data = await chat({
+      key,
+      messages: [
+        { role: "system", content: systemPrompt() },
+        { role: "user", content: userPrompt({ dish, site, promos, langs: ["en"], usedAngles, date }) },
+      ],
+      jsonSchema: schema(["en"]),
+      stage: "write:en", slug, date,
+    });
+    source = data.en;
+    facts = factDossier(source, data.sourceFacts);
+  } else if (langs.includes("en") && source) {
+    data.en = source;
+  }
+
+  if (!source && langs.some((l) => l !== "en")) {
+    throw new Error("non-English transcreation requires an English source");
+  }
+
+  // Each language is commissioned independently from the English fact dossier.
+  // There is no intermediate translated draft and no editor pass.
   for (const lang of langs.filter((l) => l !== "en")) {
-    if (opts.noEdit || !data[lang]) continue;
-    if (opts.verbose) log(`    ${lang} editor pass`);
-    try { data[lang] = await editLang(data[lang], dish, lang, key, { slug, date }); }
-    catch (e) { warn(`${lang} editor pass failed, keeping first draft: ${e.message}`); }
+    if (opts.verbose) log(`    ${lang} independent transcreation`);
+    data[lang] = await transcreateLang(facts, dish, site, promos, lang, key, { slug, date });
   }
   return data;
 }
@@ -411,7 +438,8 @@ function validate(post, langs = opts.langs) {
       if (latin.length) issues.push(`RU: english words in russian prose: ${latin.slice(0, 6).join(", ")}`);
       if (/\b\d+\s*k\b/i.test(blob)) issues.push('RU: menu-shorthand price ("93k"), spell it out');
       for (const dead of ["является", "представляет собой", "не что иное", "стоит отметить", "в чистом виде", "ясный ответ"]) {
-        if (low.includes(dead)) issues.push(`RU: dead construction "${dead}"`);
+        const exact = new RegExp(`(?<![а-яё])${dead.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![а-яё])`, "i");
+        if (exact.test(blob)) issues.push(`RU: dead construction "${dead}"`);
       }
     }
   }
@@ -502,15 +530,15 @@ async function main() {
     return;
   }
 
-  // --edit-only: re-run the editor pass over text that already exists. The
-  // editor is a separate request, so it can fail on its own (a dead network, an
-  // empty account) and leave the writer's raw draft in place. This puts the
-  // polish back without paying to regenerate the whole post.
+  // --edit-only is kept as a backwards-compatible CLI name. It now discards the
+  // existing non-English edition and writes a fresh native article from the
+  // English fact dossier. Editing a translated draft preserves its skeleton.
   if (opts.editOnly) {
     const lang = opts.editOnly;
     const targets = store.posts.filter((p) => p[lang] && (!opts.slug || p.slug === opts.slug));
     if (!targets.length) { console.error(`no post has "${lang}"${opts.slug ? ` at slug "${opts.slug}"` : ""}`); process.exit(1); }
-    log(`re-editing "${lang}" on ${targets.length} post(s)`);
+    if (lang === "en") { console.error("--edit-only is for a non-English edition"); process.exit(1); }
+    log(`rewriting "${lang}" independently on ${targets.length} post(s)`);
 
     for (const post of targets) {
       const dish = cat.find((d) => norm(d.title) === norm(post.dish.name))
@@ -518,15 +546,24 @@ async function main() {
       log(`  ${post.date} ${post.slug}`);
       if (opts.dryRun) continue;
       try {
-        post[lang] = await editLang(post[lang], dish, lang, key, { slug: post.slug, date: post.date });
+        const candidate = await transcreateLang(
+          factDossier(post.en, post.sourceFacts), dish, site, promos, lang, key,
+          { slug: post.slug, date: post.date },
+        );
+        const issues = validate({ ...post, [lang]: candidate }, [lang]);
+        if (issues.length) {
+          issues.forEach((i) => warn(i));
+          warn("native edition rejected; existing live text kept");
+          continue;
+        }
+        post[lang] = candidate;
       } catch (e) {
-        warn(`editor pass failed, draft kept: ${e.message}`);
+        warn(`transcreation failed, existing edition kept: ${e.message}`);
         continue;
       }
-      validate(post, [lang]).forEach((i) => warn(i));
       if (!opts.dryRun) writeStore(store);
     }
-    log(opts.dryRun ? "--dry-run: nothing written" : `done, ${targets.length} post(s) re-edited`);
+    log(opts.dryRun ? "--dry-run: nothing written" : `done, ${targets.length} post(s) rewritten independently`);
     return;
   }
 
@@ -546,10 +583,14 @@ async function main() {
         dish, site, promos, usedAngles: [], date: post.date, key,
         langs: [lang], reference: post.en, slug: post.slug,
       });
-      post[lang] = data[lang];
-      const issues = validate(post, [lang]);
-      issues.forEach((i) => warn(i));
-      if (!opts.dryRun) writeStore(store);
+      const candidate = data[lang];
+      const issues = validate({ ...post, [lang]: candidate }, [lang]);
+      if (issues.length) {
+        issues.forEach((i) => warn(i));
+        throw new Error(`${lang} quality gate rejected ${post.slug}; missing edition was not published`);
+      }
+      post[lang] = candidate;
+      writeStore(store);
     }
     log(opts.dryRun ? "--dry-run: nothing written" : `done, ${targets.length} post(s) updated`);
     return;
@@ -565,9 +606,13 @@ async function main() {
 
     log(`rewriting ${old.slug} (${old.date}) - ${dish.title}`);
     const data = await generate({ dish, site, promos, usedAngles: [], date: old.date, key, slug: old.slug });
-    const post = { ...old, tags: data.tags };
+    const post = { ...old, tags: data.tags, sourceFacts: data.sourceFacts };
     for (const l of opts.langs) if (data[l]) post[l] = data[l];
-    validate(post).forEach((i) => warn(i));
+    const issues = validate(post);
+    if (issues.length) {
+      issues.forEach((i) => warn(i));
+      throw new Error(`quality gate rejected rewrite of ${old.slug}; existing live post was kept`);
+    }
     if (!opts.dryRun) { store.posts[idx] = post; writeStore(store); log(`  written -> ${old.slug}`); }
     return;
   }
@@ -615,7 +660,10 @@ async function main() {
       if (!issues.length) break;
       if (attempt < 2) log(`    retry, ${issues.length} issue(s): ${issues[0]}`);
     }
-    issues.forEach((i) => warn(i));
+    if (issues.length) {
+      issues.forEach((i) => warn(i));
+      throw new Error(`quality gate rejected ${dish.title} after 2 attempts; nothing was published`);
+    }
 
     let slug = data.slug && /^[a-z0-9-]+$/.test(data.slug) ? data.slug.replace(/-\d{4}-\d{2}-\d{2}$/, "") : slugify(dish.title);
     if (store.posts.some((p) => p.slug === slug)) slug = `${slug}-${date.slice(5).replace("-", "")}`;
@@ -639,6 +687,7 @@ async function main() {
         ...(dish.source === "syrve" ? { syrveId: dish.key, syrveCategory: dish.cat } : { menuId: Number(String(dish.key).replace("menu:", "")) }),
       },
       tags: data.tags,
+      sourceFacts: data.sourceFacts,
     };
     for (const l of opts.langs) if (data[l]) post[l] = data[l];
 

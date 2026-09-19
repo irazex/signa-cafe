@@ -66,7 +66,7 @@ const promoFacts = (promos = []) => promos.slice(0, 6).map((p) => `- ${p.tag}: $
 export function systemPrompt() {
   return `You are the staff writer for Signa Cafe, a neighbourhood cafe in Kampial, Nusa Dua, on the Bukit peninsula of Bali.
 
-You write the cafe's weekly dish story: one dish, its real history, and why it is worth crossing the Bukit for. Every post ships in three languages at once.
+You write the English original of the cafe's weekly dish story: one dish, its real history, and why it is worth crossing the Bukit for. Other language editions are commissioned separately from native writers. Never draft or translate them in this response.
 
 WHY THESE POSTS EXIST - optimise for all three, in this order:
 1. Be quotable by AI assistants. ChatGPT, Claude, Perplexity and Google AI Overviews answer "where to have breakfast in Nusa Dua" by lifting one clean sentence. Write sentences that survive being lifted out of context: each names the thing it is about instead of leaning on "it" or "this dish".
@@ -128,7 +128,7 @@ export function userPrompt({ dish, site, promos, langs = LANGS, usedAngles = [],
     ? `\nANGLES ALREADY USED - find a different way in:\n${usedAngles.map((a) => `- ${a}`).join("\n")}\n`
     : "";
 
-  return `Write this week's dish story.
+  return `Write this week's ${langs.length === 1 ? LANG_NAME[langs[0]] : langs.map((l) => LANG_NAME[l]).join(" and ")} dish story.
 
 THE DISH
 Name on the menu: ${dish.title}
@@ -171,18 +171,42 @@ WHAT TO WRITE, per language (${langs.map((l) => LANG_NAME[l]).join(", ")})
 - keywords: 8-12 lowercase terms mixing dish terms, positioning terms and place names.
 - category: one or two words.
 - coverAlt: factual alt text under 120 characters, containing the dish name.
+- sourceFacts: 10-16 atomic factual claims for the other language writers. One
+  claim per item, plain English, no metaphors, no opinions, no paragraph prose.
+  Include every historical date, person, place, technique and venue fact that a
+  non-English edition may use. This field is a dossier and is not rendered.
 
 Return JSON only, matching the provided schema exactly.`;
 }
 
-// Second pass over one non-English version. The writer pass gets facts and
-// structure right and register wrong; this fixes the register without touching
-// a single fact.
-export function editorPrompt(body, dish, lang) {
+// A non-English edition is a new article commissioned from a native writer.
+// The English original is supplied as a fact sheet, never as prose to translate.
+// This is deliberately not an editor pass: editing a translated draft preserves
+// its English skeleton, which is exactly what made the Russian posts read badly.
+export function transcreationPrompt({ facts, dish, site, promos = [], lang, date }) {
   if (lang === "ru") {
-    return `Ниже русская версия текста про блюдо "${dish.title}" для сайта кафе Signa Cafe в Кампьяле (Нуса Дуа, Бали).
+    return `Напиши с нуля русскую статью про блюдо "${dish.title}" для Signa Cafe.
 
-Текст написан носителем фактов, но не носителем языка. Перепиши его так, чтобы он читался как изначально русский текст хорошего гастрономического автора - и чтобы по нему не было видно, что его писала машина.
+Ты - русскоязычный гастрономический автор, а не переводчик. Ниже дан только список фактов без абзацев и стиля. По нему сочини свой текст по-русски. У русской версии должны быть свой заход, свой ритм, свои заголовки и свои шутки. Между версиями совпадают только смысл и факты.
+
+ФАКТЫ О SIGNА CAFE - разрешено использовать только их
+${venueFacts(site)}
+
+Актуальные акции - упомяни не более одной и только если она уместна
+${promoFacts(promos)}
+
+Дата публикации: ${date}
+Цена блюда: ${fullPrice(dish.price)}
+Описание в меню: ${dish.desc || "нет"}
+
+САМОСТОЯТЕЛЬНАЯ КОМПОЗИЦИЯ
+- Выбери свой первый кадр. Не начинай с той же мысли, что английский текст.
+- Пересобери материал в 4-6 разделов. Их порядок и границы не должны совпадать с английскими.
+- Заголовки должны звучать по-русски, а не как перевод английских метафор.
+- Точное название из меню нужно для поиска, но не в каждом абзаце. После первого упоминания используй нормальное русское название блюда: мильфей, торт, десерт. Не превращай текст в повтор SEO-запроса.
+- Не транслитерируй обычные слова латиницей. Имена людей и книг, кроме брендов и названий из меню, пиши по-русски.
+- Добавь свою авторскую оценку. Факты не меняй.
+- Объём основного текста - 650-900 слов. Абзацы разной длины.
 
 ИСПРАВИТЬ ОБЯЗАТЕЛЬНО
 - Следы перевода: канцелярит, кальки, английский порядок слов.
@@ -202,23 +226,38 @@ export function editorPrompt(body, dish, lang) {
 - Хотя бы одно утверждение, с которым можно поспорить.
 - Хотя бы одно обычное предложение вообще без прилагательных.
 
-СОХРАНИТЬ БЕЗ ИЗМЕНЕНИЙ
+СОХРАНИТЬ ПО СМЫСЛУ, НО НЕ ПО ФОРМЕ
 - Все факты: даты, города, цены, часы, адрес, состав блюда, имена собственные.
-- Количество разделов и объём (плюс-минус десять процентов).
-- Географию - не меньше четырёх разных названий по всему тексту.
+- Географию: Нуса Дуа, Букит и Унгасан должны встретиться естественно. Кампьял, Беноа и Джимбаран - вместе не более трёх упоминаний и никогда в title, seoTitle и description.
 - Слова позиционирования: завтрак, семейное кафе, с детьми, бранч, кофе.
 - Тире только короткое "-". Без восклицательных знаков и эмодзи.
 - FAQ остаются поисковыми запросами, минимум в двух - название места; ответ отвечает первым предложением.
 
-Верни JSON ровно той же структуры, что на входе.
+Верни JSON ровно по заданной схеме.
 
-ИСХОДНЫЙ ТЕКСТ:
-${JSON.stringify(body, null, 2)}`;
+НЕЙТРАЛЬНОЕ ДОСЬЕ С ФАКТАМИ - это не статья и не текст для перевода:
+${JSON.stringify(facts, null, 2)}`;
   }
 
-  return `Below is the Indonesian version of an article about "${dish.title}" for Signa Cafe in Kampial (Nusa Dua, Bali).
+  return `Write a new Bahasa Indonesia article from scratch about "${dish.title}" for Signa Cafe in Nusa Dua, Bali.
 
-It was written by someone who knows the facts but is not a native writer. Rewrite it so it reads as Bahasa Indonesia written from scratch by a good Balinese food writer - and so it does not read as machine output.
+You are a native Indonesian food writer, not a translator. Below is only a list of atomic facts, with no source paragraphs or headings. Build an independent Indonesian article with its own angle, rhythm, section boundaries and culturally natural phrasing. The facts and SEO intent must agree with the English edition; the prose must not.
+
+VENUE FACTS - use no other Signa claims
+${venueFacts(site)}
+
+CURRENT OFFERS - mention at most one only when relevant
+${promoFacts(promos)}
+
+Publication date: ${date}
+Dish price: ${fullPrice(dish.price)}
+Menu description: ${dish.desc || "none"}
+
+INDEPENDENT COMPOSITION
+- Choose a different opening image from the English edition.
+- Rebuild the material into 4-6 sections in an order that sounds natural in Indonesian. Do not align paragraphs with the English source.
+- Write 650-900 words with deliberately varied paragraph lengths.
+- Add your own editorial opinion without changing factual claims.
 
 MUST FIX
 - Traces of translation: English word order, calqued idiom, stiff formal register where everyday language belongs.
@@ -230,18 +269,17 @@ MUST FIX
 - Marketing filler and empty closing lines.
 - Prices written in full, e.g. "93 000 IDR".
 
-MUST KEEP UNCHANGED
+KEEP IN MEANING, NOT IN FORM
 - Every fact: dates, cities, prices, opening hours, address, what is in the dish, proper nouns.
-- The number of sections and the overall length, within ten percent.
-- The place names - at least four different ones across the text.
+- Use Nusa Dua, Bukit and Ungasan naturally. Kampial, Benoa and Jimbaran together appear no more than three times and never in title, seoTitle or description.
 - The positioning terms: ${POSITIONING.id.join(", ")}.
 - Only the short hyphen "-". No exclamation marks, no emoji.
 - The FAQ stay search-shaped, at least two naming a place, each answered in the first sentence.
 
-Return JSON with exactly the same structure as the input.
+Return JSON matching the provided schema exactly.
 
-SOURCE:
-${JSON.stringify(body, null, 2)}`;
+NEUTRAL FACT DOSSIER - this is not an article and contains no prose to translate:
+${JSON.stringify(facts, null, 2)}`;
 }
 
 // JSON schema handed to the API so the model cannot drift from the shape
@@ -290,13 +328,17 @@ export function schema(langs = LANGS) {
     },
   };
 
-  const props = { slug: { type: "string" }, tags: { type: "array", minItems: 3, maxItems: 8, items: { type: "string" } } };
+  const props = {
+    slug: { type: "string" },
+    tags: { type: "array", minItems: 3, maxItems: 8, items: { type: "string" } },
+    sourceFacts: { type: "array", minItems: 10, maxItems: 16, items: { type: "string" } },
+  };
   for (const l of langs) props[l] = body;
 
   return {
     name: "signa_story",
     strict: true,
-    schema: { type: "object", additionalProperties: false, required: ["slug", "tags", ...langs], properties: props },
+    schema: { type: "object", additionalProperties: false, required: ["slug", "tags", "sourceFacts", ...langs], properties: props },
   };
 }
 

@@ -231,6 +231,216 @@
       },
       "usd": 0,
       "note": "reconciled against completions_usage_2026-09-05_2026-09-05.csv - calls the ledger did not record (incentivized-tier: not billed)"
+    },
+    {
+      "at": "2026-09-10T01:02:32.057Z",
+      "slug": null,
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "write",
+      "seconds": 98,
+      "tokens": {
+        "input": 3037,
+        "cachedInput": 0,
+        "output": 8805,
+        "reasoning": 4764
+      },
+      "usd": 0.2793
+    },
+    {
+      "at": "2026-09-10T01:03:00.092Z",
+      "slug": null,
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "edit:ru",
+      "seconds": 27,
+      "tokens": {
+        "input": 2957,
+        "cachedInput": 0,
+        "output": 2897,
+        "reasoning": 491
+      },
+      "usd": 0.1017
+    },
+    {
+      "at": "2026-09-10T01:03:33.191Z",
+      "slug": null,
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "edit:id",
+      "seconds": 32,
+      "tokens": {
+        "input": 2560,
+        "cachedInput": 0,
+        "output": 2472,
+        "reasoning": 279
+      },
+      "usd": 0.087
+    },
+    {
+      "at": "2026-09-10T01:05:07.119Z",
+      "slug": null,
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "write",
+      "seconds": 93,
+      "tokens": {
+        "input": 3037,
+        "cachedInput": 2816,
+        "output": 7000,
+        "reasoning": 516
+      },
+      "usd": 0.2125
+    },
+    {
+      "at": "2026-09-10T01:05:42.793Z",
+      "slug": null,
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "edit:ru",
+      "seconds": 35,
+      "tokens": {
+        "input": 3211,
+        "cachedInput": 0,
+        "output": 3218,
+        "reasoning": 411
+      },
+      "usd": 0.1126
+    },
+    {
+      "at": "2026-09-10T01:06:16.428Z",
+      "slug": null,
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "edit:id",
+      "seconds": 33,
+      "tokens": {
+        "input": 2740,
+        "cachedInput": 0,
+        "output": 3031,
+        "reasoning": 507
+      },
+      "usd": 0.1046
+    },
+    {
+      "at": "2026-09-17T01:01:56.852Z",
+      "slug": null,
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "write",
+      "seconds": 93,
+      "tokens": {
+        "input": 3060,
+        "cachedInput": 0,
+        "output": 7563,
+        "reasoning": 1550
+      },
+      "usd": 0.2422
+    },
+    {
+      "at": "2026-09-17T01:02:25.041Z",
+      "slug": null,
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "edit:ru",
+      "seconds": 27,
+      "tokens": {
+        "input": 3000,
+        "cachedInput": 0,
+        "output": 2633,
+        "reasoning": 314
+      },
+      "usd": 0.094
+    },
+    {
+      "at": "2026-09-17T01:02:58.174Z",
+      "slug": null,
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "edit:id",
+      "seconds": 32,
+      "tokens": {
+        "input": 2541,
+        "cachedInput": 0,
+        "output": 2715,
+        "reasoning": 442
+      },
+      "usd": 0.0942
+    },
+    {
+      "at": "2026-09-17T01:04:30.878Z",
+      "slug": null,
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "write",
+      "seconds": 92,
+      "tokens": {
+        "input": 3060,
+        "cachedInput": 2816,
+        "output": 7349,
+        "reasoning": 1450
+      },
+      "usd": 0.2231
+    },
+    {
+      "at": "2026-09-17T01:04:59.349Z",
+      "slug": null,
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "edit:ru",
+      "seconds": 28,
+      "tokens": {
+        "input": 3075,
+        "cachedInput": 0,
+        "output": 3080,
+        "reasoning": 516
+      },
+      "usd": 0.1078
+    },
+    {
+      "at": "2026-09-17T01:05:28.063Z",
+      "slug": null,
+      "postDate": "2026-09-24",
+      "model": "gpt-5.5",
+      "stage": "edit:id",
+      "seconds": 28,
+      "tokens": {
+        "input": 2482,
+        "cachedInput": 0,
+        "output": 2550,
+        "reasoning": 399
+      },
+      "usd": 0.0889
+    },
+    {
+      "at": "2026-09-19T08:19:32.269Z",
+      "slug": "mille-feuille-nutella-nusa-dua",
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 44,
+      "tokens": {
+        "input": 3337,
+        "cachedInput": 0,
+        "output": 4123,
+        "reasoning": 1550
+      },
+      "usd": 0.1404
+    },
+    {
+      "at": "2026-09-19T08:23:01.876Z",
+      "slug": "mille-feuille-nutella-nusa-dua",
+      "postDate": "2026-09-17",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 39,
+      "tokens": {
+        "input": 1546,
+        "cachedInput": 0,
+        "output": 4140,
+        "reasoning": 1527
+      },
+      "usd": 0.1319
     }
   ]
 }

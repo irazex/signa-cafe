@@ -1211,7 +1211,11 @@ function CostsTab() {
     downloadFile(`signa-stories-costs-${new Date().toISOString().slice(0, 10)}.csv`, csv, "text/csv");
   };
 
-  const STAGES = { write: "draft", "fix-geo": "geo fix", "edit:ru": "editor ru", "edit:id": "editor id", "edit:en": "editor en" };
+  const STAGES = {
+    write: "draft", "write:en": "English original", "fix-geo": "geo fix",
+    "edit:ru": "legacy editor ru", "edit:id": "legacy editor id", "edit:en": "legacy editor en",
+    "transcreate:ru": "native Russian", "transcreate:id": "native Indonesian",
+  };
   const stageLabel = (s) => {
     const [base, flag] = String(s || "").split(/:(?=abandoned$)/);
     const label = STAGES[base] || base.replace("edit:", "editor ");

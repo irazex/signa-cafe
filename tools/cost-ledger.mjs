@@ -58,7 +58,7 @@ export function costOf(model, u, rates = pricing()) {
   return (fresh * r.input + cached * (r.cachedInput ?? r.input) + (u.output || 0) * r.output) / 1e6;
 }
 
-/** One model call. `stage` is what it was for: "write", "edit:ru", "edit:id". */
+/** One model call. `stage` is what it was for: "write:en", "transcreate:ru", etc. */
 export function record({ slug, date, model, stage, usage, seconds }) {
   const led = load();
   const rates = pricing();
