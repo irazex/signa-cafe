@@ -392,7 +392,7 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 | Сервис | URL/ID | Где |
 |--------|--------|-----|
 | Google Tag Manager | GTM-WN7NK7GD | `<head>` + `<noscript>` на index/menu/about/visit (инлайн) и на Stories (через `st_gtm_head()` / `st_gtm_body()` в `lib/stories.php`). Подключён 23.09.2026 |
-| Google Analytics 4 | настраивается тегом внутри GTM | счётчик не вшит в код: меряется и включается в контейнере, старый `G-1D77CPGEML` не используется |
+| Google Analytics 4 | G-1D77CPGEML (ресурс «Signa.cafe») | тег **GA4 - Signa Cafe** внутри GTM, триггер Initialization - All Pages, версия 2 опубликована 23.09.2026. В коде сайта measurement ID нет и быть не должно - всё через контейнер |
 | Dishi.rest (online menu) | signa.dishi.rest/outlet/11650 | hero CTA "MENU" / "ORDER NOW" |
 | Dishi table-map | dishi.rest/m/signa/table-map | tablesnew.html PWA редирект |
 | GoFood | gofood.link/a/L3hUVxW | OrderSection |
@@ -431,9 +431,11 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 - [ ] Lazy loading для images ниже fold
 - [ ] OG meta tags для социальных шер
 - [ ] Sitemap.xml + robots.txt (после прода с реальным domain)
-- [x] Google Analytics — 23.09.2026 поставлен контейнер GTM-WN7NK7GD; сам GA4-тег
-      заводится внутри GTM, в коде сайта измерительного ID нет. Новая страница =
-      не забыть оба блока сниппета (в `<head>` и сразу после `<body>`)
+- [x] Google Analytics — 23.09.2026: контейнер GTM-WN7NK7GD на страницах, внутри него
+      тег GA4 `G-1D77CPGEML` на Initialization - All Pages. Новая страница = не забыть
+      оба блока сниппета (в `<head>` и сразу после `<body>`), иначе она выпадет из
+      статистики молча. ⚠ Контейнером владеет `signacafe@gmail.com`, а не `i@razex.ru`:
+      кабинет GTM открывается только из того браузера, где залогинен этот аккаунт
 - [ ] Дополнить переводы для Brand/Menu/Signature/Experience/Order секций (сейчас захардкоден EN)
 
 ---
