@@ -391,7 +391,8 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 
 | Сервис | URL/ID | Где |
 |--------|--------|-----|
-| Google Analytics 4 | G-1D77CPGEML | (опционально, не подключено в новом сайте) |
+| Google Tag Manager | GTM-WN7NK7GD | `<head>` + `<noscript>` на index/menu/about/visit (инлайн) и на Stories (через `st_gtm_head()` / `st_gtm_body()` в `lib/stories.php`). Подключён 23.09.2026 |
+| Google Analytics 4 | настраивается тегом внутри GTM | счётчик не вшит в код: меряется и включается в контейнере, старый `G-1D77CPGEML` не используется |
 | Dishi.rest (online menu) | signa.dishi.rest/outlet/11650 | hero CTA "MENU" / "ORDER NOW" |
 | Dishi table-map | dishi.rest/m/signa/table-map | tablesnew.html PWA редирект |
 | GoFood | gofood.link/a/L3hUVxW | OrderSection |
@@ -430,11 +431,14 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 - [ ] Lazy loading для images ниже fold
 - [ ] OG meta tags для социальных шер
 - [ ] Sitemap.xml + robots.txt (после прода с реальным domain)
-- [ ] Google Analytics 4 reintegration (G-1D77CPGEML)
+- [x] Google Analytics — 23.09.2026 поставлен контейнер GTM-WN7NK7GD; сам GA4-тег
+      заводится внутри GTM, в коде сайта измерительного ID нет. Новая страница =
+      не забыть оба блока сниппета (в `<head>` и сразу после `<body>`)
 - [ ] Дополнить переводы для Brand/Menu/Signature/Experience/Order секций (сейчас захардкоден EN)
 
 ---
 
-*Последнее обновление: 2026-09-07 - добавлен HANDOVER.md (точка входа без контекста); Stories перенесены на IJEN SPA*
+*Последнее обновление: 2026-09-23 - подключён Google Tag Manager (GTM-WN7NK7GD) на публичные страницы; админка и PWA столов намеренно без счётчика*
+*2026-09-07 - добавлен HANDOVER.md (точка входа без контекста); Stories перенесены на IJEN SPA*
 *2026-09-05 - Basic Auth заменён на форму входа с PHP-сессией (admin.php + lib/auth.php)*
 *Полная переделка с шаблона Montoya на React 18 + Babel standalone*

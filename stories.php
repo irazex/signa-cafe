@@ -64,6 +64,7 @@ st_head([
 ]);
 ?>
 <body data-screen-label="stories index">
+<?php st_gtm_body(); ?>
 <div class="signa-app">
 <?php st_header($lang, array_combine(ST_LANGS, array_map(fn($l) => st_url(null, $l, false), ST_LANGS))); ?>
 

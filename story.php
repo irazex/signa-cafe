@@ -155,6 +155,7 @@ st_head([
 ]);
 ?>
 <body data-screen-label="story <?= e($slug) ?>">
+<?php st_gtm_body(); ?>
 <div class="signa-app">
 <?php st_header($lang, $alts); ?>
 

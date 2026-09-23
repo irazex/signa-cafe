@@ -20,6 +20,7 @@ if (!defined('SIGNA_STORIES')) define('SIGNA_STORIES', 1);
 const ST_BASE   = 'https://signa.cafe';
 const ST_LANGS  = ['en', 'ru', 'id'];
 const ST_WPM    = 180; // reading speed used for the "N min read" label
+const ST_GTM    = 'GTM-WN7NK7GD'; // Google Tag Manager container (GA4 lives inside it)
 
 // ---------- data ----------
 
@@ -210,6 +211,33 @@ function st_t(string $key, string $lang): string {
 // ---------- chrome ----------
 
 /**
+ * Google Tag Manager. The same two blocks the static pages carry inline, but
+ * here they live in one place so the container id is not copied per page.
+ * st_gtm_body() must be the first thing after <body>, that is where the
+ * <noscript> fallback belongs.
+ */
+function st_gtm_head(): void {
+    ?>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','<?= ST_GTM ?>');</script>
+<!-- End Google Tag Manager -->
+<?php
+}
+
+function st_gtm_body(): void {
+    ?>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= ST_GTM ?>"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<?php
+}
+
+/**
  * <head> for a stories page. Everything an indexer needs is here in raw HTML:
  * title, description, keywords, canonical, one hreflang per available
  * language, OG/Twitter, geo.
@@ -224,6 +252,7 @@ function st_head(array $o): void {
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<?php st_gtm_head(); ?>
 <title><?= e($o['title']) ?></title>
 <meta name="description" content="<?= e($o['description']) ?>" />
 <?php if (!empty($o['keywords'])): ?>
