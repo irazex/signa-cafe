@@ -665,7 +665,10 @@ async function main() {
     let cover = old.cover;
     if (dish.source === "syrve" && !opts.noPhoto) {
       if (!dish.imageUrl) throw new Error(`no Syrve photo for ${dish.title}; rewrite cancelled before paid generation`);
-      const photo = await fetchDishPhoto(dish.imageUrl, `${old.slug}-${String(dish.key).slice(0, 8)}`);
+      // A rewrite must get a new URL. Deploy skips assets already live (HEAD
+      // 200), and og-images keeps existing JPEGs. Reusing a filename would
+      // leave both the page cover and social card stale after a photo change.
+      const photo = await fetchDishPhoto(dish.imageUrl, `${old.slug}-${crypto.randomUUID().slice(0, 8)}`);
       cover = photo.file;
       log(`    photo ${photo.dims} ${photo.kb}kb -> ${photo.file}`);
     }
