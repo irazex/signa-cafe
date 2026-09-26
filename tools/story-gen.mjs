@@ -688,6 +688,9 @@ async function main() {
       dish = cat.find((d) => d.key === opts.dish || norm(d.title) === norm(opts.dish))
           || cat.find((d) => norm(d.title).includes(norm(opts.dish)));
       if (!dish) { console.error(`dish "${opts.dish}" not found`); process.exit(1); }
+      if (isUsed(dish, used)) {
+        throw new Error(`dish "${dish.title}" already has a post; choose an unused dish`);
+      }
     } else {
       dish = pool[Math.floor(Math.random() * pool.length)];
     }
@@ -709,6 +712,23 @@ async function main() {
       continue;
     }
 
+    // A real dish photograph is a publication requirement, not decoration.
+    // Check it before the paid model calls: a CDN error must not leave a paid
+    // article with an unrelated generic breakfast photo (as happened on 24 Sep).
+    let cover = dish.img || null;
+    if (!opts.noPhoto && dish.imageUrl) {
+      const photoSlug = `${slugify(dish.title)}-${String(dish.key).slice(0, 8)}`;
+      const photo = await fetchDishPhoto(dish.imageUrl, photoSlug);
+      cover = photo.file;
+      log(`    photo ${photo.dims} ${photo.kb}kb -> ${photo.file}`);
+    }
+    if (!cover || !fs.existsSync(path.join(ROOT, cover))) {
+      throw new Error(`no verified photo for ${dish.title}; nothing generated or published`);
+    }
+    if (dish.source === "syrve" && !cover.startsWith("assets/stories/")) {
+      throw new Error(`Syrve dish ${dish.title} has no menu-specific photo; nothing generated or published`);
+    }
+
     let data, issues;
     for (let attempt = 1; attempt <= 2; attempt++) {
       data = await generate({ dish, site, promos, usedAngles: anglesOf(store.posts), date, key });
@@ -723,18 +743,6 @@ async function main() {
 
     let slug = data.slug && /^[a-z0-9-]+$/.test(data.slug) ? data.slug.replace(/-\d{4}-\d{2}-\d{2}$/, "") : slugify(dish.title);
     if (store.posts.some((p) => p.slug === slug)) slug = `${slug}-${date.slice(5).replace("-", "")}`;
-
-    // Cover: pull the real photo out of Syrve, fall back to whatever the
-    // catalog entry already points at.
-    let cover = dish.img || null;
-    if (!opts.noPhoto && dish.imageUrl) {
-      try {
-        const p = await fetchDishPhoto(dish.imageUrl, slug);
-        cover = p.file;
-        log(`    photo ${p.dims} ${p.kb}kb -> ${p.file}`);
-      } catch (e) { warn(`photo download failed: ${e.message}`); }
-    }
-    if (!cover) { warn("no cover image, using the generic breakfast photo"); cover = "assets/photo-breakfast.webp"; }
 
     const post = {
       slug, date, cover,
