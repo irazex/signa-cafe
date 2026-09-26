@@ -30,10 +30,15 @@ function st_load(): array {
     $raw = file_get_contents($path);
     $data = json_decode($raw, true);
     if (!is_array($data) || empty($data['posts'])) return ['version' => '0', 'posts' => []];
-    // newest first, and drop anything dated in the future (scheduled posts)
+    // Newest first. An incomplete manual draft must never appear in an index,
+    // feed or sitemap, even if someone uploads JSON without running --check.
     $today = date('Y-m-d');
     $data['posts'] = array_values(array_filter($data['posts'], function ($p) use ($today) {
-        return !empty($p['slug']) && !empty($p['date']) && $p['date'] <= $today;
+        $cover = (string)($p['cover'] ?? '');
+        return !empty($p['slug']) && !empty($p['date']) && $p['date'] <= $today
+            && strpos($cover, 'assets/') === 0
+            && $cover !== 'assets/photo-breakfast.webp'
+            && is_file(__DIR__ . '/../' . $cover);
     }));
     usort($data['posts'], fn($a, $b) => strcmp($b['date'], $a['date']));
     return $data;

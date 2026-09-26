@@ -57,7 +57,7 @@ if (argv.includes("--check")) {
     else console.log(`✓ ${p.slug} (${p.date})`);
   }
   console.log(`\n${posts.length} post(s), ${bad} with warnings.`);
-  process.exit(0);
+  process.exit(bad ? 1 : 0);
 }
 
 // ---------- scaffold ----------

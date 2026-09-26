@@ -40,7 +40,7 @@ $canon    = st_url($slug, $lang);
 $alts = [];
 foreach (ST_LANGS as $l) if (st_has($post, $l)) $alts[$l] = st_url($slug, $l);
 $others = array_diff_key($alts, [$lang => true]);
-$image    = ST_BASE . '/' . ltrim($post['cover'] ?? 'assets/photo-breakfast.webp', '/');
+$image    = ST_BASE . '/' . ltrim($post['cover'], '/');
 $readMin  = st_read_min($b);
 $modified = $post['updated'] ?? $post['date'];
 
