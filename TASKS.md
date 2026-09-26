@@ -39,6 +39,21 @@
 
 ## ✅ Сделано (последнее)
 
+- [x] **Сверка прода после переезда на SSD** - 25.09.2026: каноническая папка
+      `Projects/Active/Signa Cafe Website` стояла на `804b816` (07.09) и догнана
+      fast-forward до `b8e13b5` = `origin/main`. 10 коммитов с 14.09 сделаны в
+      старой папке `_Projects/signa-cafe-repo`, 2 коммита крона подтянуты туда с
+      VPS, пушились все оттуда же. Прод не отстаёт: `index/about/menu/visit.html`,
+      `data/stories.json` и оба ассета поста mille-feuille побайтово равны
+      `origin/main`; `/stories`, `/stories/ru`, `/stories/id` и страница поста
+      отдают 200 и несут GTM из `lib/stories.php`. Со старой канонической копии
+      ничего не заливалось, заливка не понадобилась. `src/admin.jsx` и
+      `data/story-costs.json` снаружи закрыты 403, без входа в админку их не
+      сравнить. VPS-клон крона на `b8e13b5`, своих коммитов нет, изменён только
+      `data/story-costs.json`: крон 24.09 09:05 WITA не поставил в очередь новый
+      пост - quality gate дважды отклонил Celery Goodness. Последний пост в
+      очереди - 24.09, следующий прогон крона - 01.10.
+
 - [x] **GA4 подключён через GTM** - 23.09.2026: в контейнере `GTM-WN7NK7GD`
       (аккаунт `Signa cafe`, владелец `signacafe@gmail.com`) заведён тег
       **GA4 - Signa Cafe** типа Google Tag с `G-1D77CPGEML` на триггере
