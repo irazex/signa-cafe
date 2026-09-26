@@ -11,7 +11,7 @@
  * uploading data/stories.json — story.php renders it, and sitemap.xml,
  * feed.xml and llms.txt pick it up on their own.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -36,6 +36,9 @@ if (argv.includes("--check")) {
     if (seen.has(p.slug)) err.push("duplicate slug");
     seen.add(p.slug);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(p.date || "")) err.push("date must be YYYY-MM-DD");
+    if (!p.cover || p.cover === "assets/photo-breakfast.webp" || !existsSync(join(ROOT, p.cover))) {
+      err.push("missing dish-specific local cover photo");
+    }
     for (const l of ["en", "ru"]) {
       const b = p[l];
       if (!b || !b.title) { if (l === "en") err.push("missing English version"); continue; }
@@ -85,7 +88,7 @@ if (posts.some((p) => p.slug === slug)) slug += "-" + Date.now().toString(36).sl
 const post = {
   slug,
   date: flag("date", nextSlot()),
-  cover: flag("cover", "assets/photo-breakfast.webp"),
+  cover: flag("cover", ""), // Fill with this dish's own photo before publishing.
   dish: { name, price: "", menuUrl: "https://signa.dishi.rest/" },
   tags: ["nusa dua"],
   en: {

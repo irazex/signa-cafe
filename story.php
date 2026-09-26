@@ -94,7 +94,9 @@ $jsonld[] = [
 ];
 
 if (!empty($post['dish']['name'])) {
-    $priceDigits = preg_replace('/[^0-9]/', '', explode(' ', (string)($post['dish']['price'] ?? ''))[0]);
+    // Prices are stored as "50 000 IDR"; splitting at the first space would
+    // publish 50 instead of 50000 in MenuItem structured data.
+    $priceDigits = preg_replace('/[^0-9]/', '', (string)($post['dish']['price'] ?? ''));
     $item = [
         '@context' => 'https://schema.org',
         '@type' => 'MenuItem',

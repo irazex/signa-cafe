@@ -652,7 +652,7 @@ async function main() {
     return;
   }
 
-  // --rewrite: regenerate one existing post, keeping its slot, dish and cover.
+  // --rewrite: regenerate one existing post, keeping its slot and dish.
   if (opts.rewrite) {
     const idx = store.posts.findIndex((p) => p.slug === opts.rewrite);
     if (idx === -1) { console.error(`no post with slug "${opts.rewrite}"`); process.exit(1); }
@@ -661,8 +661,19 @@ async function main() {
       || { title: old.dish.name, price: old.dish.price, cat: old.en?.category || "Menu", desc: old.en?.lead || "" };
 
     log(`rewriting ${old.slug} (${old.date}) - ${dish.title}`);
+    if (opts.dryRun) { log("--dry-run: nothing generated or written"); return; }
+    let cover = old.cover;
+    if (dish.source === "syrve" && !opts.noPhoto) {
+      if (!dish.imageUrl) throw new Error(`no Syrve photo for ${dish.title}; rewrite cancelled before paid generation`);
+      const photo = await fetchDishPhoto(dish.imageUrl, `${old.slug}-${String(dish.key).slice(0, 8)}`);
+      cover = photo.file;
+      log(`    photo ${photo.dims} ${photo.kb}kb -> ${photo.file}`);
+    }
+    if (!cover || cover === "assets/photo-breakfast.webp" || !fs.existsSync(path.join(ROOT, cover))) {
+      throw new Error(`no verified dish photo for ${dish.title}; rewrite cancelled before paid generation`);
+    }
     const data = await generate({ dish, site, promos, usedAngles: [], date: old.date, key, slug: old.slug });
-    const post = { ...old, tags: data.tags, sourceFacts: data.sourceFacts };
+    const post = { ...old, cover, updated: iso(new Date()), tags: data.tags, sourceFacts: data.sourceFacts };
     for (const l of opts.langs) if (data[l]) post[l] = data[l];
     const issues = validate(post);
     if (issues.length) {
