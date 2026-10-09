@@ -367,8 +367,14 @@ signa-cafe-repo/
    тот же, что Google отдаёт Chrome и Safari. Сменит Google версию - потеряем 12 КБ,
    ничего не сломается; поправить URL по свежему CSS Google Fonts.
 6. Что ещё тормозит и в коде не лечится: хост в России (DNS на `ns*.multihost.ru`,
-   первый DNS-запрос из Бали ~0.85 с, TTFB ~0.9 с) и GTM + gtag ~314 КБ
-   (в симуляции мобильного без них LCP 3.7-4.5 с вместо 5.5 с).
+   первый DNS-запрос из Бали ~0.85 с, TTFB ~0.9 с). Лечится Cloudflare перед сайтом -
+   открытый вопрос владельцу в TASKS.md.
+7. **GTM грузится отложенно** (решение владельца 09.10.2026). GTM + GA4 весят ~314 КБ
+   и на медленном телефоне спорили с первым экраном. Инлайн-загрузчик в `<head>`
+   (4 страницы + `st_gtm_head()`) вставляет `gtm.js` после `load` + idle, при первом
+   касании/скролле/клавише или через 5 с - что раньше. Цена, принятая владельцем: GA4
+   не видит визиты короче ~2 с. Не возвращать стандартный сниппет Google «как в
+   инструкции» - он грузит контейнер сразу.
 - **Шрифты**: Anton (display, all caps), Onest (body, Cyrillic+Latin), JetBrains Mono (mono labels), Caveat (handwritten notes)
 - **Брендовые цвета**: Red `#EB3300`, Black `#000000`, Paper `#FFFEF9`, Cool Gray `#C8C9C7`
 
@@ -449,7 +455,7 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 
 | Сервис | URL/ID | Где |
 |--------|--------|-----|
-| Google Tag Manager | GTM-WN7NK7GD | `<head>` + `<noscript>` на index/menu/about/visit (инлайн) и на Stories (через `st_gtm_head()` / `st_gtm_body()` в `lib/stories.php`). Подключён 23.09.2026 |
+| Google Tag Manager | GTM-WN7NK7GD | `<head>` + `<noscript>` на index/menu/about/visit (инлайн) и на Stories (через `st_gtm_head()` / `st_gtm_body()` в `lib/stories.php`). Подключён 23.09.2026, с 09.10.2026 грузится отложенно (см. «Скорость загрузки», п. 7) |
 | Google Analytics 4 | G-1D77CPGEML (ресурс «Signa.cafe») | тег **GA4 - Signa Cafe** внутри GTM, триггер Initialization - All Pages, версия 2 опубликована 23.09.2026. В коде сайта measurement ID нет и быть не должно - всё через контейнер |
 | Dishi.rest (online menu) | signa.dishi.rest/outlet/11650 | hero CTA "MENU" / "ORDER NOW" |
 | Dishi table-map | dishi.rest/m/signa/table-map | tablesnew.html PWA редирект |
@@ -491,14 +497,16 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 - [ ] Sitemap.xml + robots.txt (после прода с реальным domain)
 - [x] Google Analytics — 23.09.2026: контейнер GTM-WN7NK7GD на страницах, внутри него
       тег GA4 `G-1D77CPGEML` на Initialization - All Pages. Новая страница = не забыть
-      оба блока сниппета (в `<head>` и сразу после `<body>`), иначе она выпадет из
+      оба блока (отложенный загрузчик из `index.html` в `<head>` и `<noscript>` сразу
+      после `<body>`), иначе она выпадет из
       статистики молча. ⚠ Контейнером владеет `signacafe@gmail.com`, а не `i@razex.ru`:
       кабинет GTM открывается только из того браузера, где залогинен этот аккаунт
 - [ ] Дополнить переводы для Brand/Menu/Signature/Experience/Order секций (сейчас захардкоден EN)
 
 ---
 
-*Последнее обновление: 2026-10-09 - JSX собирается заранее (`npm run build` → `js/`), React production с нашего хоста, gzip и годовой кэш `/js/`; мобильный Lighthouse 35 → 69*
+*Последнее обновление: 2026-10-09 - GTM грузится после открытия страницы; почта на сайте mail@signa.cafe*
+*2026-10-09 - JSX собирается заранее (`npm run build` → `js/`), React production с нашего хоста, gzip и годовой кэш `/js/`; мобильный Lighthouse 35 → 69*
 *2026-09-23 - подключён Google Tag Manager (GTM-WN7NK7GD) на публичные страницы; админка и PWA столов намеренно без счётчика*
 *2026-09-07 - добавлен HANDOVER.md (точка входа без контекста); Stories перенесены на IJEN SPA*
 *2026-09-05 - Basic Auth заменён на форму входа с PHP-сессией (admin.php + lib/auth.php)*

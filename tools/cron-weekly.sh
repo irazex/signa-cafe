@@ -93,7 +93,7 @@ node tools/og-images.mjs >/dev/null || log "og-images failed (non-fatal)"
 # calling OpenAI. Commit it with the article so a pull/rebase cannot lose spend
 # that should count toward the daily and monthly caps.
 git add data/stories.json data/story-costs.json assets/
-git -c user.name="signa-cron" -c user.email="hi@signa.cafe" \
+git -c user.name="signa-cron" -c user.email="mail@signa.cafe" \
     commit --quiet -m "Stories: queue ${NEW}"
 # Best-effort. The FTP upload below is the actual publication; GitHub is the
 # archive. A missing credential must not stop a post from going out.

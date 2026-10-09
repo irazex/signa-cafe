@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Publishes the four React pages (index/menu/about/visit), their compiled
-# bundles in js/ and .htaccess to signa.cafe, then reads everything back.
-# Stories have their own script: tools/deploy-stories.sh.
+# bundles in js/, content.json, the shared Stories head/footer (lib/stories.php)
+# and .htaccess to signa.cafe, then reads everything back.
+# Story posts have their own script: tools/deploy-stories.sh.
 #
 #   tools/deploy-site.sh
 #
@@ -53,8 +54,10 @@ for u in / /stories /admin "/js/core.js"; do
   esac
 done
 
+up content.json
 for p in "${PAGES[@]}"; do up "$p"; done
 up src/site.jsx
+up lib/stories.php
 
 echo "read-back"
 fail=0
@@ -64,7 +67,10 @@ for p in "${PAGES[@]}"; do
     printf '%s' "$live" | grep -q "$v" || { echo "  $p: live page does not link $v" >&2; fail=1; }
   done
 done
-for f in js/*.js; do
+for u in /stories /stories/ru; do
+  c=$(code "$SITE$u"); [ "$c" = 200 ] || { echo "  $u answered $c after lib/stories.php" >&2; fail=1; }
+done
+for f in js/*.js content.json; do
   remote=$(curl -sS --compressed --max-time 60 "$SITE/$f" | shasum | cut -c1-40)
   [ "$remote" = "$(shasum < "$f" | cut -c1-40)" ] || { echo "  $f: live copy differs" >&2; fail=1; }
 done

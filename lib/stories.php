@@ -67,7 +67,7 @@ function st_site(): array {
     static $site = null;
     if ($site !== null) return $site;
     $defaults = [
-        'phone' => '+62 896 540 27190', 'email' => 'hi@signa.cafe',
+        'phone' => '+62 896 540 27190', 'email' => 'mail@signa.cafe',
         'addressFull' => 'Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361',
         'hoursOpen' => '08:00', 'hoursClose' => '23:00',
         'orderUrl' => 'https://signa.dishi.rest/',
@@ -223,12 +223,17 @@ function st_t(string $key, string $lang): string {
  */
 function st_gtm_head(): void {
     ?>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','<?= ST_GTM ?>');</script>
+<!-- Google Tag Manager, deferred (09.10.2026): GTM + GA4 weigh ~314 KB and used to
+     compete with the first screen on a slow phone. The container now starts after the
+     page has loaded, on the first tap/scroll/key, or after 5 s - whichever comes first.
+     Cost, accepted by the owner: visits that end within ~2 s are not counted. -->
+<script>(function(w,d,i){w.dataLayer=w.dataLayer||[];var on=0,ev=["pointerdown","touchstart","keydown","scroll"];
+function go(){if(on)return;on=1;ev.forEach(function(e){w.removeEventListener(e,go,true)});
+w.dataLayer.push({"gtm.start":new Date().getTime(),event:"gtm.js"});
+var j=d.createElement("script");j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i;d.head.appendChild(j)}
+ev.forEach(function(e){w.addEventListener(e,go,{capture:true,passive:true})});
+w.addEventListener("load",function(){w.requestIdleCallback?w.requestIdleCallback(go,{timeout:1500}):setTimeout(go,1)});
+setTimeout(go,5000)})(window,document,"<?= ST_GTM ?>");</script>
 <!-- End Google Tag Manager -->
 <?php
 }

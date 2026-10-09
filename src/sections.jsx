@@ -1244,8 +1244,8 @@ function FooterSection({ lang }) {
         <a className="foot-row" href="https://wa.me/+6289654027190" target="_blank" rel="noreferrer">
           <span className="lbl">{t("loc_wa_lbl")}</span><span className="val">+62 896 540 27 190</span>
         </a>
-        <a className="foot-row" href="mailto:hi@signa.cafe">
-          <span className="lbl">{t("foot_email_lbl")}</span><span className="val">hi@signa.cafe</span>
+        <a className="foot-row" href="mailto:mail@signa.cafe">
+          <span className="lbl">{t("foot_email_lbl")}</span><span className="val">mail@signa.cafe</span>
         </a>
         <a className="foot-row" href="https://signa.dishi.rest/" target="_blank" rel="noreferrer">
           <span className="lbl">{t("foot_order_lbl")}</span><span className="val">signa.dishi.rest ↗</span>
