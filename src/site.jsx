@@ -14,8 +14,13 @@ async function hydrateContent() {
   // the freshly deployed site content.
   let server = null;
   try {
-    const r = await fetch("content.json", { cache: "no-store" });
-    if (r.ok) server = await r.json();
+    // The page <head> starts this request before the scripts download (see
+    // tools/build-js.mjs), so the first render does not wait for one more trip
+    // to the host. A response body reads once - take the promise and clear it.
+    const early = window.__signaContent;
+    window.__signaContent = null;
+    const r = await (early || fetch("content.json", { cache: "no-store" }));
+    if (r && r.ok) server = await r.json();
   } catch (_) {}
 
   try {

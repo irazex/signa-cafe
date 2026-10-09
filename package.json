@@ -1,0 +1,15 @@
+{
+  "name": "signa-cafe-site",
+  "private": true,
+  "description": "Build tooling for signa.cafe. The site itself has no runtime dependencies.",
+  "scripts": {
+    "build": "node tools/build-js.mjs",
+    "build:check": "node tools/build-js.mjs --check"
+  },
+  "devDependencies": {
+    "@babel/standalone": "7.29.0",
+    "esbuild": "0.28.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
