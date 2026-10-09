@@ -48,6 +48,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script defer src="js/about.js?v=4516431d00"></script>
 <!-- JS-BUNDLE:END -->
 
+<!-- The display face is only requested once React has drawn a heading, which
+     made it the last thing the first screen waited for. Same URL Google Fonts
+     CSS gives Chrome and Safari for the latin subset; if Google bumps the
+     version this costs a wasted 12 KB and nothing else. -->
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm3Kz-C8CSKlv.woff2" crossorigin>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Onest:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
