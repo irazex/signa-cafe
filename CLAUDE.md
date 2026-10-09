@@ -280,12 +280,17 @@ node tools/cost-ledger.mjs --json       # для скриптов
 ## Быстрый старт
 
 ```bash
-# Локальный сервер для разработки
-cd "/Users/razex/Documents/CLAUD MAIN AGENT/_Projects/signa-cafe-repo"
-python3 -m http.server 8080
-# открыть http://localhost:8080
+# Локальный сервер для разработки (повторяет mod_rewrite, Stories тоже работают)
+cd "/Volumes/Crucial X9/_AI live here_/Projects/Active/Signa Cafe Website"
+npm install                      # один раз: Babel, esbuild, React для сборки
+npm run build                    # после ЛЮБОЙ правки src/*.jsx
+php -S 127.0.0.1:8099 -t . tools/dev-router.php
+# открыть http://127.0.0.1:8099
 
-# Деплой на хостинг (FTP)
+# Деплой 4 страниц + js/ + .htaccess (проверяет сборку, коммит и read-back)
+tools/deploy-site.sh
+
+# Залить отдельный файл (ассет и т.п.)
 FTP_URL="ftp://atlas.multihost.cloud/signa.cafe"
 FTP_CRED="aqq17894:$(cat ~/.razex-creds/signa-ftp.txt)"
 curl -s --ftp-create-dirs -T <local-file> "$FTP_URL/<remote-path>" --user "$FTP_CRED"
@@ -296,8 +301,10 @@ curl -s --ftp-create-dirs -T <local-file> "$FTP_URL/<remote-path>" --user "$FTP_
 ```
 signa-cafe-repo/
 ├── admin.php               # Админка: форма входа (lib/auth.php) + оболочка приложения
-├── index.html              # Главная страница: React 18 + Babel + Google Fonts (Anton/Onest/JetBrains Mono/Caveat)
-├── src/                    # JSX исходники (транспилируются Babel в браузере)
+├── index.html              # Главная страница: React 18 + Google Fonts (Anton/Onest/JetBrains Mono/Caveat)
+├── js/                     # СОБРАННЫЙ код страниц (npm run build), в git и на хосте. Руками не править
+├── package.json            # только инструменты сборки; у сайта рантайм-зависимостей нет
+├── src/                    # JSX исходники (компилирует tools/build-js.mjs в js/)
 │   ├── app.jsx             # Top-level App, TWEAK_DEFAULTS, мapping пропов
 │   ├── sections.jsx        # 9 секций + i18n STRINGS + LangToggle (982+ строк)
 │   ├── stickers.jsx        # SVG-стикеры + ScrapLayer + useReveal hook
@@ -310,7 +317,7 @@ signa-cafe-repo/
 ├── data/stories.json       # посты раздела Stories (EN+RU) — см. раздел выше
 ├── lib/stories.php         # рендер-хелперы Stories
 ├── story.php · stories.php · feed.php · sitemap.php · llms.php   # server-side рендер
-├── tools/                  # new-story.mjs · build-noscript.mjs · dev-router.php
+├── tools/                  # build-js.mjs · deploy-site.sh · new-story.mjs · build-noscript.mjs · dev-router.php
 ├── tablesnew.html          # PWA-обёртка → редирект на dishi.rest/m/signa/table-map (inline manifest)
 ├── tables/tablesnew.html   # Мирор того же PWA (по реальному URL который сохранён на iPad/iPhone)
 └── CLAUDE.md               # Этот файл
@@ -324,9 +331,44 @@ signa-cafe-repo/
 ## Архитектура
 
 ### Стек
-- **HTML + React 18.3.1** + Babel standalone (пинированные версии с integrity hashes)
-- **No build step** — JSX транспилируется в браузере
+- **HTML + React 18.3.1** production-сборка, отдаётся с signa.cafe (`js/react.js`), не с unpkg
+- **Сборка JSX на Маке, не в браузере** (с 09.10.2026) - `npm run build`, см. «Скорость загрузки».
+  Babel в браузере остался только у админки (`admin.jsx`)
 - **Static-first** — деплой на любой статический хостинг
+
+### Скорость загрузки (09.10.2026)
+
+Жалоба владельца: переход на сайт из Google Карт открывался так долго, что казалось,
+будто сайт лежит. Замер Lighthouse на главной:
+
+| | мобильный | десктоп | реальный замер из Бали |
+|---|---|---|---|
+| было | 35 баллов, FCP 8.8 с, LCP 15.4 с, TBT 990 мс | 53, LCP 5.8 с | FCP/LCP 3.6 / 3.7 с |
+| стало | 68-69, FCP ~4.0 с, LCP ~5.5 с, TBT ~50 мс | 78, LCP 2.4 с | FCP = LCP 1.7 с |
+
+Что было: React development + `@babel/standalone` с unpkg (~900 КБ сжатого JS), JSX
+компилировался на телефоне гостя, потом ещё один запрос `content.json` к хосту в
+России (RTT из Бали ~280 мс), а хост отдавал текст без сжатия.
+
+Как устроено теперь - инварианты:
+1. **`tools/build-js.mjs`** компилирует `src/*.jsx` тем же `@babel/standalone@7.29.0`
+   и с теми же опциями, что раньше применял браузер (react + env), и минифицирует
+   esbuild. Файлы склеиваются без обёрток - глобальная область общая, как у отдельных
+   `<script>`. Результат: `js/react.js` (46 КБ gz), `js/core.js` (24 КБ gz), `js/<page>.js`.
+   Текст всех 4 страниц сверен с прежним продом по хэшу - совпал.
+2. **Правка `src/*.jsx` без `npm run build` на сайт не попадает.** `tools/deploy-site.sh`
+   отказывается деплоить устаревшую сборку, грязное дерево и незапушенный коммит.
+3. Блок `JS-BUNDLE` в `<head>` генерируется (хэши `?v=`), руками не править. Он стоит
+   **выше** таблиц стилей: inline-скрипт после `<link rel=stylesheet>` ждёт загрузки CSS,
+   и ранний запрос `content.json` уезжал на 0.9 с. `site.jsx` берёт этот промис.
+4. `.htaccess`: mod_deflate для текста (styles.css 88 → 17 КБ) и `/js/` - год,
+   `immutable` (URL меняется вместе с хэшем). На хосте нет brotli и HTTP/2.
+5. Preload шрифта Anton идёт по прямому URL `fonts.gstatic.com/s/anton/v27/...` -
+   тот же, что Google отдаёт Chrome и Safari. Сменит Google версию - потеряем 12 КБ,
+   ничего не сломается; поправить URL по свежему CSS Google Fonts.
+6. Что ещё тормозит и в коде не лечится: хост в России (DNS на `ns*.multihost.ru`,
+   первый DNS-запрос из Бали ~0.85 с, TTFB ~0.9 с) и GTM + gtag ~314 КБ
+   (в симуляции мобильного без них LCP 3.7-4.5 с вместо 5.5 с).
 - **Шрифты**: Anton (display, all caps), Onest (body, Cyrillic+Latin), JetBrains Mono (mono labels), Caveat (handwritten notes)
 - **Брендовые цвета**: Red `#EB3300`, Black `#000000`, Paper `#FFFEF9`, Cool Gray `#C8C9C7`
 
@@ -370,8 +412,8 @@ Tweaks panel (dev only) даёт выбрать конкретный variant (`r
 FTP_URL="ftp://atlas.multihost.cloud/signa.cafe"
 FTP_CRED="aqq17894:$(cat ~/.razex-creds/signa-ftp.txt)"
 
-# Изменить один JSX файл
-curl -s -T src/sections.jsx "$FTP_URL/src/sections.jsx" --user "$FTP_CRED"
+# Изменить JSX: заливать src/*.jsx бесполезно, страницы грузят js/
+npm run build && git commit ... && git push && tools/deploy-site.sh
 
 # Залить новый ассет
 curl -s --ftp-create-dirs -T assets/новое-фото.jpg "$FTP_URL/assets/новое-фото.jpg" --user "$FTP_CRED"
@@ -380,7 +422,8 @@ curl -s --ftp-create-dirs -T assets/новое-фото.jpg "$FTP_URL/assets/н�
 curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.ext" "ftp://atlas.multihost.cloud/"
 ```
 
-**Cache busting**: index.html ссылается на `src/styles.css` без `?v=` (no-cache-bust). Если нужно — добавить `?v=$(date +%s)` к ссылкам в `index.html`.
+**Cache busting**: `js/*.js` версионирует сборка сама (`?v=<хэш>`). `src/styles.css` кэшируется
+на час и подключён с ручным `?v=` - поменял стили, подними `?v=` в 4 страницах и в `lib/stories.php`.
 
 ### Хостинг
 - **Провайдер**: multihost.cloud (cPanel, Apache)
@@ -436,12 +479,12 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 4. **Tile pattern** (44×44 white embossed) — только этот pattern для background
 5. **i18n**: при добавлении нового UI-текста — сразу добавить ключ в STRINGS для всех 3 языков (en/ru/id) + использовать `T(lang)("key")`
 6. **Hero variants**: trust `useIsMobile` hook, не делать ручные `display: none` для variants
-7. **JSX через Babel в браузере**: код пишется как ES2015+ JSX, транспилируется на лету — НЕ добавлять TypeScript/JSX-build steps
+7. **JSX компилирует `npm run build`, не браузер** (с 09.10.2026): код по-прежнему пишется как ES2015+ JSX с глобалами через `window.*`, без TypeScript и без import/export. Не возвращать Babel-standalone и unpkg на публичные страницы - это и был тормоз (см. «Скорость загрузки»)
 8. **Tweaks panel ВСЕГДА скрыт по умолчанию** — это dev tool
 
 ## Production hardening (TODO)
 
-- [ ] Pre-compile JSX через esbuild (убрать Babel-standalone ~600KB)
+- [x] Pre-compile JSX (убрать Babel-standalone) - 09.10.2026, `tools/build-js.mjs`
 - [ ] WebP версии для photos (`cwebp -q 78 ...`)
 - [ ] Lazy loading для images ниже fold
 - [ ] OG meta tags для социальных шер
@@ -455,7 +498,8 @@ curl -s --user "$FTP_CRED" -Q "CWD /home/aqq17894/signa.cafe" -Q "DELE filename.
 
 ---
 
-*Последнее обновление: 2026-09-23 - подключён Google Tag Manager (GTM-WN7NK7GD) на публичные страницы; админка и PWA столов намеренно без счётчика*
+*Последнее обновление: 2026-10-09 - JSX собирается заранее (`npm run build` → `js/`), React production с нашего хоста, gzip и годовой кэш `/js/`; мобильный Lighthouse 35 → 69*
+*2026-09-23 - подключён Google Tag Manager (GTM-WN7NK7GD) на публичные страницы; админка и PWA столов намеренно без счётчика*
 *2026-09-07 - добавлен HANDOVER.md (точка входа без контекста); Stories перенесены на IJEN SPA*
 *2026-09-05 - Basic Auth заменён на форму входа с PHP-сессией (admin.php + lib/auth.php)*
 *Полная переделка с шаблона Montoya на React 18 + Babel standalone*

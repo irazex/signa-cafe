@@ -106,6 +106,11 @@ SSH на хостинге нет и не будет - только FTP.
 4. **Порядок деплоя: только из основной папки и только с `main`.** Деплой - это
    `rsync`/FTP поверх; ветка стирает с прода чужие файлы (инциденты 16.08 и 26.08).
 
+5. **Страницы index/menu/about/visit грузят собранный `js/`, а не `src/*.jsx`** (с 09.10.2026).
+   Правка JSX = `npm run build`, коммит, push, `tools/deploy-site.sh`. Залитый по FTP
+   голый `src/sections.jsx` на сайте ничего не изменит. Почему так - `CLAUDE.md`,
+   «Скорость загрузки».
+
 Плюс два мелких, но с длинным следом: `sitemap.xml` - это rewrite на `sitemap.php`,
 статический файл не создавать; `og:image` - только JPEG, Telegram отклоняет WebP целиком.
 
@@ -118,7 +123,7 @@ API (до тех пор посты и ответы идут через брау�
 ## 7. Старт за 5 минут
 
 ```bash
-cd "/Users/razex/Documents/CLAUD MAIN AGENT/_Projects/signa-cafe-repo"
+cd "/Volumes/Crucial X9/_AI live here_/Projects/Active/Signa Cafe Website"
 git status -sb && git log --oneline -8
 sed -n '1,60p' TASKS.md
 
@@ -130,6 +135,6 @@ for u in /stories /sitemap.xml /feed.xml /llms.txt; do \
 node tools/cost-ledger.mjs
 ssh balilikko 'crontab -l | grep -A1 Signa; tail -20 ~/logs/signa-stories.log'
 
-# превью раздела локально (без билд-шага)
+# превью локально (Stories без сборки; 4 React-страницы - после npm install && npm run build)
 php -S 127.0.0.1:8099 -t . tools/dev-router.php   # http://127.0.0.1:8099/stories
 ```
