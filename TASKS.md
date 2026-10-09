@@ -5,11 +5,6 @@
 
 ## 🟡 В работе
 
-- [~] **GTM после загрузки страницы** (решение владельца 09.10.2026) - контейнер
-      GTM-WN7NK7GD грузить после `load` (+ idle), сразу при первом касании/скролле,
-      и не позже 5 с. На 4 React-страницах и в Stories (`lib/stories.php`)
-- [~] **Почта на сайте: hi@signa.cafe → mail@signa.cafe** (владелец 09.10.2026) -
-      `content.json`, футер `src/sections.jsx`, `<noscript>`, JSON-LD, `lib/stories.php`
 - [ ] **10б. Google Business Profile через API** - доступ к Business Profile API
       Google выдаёт по заявке, мгновенно его не получить. До одобрения работает
       ручной путь: готовый пост приходит в Telegram вторым сообщением, а на отзывы
@@ -35,11 +30,44 @@
 - [ ] **Поставить Cloudflare (бесплатный) перед signa.cafe?** Хост в России: DNS на
       `ns*.multihost.ru` (первый запрос из Бали ~0.85 с), TTFB ~0.9 с, только HTTP/1.1.
       Cloudflare даст DNS и TLS рядом (Сингапур/Джакарта), HTTP/2-3 и кэш статики на краю -
-      по оценке минус 1-1.5 с на первом заходе с телефона. Нужно: аккаунт Cloudflare,
-      смена NS у регистратора домена, перенос всех DNS-записей (почта mail@signa.cafe на Google Workspace).
-      Действие владельца, код не меняется.
+      по оценке минус 1-1.5 с на первом заходе с телефона. Тариф Free - $0.
+      Снято 09.10.2026 для переноса:
+      - регистратор **RU-CENTER (nic.ru)**, домен до 07.07.2027, статус transfer-lock
+        (NS менять не мешает). Если домена нет в кабинете nic.ru - он заведён через
+        панель multihost, NS меняются там;
+      - зона: A `@` и `webmail/cpanel/whm/webdisk/autodiscover/autoconfig/cpcalendars/
+        cpcontacts` → 37.230.118.130; CNAME `www/mail/ftp` → signa.cafe; MX 1
+        `smtp.google.com` (почта mail@signa.cafe - Google Workspace); TXT SPF
+        `v=spf1 ip4:37.230.118.130 +a +mx ~all`, два `google-site-verification`
+        (без них Search Console потеряет Domain property), DKIM `google._domainkey`
+        и `default._domainkey`; SRV `_autodiscover._tcp` → cpanelemaildiscovery.cpanel.net;
+      - оранжевое облако только у `@` и `www`, остальное DNS only (FTP через прокси не ходит);
+      - SSL **Full**, не Strict: на хосте wildcard Let's Encrypt (до 16.12.2026), его
+        AutoSSL продлевает через DNS-запись в зоне cPanel, после переноса NS продление
+        может не пройти. Strict - только с Origin Certificate Cloudflare в cPanel;
+      - выключить блокировку ИИ-ботов (AI Crawl Control / Block AI bots, managed
+        robots.txt), Bot Fight Mode, Rocket Loader, Email Obfuscation - иначе ломаются
+        инвариант 6 (GPTBot/ClaudeBot), read-back деплоя с VPS и порядок скриптов React;
+      - **код до переключения**: `lib/auth.php` троттлит вход по `REMOTE_ADDR`, а за
+        Cloudflare это IP узла Cloudflare - чужие попытки залочат владельца. Брать
+        `CF-Connecting-IP`, только если `REMOTE_ADDR` из диапазонов Cloudflare.
+        `track.php` так же пишет IP из `X-Forwarded-For`.
+- [ ] **SPF не пускает Google** (найдено 09.10.2026): почта на Google Workspace, а SPF
+      `v=spf1 ip4:37.230.118.130 +a +mx ~all` без `include:_spf.google.com` - письма с
+      mail@signa.cafe проходят только по DKIM, части получателей это спам. Правка:
+      `v=spf1 ip4:37.230.118.130 include:_spf.google.com ~all` - в cPanel сейчас или
+      сразу в Cloudflare при переносе. DMARC-записи нет.
 
 ## ✅ Сделано (последнее)
+
+- [x] **GTM после загрузки страницы + почта mail@signa.cafe** - 09.10.2026, `e936d55`
+      (решения владельца). Инлайн-загрузчик вместо стандартного сниппета на 4 страницах
+      и в `st_gtm_head()`: `gtm.js` после `load` + idle, при первом касании/скролле/клавише
+      или через 5 с. На проде: главная load 1.37 с → `gtm.js` 1.44 с → GA4 `g/collect`
+      1.91 с; `/stories` - так же, хит GA4 уходит. Lighthouse главной, мобильный (3 прогона
+      до/после): 65-69 → 84-88, FCP 4.0 → 2.2 с, LCP 5.4-6.8 → 3.3-3.9 с; десктоп 78 → 82.
+      Почта hi@ → mail@ в `content.json`, футере, `<noscript>`, JSON-LD, `lib/stories.php`.
+      `tools/deploy-site.sh` теперь заливает и `content.json` с `lib/stories.php`.
 
 - [x] **Скорость открытия сайта** - 09.10.2026, `2d64a82`, `7f79e29` (запрос владельца:
       переход из Google Карт выглядел как неработающий сайт). Причина: React dev +
