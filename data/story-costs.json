@@ -1242,6 +1242,86 @@
         "reasoning": 181
       },
       "usd": 0.0783
+    },
+    {
+      "at": "2026-11-09T05:41:36.691Z",
+      "slug": "omg",
+      "postDate": "2026-11-12",
+      "model": "gpt-5.5",
+      "stage": "write:en",
+      "seconds": 41,
+      "responseId": "resp_0c4babe02aabc4b3006af15ce86c4087d2a2863c5d7f24bc29",
+      "tokens": {
+        "input": 2821,
+        "cachedInput": 0,
+        "output": 2193,
+        "reasoning": 68
+      },
+      "usd": 0.0799
+    },
+    {
+      "at": "2026-11-09T05:42:12.136Z",
+      "slug": "omg",
+      "postDate": "2026-11-12",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 35,
+      "responseId": "resp_096a7239dfe69bd1006af15d11011c87d2b9bf79dfa2bcfc65",
+      "tokens": {
+        "input": 2209,
+        "cachedInput": 0,
+        "output": 2289,
+        "reasoning": 112
+      },
+      "usd": 0.0797
+    },
+    {
+      "at": "2026-11-09T05:42:52.904Z",
+      "slug": "omg",
+      "postDate": "2026-11-12",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 41,
+      "responseId": "resp_0451546dcb4bc4bf006af15d344e4887d2a86b5518e324f8e0",
+      "tokens": {
+        "input": 2254,
+        "cachedInput": 1792,
+        "output": 2364,
+        "reasoning": 171
+      },
+      "usd": 0.0741
+    },
+    {
+      "at": "2026-11-09T05:43:33.025Z",
+      "slug": "omg",
+      "postDate": "2026-11-12",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 40,
+      "responseId": "resp_0072d289bd9addf1006af15d5d115c87d282c3f2a8c7f291a2",
+      "tokens": {
+        "input": 1651,
+        "cachedInput": 0,
+        "output": 1971,
+        "reasoning": 62
+      },
+      "usd": 0.0674
+    },
+    {
+      "at": "2026-11-09T05:44:13.228Z",
+      "slug": "omg",
+      "postDate": "2026-11-12",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 40,
+      "responseId": "resp_035dd78cdad9c6e8006af15d85333c87d286e42ede14ef9486",
+      "tokens": {
+        "input": 1698,
+        "cachedInput": 0,
+        "output": 2465,
+        "reasoning": 319
+      },
+      "usd": 0.0824
     }
   ]
 }
