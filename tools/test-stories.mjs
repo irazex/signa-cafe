@@ -8,8 +8,9 @@ import { fileURLToPath } from 'node:url';
 import { baliDate, nextStoryDate } from './story-schedule.mjs';
 import { validatedEdition, repeatedSentenceOpening } from './story-quality.mjs';
 import { requestCeiling, checkBudget } from './story-budget.mjs';
-import { validate, generate } from './story-gen.mjs';
+import { validate, generate, recoverBilledDraft } from './story-gen.mjs';
 import { openDraft, draftedDish } from './story-draft.mjs';
+import { userPrompt } from './story-prompt.mjs';
 import { definiteCreateRejection } from './story-runtime.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -156,4 +157,34 @@ test('accepted edition survives a failed later stage and is reused without API c
     assert.deepEqual(openDraft({...context,dish:{...context.dish,price:'90 000 IDR'}}).data,{});
     restored.remove();assert.equal(draftedDish(context.date,[context.dish],dir),null);
   } finally {globalThis.fetch=priorFetch;fs.rmSync(dir,{recursive:true,force:true});}
+});
+
+
+test('billed recovery stops on read failure and changed factual context before a new create', async () => {
+  const priorFetch=globalThis.fetch;
+  try {
+    const context={key:'offline',dish:{title:'Fixture',price:'90 000 IDR'},date:'2026-11-12',draft:{data:{},save(){throw Error('must not save stale context')}},site:JSON.parse(fs.readFileSync(path.join(ROOT,'content.json'))).site,promos:[],usedAngles:[]};
+    const rows=[{responseId:'already-paid',slug:'fixture',postDate:context.date,stage:'write:en'}];
+    let creates=0;
+    globalThis.fetch=async(url,init)=>{if(init?.method==='POST')creates++;return new Response(JSON.stringify({error:{message:'unavailable'}}),{status:500})};
+    await assert.rejects(recoverBilledDraft(context,rows),/cannot read billed/);
+    const post=JSON.parse(fs.readFileSync(path.join(ROOT,'data/stories.json'))).posts.find(p=>!validate(p,['en']).length);
+    const oldPrompt=userPrompt({...context,dish:{...context.dish,price:'85 000 IDR'},langs:['en']});
+    globalThis.fetch=async(url,init)=>{
+      if(init?.method==='POST')creates++;
+      const value=String(url).includes('input_items')?{data:[{role:'user',content:[{text:oldPrompt}]}],has_more:false}:{status:'completed',output_text:JSON.stringify(post)};
+      return new Response(JSON.stringify(value),{status:200});
+    };
+    await assert.rejects(recoverBilledDraft(context,rows),/context differs/);
+    assert.equal(creates,0);
+  } finally {globalThis.fetch=priorFetch;}
+});
+
+
+test('Indonesian accepts an exact menu name while rejecting generic English copy', () => {
+  const p=JSON.parse(fs.readFileSync(path.join(ROOT,'data/stories.json'))).posts.find(p=>p.id);
+  const candidate=structuredClone(p);candidate.id.blocks[0].p.push('Menu Big Breakfast tersedia di sini.');
+  assert(!validate(candidate,['id'],'Big Breakfast').some(x=>x.includes('untranslated English')&&x.includes('breakfast')));
+  candidate.id.blocks[0].p.push('Datang untuk breakfast.');
+  assert(validate(candidate,['id'],'Big Breakfast').some(x=>x.includes('untranslated English')&&x.includes('breakfast')));
 });

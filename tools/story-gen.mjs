@@ -383,7 +383,7 @@ async function transcreateLang(facts, dish, site, promos, lang, key, bill = {}, 
     stage: `transcreate:${lang}`, slug: bill.slug ?? null, date: bill.date ?? null,
     }), lang),
     check: (body) => [
-      ...validate({ [lang]: body }, [lang]),
+      ...validate({ [lang]: body }, [lang], dish.title),
       ...(body.blocks.length !== targetSections ? [`${lang} needs ${targetSections} sections, received ${body.blocks.length}`] : []),
     ],
   });
@@ -430,7 +430,7 @@ export async function generate({ dish, site, promos, usedAngles, date, key, lang
   // Each language is commissioned independently from the English fact dossier.
   // There is no intermediate translated draft and no editor pass.
   for (const lang of langs.filter((l) => l !== "en")) {
-    if (data[lang] && !validate(data, [lang]).length && data[lang].blocks.length === transcreationSectionCount(dish, lang, source?.blocks?.length || 5)) {
+    if (data[lang] && !validate(data, [lang], dish.title).length && data[lang].blocks.length === transcreationSectionCount(dish, lang, source?.blocks?.length || 5)) {
       log(`    reuse accepted ${lang} draft (no paid call)`);
       continue;
     }
@@ -445,8 +445,7 @@ export async function generate({ dish, site, promos, usedAngles, date, key, lang
 
 // Read completed, already billed responses for an explicitly requested recovery.
 // No create endpoint is called here and existing usage is not booked twice.
-async function recoverBilledDraft({ key, dish, date, draft }) {
-  const rows=loadCosts().runs;
+export async function recoverBilledDraft({ key, dish, date, draft, site, promos, usedAngles }, rows=loadCosts().runs) {
   const data={...draft.data};
   for(const lang of ["en","ru","id"]) {
     if(data[lang])continue;
@@ -454,11 +453,24 @@ async function recoverBilledDraft({ key, dish, date, draft }) {
     const row=rows.slice().reverse().find(r=>r.responseId&&r.slug===slugify(dish.title)&&r.postDate===date&&r.stage===stage);
     if(!row)continue;
     const job=await api(key,`/responses/${row.responseId}`);
-    if(job.status!=="completed")continue;
+    if(job.error || job._httpStatus !== 200 || job.status!=="completed") {
+      throw new Error(`cannot read billed ${lang} response; recovery stopped before any new paid call`);
+    }
+    const inputs=await api(key,`/responses/${row.responseId}/input_items?limit=100`);
+    if(inputs.error || inputs._httpStatus!==200 || !Array.isArray(inputs.data) || inputs.has_more) {
+      throw new Error(`cannot verify billed ${lang} input context; recovery stopped`);
+    }
+    const prompts=inputs.data.filter(x=>x.role==="user").map(x=>(x.content||[]).map(c=>c.text||"").join(""));
+    const expected=lang==="en"
+      ? userPrompt({dish,site,promos,langs:["en"],usedAngles,date})
+      : transcreationPrompt({facts:data.sourceFacts,dish,site,promos,lang,date,targetSections:transcreationSectionCount(dish,lang,data.en?.blocks?.length||5)});
+    if(prompts.length!==1 || !(prompts[0]===expected || prompts[0].startsWith(expected+"\n\nPREVIOUS ATTEMPT WAS REJECTED."))) {
+      throw new Error(`billed ${lang} context differs from current facts; recovery stopped`);
+    }
     const text=job.output_text||(job.output||[]).flatMap(x=>x.content||[]).filter(x=>x.type==="output_text").map(x=>x.text).join("");
     const value=JSON.parse(text);
     const candidate=lang==="en"?value:{[lang]:normalizeNativeBody(value,lang)};
-    if(validate(candidate,[lang]).length)continue;
+    if(validate(candidate,[lang],dish.title).length)continue;
     Object.assign(data,candidate);
     log(`    recovered already-paid ${lang} response (no paid call)`);
   }
@@ -468,7 +480,7 @@ async function recoverBilledDraft({ key, dish, date, draft }) {
 // ---------- validation ----------
 const wordsOf = (b) => [b.lead, ...b.blocks.flatMap((x) => [x.h, ...x.p])].join(" ").split(/\s+/).filter(Boolean).length;
 
-export function validate(post, langs = opts.langs) {
+export function validate(post, langs = opts.langs, menuName = post.dish?.name) {
   const issues = [];
   for (const lang of langs) {
     const b = post[lang];
@@ -544,10 +556,17 @@ export function validate(post, langs = opts.langs) {
       if (b.blocks.some((x) => /^\s*\d+[.)]/.test(x.h))) {
         issues.push("ID: numbered section headings read like an outline");
       }
-      const idText = [b.description, blob]
+      let idText = [b.description, blob]
         .join(" ")
         .replace(/https?:\/\/\S+/g, " ")
         .replace(/\S+@\S+/g, " ");
+      // Exact multi-word menu names are proper labels, not untranslated prose.
+      // "Big Breakfast" must stay orderable by its real menu name; a generic
+      // "breakfast" elsewhere still fails the Indonesian-language gate.
+      if (menuName && menuName.trim().split(/\s+/).length > 1) {
+        const label = menuName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        idText = idText.replace(new RegExp(`(?<![a-z])${label}(?![a-z])`, "gi"), " ");
+      }
       const copiedEnglish = [
         "cream sauce", "grilled chicken", "broccoli", "red onion", "soft-spicy",
         "sesame seeds", "homemade", "cottage cheese", "fresh cheese", "pancakes",
@@ -810,9 +829,9 @@ async function main() {
     }
 
     const draft = openDraft({ dish, site, promos, date });
-    if (opts.recoverBilled) await recoverBilledDraft({ key, dish, date, draft });
+    if (opts.recoverBilled) await recoverBilledDraft({ key, dish, date, draft, site, promos, usedAngles: anglesOf(store.posts) });
     const data = await generate({ dish, site, promos, usedAngles: anglesOf(store.posts), date, key, slug: slugify(dish.title), draft });
-    const issues = validate(data);
+    const issues = validate(data, opts.langs, dish.title);
     if (issues.length) {
       issues.forEach((i) => warn(i));
       throw new Error(`quality gate rejected ${dish.title}; nothing was published`);
