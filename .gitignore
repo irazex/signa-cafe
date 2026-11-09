@@ -24,3 +24,6 @@ dist/
 
 # Runtime analytics logs written by track.php (never commit, never deploy)
 analytics/
+
+# CLI locks and unresolved paid-response state; never publish to the website.
+.story-runtime/

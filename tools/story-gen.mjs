@@ -22,7 +22,11 @@ import { fileURLToPath } from "node:url";
 import { systemPrompt, userPrompt, transcreationPrompt, schema, geoFixPrompt, geoFixSchema,
          LANGS, GEO, GEO_PRIMARY, GEO_SECONDARY, POSITIONING } from "./story-prompt.mjs";
 import { fetchDishPhoto } from "./dish-photo.mjs";
-import { record as recordCost, spentOn, spentInMonth } from "./cost-ledger.mjs";
+import { record as recordCost, spentOn, spentInMonth, pricing } from "./cost-ledger.mjs";
+import { nextStoryDate } from "./story-schedule.mjs";
+import { validatedEdition, qualityFeedback, repeatedSentenceOpening } from "./story-quality.mjs";
+import { requestCeiling, checkBudget } from "./story-budget.mjs";
+import { lockGenerator, pendingResponse, savePending, clearPending, assertNoPending } from "./story-runtime.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const STORIES = path.join(ROOT, "data", "stories.json");
@@ -87,6 +91,7 @@ const opts = {
 };
 
 let spentThisRun = 0;
+let stopping = false;
 const log = (...a) => console.log(...a);
 const warn = (...a) => console.warn("  !", ...a);
 const readJson = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
@@ -121,11 +126,6 @@ function apiKey() {
 
 // ---------- dates ----------
 const iso = (d) => d.toISOString().slice(0, 10);
-function nextThursday(after) {
-  const d = new Date(`${after}T00:00:00Z`);
-  do { d.setUTCDate(d.getUTCDate() + 1); } while (d.getUTCDay() !== 4);
-  return iso(d);
-}
 const shiftDays = (isoDate, n) => { const d = new Date(`${isoDate}T00:00:00Z`); d.setUTCDate(d.getUTCDate() + n); return iso(d); };
 
 // ---------- dish catalog ----------
@@ -208,29 +208,35 @@ async function api(key, pathname, init = {}, attempts = 4) {
  * though the run is being abandoned. An already-finished job ignores the
  * cancel; the usage read is what matters.
  */
-async function abandon(key, id, { slug, date, stage, started }) {
-  if (!id) return;
+async function abandon(key, id, { slug, date, stage, started, model = opts.model }) {
+  if (!id) return false;
   try {
     await api(key, `/responses/${id}/cancel`, { method: "POST" }, 2);
     const job = await api(key, `/responses/${id}`, {}, 2);
     const u = job?.usage;
     if (u && (u.input_tokens || u.output_tokens)) {
       const entry = recordCost({
-        slug, date, model: opts.model, stage: `${stage}:abandoned`,
-        usage: u, seconds: (Date.now() - started) / 1000,
+        slug, date, model, stage: `${stage}:abandoned`,
+        usage: u, seconds: (Date.now() - started) / 1000, responseId: id,
       });
       spentThisRun += entry?.usd || 0;
       warn(`abandoned response ${id} cancelled - billed ${u.output_tokens || 0} output tokens`
         + `${entry?.usd ? ` ($${entry.usd.toFixed(2)})` : ""}, recorded`);
+      return ["completed", "cancelled", "failed", "incomplete"].includes(job.status);
     } else {
-      warn(`abandoned response ${id} cancelled (no usage reported)`);
+      warn(`response ${id} has no final usage; new paid calls stay blocked`);
+      return false;
     }
   } catch (e) {
     warn(`could not cancel response ${id}: ${e.message} - check the dashboard`);
+    return false;
   }
 }
 
 async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "write", slug = null, date = null }) {
+  if (stopping) throw new Error("generator is stopping; further paid calls blocked");
+  assertNoPending();
+  if (!fs.existsSync(path.join(ROOT, "data/story-costs.json"))) throw new Error("cost ledger missing; paid generation blocked");
   // Checked before the request, not after it: a ceiling that only notices the
   // overspend once the money is gone is not a ceiling.
   const today = spentOn();
@@ -246,12 +252,21 @@ async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "wri
       + ` raise it for one run with --monthly-cap <usd> only with their say-so.`);
   }
 
+  checkBudget({
+    ceiling: requestCeiling({ messages, jsonSchema, maxTokens, model: opts.model, rates: pricing() }),
+    daySpent: today, monthSpent: month, runSpent: spentThisRun,
+    dailyCap: opts.dailyCap, monthlyCap: opts.monthlyCap, runCap: opts.budget,
+  });
+
   // The retry inside api() re-sends on a network failure. For a POST that
   // creates a billed background job, a blind re-send is a second job running
   // in parallel - the key makes the server hand back the first one instead.
+  const started = Date.now();
+  const pending = { id: null, requestId: crypto.randomUUID(), model: opts.model, slug, date, stage, started };
+  savePending(pending);
   let job = await api(key, "/responses", {
     method: "POST",
-    headers: { "Idempotency-Key": crypto.randomUUID() },
+    headers: { "Idempotency-Key": pending.requestId },
     body: JSON.stringify({
       model: opts.model,
       input: messages.map((m) => ({ role: m.role === "system" ? "developer" : m.role, content: m.content })),
@@ -260,10 +275,14 @@ async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "wri
       background: true,
       store: true,
     }),
-  });
-  if (job.error) throw new Error(`OpenAI: ${job.error.message || JSON.stringify(job.error)}`);
+  }, 1); // Never retry an ambiguous creation of a billed job.
+  if (job.error) {
+    clearPending(pending.requestId);
+    throw new Error(`OpenAI: ${job.error.message || JSON.stringify(job.error)}`);
+  }
+  if (!job.id) throw new Error("response creation returned no ID; new paid calls blocked pending investigation");
+  savePending({ ...pending, id: job.id });
 
-  const started = Date.now();
   const LIMIT_MS = 40 * 60 * 1000;
   let text;
   try {
@@ -286,18 +305,18 @@ async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "wri
     if (!text) throw new Error("completed response carried no output text");
   } catch (e) {
     // Whatever went wrong, the job exists and is billing. Stop it and book it.
-    await abandon(key, job?.id, { slug, date, stage, started });
+    if (await abandon(key, job?.id, { slug, date, stage, started })) clearPending(pending.requestId);
     throw e;
   }
 
   const secs = (Date.now() - started) / 1000;
   const u = job.usage || {};
-  let entry = null;
-  try {
-    entry = recordCost({ slug, date, model: opts.model, stage, usage: u, seconds: secs });
-  } catch (e) {
-    warn(`cost not recorded: ${e.message}`);
+  // Failed bookkeeping blocks the next paid call instead of treating it as $0.
+  if (!Number.isFinite(u.input_tokens) || !Number.isFinite(u.output_tokens)) {
+    throw new Error(`response ${job.id} has no usage; new paid calls blocked`);
   }
+  const entry = recordCost({ slug, date, model: opts.model, stage, usage: u, seconds: secs, responseId: job.id });
+  clearPending(pending.requestId);
 
   // Nothing stopped the expensive run on 05.09 until the money was gone. A run
   // now carries a ceiling and stops itself at it. Raise it with --budget <usd>.
@@ -345,23 +364,25 @@ async function transcreateLang(facts, dish, site, promos, lang, key, bill = {}, 
   const persona = lang === "ru"
     ? "Ты русскоязычный гастрономический автор. Ты пишешь самостоятельную статью с нуля по фактическому досье. Ты не переводчик и не редактор перевода."
     : "You are a native Indonesian food writer. You write a new Bahasa Indonesia article from a factual dossier, never a translation or an edited translation. You do not change facts.";
-  return chat({
+  return validatedEdition({
+    label: `${lang.toUpperCase()} ${dish.title}`,
+    onRetry: (issues) => log(`    retry ${lang} only: ${issues.join("; ")}`),
+    write: async (feedback) => normalizeNativeBody(await chat({
     key,
     messages: [
       { role: "system", content: persona },
-      { role: "user", content: transcreationPrompt({ facts, dish, site, promos, lang, date: bill.date, targetSections }) },
+      { role: "user", content: transcreationPrompt({ facts, dish, site, promos, lang, date: bill.date, targetSections }) + qualityFeedback(feedback) },
     ],
     jsonSchema: { name: `signa_story_${lang}`, strict: true, schema: one },
     // The limit is headroom, not a bill. One ID rewrite spent 13.8k including
     // hidden reasoning and was charged despite ending incomplete at 12k.
     maxTokens: 16000,
     stage: `transcreate:${lang}`, slug: bill.slug ?? null, date: bill.date ?? null,
-  }).then((rawBody) => {
-    const body = normalizeNativeBody(rawBody, lang);
-    if (body.blocks.length !== targetSections) {
-      throw new Error(`${lang} returned ${body.blocks.length} sections; independent edition requires ${targetSections}`);
-    }
-    return body;
+    }), lang),
+    check: (body) => [
+      ...validate({ [lang]: body }, [lang]),
+      ...(body.blocks.length !== targetSections ? [`${lang} needs ${targetSections} sections, received ${body.blocks.length}`] : []),
+    ],
   });
 }
 
@@ -373,14 +394,19 @@ async function generate({ dish, site, promos, usedAngles, date, key, langs = opt
   // English is the sole original. Asking one response to write all languages
   // at once made Russian inherit English sentence order even after editing.
   if (langs.includes("en") && !source) {
-    data = await chat({
+    data = await validatedEdition({
+      label: `EN ${dish.title}`,
+      onRetry: (issues) => log(`    retry en only: ${issues.join("; ")}`),
+      check: (value) => validate(value, ["en"]),
+      write: (feedback) => chat({
       key,
       messages: [
         { role: "system", content: systemPrompt() },
-        { role: "user", content: userPrompt({ dish, site, promos, langs: ["en"], usedAngles, date }) },
+        { role: "user", content: userPrompt({ dish, site, promos, langs: ["en"], usedAngles, date }) + qualityFeedback(feedback) },
       ],
       jsonSchema: schema(["en"]),
       stage: "write:en", slug, date,
+      }),
     });
     source = data.en;
     facts = factDossier(source, data.sourceFacts);
@@ -406,7 +432,7 @@ async function generate({ dish, site, promos, usedAngles, date, key, langs = opt
 // ---------- validation ----------
 const wordsOf = (b) => [b.lead, ...b.blocks.flatMap((x) => [x.h, ...x.p])].join(" ").split(/\s+/).filter(Boolean).length;
 
-function validate(post, langs = opts.langs) {
+export function validate(post, langs = opts.langs) {
   const issues = [];
   for (const lang of langs) {
     const b = post[lang];
@@ -449,12 +475,8 @@ function validate(post, langs = opts.langs) {
     }
 
     // Machine-written tells that survive the prompt often enough to check for.
-    const heads = blob.split(/(?<=[.!?])\s+/).map((x) => (x.trim().split(/\s+/)[0] || "").toLowerCase());
-    let run = 1;
-    for (let i = 1; i < heads.length; i++) {
-      run = heads[i] && heads[i] === heads[i - 1] ? run + 1 : 1;
-      if (run >= 3) { issues.push(`${tag}: ${run} sentences in a row start with "${heads[i]}"`); break; }
-    }
+    const opening = repeatedSentenceOpening(b.blocks, lang);
+    if (opening) issues.push(`${tag}: 3 sentences in a row start with "${opening}"`);
     const paraLens = b.blocks.flatMap((x) => x.p).map((p) => p.split(/\s+/).length);
     if (paraLens.length > 3 && Math.max(...paraLens) - Math.min(...paraLens) < 12) {
       issues.push(`${tag}: every paragraph is the same length (${Math.min(...paraLens)}-${Math.max(...paraLens)} words), reads machine-made`);
@@ -535,6 +557,12 @@ async function main() {
   const content = readJson(CONTENT);
   const store = readJson(STORIES);
   const key = apiKey();
+  const pending = pendingResponse();
+  if (pending && !opts.dryRun) {
+    if (!pending.id) throw new Error("previous paid request has an unknown result; new calls blocked, inspect OpenAI before retrying");
+    if (!await abandon(key, pending.id, pending)) throw new Error("previous paid response could not be accounted; new calls blocked");
+    clearPending(pending.requestId);
+  }
   const site = content.site;
   const promos = content.promos || [];
   const cat = catalog();
@@ -579,6 +607,7 @@ async function main() {
         for (const l of off) log(`    ${l}: ${post[l].title}`);
       } catch (e) {
         warn(`${post.slug}: ${e.message}`);
+        if (pendingResponse() || stopping) throw e;
       }
     }
     log(opts.dryRun ? "--dry-run: nothing written" : "done");
@@ -615,6 +644,7 @@ async function main() {
         if (!post.sourceFacts?.length) post.sourceFacts = factDossier(post.en);
       } catch (e) {
         warn(`transcreation failed, existing edition kept: ${e.message}`);
+        if (pendingResponse() || stopping) throw e;
         continue;
       }
       if (!opts.dryRun) writeStore(store);
@@ -711,7 +741,7 @@ async function main() {
 
     let date;
     if (opts.date) date = n === 0 ? opts.date : shiftDays(results[n - 1].date, opts.back ? -7 : 7);
-    else date = nextThursday(store.posts.map((p) => p.date).sort().pop() || iso(new Date()));
+    else date = nextStoryDate(store.posts);
 
     log(`[${n + 1}/${opts.count}] ${date}  ${dish.title}  ${dish.price}  (${pool.length} dishes left)`);
 
@@ -743,16 +773,11 @@ async function main() {
       throw new Error(`Syrve dish ${dish.title} has no menu-specific photo; nothing generated or published`);
     }
 
-    let data, issues;
-    for (let attempt = 1; attempt <= 2; attempt++) {
-      data = await generate({ dish, site, promos, usedAngles: anglesOf(store.posts), date, key });
-      issues = validate({ ...data });
-      if (!issues.length) break;
-      if (attempt < 2) log(`    retry, ${issues.length} issue(s): ${issues[0]}`);
-    }
+    const data = await generate({ dish, site, promos, usedAngles: anglesOf(store.posts), date, key, slug: slugify(dish.title) });
+    const issues = validate(data);
     if (issues.length) {
       issues.forEach((i) => warn(i));
-      throw new Error(`quality gate rejected ${dish.title} after 2 attempts; nothing was published`);
+      throw new Error(`quality gate rejected ${dish.title}; nothing was published`);
     }
 
     let slug = data.slug && /^[a-z0-9-]+$/.test(data.slug) ? data.slug.replace(/-\d{4}-\d{2}-\d{2}$/, "") : slugify(dish.title);
@@ -779,4 +804,17 @@ async function main() {
   log(`\nwritten ${results.length} post(s) -> data/stories.json (${store.posts.length} total)`);
 }
 
-main().catch((e) => { console.error("FAILED:", e.message); process.exit(1); });
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  let release;
+  try { release = lockGenerator(); } catch (e) { console.error("FAILED:", e.message); process.exitCode = 1; }
+  if (release) {
+    for (const signal of ["SIGINT", "SIGTERM"]) process.once(signal, async () => {
+      stopping = true;
+      const pending = pendingResponse();
+      if (pending?.id && await abandon(apiKey(), pending.id, pending)) clearPending(pending.requestId);
+      release();
+      process.exit(1);
+    });
+    main().catch((e) => { console.error("FAILED:", e.message); process.exitCode = 1; }).finally(release);
+  }
+}

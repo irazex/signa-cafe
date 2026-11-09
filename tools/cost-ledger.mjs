@@ -47,7 +47,18 @@ export function pricing() {
 
 export function load() {
   if (!fs.existsSync(LEDGER)) return { runs: [] };
-  try { return JSON.parse(fs.readFileSync(LEDGER, "utf8")); } catch { return { runs: [] }; }
+  const ledger = JSON.parse(fs.readFileSync(LEDGER, "utf8"));
+  if (!Array.isArray(ledger.runs) || ledger.runs.some((r) => !Number.isFinite(r.usd) || r.usd < 0)) {
+    throw new Error("invalid story cost ledger; paid generation blocked");
+  }
+  return ledger;
+}
+
+function save(ledger) {
+  fs.mkdirSync(path.dirname(LEDGER), { recursive: true });
+  const temp = `${LEDGER}.${process.pid}.tmp`;
+  fs.writeFileSync(temp, JSON.stringify(ledger, null, 2) + "\n");
+  fs.renameSync(temp, LEDGER);
 }
 
 export function costOf(model, u, rates = pricing()) {
@@ -59,8 +70,10 @@ export function costOf(model, u, rates = pricing()) {
 }
 
 /** One model call. `stage` is what it was for: "write:en", "transcreate:ru", etc. */
-export function record({ slug, date, model, stage, usage, seconds }) {
+export function record({ slug, date, model, stage, usage, seconds, responseId = null }) {
   const led = load();
+  const existing = responseId && led.runs.find((r) => r.responseId === responseId);
+  if (existing) return existing;
   const rates = pricing();
   const u = {
     input: usage.input_tokens || 0,
@@ -72,11 +85,11 @@ export function record({ slug, date, model, stage, usage, seconds }) {
     at: new Date().toISOString(),
     slug: slug || null, postDate: date || null,
     model, stage, seconds: Math.round(seconds || 0),
+    ...(responseId ? { responseId } : {}),
     tokens: u,
     usd: Number((costOf(model, u, rates) ?? 0).toFixed(4)),
   });
-  fs.mkdirSync(path.dirname(LEDGER), { recursive: true });
-  fs.writeFileSync(LEDGER, JSON.stringify(led, null, 2) + "\n");
+  save(led);
   return led.runs[led.runs.length - 1];
 }
 

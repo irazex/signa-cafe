@@ -14,6 +14,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { nextStoryDate } from "./story-schedule.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const FILE = join(ROOT, "data/stories.json");
@@ -71,15 +72,7 @@ const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().repla
 
 // Next Thursday that is not already taken.
 function nextSlot() {
-  const taken = new Set(posts.map((p) => p.date));
-  const d = new Date();
-  d.setDate(d.getDate() + ((4 - d.getDay() + 7) % 7 || 7));
-  for (let i = 0; i < 52; i++) {
-    const iso = d.toISOString().slice(0, 10);
-    if (!taken.has(iso)) return iso;
-    d.setDate(d.getDate() + 7);
-  }
-  return new Date().toISOString().slice(0, 10);
+  return nextStoryDate(posts);
 }
 
 let slug = slugify(name);

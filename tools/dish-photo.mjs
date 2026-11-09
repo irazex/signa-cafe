@@ -6,6 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import { fileURLToPath } from "node:url";
+import "./story-network.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const PHOTO_DIR = path.join(ROOT, "assets", "stories");
@@ -24,14 +25,31 @@ im.save(dst, "WEBP", quality=80, method=6)
 print(f"{im.width}x{im.height}")
 `;
 
-// Returns the repo-relative path of the stored cover, or null if the fetch failed.
+// Returns the dish's own verified cover. A failure must never select a generic
+// breakfast picture. Only transient network/429/5xx failures get bounded retries.
 export async function fetchDishPhoto(imageUrl, slug, { maxWidth = 1600 } = {}) {
   if (!imageUrl) return null;
   fs.mkdirSync(PHOTO_DIR, { recursive: true });
 
-  const res = await fetch(imageUrl, { signal: AbortSignal.timeout(60000) });
-  if (!res.ok) throw new Error(`photo ${imageUrl} -> HTTP ${res.status}`);
-  const buf = Buffer.from(await res.arrayBuffer());
+  let buf;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const res = await fetch(imageUrl, { signal: AbortSignal.timeout(30000) });
+      if (!res.ok) {
+        await res.body?.cancel();
+        const e = new Error(`HTTP ${res.status}`);
+        e.permanent = res.status !== 429 && res.status < 500;
+        throw e;
+      }
+      buf = Buffer.from(await res.arrayBuffer());
+      break;
+    } catch (e) {
+      if (e.permanent || attempt === 3) {
+        throw new Error(`dish photo from ${new URL(imageUrl).hostname} failed: ${e.message} (${e.cause?.code || "no network detail"}); no paid generation started`);
+      }
+      await new Promise((resolve) => setTimeout(resolve, attempt * 1000));
+    }
+  }
   if (buf.length < 1024) throw new Error(`photo ${imageUrl} is only ${buf.length} bytes`);
 
   const tmp = path.join(os.tmpdir(), `signa-${slug}-${Date.now()}${path.extname(new URL(imageUrl).pathname) || ".img"}`);
