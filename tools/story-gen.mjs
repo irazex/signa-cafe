@@ -829,7 +829,7 @@ async function main() {
       throw new Error(`Syrve dish ${dish.title} has no menu-specific photo; nothing generated or published`);
     }
 
-    const draft = openDraft({ dish, site, promos, date });
+    const draft = openDraft({ dish, site, promos, date, rules: crypto.createHash("sha256").update(fs.readFileSync(path.join(ROOT, "tools/story-prompt.mjs"))).digest("hex") });
     if (opts.recoverBilled) await recoverBilledDraft({ key, dish, date, draft, site, promos, usedAngles: anglesOf(store.posts) });
     const data = await generate({ dish, site, promos, usedAngles: anglesOf(store.posts), date, key, slug: slugify(dish.title), draft });
     const issues = validate(data, opts.langs, dish.title);

@@ -4,8 +4,8 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 const DIR=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../.story-runtime');
 
-export function openDraft({ dish, site, promos, date, dir=DIR }) {
-  const fingerprint=crypto.createHash('sha256').update(JSON.stringify({dish,site,promos,date})).digest('hex');
+export function openDraft({ dish, site, promos, date, rules="", dir=DIR }) {
+  const fingerprint=crypto.createHash('sha256').update(JSON.stringify({dish,site,promos,date,rules})).digest('hex');
   const key=crypto.createHash('sha256').update(String(dish.key||dish.title)).digest('hex').slice(0,12);
   const file=path.join(dir,`draft-${date}-${key}.json`);
   let data={};

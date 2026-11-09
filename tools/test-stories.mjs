@@ -155,6 +155,7 @@ test('accepted edition survives a failed later stage and is reused without API c
     assert.deepEqual(result.en,post.en);assert.equal(requests,0);
     assert.equal(draftedDish(context.date,[context.dish],dir).key,context.dish.key);
     assert.deepEqual(openDraft({...context,dish:{...context.dish,price:'90 000 IDR'}}).data,{});
+    assert.deepEqual(openDraft({...context,rules:"new-writing-rules"}).data,{});
     restored.remove();assert.equal(draftedDish(context.date,[context.dish],dir),null);
   } finally {globalThis.fetch=priorFetch;fs.rmSync(dir,{recursive:true,force:true});}
 });

@@ -966,6 +966,282 @@
         "reasoning": 1406
       },
       "usd": 0.1146
+    },
+    {
+      "at": "2026-09-24T01:00:58.803Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "write:en",
+      "seconds": 43,
+      "tokens": {
+        "input": 2729,
+        "cachedInput": 0,
+        "output": 4004,
+        "reasoning": 1472
+      },
+      "usd": 0.1338
+    },
+    {
+      "at": "2026-09-24T01:02:07.110Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 67,
+      "tokens": {
+        "input": 2171,
+        "cachedInput": 0,
+        "output": 8674,
+        "reasoning": 8674
+      },
+      "usd": 0.2711
+    },
+    {
+      "at": "2026-09-24T01:02:50.897Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 43,
+      "tokens": {
+        "input": 1641,
+        "cachedInput": 0,
+        "output": 4893,
+        "reasoning": 3061
+      },
+      "usd": 0.155
+    },
+    {
+      "at": "2026-09-24T01:03:29.224Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "write:en",
+      "seconds": 38,
+      "tokens": {
+        "input": 2729,
+        "cachedInput": 1792,
+        "output": 2984,
+        "reasoning": 516
+      },
+      "usd": 0.0951
+    },
+    {
+      "at": "2026-09-24T01:04:29.525Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 60,
+      "tokens": {
+        "input": 2095,
+        "cachedInput": 0,
+        "output": 7640,
+        "reasoning": 7640
+      },
+      "usd": 0.2397
+    },
+    {
+      "at": "2026-09-24T01:05:24.029Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 54,
+      "tokens": {
+        "input": 1565,
+        "cachedInput": 0,
+        "output": 5917,
+        "reasoning": 5084
+      },
+      "usd": 0.1853
+    },
+    {
+      "at": "2026-10-15T01:01:05.718Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "write:en",
+      "seconds": 54,
+      "tokens": {
+        "input": 2826,
+        "cachedInput": 0,
+        "output": 4034,
+        "reasoning": 1550
+      },
+      "usd": 0.1351
+    },
+    {
+      "at": "2026-10-15T01:02:10.947Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 65,
+      "tokens": {
+        "input": 2136,
+        "cachedInput": 0,
+        "output": 8069,
+        "reasoning": 8069
+      },
+      "usd": 0.2527
+    },
+    {
+      "at": "2026-10-15T01:03:00.109Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 48,
+      "tokens": {
+        "input": 1606,
+        "cachedInput": 0,
+        "output": 4984,
+        "reasoning": 3102
+      },
+      "usd": 0.1575
+    },
+    {
+      "at": "2026-10-15T01:03:59.819Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "write:en",
+      "seconds": 59,
+      "tokens": {
+        "input": 2826,
+        "cachedInput": 1792,
+        "output": 5152,
+        "reasoning": 3102
+      },
+      "usd": 0.1606
+    },
+    {
+      "at": "2026-10-15T01:05:06.305Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 65,
+      "tokens": {
+        "input": 2145,
+        "cachedInput": 0,
+        "output": 8254,
+        "reasoning": 8254
+      },
+      "usd": 0.2583
+    },
+    {
+      "at": "2026-10-15T01:06:00.983Z",
+      "slug": null,
+      "postDate": "2026-10-01",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 54,
+      "tokens": {
+        "input": 1615,
+        "cachedInput": 0,
+        "output": 5234,
+        "reasoning": 3102
+      },
+      "usd": 0.1651
+    },
+    {
+      "at": "2026-11-09T05:13:16.926Z",
+      "slug": "big-breakfast",
+      "postDate": "2026-11-09",
+      "model": "gpt-5.5",
+      "stage": "write:en",
+      "seconds": 60,
+      "responseId": "resp_0b60ac404aeefc29006af156326f7887d2b07a850bc313a9cc",
+      "tokens": {
+        "input": 2823,
+        "cachedInput": 0,
+        "output": 4623,
+        "reasoning": 2865
+      },
+      "usd": 0.1528
+    },
+    {
+      "at": "2026-11-09T05:14:14.124Z",
+      "slug": "big-breakfast",
+      "postDate": "2026-11-09",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 57,
+      "responseId": "resp_008842d0b81ea274006af1566d1c5887d29ff618e53ea38d08",
+      "tokens": {
+        "input": 2143,
+        "cachedInput": 0,
+        "output": 5060,
+        "reasoning": 3092
+      },
+      "usd": 0.1625
+    },
+    {
+      "at": "2026-11-09T05:15:11.395Z",
+      "slug": "big-breakfast",
+      "postDate": "2026-11-09",
+      "model": "gpt-5.5",
+      "stage": "transcreate:ru",
+      "seconds": 57,
+      "responseId": "resp_074c705191187593006af156a64b0087d2893d52ad9cda20d8",
+      "tokens": {
+        "input": 2186,
+        "cachedInput": 1792,
+        "output": 5146,
+        "reasoning": 3102
+      },
+      "usd": 0.1572
+    },
+    {
+      "at": "2026-11-09T05:17:05.906Z",
+      "slug": "big-breakfast",
+      "postDate": "2026-11-09",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id:abandoned",
+      "seconds": 115,
+      "responseId": "resp_03bec073c5f7036c006af156df909487d2ae476e63604f1e32",
+      "tokens": {
+        "input": 1613,
+        "cachedInput": 0,
+        "output": 17196,
+        "reasoning": 2746
+      },
+      "usd": 0.5239
+    },
+    {
+      "at": "2026-11-09T05:25:22.651Z",
+      "slug": "big-breakfast",
+      "postDate": "2026-11-09",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 40,
+      "responseId": "resp_045b8970e4e8c805006af1591a6bd487d2a5bbe267497e1bbb",
+      "tokens": {
+        "input": 1613,
+        "cachedInput": 0,
+        "output": 1967,
+        "reasoning": 31
+      },
+      "usd": 0.0671
+    },
+    {
+      "at": "2026-11-09T05:26:02.767Z",
+      "slug": "big-breakfast",
+      "postDate": "2026-11-09",
+      "model": "gpt-5.5",
+      "stage": "transcreate:id",
+      "seconds": 40,
+      "responseId": "resp_0dfa0d06d3abcbc3006af15942e2c887d285fb54c87a2a87ed",
+      "tokens": {
+        "input": 1654,
+        "cachedInput": 0,
+        "output": 2333,
+        "reasoning": 181
+      },
+      "usd": 0.0783
     }
   ]
 }

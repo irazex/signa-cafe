@@ -212,7 +212,8 @@ ${promoFacts(promos)}
   слова pasta, pancakes, pizza, burger и другие английские названия в русскую прозу.
 - Бренд всегда пиши ровно Signa Cafe, с обеих заглавных букв.
 - Не транслитерируй обычные слова латиницей. Имена людей и книг, кроме брендов и названий из меню, пиши по-русски.
-- Добавь свою авторскую оценку. Факты не меняй.
+- Описывай вкус и сочетания конкретно. Не изображай личный визит, дегустацию
+  или работу на кухне и не вставляй искусственное «я» ради авторской оценки.
 - Объём основного текста - 650-900 слов. Абзацы разной длины.
 
 ИСПРАВИТЬ ОБЯЗАТЕЛЬНО
@@ -220,7 +221,8 @@ ${promoFacts(promos)}
 - Псевдолитературность и метафоры ради метафор. Не одушевляй еду, погоду,
   район или кафе. Запрещены обороты вроде «блюдо спорит с жарой», «точка
   маршрута», «без музейной пыли», «зелёная пауза», «туристический компромисс»,
-  «никакой философии», «авторская оценка», «простота не извиняется». Пиши
+  «никакой философии», «авторская оценка», «простота не извиняется»,
+  «без сладкого сценария», «утро без переговоров», «тарелка аргументирует». Пиши
   конкретно: что приготовлено, какой вкус, когда заказать и кому подойдёт.
 - Цепочки одинаково начатых предложений. Три подряд "Если..." - переписать.
 - Повтор подлежащего там, где по-русски нужно местоимение или пропуск.
@@ -235,8 +237,10 @@ ${promoFacts(promos)}
 - Цены писать полностью: "93 000 IDR", не "93k".
 
 ДОБАВИТЬ, ЕСЛИ НЕ ХВАТАЕТ
-- Хотя бы одно утверждение, с которым можно поспорить.
-- Хотя бы одно обычное предложение вообще без прилагательных.
+- Простые содержательные предложения. Не добавляй фразу вроде «Я ем и пью
+  кофе» ради формального разнообразия.
+- Сохраняй единицы: 2 scrambled eggs - «скрэмбл из двух яиц», а не две порции.
+- Не обещай тишину, свободные столы или ежедневные публикации без подтверждения.
 
 СОХРАНИТЬ ПО СМЫСЛУ, НО НЕ ПО ФОРМЕ
 - Все факты: даты, города, цены, часы, адрес, состав блюда, имена собственные.
@@ -283,7 +287,8 @@ INDEPENDENT COMPOSITION
 - Never number section headings. Write natural headings without "1.", "2." or
   any other outline markers.
 - Write 650-900 words with deliberately varied paragraph lengths.
-- Add your own editorial opinion without changing factual claims.
+- Describe flavours and combinations plainly. Do not fabricate a personal
+  visit, tasting experience or kitchen role to sound human.
 
 MUST FIX
 - Traces of translation: English word order, calqued idiom, stiff formal register where everyday language belongs.
@@ -306,9 +311,14 @@ MUST FIX
 
 KEEP IN MEANING, NOT IN FORM
 - Every fact: dates, cities, prices, opening hours, address, what is in the dish, proper nouns.
-- Use Nusa Dua, Bukit and Ungasan naturally. Do not print the full street
-  address and do not use Kampial, Benoa or Jimbaran in this edition. The page
-  already carries the address elsewhere; repeating it weakens the search focus.
+- Use Nusa Dua, Bukit and Ungasan naturally. The full official address may
+  appear once in facts, copied exactly from venue facts. Never paraphrase street
+  names into invented directions. Omit secondary districts in the body instead
+  of changing the address. Do not invent quiet mornings, seat availability or
+  daily social updates.
+- Use natural Indonesian phrases: telur orak-arik, bacon sapi, sarapan ala
+  Inggris, bekerja seharian. Avoid literal English sensory phrases such as
+  "telur memberi lembut" or "sayuran menahan berat".
 - Keep seoTitle at 58 characters or fewer and description at 155 characters or fewer.
 - The positioning terms: ${POSITIONING.id.join(", ")}.
 - Each positioning term above must appear literally at least once. Exactly two

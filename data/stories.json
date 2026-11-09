@@ -1,7 +1,340 @@
 {
-  "version": "20260919a",
+  "version": "20261109a",
   "note": "Source of truth for /stories. Edited by hand or via /admin -> Stories tab. Rendered server-side by story.php / stories.php - no build step, no JS required, so AI crawlers see full text.",
   "posts": [
+    {
+      "slug": "big-breakfast-nusa-dua-signa-cafe",
+      "date": "2026-11-09",
+      "cover": "assets/stories/big-breakfast-7e8887e0.webp",
+      "dish": {
+        "name": "Big Breakfast",
+        "price": "85 000 IDR",
+        "menuUrl": "https://signa.dishi.rest/",
+        "syrveId": "7e8887e0-8b5d-4dc1-8e10-da52c6bf332a",
+        "syrveCategory": "ALL DAY BREAKFAST"
+      },
+      "tags": [
+        "dish story",
+        "breakfast",
+        "brunch",
+        "nusa dua",
+        "bukit"
+      ],
+      "sourceFacts": [
+        "The dish name on the menu is Big Breakfast.",
+        "The menu price is 85 000 IDR.",
+        "Big Breakfast is listed in the ALL DAY BREAKFAST section.",
+        "Signa Cafe's menu description for Big Breakfast is 2 scrambled eggs, grilled beef bacon or chicken, grilled mushrooms, sauteed spinach and tomatoes, beans with tomato sauce, and grilled sourdough.",
+        "A cooked breakfast plate has no single inventor.",
+        "Isabella Beeton published Mrs Beeton's Book of Household Management in London in 1861.",
+        "British cooked breakfast became a hotel, railway and cafe meal during the late nineteenth and twentieth centuries.",
+        "Heinz introduced canned baked beans to Britain in 1886.",
+        "Scrambled eggs set because egg proteins coagulate as heat rises.",
+        "Signa Cafe opened in 2024.",
+        "Signa Cafe is located at Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361.",
+        "Signa Cafe is open daily from 08:00 to 23:00, with last order at 22:30.",
+        "Signa Cafe's pizza oven fires from 14:00.",
+        "Signa Cafe has a Google rating of 4.7 from more than 1426 reviews.",
+        "Signa Cafe's phone number is +62 896 540 27190.",
+        "Signa Cafe offers free coffee with any order from 08:00 until 09:00."
+      ],
+      "en": {
+        "faq": [
+          {
+            "q": "Where can I get a Big Breakfast in Nusa Dua?",
+            "a": "Signa Cafe serves Big Breakfast in Nusa Dua for 85 000 IDR. The plate includes 2 scrambled eggs, grilled beef bacon or chicken, grilled mushrooms, sauteed spinach and tomatoes, beans with tomato sauce, and grilled sourdough."
+          },
+          {
+            "q": "Is Signa Cafe a good breakfast place on the Bukit?",
+            "a": "Signa Cafe is a practical breakfast place on the Bukit because it opens at 08:00 daily and serves Big Breakfast from the ALL DAY BREAKFAST section. From 08:00 until 09:00, the cafe offers free coffee with any order."
+          },
+          {
+            "q": "Is the Big Breakfast at Signa Cafe kid-friendly?",
+            "a": "The Big Breakfast at Signa Cafe is kid-friendly if a child likes eggs, toast, beans and simple grilled items. The plate is easy to share, which helps families who want one solid breakfast without ordering too many dishes."
+          },
+          {
+            "q": "What is a good brunch near Ungasan?",
+            "a": "Big Breakfast at Signa Cafe is a good brunch option near Ungasan because it is filling without needing the pizza oven, which starts at 14:00. The dish suits a late morning drive toward Nusa Dua or a slow start on the Bukit."
+          }
+        ],
+        "seoTitle": "Big Breakfast in Nusa Dua for brunch",
+        "category": "Breakfast",
+        "description": "Big Breakfast in Nusa Dua at Signa Cafe serves eggs, beef bacon or chicken, mushrooms, spinach, tomatoes, beans and sourdough for 85 000 IDR.",
+        "keywords": [
+          "big breakfast nusa dua",
+          "breakfast nusa dua",
+          "brunch nusa dua",
+          "bukit breakfast",
+          "ungasan brunch",
+          "family cafe nusa dua",
+          "kid-friendly cafe",
+          "coffee breakfast",
+          "scrambled eggs",
+          "all day breakfast"
+        ],
+        "facts": [
+          [
+            "Origin",
+            "British-style cooked breakfast plate, with no single inventor"
+          ],
+          [
+            "Historical marker",
+            "Mrs Beeton's Book of Household Management was published in 1861"
+          ],
+          [
+            "Key ingredients",
+            "2 scrambled eggs, grilled beef bacon or chicken, mushrooms, spinach, tomatoes, beans and sourdough"
+          ],
+          [
+            "Price",
+            "85 000 IDR"
+          ],
+          [
+            "Best time",
+            "08:00-09:00 if you want the free coffee offer"
+          ],
+          [
+            "Who it suits",
+            "Hungry breakfast eaters, brunch groups, families and children who like eggs and toast"
+          ]
+        ],
+        "lead": "Big Breakfast at Signa Cafe in Nusa Dua is the all-day plate for people who want eggs, toast, beans and the rest without waiting for lunch.",
+        "title": "Big Breakfast in Nusa Dua: eggs, toast and a British tradition",
+        "blocks": [
+          {
+            "h": "The big plate has a real past",
+            "p": [
+              "Big Breakfast is the cafe name for a cooked breakfast plate, not a dish with one inventor. The idea comes from the British cooked breakfast, the kind of morning meal that put eggs, bacon, mushrooms, tomatoes, toast and something saucy on one plate and asked the kitchen to make all of it land hot. Over time, the cooked breakfast became part of hotel, railway and cafe life.",
+              "The paper trail is older than the modern cafe plate. Isabella Beeton published Mrs Beeton's Book of Household Management in London in 1861, and her breakfast tables belonged to a world where eggs, bacon, grilled meat, fish, toast and preserves could all appear before noon. Canned baked beans came later: Heinz introduced baked beans to Britain in 1886, and beans in tomato sauce moved from pantry convenience to breakfast comfort during the twentieth century.",
+              "A good big breakfast is a test of timing, not appetite. Anyone can put more food on a plate. The harder thing is keeping the eggs soft while the mushrooms stop leaking water, the greens stay green, and the toast does not turn into a cold board."
+            ]
+          },
+          {
+            "h": "The difficult part is the quiet part",
+            "p": [
+              "Scrambled eggs make or ruin this dish. Egg proteins tighten as heat rises, and a pan that is too hot gives you rubber before the rest of the plate is ready. A slower scramble gives curds that hold together but stay soft. That sounds simple until five other things need attention.",
+              "Mushrooms need direct heat and space. If mushrooms crowd the grill, mushrooms steam. Spinach is worse behaved: a full handful can collapse to a few bites and leave water behind if the pan is not hot enough. Tomatoes need enough heat to soften and catch a little sweetness, but not so much that the skin peels away and the plate turns wet.",
+              "Beans with tomato sauce bring the part of the breakfast that does not pretend to be refined. The sauce should sit in its own corner and meet the sourdough when you want it to. Sourdough matters because a sweet white toast goes limp too fast beside eggs and beans. The chew is the point."
+            ]
+          },
+          {
+            "h": "What Signa puts on the table",
+            "p": [
+              "Signa Cafe's Big Breakfast in Nusa Dua is exactly the kind of plate the name promises: 2 scrambled eggs, grilled beef bacon or chicken, grilled mushrooms, sauteed spinach and tomatoes, beans with tomato sauce, and grilled sourdough. The price is 85 000 IDR.",
+              "The choice between beef bacon and chicken matters more than it looks. Beef bacon gives salt and a darker grilled edge. Chicken keeps the plate lighter and lets the eggs and vegetables do more of the talking. I would choose beef bacon after a morning swim or a long drive. I would choose chicken if the plan after breakfast is work, errands, or staying awake in the afternoon.",
+              "The plate also fits Signa's job as a family cafe. Big Breakfast is easy for adults to understand, and the parts are familiar enough for children: eggs, toast, beans, tomato, a little grilled protein. Kid-friendly does not have to mean sweet. Sometimes kid-friendly means nobody at the table has to negotiate with a chilli sauce before 10:00."
+            ]
+          },
+          {
+            "h": "Breakfast, brunch, and the coffee window",
+            "p": [
+              "Signa Cafe opens at 08:00 daily, so Big Breakfast works as an actual breakfast, not only as a late-morning rescue. From 08:00 until 09:00, Signa offers free coffee with any order, and this is the offer that makes sense with this dish. Eggs, beans, sourdough and a hot coffee are enough of a plan.",
+              "The same plate works for brunch because the menu keeps it in ALL DAY BREAKFAST. That matters in Nusa Dua, where mornings can disappear into school runs, beach plans, check-outs, or one more message before leaving the house. Big Breakfast does not punish you for arriving at 11:30.",
+              "If you want pizza, come later; the pizza oven fires from 14:00. Before that, Big Breakfast is the better answer. Order it when you want a substantial hot meal with eggs, vegetables and bread."
+            ]
+          },
+          {
+            "h": "Getting here from the Bukit",
+            "p": [
+              "Signa Cafe stands at Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. The cafe sits between the resort side of Nusa Dua and the local routes people use across the Bukit, which is why the dish makes sense for more than hotel breakfast. It is a stop for people who are already moving.",
+              "From Ungasan, Big Breakfast is the sort of brunch order worth steering toward if you want a full plate before the day gets hot. From the Nusa Dua side, the same dish works when a hotel buffet feels like too much room and not enough decision. Signa Cafe is open 08:00-23:00 daily, with last order at 22:30, and the online menu and delivery are at https://signa.dishi.rest/.",
+              "The cafe's tagline is Eat. Meet. Create. Big Breakfast is the eat part, plainly."
+            ]
+          }
+        ],
+        "coverAlt": "Big Breakfast with scrambled eggs, grilled protein, vegetables, beans and sourdough at Signa Cafe"
+      },
+      "ru": {
+        "faq": [
+          {
+            "q": "Где в Нуса Дуа заказать большой завтрак в Signa Cafe?",
+            "a": "Большой завтрак можно заказать в Signa Cafe ежедневно с 08:00. Блюдо стоит 85 000 IDR и находится в разделе завтраков на весь день."
+          },
+          {
+            "q": "Подходит ли Signa Cafe для бранча на Букит?",
+            "a": "Да, Signa Cafe подходит для бранча благодаря ежедневному графику с 08:00 до 23:00. Последний заказ принимают в 22:30, так что утреннее блюдо можно взять не только рано утром."
+          },
+          {
+            "q": "Сколько стоит большой завтрак в Signa Cafe?",
+            "a": "Большой завтрак в Signa Cafe стоит 85 000 IDR. В тарелке скрэмбл из двух яиц, мясная часть на выбор, грибы, шпинат, томаты, фасоль в томатном соусе и обжаренный хлеб на закваске."
+          },
+          {
+            "q": "В какое время в Signa Cafe дают бесплатный кофе?",
+            "a": "Бесплатный кофе дают с 08:00 до 09:00 при любом заказе. Акция хорошо подходит к большому завтраку, если вы приходите к открытию."
+          }
+        ],
+        "seoTitle": "Big Breakfast в Signa Cafe: завтрак в Нуса Дуа",
+        "category": "Завтраки",
+        "description": "Большой завтрак в Signa Cafe: яйца, бекон или курица, грибы, шпинат, томаты, фасоль и тосты. 85 000 IDR, Нуса Дуа.",
+        "keywords": [
+          "завтрак",
+          "большой завтрак",
+          "Signa Cafe",
+          "Нуса Дуа",
+          "бранч",
+          "кофе",
+          "семейное кафе",
+          "завтраки на весь день"
+        ],
+        "facts": [
+          [
+            "Блюдо",
+            "Большой завтрак из раздела завтраков на весь день"
+          ],
+          [
+            "Цена",
+            "85 000 IDR"
+          ],
+          [
+            "Состав",
+            "скрэмбл из двух яиц, говяжий бекон или курица на гриле, грибы, шпинат, томаты, фасоль в томатном соусе, хлеб на закваске"
+          ],
+          [
+            "График Signa Cafe",
+            "ежедневно 08:00-23:00, последний заказ 22:30"
+          ],
+          [
+            "Контакты",
+            "телефон +62 896 540 27190, меню и доставка https://signa.dishi.rest/, Instagram @signa.cafe"
+          ]
+        ],
+        "lead": "Большой завтрак в Signa Cafe - яйца, бекон или курица, овощи, фасоль и тосты в одной тарелке. Его можно заказать утром или на поздний бранч, а с 08:00 до 09:00 к любому заказу дают бесплатный кофе.",
+        "title": "Big Breakfast в Signa Cafe: большой завтрак за 85 000 IDR",
+        "blocks": [
+          {
+            "h": "Большой завтрак, который можно заказать весь день",
+            "p": [
+              "Иногда на завтрак хочется и яиц, и хлеба, и чего-нибудь мясного. В Signa Cafe для этого есть большой завтрак за 85 000 IDR. Он входит в раздел завтраков на весь день: не обязательно успевать к открытию, чтобы заказать горячую тарелку с яйцами, овощами и фасолью. Для позднего утра после прогулки или дороги такой вариант особенно удобен.",
+              "Кафе работает в Нуса Дуа с 2024 года. Оно открыто ежедневно с 08:00 до 23:00, последний заказ принимают в 22:30. Если ищете семейное кафе на Буките, куда можно прийти с детьми, у этой тарелки понятный состав: знакомые продукты собраны вместе, а мясную часть можно выбрать. Здесь могут позавтракать и те, кто живёт рядом, и гости, приехавшие из Унгасана.",
+              "С 08:00 до 09:00 в Signa Cafe действует акция: кофе бесплатно при любом заказе. Если вы всё равно собирались позавтракать до работы или поездки, это удобное время зайти. Приходить только ради акции необязательно: большой завтрак остаётся в меню и позже, когда раннее утро уже давно закончилось и хочется неспешного бранча."
+            ]
+          },
+          {
+            "h": "Яйца, овощи и хлеб на закваске",
+            "p": [
+              "В составе - скрэмбл из двух яиц, говяжий бекон на гриле или курица на гриле, грибы на гриле, обжаренные шпинат и томаты, фасоль в томатном соусе, обжаренный хлеб на закваске. Формула знакомая, но важны детали. Яйца дают мягкую основу, мясная часть отвечает за сытость, овощи убирают ощущение тяжести, фасоль добавляет соус и сладковато-томатную ноту. Хлеб нужен не как украшение: им удобно собрать соус от фасоли и сок от томатов.",
+              "Скрэмбл хорош тогда, когда его не передержали. Технически всё просто: при нагреве белки в яйце сворачиваются, поэтому масса густеет. На тарелке это чувствуется сразу - удачный скрэмбл не крошится и не превращается в сухую россыпь. Он держит форму, но остается мягким. На фоне хрустящей кромки хлеба это главный контраст блюда.",
+              "С говяжьим беконом вкус получается более солёным и насыщенным, а с курицей - мягче. Можно выбрать тот вариант, который вам больше нравится, не меняя остальной состав завтрака. Фасоль подаётся в томатном соусе: её удобно есть вместе с хлебом или добавлять понемногу к яйцам. Если предпочитаете раздельные вкусы, компоненты можно сочетать уже за столом."
+            ]
+          },
+          {
+            "h": "Почему эта тарелка кажется знакомой",
+            "p": [
+              "У плотного английского завтрака нет одного изобретателя. Это не блюдо с датой рождения и фамилией автора, а результат бытовой кухни, гостиничных меню и привычки плотно есть перед днем. В 1861 году Изабелла Битон выпустила в Лондоне «Книгу миссис Битон о ведении домашнего хозяйства» - важный текст для домашней кулинарии своего времени. В конце XIX и в XX веке такой завтрак стал привычным блюдом в британских отелях, поездах и кафе.",
+              "У фасоли своя история. Консервированная фасоль Heinz появилась в продаже в Британии в 1886 году, а в XX веке фасоль в томатном соусе стала привычной частью английского завтрака. Это история формата блюда, а не происхождения конкретного рецепта Signa Cafe. В местной версии рядом с яйцами и фасолью лежат овощи, хлеб на закваске и говяжий бекон или курица на выбор.",
+              "Такой завтрак подойдёт тем, кто утром предпочитает горячую несладкую еду. Фрукты, выпечка и сладкие каши тоже хороши, но иногда хочется именно яиц с тостом и чем-то мясным. Большой завтрак даёт возможность собрать всё это одним заказом. При этом каждый компонент остаётся отдельно: не нужно смешивать фасоль, овощи и яйца, если вам так не нравится."
+            ]
+          },
+          {
+            "h": "Когда идти и кому заказывать",
+            "p": [
+              "Это блюдо стоит брать утром или в первой половине дня, когда нужен плотный старт. При этом раздел завтраков на весь день полезен для тех, кто проснулся поздно или приехал после дороги. Signa Cafe - семейное кафе, и формат тарелки удобен с детьми: можно поделиться хлебом, фасолью или яйцами, не собирая отдельный заказ из мелких позиций.",
+              "Если хочется посмотреть остальные блюда до визита, онлайн-меню и доставка доступны по адресу https://signa.dishi.rest/. Телефон кафе: +62 896 540 27190, Instagram: @signa.cafe. Для компаний с разными планами на обед есть и другие варианты: с 14:00 в Signa Cafe работает печь для пиццы. Но за большим завтраком ждать её запуска не нужно.",
+              "Большой завтрак стоит выбирать по аппетиту: здесь сразу несколько горячих компонентов и хлеб, а не только яйца. Кому-то такая тарелка нужна перед долгим днём, кому-то - вместо позднего обеда. Если хочется заказать кофе вместе с ней, удобно прийти с 08:00 до 09:00. Для бранча после этого часа блюдо тоже остаётся в меню, уже без утренней акции."
+            ]
+          }
+        ],
+        "coverAlt": "Big Breakfast в Signa Cafe - яйца скрэмбл, бекон или курица, овощи, фасоль и хлеб на закваске"
+      },
+      "id": {
+        "faq": [
+          {
+            "q": "Berapa harga Big Breakfast di Signa Cafe Nusa Dua?",
+            "a": "Big Breakfast di Signa Cafe Nusa Dua berharga 85 000 IDR. Hidangan ini berada di kategori sarapan sepanjang hari, jadi bisa dipesan tidak hanya pagi."
+          },
+          {
+            "q": "Apakah Signa Cafe cocok untuk brunch keluarga dari Bukit?",
+            "a": "Signa Cafe cocok untuk brunch keluarga dari Bukit karena suasananya kafe keluarga dan ramah anak. Lokasinya di Nusa Dua juga mudah dijadikan titik temu sebelum atau sesudah aktivitas di area selatan Bali."
+          },
+          {
+            "q": "Jam berapa Signa Cafe buka dan kapan pesanan terakhir?",
+            "a": "Signa Cafe buka setiap hari pukul 08:00-23:00, dengan pesanan terakhir pukul 22:30. Pada pukul 08:00-09:00, ada kopi gratis untuk setiap pesanan."
+          },
+          {
+            "q": "Apa isi Big Breakfast di Signa Cafe?",
+            "a": "Big Breakfast berisi dua telur orak-arik, pilihan bacon sapi panggang atau ayam panggang, jamur panggang, bayam dan tomat tumis, kacang dalam saus tomat, serta sourdough panggang."
+          }
+        ],
+        "seoTitle": "Big Breakfast Signa Cafe Nusa Dua",
+        "category": "Food",
+        "description": "Big Breakfast 85 000 IDR di Signa Cafe Nusa Dua: sarapan lengkap dengan telur, bacon sapi atau ayam, sayur, kacang saus tomat, dan sourdough.",
+        "keywords": [
+          "Big Breakfast",
+          "Signa Cafe",
+          "Nusa Dua",
+          "sarapan",
+          "brunch",
+          "kafe keluarga",
+          "ramah anak",
+          "kopi",
+          "Bukit",
+          "Ungasan"
+        ],
+        "facts": [
+          [
+            "Nama hidangan",
+            "Big Breakfast"
+          ],
+          [
+            "Harga",
+            "85 000 IDR"
+          ],
+          [
+            "Kategori menu",
+            "sarapan sepanjang hari"
+          ],
+          [
+            "Isi piring",
+            "dua telur orak-arik, bacon sapi panggang atau ayam panggang, jamur panggang, bayam dan tomat tumis, kacang dengan saus tomat, sourdough panggang"
+          ],
+          [
+            "Lokasi",
+            "Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361"
+          ],
+          [
+            "Jam buka",
+            "setiap hari 08:00-23:00, pesanan terakhir 22:30"
+          ]
+        ],
+        "lead": "Big Breakfast di Signa Cafe Nusa Dua berisi telur orak-arik, pilihan bacon sapi atau ayam panggang, jamur, sayuran, kacang saus tomat, dan sourdough. Harganya 85 000 IDR dan tersedia dalam menu sarapan sepanjang hari.",
+        "title": "Big Breakfast di Signa Cafe: Piring Sarapan Lengkap di Nusa Dua",
+        "blocks": [
+          {
+            "h": "Pagi di Nusa Dua, piring yang tidak terburu-buru",
+            "p": [
+              "Kalau ingin sarapan lengkap di Nusa Dua, Big Breakfast di Signa Cafe bisa jadi pilihan. Dalam satu piring ada telur, lauk panggang, sayuran, kacang dalam saus tomat, dan roti sourdough. Menu ini cocok saat Anda ingin makan lebih banyak sebelum mulai beraktivitas, atau datang agak siang untuk brunch. Tidak perlu memesan setiap komponennya secara terpisah.",
+              "Big Breakfast di Signa Cafe dibanderol 85 000 IDR dan masuk kategori sarapan sepanjang hari. Ini poin penting, sebab tidak semua orang di Bali memulai hari pada jam yang sama. Ada yang baru selesai olahraga dari arah Bukit, ada yang berangkat dari Ungasan setelah urusan keluarga, ada juga yang datang untuk brunch karena pagi terlalu cepat lewat. Piring ini memberi ruang untuk ritme yang lebih santai.",
+              "Menurut saya, daya tariknya bukan pada ukuran semata. Banyak piring sarapan besar jatuh pada jebakan terlalu penuh, lalu kehilangan fokus. Versi Signa Cafe terasa lebih rapi karena elemen-elemen utamanya punya tugas sendiri: telurnya lembut, dagingnya gurih, sayurannya memberi rasa segar, kacang saus tomat memberi rasa manis-asam, dan sourdough panggang menjadi alas yang kokoh untuk menyapu sisa saus di piring."
+            ]
+          },
+          {
+            "h": "Isi piring: telur, panggangan, sayur, kacang tomat",
+            "p": [
+              "Komposisi Big Breakfast di Signa Cafe cukup jelas: dua telur orak-arik, pilihan bacon sapi panggang atau ayam panggang, jamur panggang, bayam dan tomat tumis, kacang dengan saus tomat, serta sourdough panggang. Bagi tamu yang tidak makan bacon sapi, opsi ayam panggang membuat hidangan ini lebih mudah dipesan bersama keluarga. Di meja kafe keluarga, fleksibilitas kecil seperti ini sering menentukan apakah satu menu bisa diterima banyak selera.",
+              "Telur orak-arik adalah pusat piring ini. Tekstur telur berubah karena proteinnya menggumpal saat dipanaskan. Jika panasnya dijaga, hasilnya lembut dan menyatu; jika terlalu agresif, telur menjadi kering. Pada piring seperti ini, telur yang baik tidak perlu tampil berlebihan, cukup hangat, lembut, dan bisa berteman dengan semua unsur lain.",
+              "Jamur panggang membawa aroma tanah yang gurih, sementara bayam dan tomat tumis memberi jeda yang lebih segar. Kacang dalam saus tomat mengingatkan pada tradisi sarapan ala Inggris, tetapi tidak terasa asing di Bali karena rasa tomatnya mudah akrab dengan lidah kita. Sourdough panggang menjadi bagian yang saya anggap penting: bukan sekadar roti pendamping, melainkan alat makan kedua setelah garpu. Ia menampung telur, saus, dan serpihan panggangan tanpa cepat menyerah."
+            ]
+          },
+          {
+            "h": "Jejak sarapan ala Inggris dari rumah tangga Inggris ke meja kafe",
+            "p": [
+              "Piring sarapan ala Inggris seperti ini tidak punya satu penemu tunggal. Ia lahir dari kebiasaan rumah, penginapan, perjalanan, dan industri makanan yang saling bertemu. Pada 1861, Isabella Beeton menerbitkan Mrs Beeton's Book of Household Management di London, sebuah buku yang ikut membentuk cara keluarga kelas menengah Inggris memahami urusan rumah dan meja makan. Dari sana, budaya sarapan ala Inggris terus bergerak keluar dari rumah.",
+              "Pada akhir abad kesembilan belas dan sepanjang abad kedua puluh, sarapan ala Inggris makin sering muncul di hotel, stasiun kereta, dan kafe. Hidangan ini cocok untuk orang yang akan bepergian jauh, bekerja seharian, atau sekadar butuh piring yang mengenyangkan sebelum hari dimulai. Kacang panggang kalengan juga punya tempat dalam cerita itu: Heinz memperkenalkan kacang panggang kalengan ke Inggris pada 1886, lalu unsur kacang dalam saus tomat menjadi akrab di banyak piring sarapan.",
+              "Signa Cafe tidak perlu meniru suasana Inggris untuk menyajikan Big Breakfast. Justru menarik karena hidangan ini mendarat di Nusa Dua dengan konteks yang berbeda: udara Bali selatan, tamu lokal dan wisatawan, keluarga dengan anak, pekerja jarak jauh, serta rombongan kecil yang mencari brunch sebelum bergerak ke pantai atau kawasan Bukit. Tradisi lama itu menjadi lebih ringan ketika ditemani kopi dan percakapan pagi."
+            ]
+          },
+          {
+            "h": "Kapan datang ke Signa Cafe untuk Big Breakfast",
+            "p": [
+              "Signa Cafe berada di Nusa Dua, Bali, dan mulai buka pada 2024. Alamat lengkapnya tercantum di ringkasan informasi di halaman ini. Jika Anda datang dari Ungasan atau kawasan Bukit, cek lokasi kafe sebelum berangkat agar bisa menyesuaikan perjalanan dengan rencana hari itu. Menu sarapan sepanjang hari memberi pilihan untuk datang pagi atau menjelang siang.",
+              "Jam operasionalnya panjang: setiap hari pukul 08:00-23:00, dengan pesanan terakhir pukul 22:30. Pagi adalah waktu paling masuk akal untuk Big Breakfast, tetapi karena menu ini berada di kategori sarapan sepanjang hari, memesannya menjelang siang pun tidak terasa salah. Satu penawaran yang relevan untuk pemburu sarapan: dari pukul 08:00 sampai 09:00, Signa Cafe memberi kopi gratis untuk setiap pesanan. Jika Anda memang suka memulai hari dengan kopi, datang lebih awal punya nilai tambah yang nyata.",
+              "Untuk melihat menu daring atau memesan antar, buka https://signa.dishi.rest/. Kontak teleponnya +62 896 540 27190, sementara kabar terbaru bisa dilihat di Instagram @signa.cafe. Jika datang bersama anak, Anda dapat memeriksa isi hidangan sebelum memesan dan memilih bacon sapi atau ayam sesuai selera. Signa Cafe juga memiliki menu lain; oven pizzanya mulai beroperasi pukul 14:00."
+            ]
+          }
+        ],
+        "coverAlt": "Big Breakfast di Signa Cafe Nusa Dua dengan telur orak-arik, pilihan protein panggang, sayur, kacang saus tomat, dan sourdough panggang"
+      }
+    },
     {
       "slug": "solo-chicken-brocoli-pizza-nusa-dua",
       "date": "2026-09-24",
