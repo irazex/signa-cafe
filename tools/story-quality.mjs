@@ -1,9 +1,10 @@
 // A rejection retries only this edition and tells its writer what failed.
 // Network, billing and other operational errors propagate without paid retries.
 export async function validatedEdition({ label, write, check, onRetry = () => {} }) {
-  let issues = [];
+  let issues = [], previous;
   for (let attempt = 1; attempt <= 2; attempt++) {
-    const value = await write(issues);
+    const value = await write(issues, previous);
+    previous = value;
     issues = check(value);
     if (!issues.length) return value;
     if (attempt === 1) onRetry(issues);
@@ -11,8 +12,8 @@ export async function validatedEdition({ label, write, check, onRetry = () => {}
   throw new Error(`quality gate rejected ${label} after 2 attempts: ${issues.join("; ")}`);
 }
 
-export function qualityFeedback(issues) {
-  return issues.length ? `\n\nPREVIOUS ATTEMPT WAS REJECTED. Write a complete replacement in the same schema,\nusing the same verified facts. Correct every issue below before returning:\n${issues.map((x) => `- ${x}`).join("\n")}` : "";
+export function qualityFeedback(issues, previous = null) {
+  return issues.length ? `\n\nPREVIOUS ATTEMPT WAS REJECTED. Correct the previous native-language draft below in the same schema. Preserve its facts, natural wording and every already-valid field. Fix only the reported defects; do not introduce new topics or rearrange geography. Return the complete corrected JSON:\n${issues.map((x) => `- ${x}`).join("\n")}\n\nPREVIOUS DRAFT IN THIS SAME LANGUAGE:\n${JSON.stringify(previous)}` : "";
 }
 
 export function repeatedSentenceOpening(blocks, lang = "en") {

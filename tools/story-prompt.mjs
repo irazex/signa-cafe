@@ -362,6 +362,7 @@ export function schema(langs = LANGS) {
         },
       },
       facts: {
+        description: "Public factual labels and values only. Never include comments about prompts, JSON, task compliance or internal instructions.",
         type: "array",
         minItems: 4,
         maxItems: 6,

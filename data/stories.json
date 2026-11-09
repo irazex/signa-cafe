@@ -3,6 +3,357 @@
   "note": "Source of truth for /stories. Edited by hand or via /admin -> Stories tab. Rendered server-side by story.php / stories.php - no build step, no JS required, so AI crawlers see full text.",
   "posts": [
     {
+      "slug": "omg-cold-drink-nusa-dua",
+      "date": "2026-11-12",
+      "cover": "assets/stories/omg-0a2f00cc.webp",
+      "dish": {
+        "name": "Omg",
+        "price": "50 000 IDR",
+        "menuUrl": "https://signa.dishi.rest/",
+        "syrveId": "0a2f00cc-2281-4f97-a241-bb973ce31c6a",
+        "syrveCategory": "COLD DRINKS"
+      },
+      "tags": [
+        "cold drink",
+        "mango",
+        "orange",
+        "nusa dua",
+        "bukit",
+        "ungasan",
+        "breakfast",
+        "brunch"
+      ],
+      "sourceFacts": [
+        "The dish name on the Signa Cafe menu is Omg.",
+        "Omg is listed in the cold drinks section.",
+        "Omg costs 50 000 IDR.",
+        "The menu description for Omg is mango, orange, no water added.",
+        "Signa Cafe opened in 2024.",
+        "Signa Cafe is located at Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361.",
+        "Signa Cafe is open daily from 08:00 to 23:00.",
+        "Last order at Signa Cafe is 22:30.",
+        "Signa Cafe has a Google rating of 4.7 from more than 1426 reviews.",
+        "Signa Cafe phone number is +62 896 540 27190.",
+        "Signa Cafe online menu and delivery page is https://signa.dishi.rest/.",
+        "Signa Cafe Instagram is @signa.cafe.",
+        "Mangoes were domesticated in South Asia several thousand years ago.",
+        "Sweet orange is a hybrid citrus associated with China and spread widely through Portuguese trade from the 15th and 16th centuries.",
+        "The word orange entered English through Old French and Arabic forms connected to Sanskrit naranga.",
+        "Commercial orange juice became common in the United States in the 20th century with pasteurisation, concentration and refrigerated distribution."
+      ],
+      "en": {
+        "faq": [
+          {
+            "q": "Where can I get a mango orange cold drink in Nusa Dua?",
+            "a": "You can order Omg at Signa Cafe in Nusa Dua, a cold drink made with mango and orange and no water added. Signa Cafe is open daily from 08:00 to 23:00, with last order at 22:30."
+          },
+          {
+            "q": "Is Omg at Signa Cafe good for breakfast in Nusa Dua?",
+            "a": "Omg works well for breakfast in Nusa Dua because the drink is fruit-forward, cold and filling without being heavy. From 08:00 till 09:00, Signa Cafe also offers free coffee with any order."
+          },
+          {
+            "q": "Is Signa Cafe kid-friendly for a cold drink on the Bukit?",
+            "a": "Signa Cafe is a kid-friendly family cafe on the Bukit, and Omg is an easy order for children who like mango and orange. The drink contains fruit and no added water according to the menu description."
+          },
+          {
+            "q": "What should I order for brunch near Ungasan if I want something cold?",
+            "a": "For brunch near Ungasan, Omg at Signa Cafe is a cold mango and orange drink that suits a hot late morning. Order it with food if you want a brighter, lighter counterpoint to the plate."
+          }
+        ],
+        "seoTitle": "Omg in Nusa Dua: mango orange cold drink",
+        "category": "Cold drink",
+        "description": "Omg in Nusa Dua is Signa Cafe's cold mango and orange drink with no water added, built for breakfast, brunch or a Bukit heat break.",
+        "keywords": [
+          "omg drink",
+          "mango orange drink",
+          "cold drinks nusa dua",
+          "breakfast nusa dua",
+          "brunch nusa dua",
+          "family cafe",
+          "kid-friendly cafe",
+          "coffee nusa dua",
+          "bukit cafe",
+          "ungasan cafe",
+          "signa cafe"
+        ],
+        "facts": [
+          [
+            "Origin",
+            "Mango comes from South Asia; sweet orange is linked to China and later global trade."
+          ],
+          [
+            "Menu name",
+            "Omg"
+          ],
+          [
+            "Key ingredients",
+            "Mango and orange, with no water added."
+          ],
+          [
+            "Price",
+            "50 000 IDR"
+          ],
+          [
+            "Best time",
+            "Breakfast, brunch or a hot afternoon break."
+          ],
+          [
+            "Address",
+            "Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361"
+          ]
+        ],
+        "lead": "Omg is the cold mango-orange drink at Signa Cafe in Nusa Dua, made without added water and built for a hot Bukit morning.",
+        "title": "OMG in Nusa Dua: mango and orange, with no added water",
+        "blocks": [
+          {
+            "h": "A drink with a short name and old fruit",
+            "p": [
+              "Omg is a modern cafe drink, so there is no ancient recipe to dress up. The menu tells the truth in five words: mango, orange, no water added. The name may read like a joke on a hot day, but the glass depends on two fruits with long, separate histories.",
+              "Mango has a long history of cultivation in South Asia. The sweet orange has its own history in Asia, followed by centuries of cultivation and trade. These are the histories of the fruits, rather than the origin of OMG itself: this is a modern cafe drink, and the menu does not claim a traditional recipe.",
+              "The two fruits bring different qualities to a drink. Mango adds sweetness and a thicker texture; orange adds juice and acidity. The balance depends on the fruit used. For a guest deciding what to order, the useful detail is the menu description itself, which names mango and orange and says that no water is added."
+            ]
+          },
+          {
+            "h": "No water added is a real decision",
+            "p": [
+              "No water added is a specific detail about this recipe. Mango contributes sweetness and body, while orange brings juice and acidity. A drink made with both fruits can have a fuller texture than orange juice alone. The combination works because the orange contrasts with the sweetness of the mango rather than simply adding more of the same flavour.",
+              "Mango brings body. Orange brings juice, acidity and aroma from the peel oils released when the fruit is cut or pressed. The hard part is the ratio. Too much mango and the drink sits on the tongue like puree. Too much orange and the mango becomes a background colour. The best version lands in the middle, cold enough to refresh, dense enough to remind you that nobody stretched it.",
+              "Both fruits have flavours that many guests already know. Together they offer a different choice from a single-fruit juice: mango provides the thicker part of the drink and orange adds a citrus note. That is the straightforward appeal of this combination, whether it is ordered with food or on its own."
+            ]
+          },
+          {
+            "h": "How Signa Cafe builds Omg",
+            "p": [
+              "At Signa Cafe, OMG is listed under cold drinks at 50 000 IDR. The menu description names mango and orange and says that no water is added. These details make it easy to see the fruit combination before ordering and compare it with the other drinks on the menu.",
+              "The drink suits the way people actually move around Nusa Dua. Some guests come in for breakfast and want something cold before coffee. Some arrive closer to brunch after the beach, the gym or a drive across the Bukit. Omg fits both moods because mango gives the drink enough weight to stand up to food, while orange keeps the glass from feeling like dessert.",
+              "Served cold, this mango-and-orange drink can accompany a breakfast or brunch order."
+            ]
+          },
+          {
+            "h": "Who should order it?",
+            "p": [
+              "Omg is a good order for children who already like mango. The flavour is familiar, the colour is friendly, and the orange keeps the sweetness from becoming flat. For parents looking for a kid-friendly cold drink in a family cafe, Omg is easier to understand than a drink built from five ingredients and a garnish nobody eats.",
+              "For adults who like mango and citrus, OMG is a fruit-based alternative to coffee or a milkshake. It can accompany breakfast or brunch, or be ordered on its own. The choice is mainly about what you feel like drinking: a cold mango-and-orange combination rather than another cup of coffee.",
+              "Signa Cafe is in Nusa Dua on Bali's Bukit peninsula. If you are visiting from Ungasan or another part of the Bukit, check the map and current menu before travelling. The full address is listed in the information section on this page."
+            ]
+          },
+          {
+            "h": "Breakfast, coffee and the right hour",
+            "p": [
+              "Signa Cafe opens at 08:00 daily, which makes Omg a practical breakfast drink rather than an afternoon-only cooler. From 08:00 till 09:00, Signa Cafe offers free coffee with any order, and that pairing makes more sense than it may sound. Coffee gives bitterness. OMG adds fruit flavour and a refreshing contrast. The two do not need to go in the same glass.",
+              "For brunch, order Omg when the table has eggs, toast, pastry or something salty. Mango and orange both like salt nearby; the acidity in the orange wakes up a plate that could otherwise feel soft around the edges. If you are planning to stay and work, the drink also buys time before a second coffee.",
+              "The cafe is on Jl. Dharmawangsa, Jl. Raya Kampial, with the address line running through Benoa, Nusa Dua. That matters if you are driving from Jimbaran or trying to explain the pickup point to a friend who knows the Bukit by landmarks, not street numbers."
+            ]
+          },
+          {
+            "h": "When a mango-and-orange drink makes sense",
+            "p": [
+              "OMG is a straightforward option when you already know you enjoy mango and orange. The short menu description makes it easy to compare with other cold drinks, and the price is listed as 50 000 IDR. You can choose food separately from the same menu rather than treating a fruit drink as a meal.",
+              "For a table ordering brunch, it also gives someone who does not want coffee a cold drink to choose. Different orders can sit together: eggs or toast for one guest, a pastry for another, and a mango-and-orange drink alongside. There is no need for everyone at the table to want the same kind of breakfast.",
+              "The cafe is open from 08:00 to 23:00, with last order at 22:30. Check https://signa.dishi.rest/ for the current menu and delivery options. If you are coming specifically for a drink, it is sensible to confirm availability before setting out."
+            ]
+          }
+        ],
+        "coverAlt": "Omg mango and orange cold drink at Signa Cafe"
+      },
+      "ru": {
+        "faq": [
+          {
+            "q": "Сколько стоит холодный напиток в Signa Cafe?",
+            "a": "Холодный напиток стоит 50 000 IDR. В составе указаны манго и апельсин, вода не добавляется."
+          },
+          {
+            "q": "Где находится Signa Cafe в Нуса Дуа?",
+            "a": "Signa Cafe находится в Нуса Дуа. Полный адрес указан в информации на этой странице; кафе открыто ежедневно с 08:00 до 23:00, последний заказ принимают в 22:30."
+          },
+          {
+            "q": "Подойдет ли Signa Cafe для бранча с детьми?",
+            "a": "Signa Cafe подходит для бранча с детьми по формату семейного кафе. В меню удобно сочетать кофе, завтрак и холодные напитки."
+          },
+          {
+            "q": "Можно ли заказать доставку из Signa Cafe на Букит?",
+            "a": "Онлайн-меню и доставка Signa Cafe доступны на https://signa.dishi.rest/. Для уточнения зоны доставки можно также позвонить по номеру +62 896 540 27190."
+          }
+        ],
+        "seoTitle": "OMG в Нуса Дуа - манго и апельсин без добавленной воды",
+        "category": "Холодные напитки",
+        "description": "Omg в Signa Cafe: холодный напиток из манго и апельсина без добавления воды за 50 000 IDR. Адрес, часы работы и доставка.",
+        "keywords": [
+          "Omg",
+          "Signa Cafe",
+          "Нуса Дуа",
+          "Букит",
+          "Унгасан",
+          "холодный напиток",
+          "манго",
+          "апельсин",
+          "завтрак",
+          "бранч",
+          "кофе"
+        ],
+        "facts": [
+          [
+            "Название в меню",
+            "Omg"
+          ],
+          [
+            "Категория",
+            "Холодные напитки"
+          ],
+          [
+            "Цена",
+            "50 000 IDR"
+          ],
+          [
+            "Состав",
+            "манго, апельсин, без добавления воды"
+          ],
+          [
+            "Signa Cafe",
+            "открыто с 2024 года"
+          ],
+          [
+            "Адрес",
+            "Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361"
+          ]
+        ],
+        "lead": "В жаркий день на Буките сладкий холодный напиток может заменить десерт, особенно когда в стакане не разбавленная водой смесь, а манго с апельсином. В Signa Cafe такой вариант стоит 50 000 IDR: плотный, фруктовый, с цитрусовой кислинкой и понятным составом.",
+        "title": "OMG в Нуса Дуа: напиток из манго и апельсина",
+        "blocks": [
+          {
+            "h": "Манго и апельсин без добавленной воды",
+            "p": [
+              "Холодный напиток из манго и апельсина в Signa Cafe устроен предельно ясно: фрукты и отсутствие добавленной воды. Это важная деталь, потому что в напитке сохраняется выраженный вкус фруктов. Манго дает густоту, мягкую сладость и тропический аромат. Апельсин добавляет кислоту, свежий соковый тон и легкую горчинку, которая не дает напитку стать похожим на фруктовое пюре для десерта.",
+              "Цена - 50 000 IDR. В описании указаны манго и апельсин, а отсутствие добавленной воды отмечено отдельно. Манго отвечает за округлую текстуру, апельсин делает вкус бодрее. Вода не добавляется, поэтому плотность выше, чем у обычного освежающего напитка, и это стоит учитывать: такой стакан хорошо брать не только «попить», но и как легкое дополнение к еде.",
+              "По настроению это напиток для середины дня, когда кофе уже был утром, а сладкий десерт кажется лишним. Он уместен после завтрака, рядом с бранчем или отдельно, когда хочется фруктового напитка. С детьми такой вариант тоже понятен: знакомые фрукты и яркий вкус. Апельсиновая кислинка уравновешивает сладость манго."
+            ]
+          },
+          {
+            "h": "Манго и апельсин: короткая биография вкуса",
+            "p": [
+              "Манго одомашнили в Южной Азии несколько тысяч лет назад. За это время фрукт стал не просто сладкой тропической классикой, а продуктом с большим диапазоном вкуса: от медового и сливочного до смолистого, с заметной кислинкой. Для холодного напитка важны именно зрелость и мякоть плода. Манго придаёт напитку густоту, поэтому напиток ощущается более густым, чем один апельсиновый сок.",
+              "У сладкого апельсина своя долгая история выращивания в Азии и распространения по миру. В напитке его роль проще объяснить через вкус: апельсиновый сок добавляет кислинку к сладкому манго. Это сочетание знакомых фруктов, а не попытка воспроизвести старинный рецепт. Название OMG относится к позиции меню Signa Cafe; сведений об особом историческом происхождении самого напитка в описании нет.",
+              "Способы приготовления и продажи фруктовых напитков со временем менялись: от сока, который выжимали на месте, до готовых соков с длительным хранением. Но по названию конкретного напитка не всегда понятно, что окажется в стакане. Поэтому здесь полезнее прочитать состав: для OMG указаны манго и апельсин, а также отдельно отмечено отсутствие добавленной воды. Так проще выбрать фруктовое сочетание, которое вам нравится, и понять, чем оно отличается от других позиций в меню."
+            ]
+          },
+          {
+            "h": "Когда заказывать в Signa Cafe",
+            "p": [
+              "Signa Cafe работает ежедневно с 08:00 до 23:00, последний заказ принимают в 22:30. Кафе открылось в 2024 году и находится в Нуса Дуа по адресу Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361. Для района Унгасан это удобный вариант, когда хочется совместить еду, холодный напиток и нормальный график работы без поиска места, которое закрывается сразу после дневного пика.",
+              "Утром напиток можно заказать к завтраку, особенно если не хочется второго кофе. С 08:00 до 09:00 в Signa Cafe действует акция: бесплатный кофе к любому заказу. Вместе с едой можно заказать фруктовый напиток, а кофе оставить для привычного утреннего ритуала. Формат кафе позволяет не привязываться только к раннему времени: сюда приходят на бранч, на обеденный перерыв, на встречу за напитками или на спокойный ужин.",
+              "Отдельная практичная деталь - печь для пиццы начинает работать с 14:00. Если планировать поздний обед, холодный фруктовый напиток будет хорошим контрастом к более плотной еде. Семейное кафе не обязано быть детским клубом: важнее, чтобы в меню находились простые позиции для разных возрастов. Манго с апельсином как раз из таких, потому что вкус знакомый, состав короткий, а порция не требует объяснений официанту на пять минут."
+            ]
+          },
+          {
+            "h": "Меню и заказ перед визитом",
+            "p": [
+              "Вкусы у всех разные, поэтому перед визитом удобно посмотреть меню целиком. Одному гостю хочется кофе и выпечки, другому - плотного завтрака, третьему - холодного напитка. В семейное кафе часто приходят компанией с разными предпочтениями, и манго с апельсином дают ещё один вариант для тех, кто любит фруктовые сочетания. Это не замена всей еде, а отдельный напиток к выбранному блюду.",
+              "Посмотреть меню и оформить доставку можно на странице https://signa.dishi.rest/. Телефон Signa Cafe - +62 896 540 27190, страница в Instagram - @signa.cafe. Перед доставкой стоит проверить актуальное наличие напитка и время, особенно ближе к последнему заказу. Официальный график до 23:00 не отменяет того, что кухня и напитки живут по рабочему ритму, а последний заказ стоит сделать до 22:30.",
+              "Кому подойдет этот напиток? Тем, кто любит манго, но не хочет приторности. Тем, кто выбирает цитрусовую свежесть, но ждет большей плотности, чем от обычного апельсинового сока. И тем, кто заказывает еду с детьми, но избегает напитков с длинным списком добавок. В Signa Cafe за 50 000 IDR получается понятная фруктовая позиция: манго для сладости, апельсин для кислинки, без добавленной воды."
+            ]
+          }
+        ],
+        "coverAlt": "Omg в Signa Cafe - холодный напиток из манго и апельсина без добавления воды"
+      },
+      "id": {
+        "faq": [
+          {
+            "q": "Apakah Omg tersedia di Signa Cafe Nusa Dua?",
+            "a": "Ya, Omg tersedia di Signa Cafe sebagai minuman dingin dengan harga 50 000 IDR. Isinya mangga dan jeruk, tanpa tambahan air, sehingga cocok dipesan saat ingin minuman buah yang tidak dibuat encer."
+          },
+          {
+            "q": "Di mana lokasi Signa Cafe untuk tamu dari Bukit?",
+            "a": "Signa Cafe berada di Nusa Dua, Bali. Alamat lengkap tersedia di ringkasan informasi halaman ini. Jam buka setiap hari 08:00-23:00, dengan pesanan terakhir pukul 22:30."
+          },
+          {
+            "q": "Jam berapa pizza mulai tersedia di Signa Cafe?",
+            "a": "Oven pizza di Signa Cafe mulai menyala pukul 14:00. Jika datang sebelum jam itu, pilihan lain seperti minuman dingin, kopi, sarapan, brunch, dan menu kafe lain tetap bisa dilihat lewat menu daring."
+          },
+          {
+            "q": "Di mana melihat menu dan memesan antar dari Signa Cafe?",
+            "a": "Menu daring dan layanan pesan antar Signa Cafe tersedia di https://signa.dishi.rest/. Untuk kontak langsung, nomor teleponnya adalah +62 896 540 27190, dan akun Instagram resminya @signa.cafe."
+          }
+        ],
+        "seoTitle": "OMG di Nusa Dua: Mangga Jeruk Tanpa Tambahan Air",
+        "category": "Minuman dingin",
+        "description": "OMG di Signa Cafe Nusa Dua adalah minuman dingin mangga dan jeruk tanpa tambahan air, seharga 50 000 IDR.",
+        "keywords": [
+          "Omg Signa Cafe",
+          "minuman dingin Bali",
+          "mangga jeruk",
+          "Signa Cafe",
+          "sarapan",
+          "brunch",
+          "kopi",
+          "kafe keluarga",
+          "ramah anak"
+        ],
+        "facts": [
+          [
+            "Nama menu",
+            "Omg"
+          ],
+          [
+            "Kategori",
+            "Minuman dingin"
+          ],
+          [
+            "Isi",
+            "Mangga, jeruk, tanpa tambahan air"
+          ],
+          [
+            "Harga",
+            "50 000 IDR"
+          ],
+          [
+            "Tempat",
+            "Signa Cafe"
+          ],
+          [
+            "Alamat",
+            "Jl. Dharmawangsa, Jl. Raya Kampial, Benoa, Nusa Dua, Bali 80361"
+          ]
+        ],
+        "lead": "OMG di Signa Cafe adalah minuman dingin dari mangga dan jeruk tanpa tambahan air. Harganya 50 000 IDR. Signa Cafe buka sejak 2024 dan melayani tamu dari pagi hingga malam.",
+        "title": "OMG di Nusa Dua: Minuman Mangga dan Jeruk di Signa Cafe",
+        "blocks": [
+          {
+            "h": "Minuman buah yang tidak dibuat encer",
+            "p": [
+              "Ada kalanya pilihan minuman terasa paling jelas justru ketika daftarnya tidak berbelit. Omg di Signa Cafe berada di bagian minuman dingin, dengan susunan yang langsung terbaca: mangga, jeruk, tanpa tambahan air. Bukan mocktail dengan daftar bumbu panjang, bukan jus yang harus ditebak komposisinya. Dari awal, minuman ini berdiri di atas dua buah yang karakternya kuat dan saling mudah dikenali.",
+              "Mangga membawa rasa manis yang tebal, sementara jeruk memberi sisi asam segar dan aroma sitrus. Minuman ini dibuat tanpa tambahan air. Teksturnya dapat dibayangkan lebih penuh dibanding minuman buah yang diencerkan, dengan fokus pada pertemuan manis mangga dan segar jeruk. Harga Omg tercantum 50 000 IDR.",
+              "Pilihan seperti ini punya tempat sendiri di meja kafe. Saat makan siang terasa berat, minuman buah yang dingin bisa memberi jeda. Ketika brunch berlangsung agak panjang, rasa mangga dan jeruk tetap masuk tanpa perlu menggeser perhatian dari makanan utama. Di antara kopi, pastry, dan menu kafe lain, Omg berfungsi sebagai pilihan non-kopi yang lugas, terutama bagi yang ingin rasa buah tanpa campuran yang ramai."
+            ]
+          },
+          {
+            "h": "Mangga, jeruk, dan jejak panjang di gelas modern",
+            "p": [
+              "Mangga bukan buah baru dalam sejarah makan manusia. Buah ini telah didomestikasi di Asia Selatan beberapa ribu tahun lalu, lalu menjadi bagian dari banyak dapur tropis. Di Indonesia, mangga terasa dekat karena mudah ditemui dalam berbagai bentuk: dimakan segar, dibuat rujak, dipadukan dengan cabai, atau diolah menjadi minuman. Pada Omg, mangga ditempatkan bukan sebagai aksen, melainkan sebagai salah satu dasar rasa.",
+              "Jeruk manis telah lama dibudidayakan di Asia, lalu menyebar ke banyak wilayah melalui perdagangan dan penanaman. Riwayat buahnya lebih tua daripada menu minuman modern. Namun, informasi itu tidak menjadikan OMG sebuah resep tradisional. Di Signa Cafe, nama tersebut merujuk pada minuman dingin yang dijelaskan sederhana di menu: mangga, jeruk, tanpa tambahan air.",
+              "Perpaduan dua buah ini mudah dikenali saat memilih minuman. Mangga memberi tekstur yang lebih penuh dan rasa manis, sedangkan jeruk menambahkan cairan serta rasa asam. Keduanya dapat menemani makanan dengan karakter yang berbeda, mulai dari roti hingga menu sarapan yang gurih. Pilihannya kembali pada selera: apakah saat itu Anda ingin kopi, minuman buah, atau pilihan dingin lainnya."
+            ]
+          },
+          {
+            "h": "Tempatnya dalam ritme Signa Cafe",
+            "p": [
+              "Signa Cafe berada di Nusa Dua, Bali, dan buka setiap hari pukul 08:00-23:00. Pesanan terakhir diterima pukul 22:30. Jika Anda datang dari Ungasan atau kawasan Bukit, lihat lokasi dan menu sebelum berangkat. Alamat lengkap tercantum pada ringkasan informasi di halaman ini. Untuk menu pizza, oven mulai beroperasi pukul 14:00.",
+              "Pada pagi hari, kafe seperti ini mudah dibaca sebagai tempat sarapan. Ada kebutuhan yang berbeda-beda di satu meja: sebagian mencari kopi, sebagian ingin makanan yang mengenyangkan, sebagian lagi memilih minuman dingin. Omg mengisi celah itu tanpa harus meniru peran kopi. Ia bisa hadir bersama menu pagi atau brunch, terutama ketika rasa buah terasa lebih pas daripada minuman berbasis susu atau espresso.",
+              "Sebagai kafe keluarga, Signa Cafe memiliki pilihan makanan dan minuman untuk selera yang berbeda. Bagi orang tua yang mencari tempat ramah anak, menu daring membantu melihat komposisi sebelum memesan. OMG bisa dipertimbangkan oleh tamu yang menyukai mangga dan jeruk. Kecocokannya tetap bergantung pada selera masing-masing; pilihan ini tidak perlu digambarkan sebagai minuman untuk semua orang."
+            ]
+          },
+          {
+            "h": "Cara cek menu, rating, dan waktu pesan",
+            "p": [
+              "Sebelum datang, menu daring dan layanan pesan antar Signa Cafe bisa dilihat di https://signa.dishi.rest/. Informasi ini berguna karena jam makan di kafe sering bergeser: ada yang datang untuk sarapan, ada yang menyusun brunch panjang, ada yang baru memilih makan malam larut. Jika perlu menghubungi langsung, nomor telepon Signa Cafe adalah +62 896 540 27190. Akun Instagram resminya @signa.cafe.",
+              "Untuk menu tertentu, langkah paling praktis adalah memeriksa daftar terkini melalui halaman menu daring. Anda bisa memastikan pilihan yang diinginkan sebelum memesan antar atau datang mendekati pesanan terakhir. Nama minumannya singkat, tetapi informasi harganya dan dua buah yang digunakan tertulis jelas: mangga dan jeruk, 50 000 IDR, tanpa tambahan air.",
+              "Ada satu penawaran yang relevan untuk pengunjung pagi: dari pukul 08:00 sampai 09:00, tersedia kopi gratis dengan pembelian apa pun. Penawaran ini dapat dipertimbangkan bila datang lebih awal dan ingin memasangkan pesanan makanan atau minuman dengan kopi. Omg tetap berada pada jalurnya sendiri sebagai minuman dingin berbasis mangga dan jeruk, tanpa tambahan air, dengan harga 50 000 IDR."
+            ]
+          }
+        ],
+        "coverAlt": "Omg, minuman dingin mangga dan jeruk tanpa tambahan air di Signa Cafe"
+      }
+    },
+    {
       "slug": "big-breakfast-nusa-dua-signa-cafe",
       "date": "2026-11-09",
       "cover": "assets/stories/big-breakfast-7e8887e0.webp",

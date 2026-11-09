@@ -27,12 +27,13 @@ test('retry keeps accepted languages and passes failures only to the rejected wr
   for (const lang of ['en', 'ru', 'id']) {
     result[lang] = await validatedEdition({
       label: lang,
-      write: async feedback => { calls.push({ lang, feedback }); return lang === 'ru' && !feedback.length ? 'bad' : 'good'; },
+      write: async (feedback, previous) => { calls.push({ lang, feedback, previous }); return lang === 'ru' && !feedback.length ? 'bad' : 'good'; },
       check: value => value === 'bad' ? ['RU: missing бранч'] : [],
     });
   }
   assert.deepEqual(calls.map(c => c.lang), ['en', 'ru', 'ru', 'id']);
   assert.deepEqual(calls[2].feedback, ['RU: missing бранч']);
+  assert.equal(calls[2].previous, 'bad');
   assert.equal(result.ru, 'good');
 });
 
@@ -188,4 +189,11 @@ test('Indonesian accepts an exact menu name while rejecting generic English copy
   assert(!validate(candidate,['id'],'Big Breakfast').some(x=>x.includes('untranslated English')&&x.includes('breakfast')));
   candidate.id.blocks[0].p.push('Datang untuk breakfast.');
   assert(validate(candidate,['id'],'Big Breakfast').some(x=>x.includes('untranslated English')&&x.includes('breakfast')));
+});
+
+
+test('internal writing notes are rejected in public fact values as well as prose', () => {
+  const p=structuredClone(JSON.parse(fs.readFileSync(path.join(ROOT,'data/stories.json'))).posts.find(p=>p.ru));
+  p.ru.facts[0][1]+=' артикул факта сохранен';
+  assert(validate(p,['ru']).some(x=>x.includes('internal writing instructions')));
 });

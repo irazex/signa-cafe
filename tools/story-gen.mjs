@@ -371,11 +371,11 @@ async function transcreateLang(facts, dish, site, promos, lang, key, bill = {}, 
   return validatedEdition({
     label: `${lang.toUpperCase()} ${dish.title}`,
     onRetry: (issues) => log(`    retry ${lang} only: ${issues.join("; ")}`),
-    write: async (feedback) => normalizeNativeBody(await chat({
+    write: async (feedback, previous) => normalizeNativeBody(await chat({
     key,
     messages: [
       { role: "system", content: persona },
-      { role: "user", content: transcreationPrompt({ facts, dish, site, promos, lang, date: bill.date, targetSections }) + qualityFeedback(feedback) },
+      { role: "user", content: transcreationPrompt({ facts, dish, site, promos, lang, date: bill.date, targetSections }) + qualityFeedback(feedback, previous) },
     ],
     jsonSchema: { name: `signa_story_${lang}`, strict: true, schema: one },
     // The limit is headroom, not a bill. One ID rewrite spent 13.8k including
@@ -407,11 +407,11 @@ export async function generate({ dish, site, promos, usedAngles, date, key, lang
       label: `EN ${dish.title}`,
       onRetry: (issues) => log(`    retry en only: ${issues.join("; ")}`),
       check: (value) => validate(value, ["en"]),
-      write: (feedback) => chat({
+      write: (feedback, previous) => chat({
       key,
       messages: [
         { role: "system", content: systemPrompt() },
-        { role: "user", content: userPrompt({ dish, site, promos, langs: ["en"], usedAngles, date }) + qualityFeedback(feedback) },
+        { role: "user", content: userPrompt({ dish, site, promos, langs: ["en"], usedAngles, date }) + qualityFeedback(feedback, previous) },
       ],
       jsonSchema: schema(["en"]),
       stage: "write:en", slug, date,
@@ -490,6 +490,10 @@ export function validate(post, langs = opts.langs, menuName = post.dish?.name) {
 
     const blob = [b.lead, ...b.blocks.flatMap((x) => [x.h, ...x.p]), ...b.faq.flatMap((f) => [f.q, f.a])].join(" ");
     const low = blob.toLowerCase();
+    const publicText = [b.title, b.seoTitle, b.description, b.coverAlt, blob, ...(b.facts || []).flat()].join(" ");
+    if (/артикул факта|json_schema|sourceFacts|требования промпта|выполнение промпта/i.test(publicText)) {
+      issues.push(`${tag}: internal writing instructions leaked into public content`);
+    }
 
     const geoHits = GEO[lang].filter((g) => low.includes(g.toLowerCase()));
     if (geoHits.length < 3) issues.push(`${tag}: only ${geoHits.length} place names`);
