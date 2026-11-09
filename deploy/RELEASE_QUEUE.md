@@ -5,7 +5,7 @@
 - Owner thread: `01a06f49-ffde-7933-9b13-b8900a0e6aaf` (task author).
 - Repository: `irazex/signa-cafe`; source SHA: `3db3b9b19f6015ba2bb462bf3acedb5101f3b9a1`.
 - Source snapshot SHA-256: `17665916b7d7759ff1c9ff035bfa2ba9e160b39f7569ab00867060872c1aa10c`; archive `signa-stories-3db3b9b1.tar`. Contains only committed `tools/`, `data/`, `content.json`; no credentials or production env.
-- State: **CLAIMED**; started 2026-11-09 (WITA). Implemented locally on fresh `4fe9609`, source pushed fast-forward. Independent review in progress before activation.
+- State: **DEPLOYING**; started 2026-11-09 (WITA). Implemented locally on fresh `4fe9609`, source pushed fast-forward. 11/11 Node 20 offline gates passed; prior critic findings corrected and regression-tested. Install under shared/project mutexes, then actual content acceptance and independent POST.
 - Physical target: VPS `103.174.115.136:8022`, `/home/razex/signa-cafe-repo` (Node 20 cron); website `atlas.multihost.cloud/signa.cafe` (Apache/PHP via existing FTP path).
 - Shared mutex: `/home/razex/deploy-locks/buildfarm-global.lock`; project mutex `.story-runtime/weekly.lock`. Never remove another owner's lock.
 - Migrations: none. Preserve live `data/story-costs.json`, existing stories, unpushed commits, `.env`, and all runtime response/notification state.
