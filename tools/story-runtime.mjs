@@ -7,9 +7,14 @@ import { fileURLToPath } from "node:url";
 const DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../.story-runtime");
 const LOCK = path.join(DIR, "generator.lock");
 const PENDING = path.join(DIR, "response.json");
+const ACQUIRE = path.join(DIR, "generator-acquire.lock");
 
 export function lockGenerator() {
   fs.mkdirSync(DIR, { recursive: true });
+  // Serialise stale-lock recovery itself. A crash in this tiny section leaves
+  // an explicit blocker instead of allowing two processes to reclaim one lock.
+  fs.mkdirSync(ACQUIRE);
+  try {
   if (fs.existsSync(LOCK)) {
     const old = JSON.parse(fs.readFileSync(LOCK, "utf8"));
     if (old.host !== os.hostname()) throw new Error("story generator is locked on another host");
@@ -25,6 +30,7 @@ export function lockGenerator() {
   };
   process.once("exit", release);
   return release;
+  } finally { fs.rmdirSync(ACQUIRE); }
 }
 
 export const pendingResponse = () => fs.existsSync(PENDING) ? JSON.parse(fs.readFileSync(PENDING, "utf8")) : null;
@@ -40,3 +46,7 @@ export function assertNoPending() {
 export function clearPending(requestId) {
   if (pendingResponse()?.requestId === requestId) fs.rmSync(PENDING, { force: true });
 }
+
+// A server-side create error can follow accepted work. Only explicit client
+// rejections prove that no billed background response was created.
+export const definiteCreateRejection = status => [400,401,403,404,422,429].includes(status);

@@ -20,7 +20,7 @@ finish() {
     # though there is no article to commit/deploy, so admin sees actual spend.
     if ! git diff --quiet -- data/story-costs.json; then
       if git add data/story-costs.json && git -c user.name=signa-cron -c user.email=mail@signa.cafe \
-          commit --quiet -m "Stories: record failed generation costs $(date +%F)"; then
+          commit --quiet --only -m "Stories: record failed generation costs $(date +%F)" -- data/story-costs.json; then
         git push --quiet origin main 2>/dev/null || log "cost commit kept locally - push unavailable"
       fi
       tools/deploy-stories.sh --costs-only || log "cost ledger upload FAILED - local ledger retained"
@@ -35,14 +35,13 @@ finish() {
 trap finish EXIT
 log "=== weekly stories run ==="
 # Never discard unpushed stories or the cost ledger.
+git diff --cached --quiet || { log "unexpected staged files - stopping"; exit 1; }
 git fetch --quiet origin main
 if ! git pull --quiet --rebase --autostash origin main; then
   git rebase --abort 2>/dev/null || true
   log "pull --rebase failed - stop before generating on an uncertain tree"
   exit 1
 fi
-
-git diff --cached --quiet || { log "unexpected staged files - stopping"; exit 1; }
 
 TODAY=$(date +%F)
 LIVE_SLUG=$(node -e '

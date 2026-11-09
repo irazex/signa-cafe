@@ -26,7 +26,7 @@ import { record as recordCost, spentOn, spentInMonth, pricing } from "./cost-led
 import { nextStoryDate } from "./story-schedule.mjs";
 import { validatedEdition, qualityFeedback, repeatedSentenceOpening } from "./story-quality.mjs";
 import { requestCeiling, checkBudget } from "./story-budget.mjs";
-import { lockGenerator, pendingResponse, savePending, clearPending, assertNoPending } from "./story-runtime.mjs";
+import { lockGenerator, pendingResponse, savePending, clearPending, assertNoPending, definiteCreateRejection } from "./story-runtime.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const STORIES = path.join(ROOT, "data", "stories.json");
@@ -187,7 +187,7 @@ async function api(key, pathname, init = {}, attempts = 4) {
         headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json", ...(init.headers || {}) },
         signal: AbortSignal.timeout(120000),
       });
-      return await res.json();
+      return { ...await res.json(), _httpStatus: res.status };
     } catch (e) {
       lastErr = e;
       if (attempt < attempts) await sleep(2000 * attempt);
@@ -277,7 +277,7 @@ async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "wri
     }),
   }, 1); // Never retry an ambiguous creation of a billed job.
   if (job.error) {
-    clearPending(pending.requestId);
+    if (definiteCreateRejection(job._httpStatus)) clearPending(pending.requestId);
     throw new Error(`OpenAI: ${job.error.message || JSON.stringify(job.error)}`);
   }
   if (!job.id) throw new Error("response creation returned no ID; new paid calls blocked pending investigation");

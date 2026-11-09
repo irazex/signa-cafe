@@ -3,12 +3,13 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { baliDate, nextStoryDate } from './story-schedule.mjs';
 import { validatedEdition, repeatedSentenceOpening } from './story-quality.mjs';
 import { requestCeiling, checkBudget } from './story-budget.mjs';
 import { validate } from './story-gen.mjs';
+import { definiteCreateRejection } from './story-runtime.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -114,5 +115,23 @@ test('failure message preview works even with corrupt story data and no credenti
     const result=execFileSync(process.execPath,['tools/notify-telegram.mjs','--failure','тест','--dry-run'],{cwd:dir,encoding:'utf8'});
     assert.match(result,/сбой еженедельных историй/);
     assert.equal(fs.existsSync(path.join(dir,'.story-runtime')),false);
+  } finally {fs.rmSync(dir,{recursive:true,force:true});}
+});
+
+
+test('ambiguous HTTP create errors retain the paid response blocker', () => {
+  for (const status of [200,408,409,500,502,503,504]) assert.equal(definiteCreateRejection(status),false);
+  for (const status of [400,401,403,404,422,429]) assert.equal(definiteCreateRejection(status),true);
+});
+
+test('concurrent stale-lock recovery never creates two generator owners', async () => {
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'signa-stale-lock-test-'));
+  try {
+    fs.mkdirSync(path.join(dir,'tools'));fs.mkdirSync(path.join(dir,'.story-runtime'));
+    fs.copyFileSync(path.join(ROOT,'tools/story-runtime.mjs'),path.join(dir,'tools/story-runtime.mjs'));
+    fs.writeFileSync(path.join(dir,'.story-runtime/generator.lock'),JSON.stringify({pid:99999999,host:os.hostname(),token:'stale'}));
+    const code=`import fs from 'node:fs';import{lockGenerator}from'./tools/story-runtime.mjs';let release;try{release=lockGenerator();}catch{process.exit(2)}try{fs.writeFileSync('critical','active',{flag:'wx'});Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,100);fs.unlinkSync('critical');release();}catch(e){console.error(e);process.exit(3)}`;
+    const results=await Promise.all(Array.from({length:8},()=>new Promise(resolve=>{const c=spawn(process.execPath,['--input-type=module','-e',code],{cwd:dir,stdio:'pipe'});c.on('close',resolve)})));
+    assert(results.includes(0));assert(results.every(x=>x===0||x===2),JSON.stringify(results));
   } finally {fs.rmSync(dir,{recursive:true,force:true});}
 });

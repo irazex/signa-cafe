@@ -49,5 +49,6 @@ test('weekly rerun reuses queued article; failed generation persists costs and a
     assert.match(fs.readFileSync(path.join(repo,'deploys'),'utf8'),/--costs-only/);
     assert.equal(git('diff','--name-only','--','data/story-costs.json').toString().trim(),'');
     assert.match(git('log','-1','--format=%s').toString(),/record failed generation costs/);
+    write('wip.txt','unrelated');git('add','wip.txt');write('data/story-costs.json','{"runs":[{"usd":0.13}]}');r=run();assert.equal(r.status,1,r.stdout+r.stderr);assert.equal(git('diff','--cached','--name-only').toString().trim(),'wip.txt');assert(!git('ls-tree','--name-only','HEAD').toString().includes('wip.txt'));assert.equal(git('diff','--name-only','--','data/story-costs.json').toString().trim(),'');
   } finally { fs.rmSync(temp,{recursive:true,force:true}); }
 });
