@@ -5,7 +5,7 @@
 - Owner thread: `01a06f49-ffde-7933-9b13-b8900a0e6aaf` (task author).
 - Repository: `irazex/signa-cafe`; source SHA: `5a225bf44bdbca1c42e8ff33460c263f6cf9156a`.
 - Source snapshot SHA-256: `a279a84fee0f439e2467b0f7e66a8a54eadf0fa963ecdbd661f7c9cf0f0d7839`; archive `signa-stories-5a225bf4.tar`. Contains only committed `tools/`, `data/`, `content.json`; no credentials or production env.
-- State: **DEPLOYING**; started 2026-11-09 (WITA). Implemented locally on fresh `4fe9609`, source pushed fast-forward. 16/16 Node 20 offline gates passed; prior critic findings corrected and regression-tested. Install under shared/project mutexes, then actual content acceptance and independent POST.
+- State: **VERIFYING**; started 2026-11-09 (WITA). Implemented locally on fresh `4fe9609`, source pushed fast-forward. 16/16 Node 20 offline gates passed; prior critic findings corrected and regression-tested. Install under shared/project mutexes, then actual content acceptance and independent POST.
 - Physical target: VPS `103.174.115.136:8022`, `/home/razex/signa-cafe-repo` (Node 20 cron); website `atlas.multihost.cloud/signa.cafe` (Apache/PHP via existing FTP path).
 - Shared mutex: `/home/razex/deploy-locks/buildfarm-global.lock`; project mutex `.story-runtime/weekly.lock`. Never remove another owner's lock.
 - Migrations: none. Preserve live `data/story-costs.json`, existing stories, unpushed commits, `.env`, and all runtime response/notification state.
@@ -23,3 +23,5 @@
 - Final recovery guard: known billed response read failure stops before new generation; original input_items must match current factual prompt. ID checker exempts only the exact multi-word menu name, while generic English copy is still rejected. Superseded source `f8e4729a677eff0983f90c028b2535033155225e`, digest `644bf6ed78f2e7329c1b428b39d8df636b3e6f2fa907061f910fbfc8c2dd7be0`.
 
 - Reviewed content accepted: Big Breakfast EN/RU/ID completed from already-billed responses; final recovery used --budget0 and made no create calls. Editorial PRE PASS after targeted native corrections. Total November spend $1.1418, all failed/incomplete attempts included. Original 8 posts deep-equal previous source. New source includes reviewed article/assets, strict GET-only recovery, prompt-version checkpoints and native-writing corrections. Superseded source `2ea49a178d4b75aa53d255a45ed1dbe8cef32ec4`, digest `80028839d4e4344f75abce35d54b96c213b6620cf97281f6e317919e386a9042`.
+
+- First activation read-back: public reviewed Big Breakfast RU URL HTTP200, correct dish cover and old cringe phrase absent. deploy-stories exact public JSON match, assets before JSON, costs published, IndexNow HTTP200. Running ordinary weekly job to announce once and prepare 2026-11-12.
