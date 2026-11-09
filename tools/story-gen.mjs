@@ -22,7 +22,8 @@ import { fileURLToPath } from "node:url";
 import { systemPrompt, userPrompt, transcreationPrompt, schema, geoFixPrompt, geoFixSchema,
          LANGS, GEO, GEO_PRIMARY, GEO_SECONDARY, POSITIONING } from "./story-prompt.mjs";
 import { fetchDishPhoto } from "./dish-photo.mjs";
-import { record as recordCost, spentOn, spentInMonth, pricing } from "./cost-ledger.mjs";
+import { record as recordCost, spentOn, spentInMonth, pricing, load as loadCosts } from "./cost-ledger.mjs";
+import { openDraft, draftedDish } from "./story-draft.mjs";
 import { nextStoryDate } from "./story-schedule.mjs";
 import { validatedEdition, qualityFeedback, repeatedSentenceOpening } from "./story-quality.mjs";
 import { requestCeiling, checkBudget } from "./story-budget.mjs";
@@ -57,6 +58,7 @@ const opts = {
   addlang: flag("addlang"),
   editOnly: flag("edit-only"),
   fixGeo: has("fix-geo"),
+  recoverBilled: has("recover-billed"),
   slug: flag("slug"),
   // gpt-5.5 - the owner's decision, 05.09.2026, taken against measured numbers.
   //
@@ -272,6 +274,7 @@ async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "wri
       input: messages.map((m) => ({ role: m.role === "system" ? "developer" : m.role, content: m.content })),
       text: { format: { type: "json_schema", name: jsonSchema.name, strict: true, schema: jsonSchema.schema } },
       max_output_tokens: maxTokens,
+      ...(/^gpt-5\.5(?:-\d{4}-\d{2}-\d{2})?$/.test(opts.model) ? { reasoning: { effort: "low" } } : {}),
       background: true,
       store: true,
     }),
@@ -386,13 +389,18 @@ async function transcreateLang(facts, dish, site, promos, lang, key, bill = {}, 
   });
 }
 
-async function generate({ dish, site, promos, usedAngles, date, key, langs = opts.langs, reference = null, slug = null }) {
-  let data = {};
+export async function generate({ dish, site, promos, usedAngles, date, key, langs = opts.langs, reference = null, slug = null, draft = null }) {
+  let data = draft?.data || {};
   let source = reference;
   let facts = reference ? factDossier(reference) : null;
 
   // English is the sole original. Asking one response to write all languages
   // at once made Russian inherit English sentence order even after editing.
+  if (langs.includes("en") && !source && data.en && !validate(data, ["en"]).length) {
+    source = data.en;
+    facts = factDossier(source, data.sourceFacts);
+    log("    reuse accepted en draft (no paid call)");
+  }
   if (langs.includes("en") && !source) {
     data = await validatedEdition({
       label: `EN ${dish.title}`,
@@ -410,6 +418,7 @@ async function generate({ dish, site, promos, usedAngles, date, key, langs = opt
     });
     source = data.en;
     facts = factDossier(source, data.sourceFacts);
+    draft?.save(data);
   } else if (langs.includes("en") && source) {
     data.en = source;
   }
@@ -421,12 +430,39 @@ async function generate({ dish, site, promos, usedAngles, date, key, langs = opt
   // Each language is commissioned independently from the English fact dossier.
   // There is no intermediate translated draft and no editor pass.
   for (const lang of langs.filter((l) => l !== "en")) {
+    if (data[lang] && !validate(data, [lang]).length && data[lang].blocks.length === transcreationSectionCount(dish, lang, source?.blocks?.length || 5)) {
+      log(`    reuse accepted ${lang} draft (no paid call)`);
+      continue;
+    }
     if (opts.verbose) log(`    ${lang} independent transcreation`);
     data[lang] = await transcreateLang(
       facts, dish, site, promos, lang, key, { slug, date }, source?.blocks?.length || 5,
     );
+    draft?.save(data);
   }
   return data;
+}
+
+// Read completed, already billed responses for an explicitly requested recovery.
+// No create endpoint is called here and existing usage is not booked twice.
+async function recoverBilledDraft({ key, dish, date, draft }) {
+  const rows=loadCosts().runs;
+  const data={...draft.data};
+  for(const lang of ["en","ru","id"]) {
+    if(data[lang])continue;
+    const stage=lang==="en"?"write:en":`transcreate:${lang}`;
+    const row=rows.slice().reverse().find(r=>r.responseId&&r.slug===slugify(dish.title)&&r.postDate===date&&r.stage===stage);
+    if(!row)continue;
+    const job=await api(key,`/responses/${row.responseId}`);
+    if(job.status!=="completed")continue;
+    const text=job.output_text||(job.output||[]).flatMap(x=>x.content||[]).filter(x=>x.type==="output_text").map(x=>x.text).join("");
+    const value=JSON.parse(text);
+    const candidate=lang==="en"?value:{[lang]:normalizeNativeBody(value,lang)};
+    if(validate(candidate,[lang]).length)continue;
+    Object.assign(data,candidate);
+    log(`    recovered already-paid ${lang} response (no paid call)`);
+  }
+  draft.data=data;draft.save(data);
 }
 
 // ---------- validation ----------
@@ -727,6 +763,10 @@ async function main() {
       process.exit(results.length ? 0 : 2);
     }
 
+    let date;
+    if (opts.date) date = n === 0 ? opts.date : shiftDays(results[n - 1].date, opts.back ? -7 : 7);
+    else date = nextStoryDate(store.posts);
+
     let dish;
     if (opts.dish && n === 0) {
       dish = cat.find((d) => d.key === opts.dish || norm(d.title) === norm(opts.dish))
@@ -736,12 +776,8 @@ async function main() {
         throw new Error(`dish "${dish.title}" already has a post; choose an unused dish`);
       }
     } else {
-      dish = pool[Math.floor(Math.random() * pool.length)];
+      dish = draftedDish(date, pool) || pool[Math.floor(Math.random() * pool.length)];
     }
-
-    let date;
-    if (opts.date) date = n === 0 ? opts.date : shiftDays(results[n - 1].date, opts.back ? -7 : 7);
-    else date = nextStoryDate(store.posts);
 
     log(`[${n + 1}/${opts.count}] ${date}  ${dish.title}  ${dish.price}  (${pool.length} dishes left)`);
 
@@ -773,7 +809,9 @@ async function main() {
       throw new Error(`Syrve dish ${dish.title} has no menu-specific photo; nothing generated or published`);
     }
 
-    const data = await generate({ dish, site, promos, usedAngles: anglesOf(store.posts), date, key, slug: slugify(dish.title) });
+    const draft = openDraft({ dish, site, promos, date });
+    if (opts.recoverBilled) await recoverBilledDraft({ key, dish, date, draft });
+    const data = await generate({ dish, site, promos, usedAngles: anglesOf(store.posts), date, key, slug: slugify(dish.title), draft });
     const issues = validate(data);
     if (issues.length) {
       issues.forEach((i) => warn(i));
@@ -797,7 +835,7 @@ async function main() {
     store.posts.push(post);
     results.push(post);
     log(`    ok  /stories/${slug}  (${opts.langs.filter((l) => post[l]).map((l) => `${wordsOf(post[l])}w ${l}`).join(" / ")})`);
-    if (!opts.dryRun) writeStore(store);
+    if (!opts.dryRun) { writeStore(store); draft.remove(); }
   }
 
   if (opts.dryRun) { log("\n--dry-run: nothing written"); return; }

@@ -8,7 +8,8 @@ import { fileURLToPath } from 'node:url';
 import { baliDate, nextStoryDate } from './story-schedule.mjs';
 import { validatedEdition, repeatedSentenceOpening } from './story-quality.mjs';
 import { requestCeiling, checkBudget } from './story-budget.mjs';
-import { validate } from './story-gen.mjs';
+import { validate, generate } from './story-gen.mjs';
+import { openDraft, draftedDish } from './story-draft.mjs';
 import { definiteCreateRejection } from './story-runtime.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -134,4 +135,25 @@ test('concurrent stale-lock recovery never creates two generator owners', async 
     const results=await Promise.all(Array.from({length:8},()=>new Promise(resolve=>{const c=spawn(process.execPath,['--input-type=module','-e',code],{cwd:dir,stdio:'pipe'});c.on('close',resolve)})));
     assert(results.includes(0));assert(results.every(x=>x===0||x===2),JSON.stringify(results));
   } finally {fs.rmSync(dir,{recursive:true,force:true});}
+});
+
+
+test('accepted edition survives a failed later stage and is reused without API calls', async () => {
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'signa-draft-test-'));
+  const priorFetch=globalThis.fetch;
+  try {
+    const post=JSON.parse(fs.readFileSync(path.join(ROOT,'data/stories.json'))).posts.find(p=>!validate(p,['en']).length);
+    assert(post,'needs a validated fixture');
+    const context={dish:{key:'fixture-dish',title:'Test dish',price:'85 000 IDR'},site:{},promos:[],date:'2026-11-12',dir};
+    const saved={en:post.en,sourceFacts:['verified fixture facts'],slug:'fixture',tags:[]};
+    openDraft(context).save(saved);
+    // Simulate a fresh process after a failure in the next language.
+    const restored=openDraft(context);let requests=0;
+    globalThis.fetch=async()=>{requests++;throw Error('unexpected API call')};
+    const result=await generate({...context,usedAngles:[],key:'offline-fixture',langs:['en'],draft:restored});
+    assert.deepEqual(result.en,post.en);assert.equal(requests,0);
+    assert.equal(draftedDish(context.date,[context.dish],dir).key,context.dish.key);
+    assert.deepEqual(openDraft({...context,dish:{...context.dish,price:'90 000 IDR'}}).data,{});
+    restored.remove();assert.equal(draftedDish(context.date,[context.dish],dir),null);
+  } finally {globalThis.fetch=priorFetch;fs.rmSync(dir,{recursive:true,force:true});}
 });
