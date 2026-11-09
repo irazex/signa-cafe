@@ -236,6 +236,7 @@ async function abandon(key, id, { slug, date, stage, started, model = opts.model
 }
 
 async function chat({ key, messages, jsonSchema, maxTokens = 12000, stage = "write", slug = null, date = null }) {
+  if (opts.recoverBilled) throw new Error("--recover-billed is GET-only; rejected or missing editions require review, no paid fallback allowed");
   if (stopping) throw new Error("generator is stopping; further paid calls blocked");
   assertNoPending();
   if (!fs.existsSync(path.join(ROOT, "data/story-costs.json"))) throw new Error("cost ledger missing; paid generation blocked");
