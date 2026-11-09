@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-09",
+  "source": "77db70820d85cbf9ec7847880748731a565fb5b6",
+  "pages": {
+    "/stories/big-breakfast-nusa-dua-signa-cafe": {
+      "status": 200,
+      "all_paragraphs_match": true
+    },
+    "/stories/omg-cold-drink-nusa-dua": {
+      "status": 302,
+      "location": "/stories"
+    },
+    "/stories/ru/big-breakfast-nusa-dua-signa-cafe": {
+      "status": 200,
+      "all_paragraphs_match": true
+    },
+    "/stories/ru/omg-cold-drink-nusa-dua": {
+      "status": 302,
+      "location": "/stories/ru"
+    },
+    "/stories/id/big-breakfast-nusa-dua-signa-cafe": {
+      "status": 200,
+      "all_paragraphs_match": true
+    },
+    "/stories/id/omg-cold-drink-nusa-dua": {
+      "status": 302,
+      "location": "/stories/id"
+    },
+    "/data/story-costs.json": {
+      "status": 403
+    },
+    "/data/model-pricing.json": {
+      "status": 403
+    },
+    "/src/admin.jsx": {
+      "status": 403
+    }
+  },
+  "assets": {
+    "assets/stories/big-breakfast-7e8887e0.webp": {
+      "status": 200,
+      "sha256": "d7f2b64e7c261f6fb62fd59a0f19f7092ff1fcca0960f15702673e78e1f799d6"
+    },
+    "assets/og/big-breakfast-7e8887e0.jpg": {
+      "status": 200,
+      "sha256": "af9bebe6cfc4c72a08f539e2174d172373cb1a7067a5bb3e08727190930e3d2f"
+    },
+    "assets/stories/omg-0a2f00cc.webp": {
+      "status": 200,
+      "sha256": "78f3e997908e2fc0e531d7f80e89112c4899b3a984a1bb7228bedf5fa6e60796"
+    },
+    "assets/og/omg-0a2f00cc.jpg": {
+      "status": 200,
+      "sha256": "aa0be5a32e04f9c886a5a3b3fd2daafdf63971ecad183691b0d872438bf44362"
+    }
+  },
+  "public_json_sha256": "643b72111bea9b1a2b0fca05b3f6323a7bfd6bc8c82857c77b420d2fb464b61d",
+  "stored_posts": 10,
+  "rss_items": 9,
+  "sitemap_urls": 33,
+  "runtime": {
+    "cron": "0 9 * * 4",
+    "timezone": "Asia/Makassar",
+    "last_successful_repeat": "2026-11-09 13:59:17 WITA",
+    "repeat_exit": 0,
+    "repeat_new_paid_calls": 0,
+    "repeat_cost_delta_usd": 0,
+    "november_cost_usd": 1.5253,
+    "cost_sha256_before_after": "9a34418fca8615c0ee0833889a6b495d5182309ac492fcf345944ae4fc5198f6",
+    "announcement_message_id_before_after": 18422,
+    "failure_notification_message_id": 18424,
+    "pending_response": false,
+    "node20_offline_tests_passed": 17
+  }
+}
